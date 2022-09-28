@@ -14,5 +14,5 @@ DEL "%STR%.blg"
 DEL "%STR%.bbl"
 DEL "%STR%-blx.bib"
 
-rename %STR%.pdf %OUT%.pdf
+ren %STR%.pdf %OUT%.pdf
 "%OUT%.pdf"
