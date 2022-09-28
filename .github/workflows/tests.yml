@@ -1,0 +1,25 @@
+name: .NET Build with Tests
+
+on:
+  pull_request:
+    branches: 
+      - master
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    env:
+      BLAZOR_PROJECT_FOLDER: AcademicTimePlanner
+      TEST_PROJECT_FOLDER: AcademicTimePlanner.Tests
+      DOTNET_PUBLISH_FOLDER: bin/Release/net6.0/publish
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup dotnet sdk
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
+      - name: Run dotnet test
+        run: dotnet test

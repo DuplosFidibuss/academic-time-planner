@@ -1,0 +1,14 @@
+@page "/toggle"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+<h3>Erfasste Zeit pro Tag in Millisekunden</h3>
+
+@if (TogglState.Value.Loaded)
+{
+    <Chart ChartType="bar" CanvasId="barId" ChartData="@TogglChartData"></Chart>
+}
+else
+{
+    <p>Keine Daten geladen - Toggl-Einstellungen fehlen</p>
+    <button type="button" class="btn btn-secondary" @onclick="AskForTogglCredentials">Toggl-Einstellungen eingeben</button>
+}

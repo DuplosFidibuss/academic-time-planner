@@ -1,0 +1,30 @@
+<section class="container">
+    <div class="row">
+        <form class="col">
+            <div class="row">
+                <label for="date" class="col-3 col-form-label">Startdatum</label>
+                <div @onclick="OpenStartDatePicker" class="col input-group date" id="startDatepicker">
+                    <input type="text" class="form-control" id="date"/>
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-light d-block">
+                            <i class="oi oi-calendar"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </form>
+        <form class="col">
+            <div class="row">
+                <label for="date" class="col-3 col-form-label">Enddatum</label>
+                <div @onclick="OpenEndDatePicker" class="col input-group date" id="endDatepicker">
+                    <input type="text" class="col form-control" id="date"/>
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-light d-block">
+                            <i class="oi oi-calendar"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

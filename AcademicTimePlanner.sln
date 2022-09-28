@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademicTimePlanner", "AcademicTimePlanner\AcademicTimePlanner.csproj", "{D2E230E1-7C26-46A5-9A2D-BA90E2601A26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademicTimePlanner.Tests", "AcademicTimePlanner.Tests\AcademicTimePlanner.Tests.csproj", "{085A0381-EAF4-4D76-9B50-4F87647B5341}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2E230E1-7C26-46A5-9A2D-BA90E2601A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2E230E1-7C26-46A5-9A2D-BA90E2601A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2E230E1-7C26-46A5-9A2D-BA90E2601A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2E230E1-7C26-46A5-9A2D-BA90E2601A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{085A0381-EAF4-4D76-9B50-4F87647B5341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{085A0381-EAF4-4D76-9B50-4F87647B5341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{085A0381-EAF4-4D76-9B50-4F87647B5341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{085A0381-EAF4-4D76-9B50-4F87647B5341}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
