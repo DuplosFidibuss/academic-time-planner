@@ -1,0 +1,23 @@
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../doc"
+%%% coding: utf-8
+%%% End:
+% !TEX TS-program = pdflatexmk
+% !TEX encoding = UTF-8 Unicode
+% !TEX root = ../doc.tex
+
+This section consists of the state of the art and the definition of the project. In the state of the art, the existing software prototype for this project and the approaches used for it are briefly explained. In the definition of project, the tasks and aims of the project are described, based on the definition provided by the supervisor.
+
+\section{State of the art}
+Toggl Track \cite{toggl_track_url} is an online application frequently used for time planning and tracking for projects or tasks. However, it does not provide the flexibility demanded by teachers and students in order to properly plan, track and compare their time efforts \cite{bachelorarbeit_Egger_Verstappen_page2}.
+In the bachelor thesis on which this project is based, a technological prototype of an academic time planning software (Academic Time Planner, ATP) designed for complementary use with Toggl Track has been developed. The prototype has been realized as a .NET Blazor application fetching time data collected on Toggl Track via the Toggl Track Application Programming Interface (API). Moreover, a concept for mapping Toggl Track time data to ATP-specific time data as well as mockups for the graphical user interface (GUI) of the ATP have been evaluated.
+
+\section{Definition of project}
+Students and teachers have to organise their time for different tasks. The ATP is intended to support them in this matter, allowing for a semester-oriented time planning and helping to keep to the timing plans. To achieve this, the difference between planed time and used time should always be visible.
+The time tracked is read via an API from the freely available time tracking application Toggl Track.
+The goal of this project is to create a usable prototype based on the technological prototype already created and to realize the mapping concept, focussing on good and simple usability.
+The prototype should be able to run locally and display an overview over the current difference between planed time and used time. Furthermore, it should include the state of the application as to whether the data fetched from Toggl Track is up-to-date and if there are any inconsistencies between ATP projects and Toggle Track projects. In addition to that, the import and export of planning data as well as the creation of plan projects via the application GUI should be made possible.
+ 
+
+
