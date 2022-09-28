@@ -351,3 +351,4 @@ MigrationBackup/
 
 #LATEX
 !**/doc/**.pdf
+doc/doc.pdf
