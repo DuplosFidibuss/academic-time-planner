@@ -13,6 +13,7 @@ DEL "%STR%.out"
 DEL "%STR%.blg"
 DEL "%STR%.bbl"
 DEL "%STR%-blx.bib"
+DEL "%OUT%.pdf"
 
 ren %STR%.pdf %OUT%.pdf
 "%OUT%.pdf"
