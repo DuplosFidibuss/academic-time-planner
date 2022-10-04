@@ -7,8 +7,26 @@
 % !TEX encoding = UTF-8 Unicode
 % !TEX root = ../doc.tex
 
+This section describes the approaches and methods applied in the project. These consist of the proof that the
+approach given by the previous bachelor thesis is applicable, the organisation methodology, the use of Git
+version control and the project schedule set up at the beginning of the project.
+
+\section{Proof that approach of bachelor thesis is applicable}
+The first step as to realisation of this project was to prove whether the approach given by the bachelor thesis
+on which the project is founded is applicable. Since neither one of us has ever worked with Blazor or the 
+related technologies used in the bachelor thesis, the consideration of the software prototype was of particular
+importance. Both the prototype (see chapter tbd) and the concept of mapping Toggl Track data to ATP data (see
+chapter tbd) have been investigated in detail. This was done using the documentation of the bachelor thesis,
+the software code of the prototype and the Blazor online documentation. Thus a fundamental understanding of the
+approach has been gained. Moreover, our .NET teacher, Prof. Karl Rege, has agreed to provide technological support 
+for Blazor and related technologies. In the light of all this, the approach has been considered applicable and
+therefore served as basis for the realisation of this project.
+
 \section{Organization Methodology}
 For this project a reduced and modified version of SCRUM \cite{scrum_url} was chosen. The modifications include reducing the daily SCRUM meetings to two to three meetings a week, as we did not work on the project full time. One of these meetings was also attended by our project advisor Mr. Feisthammel. This meeting was usually held on Tuesday morning. There, a short progress report as well as the next weekly goals were discussed. Milestones as described in chapter \ref{Milestones} have been defined. They roughly correspond with the two-week sprint plan. An additional reduction is the absence of a sprint review as we do something similar in the weekly meetings described above. The point system as well as the burn down chart were also dropped.
+
+\section{Git}
+For appropriate software code management, the Git version control system and the online service GitHub (see chapter \ref{Version control}) have been used. The software code was stored in a GitHub repository named "academic-time-planner". The main branch always represented the current state of the software, containing all tested and approved features. New features were implemented via feature branches named according to the pattern "feature/name-of-member/feature-description". The software tests were executed automatically via GitHub Actions (see chapter \ref{GitHub Actions}) on every push to a feature branch. The result of the automated tests were taken into account in the feature pull requests. The documentation was kept in the same repository and was treated like the software code in the sense that additions and changes had to be reviewed and approved via pull requests, as was the software code. Documentation branches were named after the "documentation/name-of-member/section-description". Tasks were managed via GitHub issues (see chapter \ref{GitHub Issues}).
 
 \section{Milestones} \label{Milestones}
 Four milestones were proposed at the beginning of the project. They were taken from the project outline and include three programming milestones and one documentation milestone. The first one was the implementation of the overview of difference between plan and tracking, followed by the application status display. The final programming milestone was composed of the import and export as well as the creation of plan projects. After this the documentation had to be finalized. These milestones were meant as a guideline to see if the progress was adequate or if we had to rethink our approach. Those milestones were created and managed in GitHub (see chapter \ref{GitHub}). 
