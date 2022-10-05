@@ -1,20 +1,22 @@
 ﻿namespace AcademicTimePlanner.DataMapping.Toggl
 {
-    public class TogglTask
+    public class TogglProject
     {
         private Guid _id;
         private int _togglId;
         private string _name;
+        private LinkedList<TogglTask> _taskList;
 
-        public TogglTask(int togglId, string name)
+        public TogglProject(int togglId, string name)
         {
             _id = Guid.NewGuid();
             _togglId = togglId;
             Name = name;
+            _taskList = new LinkedList<TogglTask>();
         }
 
         public Guid Id { 
-            get { return _id; } 
+            get { return _id; }  
         }
 
         public int TogglId { 
@@ -26,6 +28,14 @@
             set { _name = value; } 
         }
 
-        //TODO get all entry sums belonging to this task. List seems pointless as they are irrelevant after reading...
+        public void AddTogglTask(TogglTask togglTask)
+        {
+            _taskList.AddLast(togglTask);
+        }
+
+        public void RemoveTogglTask(TogglTask togglTask)
+        {
+            _taskList.Remove(togglTask);
+        }
     }
 }
