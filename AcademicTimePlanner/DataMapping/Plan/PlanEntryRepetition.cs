@@ -4,23 +4,21 @@
     {
         private Guid _id;
         private string _name;
-        private DateOnly _firstEntryStartDate;
-        private DateOnly _firstEntryEndDate;
+        private DateOnly _repetitionStartDate;
         private DateOnly _repetitionEndDate;
         private int _interval;
         private int _duration;
         private LinkedList<PlanEntry> _entries;
 
-        public PlanEntryRepetition(string name, DateOnly firstEntryStartDate, DateOnly firtsEntryEndDate, DateOnly repetitionEndDate, int interval, int duration)
+        public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration, LinkedList<PlanEntry> planEntries)
         {
             _id = Guid.NewGuid();
             Name = name;
-            FirstEntryStartDate = firstEntryStartDate;
-            FirstEntryEndDate = firtsEntryEndDate;
+            RepetitionStartDate = repetitionStartDate;
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
             Duration = duration;
-            _entries = new LinkedList<PlanEntry>();
+            _entries = planEntries;
         }
 
         public string Name
@@ -29,18 +27,7 @@
             set { _name = value; }
         }
 
-        public DateOnly FirstEntryStartDate
-        {
-            get { return _firstEntryStartDate; }  
-            set { _firstEntryStartDate = value; }
-        }
-
-        public DateOnly FirstEntryEndDate
-        {
-            get { return _firstEntryEndDate; }
-            set { _firstEntryEndDate = value; }
-        }
-
+        public DateOnly RepetitionStartDate { get; set; }
         public DateOnly RepetitionEndDate
         {
             get { return _repetitionEndDate; }
@@ -57,16 +44,6 @@
         {
             get { return _duration; }
             set { _duration = value; }
-        }
-
-        public void AddPlanEntry(PlanEntry planEntry)
-        {
-            _entries.AddLast(planEntry);
-        }
-
-        public void RemovePlanEntry(PlanEntry planEntry)
-        {
-            _entries.Remove(planEntry);
         }
 
         private void modifyPlanEntry(PlanEntry planEntry)
