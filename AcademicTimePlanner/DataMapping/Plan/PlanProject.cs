@@ -8,6 +8,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         private int _togglProjectId;
         private string _name;
         private LinkedList<PlanTask> _taskList;
+        private const int NoTogglId = -1;
 
         public PlanProject(int togglProjectId, string name)
         {
@@ -22,6 +23,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _id = Guid.NewGuid();
             Name = name;
             _taskList = new LinkedList<PlanTask>();
+            _togglProjectId = NoTogglId;
         }
 
         public Guid Id

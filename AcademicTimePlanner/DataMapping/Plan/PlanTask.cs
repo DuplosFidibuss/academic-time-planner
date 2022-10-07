@@ -7,6 +7,7 @@
         private string _name;
         private LinkedList<PlanEntry> _planEntries;
         private LinkedList<PlanEntryRepetition> _repetitionEntries;
+        private const int NoToggleId = -1;
 
         public PlanTask(int togglId, string name)
         {
@@ -23,6 +24,7 @@
             Name = name;
             _planEntries = new LinkedList<PlanEntry>();
             _repetitionEntries = new LinkedList<PlanEntryRepetition>();
+            _togglTaskId = NoToggleId;
         }
 
         public Guid Id
