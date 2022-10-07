@@ -7,15 +7,13 @@ namespace AcademicTimePlanner.DataMapping.Budget
         private Guid _id;
         private string _name;
         private int _duration;
-        private bool _noBudget; //why does this exist? would this not be the name???
         private LinkedList<PlanProjectBudget> _planProjectBudgets;
 
         public Budget(string name, int duration) 
         { 
             _id = Guid.NewGuid();
-            _name = name;
-            _duration = duration;
-            _noBudget = false;
+            Name = name;
+            Duration = duration;
             _planProjectBudgets = new LinkedList<PlanProjectBudget>();
         }
 
@@ -26,24 +24,21 @@ namespace AcademicTimePlanner.DataMapping.Budget
 
         public string Name { 
             get { return _name; } 
+            set { _name = value; }
         }
 
         public int Duration
         {
             get { return _duration; }
+            set { _duration = value; }
         }
 
-        public bool NoBudget
-        {
-            get { return _noBudget; }   
-        }
-
-        public void AddBudget(PlanProjectBudget planProjectBudget)
+        public void AddPlanProjectBudget(PlanProjectBudget planProjectBudget)
         {
             _planProjectBudgets.AddLast(planProjectBudget);
         }
 
-        public void RemoveBudget(PlanProjectBudget planProjectBudget)
+        public void RemovePlanProjectBudget(PlanProjectBudget planProjectBudget)
         {
             _planProjectBudgets.Remove(planProjectBudget);
         }
