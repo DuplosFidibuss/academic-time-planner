@@ -2,12 +2,20 @@
 {
     public class PlanEntryRepetition
     {
-        private Guid _id;
-        private string _name;
-        private DateOnly _repetitionStartDate;
-        private DateOnly _repetitionEndDate;
-        private int _interval;
-        private int _duration;
+        /// <summary>
+        /// This class implements the plan entry repetition. 
+        /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.
+        /// The repetition has a start date which corresponds with the first date of the plan entries an dan end date.
+        /// Such a repetition could be a semester where an entrie is repeated every week. 
+        /// In this case the startDate would be the first day of the semeseter and the end date would be the last one.
+        /// Interval 1 week and the duration could be 2h.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="repetitionStartDate"></param>
+        /// <param name="repetitionEndDate"></param>
+        /// <param name="interval"></param>
+        /// <param name="duration"></param>
+
         private LinkedList<PlanEntry> _entries;
 
         public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration)
@@ -22,7 +30,10 @@
             modify();
         }
 
+
         public Guid Id { get; }
+
+        public TimeSpan TimeSpan { get; set; }
 
         public string Name { get; set; }
 
@@ -37,19 +48,18 @@
         public void modify()
         {
             _entries.Clear();
-            DateOnly start = _repetitionStartDate;
-            DateOnly end = _repetitionEndDate;
-            string name = _name;
+            DateOnly start = RepetitionStartDate;
+            DateOnly end = RepetitionEndDate;
             int i = 1;
 
             while(start < end)
             {
-                string entryName = _name + i;
+                string entryName = Name + i;
                 DateOnly oldStart = start;
-                start = start.AddDays(_interval);
-                if (start > _repetitionEndDate) 
-                    start = _repetitionEndDate; 
-                PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, _duration);
+                start = start.AddDays(Interval);
+                if (start > RepetitionEndDate) 
+                    start = RepetitionEndDate; 
+                PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
                 _entries.AddLast(planEntry);
             }
         }

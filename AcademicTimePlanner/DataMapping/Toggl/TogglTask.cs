@@ -2,8 +2,16 @@
 {
     public class TogglTask
     {
-        private LinkedList<TogglEntrySum> _togglEntrySums;
+        /// <summary>
+        /// This class implements the conection between ToggleTrack tasks and the application.
+        /// Only application relevant data is saved.
+        /// A Task can have multiple <see cref="TogglEntrySum"> Toggl entry sums</see>.
+        /// </summary>
+        /// <param name="togglId"></param>
+        /// <param name="name"></param>
 
+        private LinkedList<TogglEntrySum> _togglEntrySums;
+        
         public TogglTask(int togglId, string name)
         {
             Id = Guid.NewGuid();

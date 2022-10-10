@@ -2,9 +2,15 @@
 {
     public class TogglProject
     {
- 
-        private LinkedList<TogglTask> _taskList;
+        /// <summary>
+        /// This class implements the conection between the application and TogglTrack projects.
+        /// A project can have multiple <see cref="TogglTask"> Toggl tasks</see>.
+        /// </summary>
+        /// <param name="togglId"></param>
+        /// <param name="name"></param>
 
+        private LinkedList<TogglTask> _taskList;
+        
         public TogglProject(int togglId, string name)
         {
             Id = Guid.NewGuid();

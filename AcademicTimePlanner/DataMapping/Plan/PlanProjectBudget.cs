@@ -2,8 +2,14 @@
 {
     public class PlanProjectBudget
     {
-        private LinkedList<PlanProject> _projects;
+        /// <summary>
+        /// This class implements the conection between the <see cref="PlanProject"> plan project </see> and the <see cref="Budget.Budget"> budget </see>.
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
 
+        private LinkedList<PlanProject> _projects;
+        
         public PlanProjectBudget(string name)
         {
             Name = name;

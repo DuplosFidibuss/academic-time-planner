@@ -4,27 +4,33 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanProject
     {
+        /// <summary>
+        /// This class implements the plan project.
+        /// The project can be linked to a <see cref="TogglProject"> Toggl project</see> but it does not have to.
+        /// If no Toggle project islinked, the toggleProjectId will be -1.
+        /// A project has a name and can have multiple <see cref="PlanTask"> plan tasks </see>.
+        /// </summary>
+        /// <param name="togglProjectId"></param>
+        /// <param name="name"></param>
+
         private const int NoTogglId = -1;
 
-        private Guid _id;
-        private int _togglProjectId;
-        private string _name;
         private LinkedList<PlanTask> _taskList;
 
         public PlanProject(int togglProjectId, string name)
         {
-            _id = Guid.NewGuid();
-            _togglProjectId = togglProjectId;
+            Id = Guid.NewGuid();
+            TogglProjectId = togglProjectId;
             Name = name;
             _taskList = new LinkedList<PlanTask>();
         }
 
         public PlanProject(string name)
         {
-            _id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Name = name;
             _taskList = new LinkedList<PlanTask>();
-            _togglProjectId = NoTogglId;
+            TogglProjectId = NoTogglId;
         }
 
         public Guid Id { get; }

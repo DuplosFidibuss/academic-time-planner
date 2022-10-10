@@ -2,7 +2,15 @@
 {
     public class TogglEntrySum
     {
-
+        /// <summary>
+        /// This class implements the Toggl entry sum.
+        /// This sum consists of Toggl entries provided by Toggl Track.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="duration"></param>
+        /// <param name="togglId"></param>
+        /// <param name="togglTaskId"></param>
+        
         public TogglEntrySum(DateOnly date, int duration, int togglId, int togglTaskId)
         {
             Id = Guid.NewGuid();
