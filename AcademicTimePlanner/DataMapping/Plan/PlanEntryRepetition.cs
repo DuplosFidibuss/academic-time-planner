@@ -2,10 +2,13 @@
 {
     public class PlanEntryRepetition
     {
+
+        private LinkedList<PlanEntry> _entries;
+
         /// <summary>
         /// This class implements the plan entry repetition. 
         /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.
-        /// The repetition has a start date which corresponds with the first date of the plan entries an dan end date.
+        /// The repetition has a start date which corresponds with the first date of the plan entries and an end date.
         /// Such a repetition could be a semester where an entrie is repeated every week. 
         /// In this case the startDate would be the first day of the semeseter and the end date would be the last one.
         /// Interval 1 week and the duration could be 2h.
@@ -15,9 +18,6 @@
         /// <param name="repetitionEndDate"></param>
         /// <param name="interval"></param>
         /// <param name="duration"></param>
-
-        private LinkedList<PlanEntry> _entries;
-
         public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration)
         {
             Id = Guid.NewGuid();
@@ -56,11 +56,12 @@
             {
                 string entryName = Name + i;
                 DateOnly oldStart = start;
-                start = start.AddDays(Interval);
+                start = start.AddDays(Interval-1);
                 if (start > RepetitionEndDate) 
                     start = RepetitionEndDate; 
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
                 _entries.AddLast(planEntry);
+                start = start.AddDays(1);
             }
         }
     }
