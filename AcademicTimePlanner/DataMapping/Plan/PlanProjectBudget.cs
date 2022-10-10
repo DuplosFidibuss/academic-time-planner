@@ -15,22 +15,11 @@
             _percentage = 0;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id { get; }
 
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public string Name { get; set; }
 
-        public int Percentage
-        {
-            get { return _percentage; }
-            set { _percentage = value; }
-        }
+        public int Percentage { get; set; }
 
         public void AddPlanProject(PlanProject planProject)
         {

@@ -15,18 +15,11 @@
             _taskList = new LinkedList<TogglTask>();
         }
 
-        public Guid Id { 
-            get { return _id; }  
-        }
+        public Guid Id { get; }
 
-        public int TogglId { 
-            get { return _togglId; } 
-        }
+        public int TogglId { get; }
 
-        public string Name { 
-            get { return _name; } 
-            set { _name = value; } 
-        }
+        public string Name { get; set; }
 
         public void AddTogglTask(TogglTask togglTask)
         {

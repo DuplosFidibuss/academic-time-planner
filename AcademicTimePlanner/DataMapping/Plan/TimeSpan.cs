@@ -11,15 +11,11 @@
             _startDate = startDate;
             _endDate = endDate;
         }
-        
-        public DateOnly Startdate
-        {
-            get { return _startDate; }
-        }
 
-        public DateTime Enddate
-        {
-            get { return _endDate; }
-        }
+        public Guid Id { get; }
+        
+        public DateOnly Startdate { get; }
+
+        public DateTime Enddate { get; }
     }
 }

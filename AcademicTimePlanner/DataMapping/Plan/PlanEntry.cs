@@ -20,33 +20,13 @@
             Modified = false;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id { get; }
+        public string Name { get; set; }
+        public DateOnly StartDate { get; set; }
 
-        public string Name { 
-            get { return _name; } 
-            set { _name = value; }
-        }
+        public DateOnly EndDate { get; set; }
 
-        public DateOnly StartDate
-        {
-            get { return _startDate; }
-            set { _startDate = value; }
-        }
-
-        public DateOnly EndDate
-        {
-            get { return _endDate; }
-            set { _endDate = value; }
-        }
-
-        public int Duration
-        {
-            get { return _duration; }
-            set { _duration = value; }
-        }
+        public int Duration { get; set; }
 
         public bool Modified
         {
@@ -54,10 +34,6 @@
             set { _modified = true; }
         }
 
-        public TimeSpan TimeSpan
-        {
-            get { return _timeSpan; }
-            set { _timeSpan = value; }
-        }
+        public TimeSpan TimeSpan { get; set; }
     }
 }

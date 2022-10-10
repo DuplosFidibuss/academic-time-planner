@@ -27,21 +27,11 @@
             _togglTaskId = NoToggleId;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id { get; }
 
-        public int TogglId
-        {
-            get { return _togglTaskId; }
-        }
-
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public int TogglId { get; set; }
+     
+        public string Name { get; set; }
 
         public void AddPlanEntry(PlanEntry planEntry)
         {

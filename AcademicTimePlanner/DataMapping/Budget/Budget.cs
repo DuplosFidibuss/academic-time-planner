@@ -17,21 +17,11 @@ namespace AcademicTimePlanner.DataMapping.Budget
             _planProjectBudgets = new LinkedList<PlanProjectBudget>();
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id { get; }
 
-        public string Name { 
-            get { return _name; } 
-            set { _name = value; }
-        }
+        public string Name { get; set; }
 
-        public int Duration
-        {
-            get { return _duration; }
-            set { _duration = value; }
-        }
+        public int Duration { get; set; }
 
         public void AddPlanProjectBudget(PlanProjectBudget planProjectBudget)
         {

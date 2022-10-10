@@ -5,27 +5,25 @@
         private Guid _id;
         private int _togglId;
         private string _name;
+        private LinkedList<TogglEntrySum> _togglEntrySums;
 
         public TogglTask(int togglId, string name)
         {
             _id = Guid.NewGuid();
             _togglId = togglId;
             Name = name;
+            _togglEntrySums = new LinkedList<TogglEntrySum>();
         }
 
-        public Guid Id { 
-            get { return _id; } 
-        }
+        public Guid Id { get; }
 
-        public int TogglId { 
-            get { return _togglId; } 
-        }
+        public int TogglId { get; }
 
-        public string Name { 
-            get { return _name; } 
-            set { _name = value; } 
-        }
+        public string Name { get; set; }
 
-        //TODO get all entry sums belonging to this task. List seems pointless as they are irrelevant after reading...
+        public void AddEntrySum (TogglEntrySum entrySum)
+        {
+            _togglEntrySums.AddLast(entrySum);
+        }
     }
 }

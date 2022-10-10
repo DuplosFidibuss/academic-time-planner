@@ -26,20 +26,11 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _togglProjectId = NoTogglId;
         }
 
-        public Guid Id
-        {
-            get { return _id; }
-        }
+        public Guid Id { get; }
 
-        public int TogglProjectId { 
-            get { return _togglProjectId; } 
-        }
+        public int TogglProjectId { get; set; }
 
-        public String Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public String Name { get; set; }
 
        public void AddPlanTask(PlanTask planTask)
         {
