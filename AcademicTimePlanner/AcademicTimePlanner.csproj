@@ -28,4 +28,8 @@
     <Compile Remove="Services\TogglAPIServices\TogglService.cs" />
     <Compile Remove="Services\TogglAPIServices\TogglDetailResponseData.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataMapping\Budget\" />
+  </ItemGroup>
 </Project>
