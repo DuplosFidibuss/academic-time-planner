@@ -33,19 +33,18 @@
 
         public void modify()
         {
-            int start = int.Parse(_repetitionStartDate.ToString("yyyyMMdd"));
-            int end = int.Parse(_repetitionEndDate.ToString("yyyyMMdd"));
+            DateOnly start = _repetitionStartDate;
+            DateOnly end = _repetitionEndDate;
             string name = _name;
             int i = 1;
 
             while(start < end)
             {
                 string entryName = _name + i;
-                DateOnly oldStart = DateOnly.Parse(start.ToString()); //TODO this should work.
-                start = start + _interval;
-                DateOnly newStart = DateOnly.Parse(start.ToString());
-                if (newStart > _repetitionEndDate) { newStart = _repetitionEndDate; }
-                PlanEntry planEntry = new PlanEntry(entryName, oldStart, newStart, _duration);
+                DateOnly oldStart = start;
+                start = start.AddDays(_interval);
+                if (start > _repetitionEndDate) { start = _repetitionEndDate; }
+                PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, _duration);
                 _entries.AddLast(planEntry);
             }
             
