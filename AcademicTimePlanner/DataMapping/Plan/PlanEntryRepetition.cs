@@ -10,7 +10,7 @@
         private int _duration;
         private LinkedList<PlanEntry> _entries;
 
-        public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration, LinkedList<PlanEntry> planEntries)
+        public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration)
         {
             _id = Guid.NewGuid();
             Name = name;
@@ -18,44 +18,46 @@
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
             Duration = duration;
-            _entries = planEntries;
+            _entries = new LinkedList<PlanEntry>();
+            modify();
         }
 
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public string Name { get; set; }
 
         public DateOnly RepetitionStartDate { get; set; }
-        public DateOnly RepetitionEndDate
+        public DateOnly RepetitionEndDate { get; set; }
+
+        public int Interval { get; set; }
+
+        public int Duration { get; set; }
+
+        public void modify()
         {
-            get { return _repetitionEndDate; }
-            set { _repetitionEndDate = value; }
+            int start = int.Parse(_repetitionStartDate.ToString("yyyyMMdd"));
+            int end = int.Parse(_repetitionEndDate.ToString("yyyyMMdd"));
+            string name = _name;
+            int i = 1;
+
+            while(start < end)
+            {
+                string entryName = _name + i;
+                DateOnly oldStart = parseToDate(start);
+                start = start + _interval;
+                DateOnly newStart = parseToDate(start);
+                if(newStart > _repetitionEndDate) { newStart = _repetitionEndDate; }
+                PlanEntry planEntry = new PlanEntry(entryName, oldStart, newStart, _duration);
+                _entries.AddLast(planEntry);
+            }
+            
+
+            //planEntry.Modified = true;
         }
 
-        public int Interval
+        private DateOnly parseToDate(int date)
         {
-            get { return _interval; }
-            set { _interval = value; }
-        }
-
-        public int Duration
-        {
-            get { return _duration; }
-            set { _duration = value; }
-        }
-
-        private void modifyPlanEntry(PlanEntry planEntry)
-        {
-            //TODO modify the plan entry
-            planEntry.Modified = true;
-        }
-
-        public void RepeatPlanEntriy(PlanEntry planEntry)
-        {
-            //TODO work out an algo to do this. ( can this method and modifyPlanEntry be conbined?
-            modifyPlanEntry(planEntry);
+            DateOnly convertedDate;
+            //TODO converting the int back to dateonly
+            return convertedDate;
         }
     }
 }
