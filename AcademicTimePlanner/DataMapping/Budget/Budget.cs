@@ -4,14 +4,11 @@ namespace AcademicTimePlanner.DataMapping.Budget
 {
     public class Budget
     {
-        private Guid _id;
-        private string _name;
-        private int _duration;
         private LinkedList<PlanProjectBudget> _planProjectBudgets;
 
         public Budget(string name, int duration) 
         { 
-            _id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Name = name;
             Duration = duration;
             _planProjectBudgets = new LinkedList<PlanProjectBudget>();

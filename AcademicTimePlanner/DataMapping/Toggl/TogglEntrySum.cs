@@ -2,22 +2,24 @@
 {
     public class TogglEntrySum
     {
-        private DateOnly _date;
-        private int _duration;
-        private int _togglId;
-        private int _togglTaskId;
 
         public TogglEntrySum(DateOnly date, int duration, int togglId, int togglTaskId)
         {
-            _date = date;
-            _duration = duration;
-            _togglId = togglId;
-            _togglTaskId = togglTaskId;
+            Id = Guid.NewGuid();
+            Date = date;
+            Duration = duration;
+            TogglId = togglId;
+            TogglTaskId = togglTaskId;
         }
 
+        public Guid Id { get; }
+
         public DateOnly Date { get; }
+
         public int Duration { get; } 
+
         public int TogglId { get; }
+
         public int TogglTaskId { get; }
     }
 }

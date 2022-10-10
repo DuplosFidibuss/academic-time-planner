@@ -4,11 +4,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanProject
     {
+        private const int NoTogglId = -1;
+
         private Guid _id;
         private int _togglProjectId;
         private string _name;
         private LinkedList<PlanTask> _taskList;
-        private const int NoTogglId = -1;
 
         public PlanProject(int togglProjectId, string name)
         {

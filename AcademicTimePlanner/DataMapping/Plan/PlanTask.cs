@@ -2,17 +2,15 @@
 {
     public class PlanTask
     {
-        private Guid _id;
-        private int _togglTaskId;
-        private string _name;
+        private const int NoToggleId = -1;
+
         private LinkedList<PlanEntry> _planEntries;
         private LinkedList<PlanEntryRepetition> _repetitionEntries;
-        private const int NoToggleId = -1;
 
         public PlanTask(int togglId, string name)
         {
-            _id = Guid.NewGuid();
-            _togglTaskId = togglId;
+            Id = Guid.NewGuid();
+            TogglTaskId = togglId;
             Name = name;
             _planEntries = new LinkedList<PlanEntry>();
             _repetitionEntries = new LinkedList<PlanEntryRepetition>();
@@ -20,16 +18,16 @@
 
         public PlanTask(string name)
         {
-            _id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Name = name;
             _planEntries = new LinkedList<PlanEntry>();
             _repetitionEntries = new LinkedList<PlanEntryRepetition>();
-            _togglTaskId = NoToggleId;
+            TogglTaskId = NoToggleId;
         }
 
         public Guid Id { get; }
 
-        public int TogglId { get; set; }
+        public int TogglTaskId { get; set; }
      
         public string Name { get; set; }
 

@@ -12,7 +12,7 @@
 
         public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration)
         {
-            _id = Guid.NewGuid();
+            Id = Guid.NewGuid();
             Name = name;
             RepetitionStartDate = repetitionStartDate;
             RepetitionEndDate = repetitionEndDate;
@@ -22,9 +22,12 @@
             modify();
         }
 
+        public Guid Id { get; }
+
         public string Name { get; set; }
 
         public DateOnly RepetitionStartDate { get; set; }
+
         public DateOnly RepetitionEndDate { get; set; }
 
         public int Interval { get; set; }
@@ -33,6 +36,7 @@
 
         public void modify()
         {
+            _entries.Clear();
             DateOnly start = _repetitionStartDate;
             DateOnly end = _repetitionEndDate;
             string name = _name;
@@ -43,13 +47,11 @@
                 string entryName = _name + i;
                 DateOnly oldStart = start;
                 start = start.AddDays(_interval);
-                if (start > _repetitionEndDate) { start = _repetitionEndDate; }
+                if (start > _repetitionEndDate) 
+                    start = _repetitionEndDate; 
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, _duration);
                 _entries.AddLast(planEntry);
             }
-            
-
-            //planEntry.Modified = true;
         }
     }
 }

@@ -2,17 +2,14 @@
 {
     public class PlanProjectBudget
     {
-        private Guid _id;
-        private string _name;
-        private int _percentage;
         private LinkedList<PlanProject> _projects;
 
         public PlanProjectBudget(string name)
         {
             Name = name;
             _projects = new LinkedList<PlanProject>();
-            _id = Guid.NewGuid();
-            _percentage = 0;
+            Id = Guid.NewGuid();
+            Percentage = 0;
         }
 
         public Guid Id { get; }

@@ -2,15 +2,12 @@
 {
     public class TogglTask
     {
-        private Guid _id;
-        private int _togglId;
-        private string _name;
         private LinkedList<TogglEntrySum> _togglEntrySums;
 
         public TogglTask(int togglId, string name)
         {
-            _id = Guid.NewGuid();
-            _togglId = togglId;
+            Id = Guid.NewGuid();
+            TogglId = togglId;
             Name = name;
             _togglEntrySums = new LinkedList<TogglEntrySum>();
         }
