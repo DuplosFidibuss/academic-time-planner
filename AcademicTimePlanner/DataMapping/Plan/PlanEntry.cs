@@ -10,7 +10,6 @@
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <param name="duration"></param>
-        
         public PlanEntry(string name, DateOnly startDate, DateOnly endDate, int duration)
         {
             Id = Guid.NewGuid();

@@ -2,7 +2,6 @@
 {
     public class PlanEntryRepetition
     {
-
         private LinkedList<PlanEntry> _entries;
 
         /// <summary>

@@ -4,14 +4,13 @@ namespace AcademicTimePlanner.DataMapping.Budget
 {
     public class Budget
     {
+        private LinkedList<PlanProjectBudget> _planProjectBudgets;
+
         /// <summary>
         /// This is an optional class for better management of non uniform projects.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="duration"></param>
-
-        private LinkedList<PlanProjectBudget> _planProjectBudgets;
-
         public Budget(string name, int duration) 
         { 
             Id = Guid.NewGuid();
