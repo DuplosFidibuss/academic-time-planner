@@ -41,23 +41,16 @@
             while(start < end)
             {
                 string entryName = _name + i;
-                DateOnly oldStart = parseToDate(start);
+                DateOnly oldStart = DateOnly.Parse(start.ToString()); //TODO this should work.
                 start = start + _interval;
-                DateOnly newStart = parseToDate(start);
-                if(newStart > _repetitionEndDate) { newStart = _repetitionEndDate; }
+                DateOnly newStart = DateOnly.Parse(start.ToString());
+                if (newStart > _repetitionEndDate) { newStart = _repetitionEndDate; }
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, newStart, _duration);
                 _entries.AddLast(planEntry);
             }
             
 
             //planEntry.Modified = true;
-        }
-
-        private DateOnly parseToDate(int date)
-        {
-            DateOnly convertedDate;
-            //TODO converting the int back to dateonly
-            return convertedDate;
         }
     }
 }
