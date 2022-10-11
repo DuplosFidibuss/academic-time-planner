@@ -22,4 +22,8 @@
       <ProjectReference Include="..\AcademicTimePlanner\AcademicTimePlanner.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="JSON_Files\" />
+    </ItemGroup>
+
 </Project>
