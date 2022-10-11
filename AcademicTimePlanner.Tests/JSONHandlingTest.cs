@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AcademicTimePlanner.Tests
 {
     [TestClass]
-    internal class JSONHandlingTest
+    public class JSONHandlingTest
     {
         private DateOnly startDate = new DateOnly(2022, 1, 1);
         private DateOnly endDate = new DateOnly(2022, 1, 2);
@@ -22,8 +22,10 @@ namespace AcademicTimePlanner.Tests
         public void initialize() 
         {
             testPlanEntry = new PlanEntry("testPlanEntry_1", startDate, endDate, 60000);
+
             testPlanTask = new PlanTask(1,"testTask_1");
             testPlanTask.AddPlanEntry(testPlanEntry);
+
             testPlanProject = new PlanProject(1, "testProject_1");
             testPlanProject.AddPlanTask(testPlanTask);
         }
