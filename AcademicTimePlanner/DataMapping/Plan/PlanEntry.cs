@@ -1,4 +1,6 @@
-﻿namespace AcademicTimePlanner.DataMapping.Plan
+﻿using System.Text.Json.Serialization;
+
+namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanEntry
     {
@@ -19,18 +21,25 @@
             Duration = duration;
         }
 
+        [JsonPropertyName("Id")]
         public Guid Id { get; }
 
+        /* Will be commented back in after test
+        [JsonPropertyName("TimeSpan")]
         public TimeSpan TimeSpan { get; set; }
+        */
 
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
+        [JsonPropertyName("StartDate")]
         public DateOnly StartDate { get; set; }
 
+        [JsonPropertyName("EndDate")]
         public DateOnly EndDate { get; set; }
 
+        [JsonPropertyName("Duration")]
         public int Duration { get; set; }
 
-        public TimeSpan TimeSpan { get; set; }
     }
 }

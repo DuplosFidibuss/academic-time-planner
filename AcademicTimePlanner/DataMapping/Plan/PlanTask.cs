@@ -1,9 +1,12 @@
-﻿namespace AcademicTimePlanner.DataMapping.Plan
+﻿using System.Text.Json.Serialization;
+
+namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanTask
     {      
         private const int NoToggleId = -1;
 
+        [JsonPropertyName("_planEntries")]
         private LinkedList<PlanEntry> _planEntries;
         private LinkedList<PlanEntryRepetition> _repetitionEntries;
 
@@ -35,10 +38,13 @@
             TogglTaskId = NoToggleId;
         }
 
+        [JsonPropertyName("Id")]
         public Guid Id { get; }
 
+        [JsonPropertyName("TogglTaskId")]
         public int TogglTaskId { get; set; }
-     
+
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
         public void AddPlanEntry(PlanEntry planEntry)

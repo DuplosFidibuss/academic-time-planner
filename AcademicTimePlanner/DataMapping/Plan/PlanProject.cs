@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.DataMapping.Toggl;
+using System.Text.Json.Serialization;
 
 namespace AcademicTimePlanner.DataMapping.Plan
 {
@@ -7,6 +8,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         private const int NoTogglId = -1;
 
+        [JsonPropertyName("_taskList")]
         private LinkedList<PlanTask> _taskList;
 
         /// <summary>
@@ -33,10 +35,13 @@ namespace AcademicTimePlanner.DataMapping.Plan
             TogglProjectId = NoTogglId;
         }
 
+        [JsonPropertyName("Id")]
         public Guid Id { get; }
 
+        [JsonPropertyName("TogglProjectId")]
         public int TogglProjectId { get; set; }
 
+        [JsonPropertyName("Name")]
         public String Name { get; set; }
 
        public void AddPlanTask(PlanTask planTask)
