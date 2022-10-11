@@ -7,7 +7,14 @@
       {
         "Id": 1,
         "TogglTaskId": 1,
-        "Name": "testTastk_1"
+        "Name": "testTastk_1",
+        "_planEntries": {
+          "Id": 1,
+          "Name": "testPlanEntry_1",
+          "StartDate": ,
+          "EndDate": ,
+          "Duration": 60000
+        }
       },
       {
         "Id": 2,
