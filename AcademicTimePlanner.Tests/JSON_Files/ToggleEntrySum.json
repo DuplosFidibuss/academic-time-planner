@@ -1,0 +1,24 @@
+{
+  "project": {
+    "name": "testProject_1",
+    "id": "1",
+    "togglProjectId": "1",
+    "tasks": [
+      {
+        "id": "1",
+        "togglTaskId": "1",
+        "name": "testTastk_1"
+      },
+      {
+        "id": "2",
+        "togglTaskId": "2",
+        "name": "testTastk_2"
+      },
+      {
+        "id": "3",
+        "togglTaskId": "3",
+        "name": "testTastk_3"
+      }
+    ] 
+  }
+}
