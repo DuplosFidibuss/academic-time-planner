@@ -1,0 +1,24 @@
+{
+  "project": {
+    "Name": "testProject_1",
+    "Id": 1,
+    "TogglProjectId": 1,
+    "_taskList": [
+      {
+        "Id": 1,
+        "TogglTaskId": 1,
+        "Name": "testTastk_1"
+      },
+      {
+        "Id": 2,
+        "TogglTaskId": 2,
+        "Name": "testTastk_2"
+      },
+      {
+        "Id": 3,
+        "TogglTaskId": 3,
+        "Name": "testTastk_3"
+      }
+    ] 
+  }
+}
