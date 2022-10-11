@@ -7,7 +7,11 @@ namespace AcademicTimePlanner.JSONHandling
 {
     public class importExportJSON
     {
-        private const string DataPath = @"..\..\AcademicTimePlanner.Tests\JSON_Files\ATP_data.json";
+        //TODO fixing this attempt at getting the data path for the safe files.
+        private static string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static string DataPath = Path.Combine(sCurrentDirectory, @"..\JSON_Files\ATP_data.json");
+        private string dataPath = Path.GetFullPath(DataPath);
+        
 
         JsonSerializerOptions options = new JsonSerializerOptions
         {
@@ -29,7 +33,7 @@ namespace AcademicTimePlanner.JSONHandling
         public void safeJson(PlanProject project)
         {
             string jsonString = JsonSerializer.Serialize(project, options);
-            File.WriteAllText(DataPath, jsonString);
+            File.WriteAllText(dataPath, jsonString);
         }
     }
 }
