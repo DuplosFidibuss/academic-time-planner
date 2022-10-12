@@ -1,45 +1,43 @@
 {
-  "project": {
-    "Name": "testProject_1",
-    "Id": 1,
-    "TogglProjectId": 1,
-    "_taskList": [
-      {
-        "Id": 1,
-        "TogglTaskId": 1,
-        "Name": "testTastk_1",
-        "_planEntries": {
-          "Id": 1,
+  "Id": "1",
+  "TogglProjectId": 1,
+  "Name": "testProject_1",
+  "_taskList": [
+    {
+      "Id": "1",
+      "TogglTaskId": 1,
+      "Name": "testTask_1",
+      "_planEntries": [
+        {
+          "Id": "1",
+          "TimeSpan": null,
           "Name": "testPlanEntry_1",
           "StartDate": "2022-01-01T00:00:00",
           "EndDate": "2022-01-02T00:00:00",
           "Duration": 60000
         }
-      },
-      {
-        "Id": 2,
-        "TogglTaskId": 2,
-        "Name": "testTastk_2",
-        "_planEntries": {
-          "Id": 2,
-          "Name": "testPlanEntry_2",
-          "StartDate": "2022-02-01T00:00:00",
-          "EndDate": "2022-02-02T00:00:00",
-          "Duration": 60000
+      ],
+      "_repetitionEntries": [
+        {
+          "Id": "1",
+          "TimeSpan": null,
+          "Name": "testPlanEntryRepetition_1",
+          "RepetitionStartDate": "2022-01-01T00:00:00",
+          "RepetitionEndDate": "2022-01-02T00:00:00",
+          "Interval": 600000,
+          "Duration": 60000,
+          "_entries": [
+            {
+              "Id": "1",
+              "TimeSpan": null,
+              "Name": "testPlanEntryRepetition_11",
+              "StartDate": "2022-01-01T00:00:00",
+              "EndDate": "2022-01-02T00:00:00",
+              "Duration": 60000
+            }
+          ]
         }
-      },
-      {
-        "Id": 3,
-        "TogglTaskId": 3,
-        "Name": "testTastk_3",
-        "_planEntries": {
-          "Id": 3,
-          "Name": "testPlanEntry_3",
-          "StartDate": "2022-03-01T00:00:00",
-          "EndDate": "2022-03-02T00:00:00",
-          "Duration": 60000
-        }
-      }
-    ] 
-  }
+      ]
+    }
+  ]
 }
