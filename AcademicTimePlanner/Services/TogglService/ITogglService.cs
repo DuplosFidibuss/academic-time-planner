@@ -4,5 +4,5 @@ namespace AcademicTimePlanner.Services.TogglService;
 
 public interface ITogglService
 {
-    Task<List<TogglEntrySum>> GetTogglEntrySumAsync(DateOnly since);
+    Task<List<TogglProject>> GetTogglProjects(DateOnly since);
 }

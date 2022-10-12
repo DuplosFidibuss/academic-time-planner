@@ -52,7 +52,7 @@ public class TogglServiceTests
             .ReturnsAsync(togglDetailResponse);
         
         // Act
-        var actualTogglEntrySumList = await _componentUnderTest.GetTogglEntrySumAsync(It.IsAny<DateOnly>());
+        var actualTogglEntrySumList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
         
         // Asset
         Assert.AreEqual(expectedTogglEntrySumList.Count, actualTogglEntrySumList.Count);

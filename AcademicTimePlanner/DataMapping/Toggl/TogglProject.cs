@@ -35,5 +35,16 @@
         {
             _taskList.Remove(togglTask);
         }
+
+        public TogglTask GetOrCreateTogglTask(long taskId, string taskName)
+        {
+            var togglTask = _taskList.FindLast(togglTask => togglTask.TogglId == taskId);
+            if (togglTask == null)
+            {
+                togglTask = new TogglTask(taskId, taskName);
+                AddTogglTask(togglTask);
+            }
+            return togglTask;
+        }
     }
 }

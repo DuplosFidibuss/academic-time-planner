@@ -7,6 +7,6 @@ public class Reducers
     [ReducerMethod]
     public static TogglState Reduce(TogglState state , SetTogglDataAction action)
     {
-        return new TogglState(true, action.TogglEntrySums);
+        return new TogglState(true, action.NumberOfTogglProjects);
     }
 }
