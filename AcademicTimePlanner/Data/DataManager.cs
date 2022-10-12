@@ -16,8 +16,8 @@ namespace AcademicTimePlanner.Data
             TogglProjects = new List<TogglProject>();
         }
 
-        public List<Budget> Budgets { get; }
-        public List<PlanProject> PlanProjects { get; }
-        public List<TogglProject> TogglProjects { get; }
+        public List<Budget> Budgets { get; set; }
+        public List<PlanProject> PlanProjects { get; set; }
+        public List<TogglProject> TogglProjects { get; set; }
     }
 }
