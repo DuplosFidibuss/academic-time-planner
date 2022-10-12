@@ -352,4 +352,4 @@ MigrationBackup/
 #LATEX
 !**/doc/**.pdf
 doc/*.pdf
-AcademicTimePlanner.Tests/JSON_Files/ATP_data.json
+AcademicTimePlanner/JSON_Files/ATP_data.json
