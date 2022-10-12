@@ -1,4 +1,7 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
+using System.IO;
+using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 
 
@@ -7,10 +10,6 @@ namespace AcademicTimePlanner.JSONHandling
 {
     public class importExportJSON
     {
-        //TODO fixing this attempt at getting the data path for the safe files.
-        private static string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        private static string DataPath = Path.Combine(sCurrentDirectory, @"..\JSON_Files\ATP_data.json");
-        private string dataPath = Path.GetFullPath(DataPath);
         
 
         JsonSerializerOptions options = new JsonSerializerOptions
@@ -18,6 +17,14 @@ namespace AcademicTimePlanner.JSONHandling
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,  // set camelCase       
             WriteIndented = true                                // write pretty json
         };
+
+        private string getDataPath()
+        {
+            //TODO fixing this attempt at getting the data path for the save files.
+            string directory = this.getDataPath().ToString();
+            string dataPath = Path.Combine(directory, @"\JSON_Files\ATP_data.json");
+            return dataPath;
+        }
 
         // pass options to serializer
         //var json = JsonSerializer.Serialize(jsonDataToSerialize, options);
@@ -30,10 +37,10 @@ namespace AcademicTimePlanner.JSONHandling
             return JsonSerializer.Deserialize<PlanProject>(jsonString);
         }
         */
-        public void safeJson(PlanProject project)
+        public void saveJson(PlanProject project)
         {
             string jsonString = JsonSerializer.Serialize(project, options);
-            File.WriteAllText(dataPath, jsonString);
+            File.WriteAllText(getDataPath(), jsonString);
         }
     }
 }

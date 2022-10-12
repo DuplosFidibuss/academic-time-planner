@@ -33,7 +33,7 @@ namespace AcademicTimePlanner.Tests
         [TestMethod]
         public void testSafeJson()
         {
-            ieJson.safeJson(testPlanProject);
+            ieJson.saveJson(testPlanProject);
         }
     }
 }
