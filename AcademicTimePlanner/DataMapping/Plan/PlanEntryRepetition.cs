@@ -66,6 +66,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             while(start < end)
             {
                 string entryName = Name + i;
+                i += 1;
                 DateTime oldStart = start;
                 start = start.AddDays(Interval-1);
                 if (start > RepetitionEndDate) 
