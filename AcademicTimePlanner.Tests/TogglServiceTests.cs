@@ -19,8 +19,14 @@ public class TogglServiceTests
     }
 
     [TestMethod]
-    public async Task GetTogglEntrySum_OfOneMonth_ReturnsExpectedTogglEntrySums()
+    public async Task GetTogglProjectsReturnsAllTogglProjects()
     {
+        var projectName = "Test project";
+        var taskName = "Test task";
+        var projectIds = new List<long>() { 1, 2 };
+        var taskIds = new List<long>() { 3, 4, 5 };
+
+
         // Arrange
         var dates = new List<DateTime>()
         {
@@ -33,18 +39,17 @@ public class TogglServiceTests
         {
             Data = new List<TogglDetailResponseData>()
             {
-                new() { Id = 0, TaskId = null, Duration = 100, Description = "Description", DateTime = dates[0] },
-                new() { Id = 1, TaskId = null, Duration = 100, Description = "Description", DateTime = dates[0] },
-                new() { Id = 2, TaskId = null, Duration = 100, Description = "Description", DateTime = dates[1] }, 
-                new() { Id = 3, TaskId = null, Duration = 100, Description = "Description", DateTime = dates[2] },
+                new() { Id = 0, ProjectId = projectIds[0], TaskId = taskIds[0], Project = projectName, Task = taskName },
+                new() { Id = 1, ProjectId = projectIds[0], TaskId = taskIds[1], Project = projectName, Task = taskName },
+                new() { Id = 2, ProjectId = projectIds[1], TaskId = taskIds[2], Project = projectName, Task = taskName }, 
+                new() { Id = 3, ProjectId = projectIds[1], TaskId = taskIds[2], Project = projectName, Task = taskName },
             }
         };
 
-        var expectedTogglEntrySumList = new List<TogglEntrySum>()
+        var expectedTogglProjectList = new List<TogglProject>()
         {
-            new (DateOnly.FromDateTime(dates[0]), 200),
-            new (DateOnly.FromDateTime(dates[1]), 100),
-            new (DateOnly.FromDateTime(dates[2]), 100),
+            new (projectIds[0], projectName),
+            new (projectIds[1], projectName),
         };
 
         _togglApiServiceMock
@@ -52,14 +57,14 @@ public class TogglServiceTests
             .ReturnsAsync(togglDetailResponse);
         
         // Act
-        var actualTogglEntrySumList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
+        var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
         
         // Asset
-        Assert.AreEqual(expectedTogglEntrySumList.Count, actualTogglEntrySumList.Count);
-        for (var index = 0; index < expectedTogglEntrySumList.Count; index++)
+        Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
+        for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
-            Assert.IsTrue(expectedTogglEntrySumList[index].Date == actualTogglEntrySumList[index].Date);
-            Assert.IsTrue(expectedTogglEntrySumList[index].Duration == actualTogglEntrySumList[index].Duration);
+            Assert.IsTrue(expectedTogglProjectList[index].TogglId == actualTogglProjectList[index].TogglId);
+            Assert.IsTrue(expectedTogglProjectList[index].Name == projectName);
         }
     }
 }
