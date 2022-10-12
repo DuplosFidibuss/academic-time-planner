@@ -1,3 +1,5 @@
+using AcademicTimePlanner.DataMapping.Toggl;
+
 namespace AcademicTimePlanner.Store.State.Toggl;
 
 public class SetTogglDataAction
