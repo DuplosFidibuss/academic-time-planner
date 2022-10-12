@@ -9,7 +9,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
         private const int NoTogglId = -1;
 
         [JsonPropertyName("_taskList")]
-        private List<PlanTask> _taskList;
+        [JsonInclude]
+        public List<PlanTask> _taskList;
 
         /// <summary>
         /// This class implements the plan project.
@@ -19,6 +20,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// </summary>
         /// <param name="togglProjectId"></param>
         /// <param name="name"></param>
+        [JsonConstructor]
         public PlanProject(int togglProjectId, string name)
         {
             Id = Guid.NewGuid();

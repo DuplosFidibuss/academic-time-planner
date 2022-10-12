@@ -12,6 +12,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <param name="duration"></param>
+        [JsonConstructor]
         public PlanEntry(string name, DateTime startDate, DateTime endDate, int duration)
         {
             Id = Guid.NewGuid();
@@ -23,11 +24,9 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
-
-        /* Will be commented back in after test
+        
         [JsonPropertyName("TimeSpan")]
         public TimeSpan TimeSpan { get; set; }
-        */
 
         [JsonPropertyName("Name")]
         public string Name { get; set; }

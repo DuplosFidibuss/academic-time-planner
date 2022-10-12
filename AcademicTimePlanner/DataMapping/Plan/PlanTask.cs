@@ -7,8 +7,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
         private const int NoToggleId = -1;
 
         [JsonPropertyName("_planEntries")]
-        private List<PlanEntry> _planEntries;
-        private List<PlanEntryRepetition> _repetitionEntries;
+        [JsonInclude]
+        public List<PlanEntry> _planEntries;
+
+        [JsonPropertyName("_repetitionEntries")]
+        [JsonInclude]
+        public List<PlanEntryRepetition> _repetitionEntries;
 
         /// <summary>
         /// This class implements a plan task. 
@@ -20,6 +24,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
+        [JsonConstructor]
         public PlanTask(int togglId, string name)
         {
             Id = Guid.NewGuid();

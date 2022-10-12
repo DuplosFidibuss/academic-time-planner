@@ -1,8 +1,12 @@
-﻿namespace AcademicTimePlanner.DataMapping.Plan
+﻿using System.Text.Json.Serialization;
+
+namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanEntryRepetition
     {
-        private List<PlanEntry> _entries;
+        [JsonPropertyName("_entries")]
+        [JsonInclude]
+        public List<PlanEntry> _entries;
 
         /// <summary>
         /// This class implements the plan entry repetition. 
@@ -17,6 +21,8 @@
         /// <param name="repetitionEndDate"></param>
         /// <param name="interval"></param>
         /// <param name="duration"></param>
+
+        [JsonConstructor]
         public PlanEntryRepetition(string name,  DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, int duration)
         {
             Id = Guid.NewGuid();
@@ -29,19 +35,25 @@
             modify();
         }
 
-
+        [JsonPropertyName("Id")]
         public Guid Id { get; }
 
+        [JsonPropertyName("TimeSpan")]
         public TimeSpan TimeSpan { get; set; }
 
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
+        [JsonPropertyName("RepetitionStartDate")]
         public DateTime RepetitionStartDate { get; set; }
 
+        [JsonPropertyName("RepetitionEndDate")]
         public DateTime RepetitionEndDate { get; set; }
 
+        [JsonPropertyName("Interval")]
         public int Interval { get; set; }
 
+        [JsonPropertyName("Duration")]
         public int Duration { get; set; }
 
         public void modify()

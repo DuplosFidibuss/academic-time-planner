@@ -10,12 +10,13 @@ namespace AcademicTimePlanner.JSONHandling
 {
     public class importExportJSON
     {
-        
+
 
         JsonSerializerOptions options = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,  // set camelCase       
-            WriteIndented = true                                // write pretty json
+            WriteIndented = true,                              // write pretty json
+            IncludeFields = true
         };
 
         private string getDataPath()
@@ -26,8 +27,7 @@ namespace AcademicTimePlanner.JSONHandling
         }
 
         public PlanProject loadJson(string path) {
-            string fileName = "PlanProject.json";
-            string jsonString = File.ReadAllText(fileName);
+            string jsonString = File.ReadAllText(path);
             return JsonSerializer.Deserialize<PlanProject>(jsonString);
         }
         
