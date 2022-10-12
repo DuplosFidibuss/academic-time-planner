@@ -7,8 +7,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
         private const int NoToggleId = -1;
 
         [JsonPropertyName("_planEntries")]
-        private LinkedList<PlanEntry> _planEntries;
-        private LinkedList<PlanEntryRepetition> _repetitionEntries;
+        private List<PlanEntry> _planEntries;
+        private List<PlanEntryRepetition> _repetitionEntries;
 
         /// <summary>
         /// This class implements a plan task. 
@@ -25,16 +25,16 @@ namespace AcademicTimePlanner.DataMapping.Plan
             Id = Guid.NewGuid();
             TogglTaskId = togglId;
             Name = name;
-            _planEntries = new LinkedList<PlanEntry>();
-            _repetitionEntries = new LinkedList<PlanEntryRepetition>();
+            _planEntries = new List<PlanEntry>();
+            _repetitionEntries = new List<PlanEntryRepetition>();
         }
 
         public PlanTask(string name)
         {
             Id = Guid.NewGuid();
             Name = name;
-            _planEntries = new LinkedList<PlanEntry>();
-            _repetitionEntries = new LinkedList<PlanEntryRepetition>();
+            _planEntries = new List<PlanEntry>();
+            _repetitionEntries = new List<PlanEntryRepetition>();
             TogglTaskId = NoToggleId;
         }
 
@@ -49,7 +49,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         public void AddPlanEntry(PlanEntry planEntry)
         {
-            _planEntries.AddLast(planEntry);
+            _planEntries.Add(planEntry);
         }
 
         public void RemovePlanEntry(PlanEntry planEntry)
@@ -59,7 +59,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         public void AddRepetitionEntry(PlanEntryRepetition planEntryRepetition)
         {
-            _repetitionEntries.AddLast(planEntryRepetition);
+            _repetitionEntries.Add(planEntryRepetition);
         }
 
         public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)
