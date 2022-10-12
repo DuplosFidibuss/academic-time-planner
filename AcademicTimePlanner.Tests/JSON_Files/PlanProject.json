@@ -11,20 +11,34 @@
         "_planEntries": {
           "Id": 1,
           "Name": "testPlanEntry_1",
-          "StartDate": ,
-          "EndDate": ,
+          "StartDate": "2022-01-01T00:00:00",
+          "EndDate": "2022-01-02T00:00:00",
           "Duration": 60000
         }
       },
       {
         "Id": 2,
         "TogglTaskId": 2,
-        "Name": "testTastk_2"
+        "Name": "testTastk_2",
+        "_planEntries": {
+          "Id": 2,
+          "Name": "testPlanEntry_2",
+          "StartDate": "2022-02-01T00:00:00",
+          "EndDate": "2022-02-02T00:00:00",
+          "Duration": 60000
+        }
       },
       {
         "Id": 3,
         "TogglTaskId": 3,
-        "Name": "testTastk_3"
+        "Name": "testTastk_3",
+        "_planEntries": {
+          "Id": 3,
+          "Name": "testPlanEntry_3",
+          "StartDate": "2022-03-01T00:00:00",
+          "EndDate": "2022-03-02T00:00:00",
+          "Duration": 60000
+        }
       }
     ] 
   }
