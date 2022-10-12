@@ -13,6 +13,8 @@ namespace AcademicTimePlanner.Tests
     {
         private DateTime startDate = new DateTime(2022, 1, 1);
         private DateTime endDate = new DateTime(2022, 1, 2);
+        private DateTime endDate2 = new DateTime(2022, 1, 31);
+
         private PlanEntry testPlanEntry;
         private PlanEntryRepetition testPlanEntryRepetition;
         private PlanTask testPlanTask;
@@ -22,9 +24,9 @@ namespace AcademicTimePlanner.Tests
         [TestInitialize]
         public void initialize() 
         {
-            testPlanEntry = new PlanEntry("testPlanEntry_1", startDate, endDate, 60000);
+            testPlanEntry = new PlanEntry("testPlanEntry_1", startDate, endDate, 2);
 
-            testPlanEntryRepetition = new PlanEntryRepetition("testPlanEntryRepetition_1", startDate, endDate, 600000, 60000);
+            testPlanEntryRepetition = new PlanEntryRepetition("testPlanEntryRepetition_1", startDate, endDate2, 7, 2);
 
             testPlanTask = new PlanTask(1,"testTask_1");
             testPlanTask.AddPlanEntry(testPlanEntry);
