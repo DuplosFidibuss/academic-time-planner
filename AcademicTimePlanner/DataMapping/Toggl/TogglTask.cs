@@ -4,7 +4,7 @@
     {
         public const long NoTogglTaskId = -1;
 
-        private LinkedList<TogglEntrySum> _togglEntrySums;
+        private List<TogglEntrySum> _togglEntrySums;
 
         /// <summary>
         /// This class implements the conection between ToggleTrack tasks and the application.
@@ -18,7 +18,7 @@
             Id = Guid.NewGuid();
             TogglId = togglId;
             Name = name;
-            _togglEntrySums = new LinkedList<TogglEntrySum>();
+            _togglEntrySums = new List<TogglEntrySum>();
         }
 
         public Guid Id { get; }
@@ -27,9 +27,13 @@
 
         public string Name { get; set; }
 
-        public void AddEntrySum (TogglEntrySum entrySum)
+        public void AddEntry (TogglEntrySum entry)
         {
-            _togglEntrySums.AddLast(entrySum);
+            var entrySumOfSameDay = _togglEntrySums.FindLast(entrySum => entrySum.Date.Equals(entry.Date));
+            if (entrySumOfSameDay != null)
+                entrySumOfSameDay.Duration += entry.Duration;
+            else
+                _togglEntrySums.Add(entry);
         }
     }
 }

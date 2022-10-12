@@ -30,7 +30,7 @@ public class TogglService : ITogglService
             }
 
             var togglTask = togglProject.GetOrCreateTogglTask(togglTaskId, response.Task);
-            togglTask.AddEntrySum(new TogglEntrySum(DateOnly.FromDateTime(response.StartTime), response.Duration, response.Id, togglTaskId));
+            togglTask.AddEntry(new TogglEntrySum(DateOnly.FromDateTime(response.StartTime), response.Duration, response.Id, togglTaskId));
         });
 
         return togglProjects;
