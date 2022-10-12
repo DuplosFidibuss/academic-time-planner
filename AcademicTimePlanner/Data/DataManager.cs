@@ -11,13 +11,13 @@ namespace AcademicTimePlanner.Data
         /// </summary>
         public DataManager()
         {
-            Budgets = new LinkedList<Budget>();
-            PlanProjects = new LinkedList<PlanProject>();
-            TogglProjects = new LinkedList<TogglProject>();
+            Budgets = new List<Budget>();
+            PlanProjects = new List<PlanProject>();
+            TogglProjects = new List<TogglProject>();
         }
 
-        public LinkedList<Budget> Budgets { get; }
-        public LinkedList<PlanProject> PlanProjects { get; }
-        public LinkedList<TogglProject> TogglProjects { get; }
+        public List<Budget> Budgets { get; }
+        public List<PlanProject> PlanProjects { get; }
+        public List<TogglProject> TogglProjects { get; }
     }
 }

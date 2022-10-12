@@ -2,6 +2,8 @@
 {
     public class TogglEntrySum
     {
+        public const long NoTogglTaskId = -1;
+
         /// <summary>
         /// This class implements the Toggl entry sum.
         /// This sum consists of Toggl entries provided by Toggl Track.
@@ -11,7 +13,7 @@
         /// <param name="togglId"></param>
         /// <param name="togglTaskId"></param>
         
-        public TogglEntrySum(DateOnly date, int duration, int togglId, int togglTaskId)
+        public TogglEntrySum(DateOnly date, int duration, long togglId, long togglTaskId)
         {
             Id = Guid.NewGuid();
             Date = date;
@@ -26,8 +28,8 @@
 
         public int Duration { get; } 
 
-        public int TogglId { get; }
+        public long TogglId { get; }
 
-        public int TogglTaskId { get; }
+        public long TogglTaskId { get; }
     }
 }
