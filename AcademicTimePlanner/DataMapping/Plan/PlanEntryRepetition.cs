@@ -2,7 +2,7 @@
 {
     public class PlanEntryRepetition
     {
-        private LinkedList<PlanEntry> _entries;
+        private List<PlanEntry> _entries;
 
         /// <summary>
         /// This class implements the plan entry repetition. 
@@ -25,7 +25,7 @@
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
             Duration = duration;
-            _entries = new LinkedList<PlanEntry>();
+            _entries = new List<PlanEntry>();
             modify();
         }
 
@@ -59,7 +59,7 @@
                 if (start > RepetitionEndDate) 
                     start = RepetitionEndDate; 
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
-                _entries.AddLast(planEntry);
+                _entries.Add(planEntry);
                 start = start.AddDays(1);
             }
         }

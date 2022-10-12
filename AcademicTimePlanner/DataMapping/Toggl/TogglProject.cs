@@ -2,7 +2,7 @@
 {
     public class TogglProject
     {
-        private LinkedList<TogglTask> _taskList;
+        private List<TogglTask> _taskList;
 
         /// <summary>
         /// This class implements the conection between the application and TogglTrack projects.
@@ -15,7 +15,7 @@
             Id = Guid.NewGuid();
             TogglId = togglId;
             Name = name;
-            _taskList = new LinkedList<TogglTask>();
+            _taskList = new List<TogglTask>();
         }
 
         public Guid Id { get; }
@@ -26,7 +26,7 @@
 
         public void AddTogglTask(TogglTask togglTask)
         {
-            _taskList.AddLast(togglTask);
+            _taskList.Add(togglTask);
         }
 
         public void RemoveTogglTask(TogglTask togglTask)

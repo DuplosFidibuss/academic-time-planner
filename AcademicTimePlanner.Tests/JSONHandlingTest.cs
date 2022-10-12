@@ -35,5 +35,12 @@ namespace AcademicTimePlanner.Tests
         {
             ieJson.saveJson(testPlanProject);
         }
+
+        [TestMethod]
+        public void testLoadJson()
+        {
+            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName; ;
+            string dataPath = directory + @"\AcademicTimePlanner.Tests\JSON_Files\PlanProject.json";
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class TogglTask
     {
-        private LinkedList<TogglEntrySum> _togglEntrySums;
+        private List<TogglEntrySum> _togglEntrySums;
 
         /// <summary>
         /// This class implements the conection between ToggleTrack tasks and the application.
@@ -16,7 +16,7 @@
             Id = Guid.NewGuid();
             TogglId = togglId;
             Name = name;
-            _togglEntrySums = new LinkedList<TogglEntrySum>();
+            _togglEntrySums = new List<TogglEntrySum>();
         }
 
         public Guid Id { get; }
@@ -27,7 +27,7 @@
 
         public void AddEntrySum (TogglEntrySum entrySum)
         {
-            _togglEntrySums.AddLast(entrySum);
+            _togglEntrySums.Add(entrySum);
         }
     }
 }
