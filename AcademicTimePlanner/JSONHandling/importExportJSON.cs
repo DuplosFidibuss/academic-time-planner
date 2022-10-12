@@ -7,10 +7,11 @@ using System.Text.Json;
 
 
 namespace AcademicTimePlanner.JSONHandling
-{
+{   /// <summary>
+    /// This class implements the saving and loading of JSON files. 
+    /// </summary>
     public class importExportJSON
     {
-
 
         JsonSerializerOptions options = new JsonSerializerOptions
         {
