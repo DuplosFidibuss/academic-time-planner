@@ -26,7 +26,7 @@
             Interval = interval;
             Duration = duration;
             _entries = new LinkedList<PlanEntry>();
-            modify();
+            Modify();
         }
 
 
@@ -44,7 +44,7 @@
 
         public int Duration { get; set; }
 
-        public void modify()
+        public void Modify()
         {
             _entries.Clear();
             DateOnly start = RepetitionStartDate;

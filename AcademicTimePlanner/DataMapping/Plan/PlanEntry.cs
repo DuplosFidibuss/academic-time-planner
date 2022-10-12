@@ -30,7 +30,5 @@
         public DateOnly EndDate { get; set; }
 
         public int Duration { get; set; }
-
-        public TimeSpan TimeSpan { get; set; }
     }
 }
