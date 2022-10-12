@@ -5,7 +5,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanTask
     {      
-        private const int NoToggleId = -1;
+        private const long NoToggleId = -1;
 
         [JsonPropertyName("_planEntries")]
         [JsonInclude]
@@ -26,7 +26,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="togglId"></param>
         /// <param name="name"></param>
         
-        public PlanTask(int togglId, string name)
+        public PlanTask(long togglId, string name)
         {
             Id = Guid.NewGuid();
             TogglTaskId = togglId;
@@ -51,7 +51,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public Guid Id { get; }
 
         [JsonPropertyName("TogglTaskId")]
-        public int TogglTaskId { get; set; }
+        public long TogglTaskId { get; set; }
 
         [JsonPropertyName("Name")]
         public string Name { get; set; }
