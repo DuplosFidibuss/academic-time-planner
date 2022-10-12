@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using System.Xml.Linq;
 
 namespace AcademicTimePlanner.DataMapping.Plan
 {
@@ -24,7 +25,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
-        [JsonConstructor]
+        
         public PlanTask(int togglId, string name)
         {
             Id = Guid.NewGuid();
@@ -42,6 +43,9 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _repetitionEntries = new List<PlanEntryRepetition>();
             TogglTaskId = NoToggleId;
         }
+
+        [JsonConstructor]
+        public PlanTask() { }
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
