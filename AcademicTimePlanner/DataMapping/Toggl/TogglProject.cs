@@ -2,6 +2,8 @@
 {
     public class TogglProject
     {
+        public const long NoTogglProjectId = -1;
+
         private List<TogglTask> _taskList;
 
         /// <summary>

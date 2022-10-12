@@ -2,6 +2,8 @@
 {
     public class TogglTask
     {
+        public const long NoTogglTaskId = -1;
+
         private LinkedList<TogglEntrySum> _togglEntrySums;
 
         /// <summary>

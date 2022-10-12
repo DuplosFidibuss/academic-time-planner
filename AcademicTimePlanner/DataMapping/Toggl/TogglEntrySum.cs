@@ -2,8 +2,6 @@
 {
     public class TogglEntrySum
     {
-        public const long NoTogglTaskId = -1;
-
         /// <summary>
         /// This class implements the Toggl entry sum.
         /// This sum consists of Toggl entries provided by Toggl Track.
