@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
-        public TimeSpan(DateOnly startDate, DateTime endDate) {
+        public TimeSpan(DateTime startDate, DateTime endDate) {
             Id = Guid.NewGuid();
             StartDate = startDate;
             EndDate = endDate;
@@ -16,7 +16,7 @@
 
         public Guid Id { get; }
         
-        public DateOnly StartDate { get; }
+        public DateTime StartDate { get; }
 
         public DateTime EndDate { get; }
     }

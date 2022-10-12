@@ -12,7 +12,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <param name="duration"></param>
-        public PlanEntry(string name, DateOnly startDate, DateOnly endDate, int duration)
+        public PlanEntry(string name, DateTime startDate, DateTime endDate, int duration)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -33,10 +33,10 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public string Name { get; set; }
 
         [JsonPropertyName("StartDate")]
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [JsonPropertyName("EndDate")]
-        public DateOnly EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [JsonPropertyName("Duration")]
         public int Duration { get; set; }

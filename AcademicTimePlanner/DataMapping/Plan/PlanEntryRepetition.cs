@@ -17,7 +17,7 @@
         /// <param name="repetitionEndDate"></param>
         /// <param name="interval"></param>
         /// <param name="duration"></param>
-        public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration)
+        public PlanEntryRepetition(string name,  DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, int duration)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -36,9 +36,9 @@
 
         public string Name { get; set; }
 
-        public DateOnly RepetitionStartDate { get; set; }
+        public DateTime RepetitionStartDate { get; set; }
 
-        public DateOnly RepetitionEndDate { get; set; }
+        public DateTime RepetitionEndDate { get; set; }
 
         public int Interval { get; set; }
 
@@ -47,14 +47,14 @@
         public void modify()
         {
             _entries.Clear();
-            DateOnly start = RepetitionStartDate;
-            DateOnly end = RepetitionEndDate;
+            DateTime start = RepetitionStartDate;
+            DateTime end = RepetitionEndDate;
             int i = 1;
 
             while(start < end)
             {
                 string entryName = Name + i;
-                DateOnly oldStart = start;
+                DateTime oldStart = start;
                 start = start.AddDays(Interval-1);
                 if (start > RepetitionEndDate) 
                     start = RepetitionEndDate; 
