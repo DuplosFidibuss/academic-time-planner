@@ -1,11 +1,11 @@
 @page "/toggle"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<h3>Erfasste Zeit pro Tag in Millisekunden</h3>
+<h3>Anzahl Toggl-Projekte</h3>
 
 @if (TogglState.Value.Loaded)
 {
-    <Chart ChartType="bar" CanvasId="barId" ChartData="@TogglChartData"></Chart>
+    <p>@NumberOfTogglProjects Toggl-Projekte geladen</p>
 }
 else
 {
