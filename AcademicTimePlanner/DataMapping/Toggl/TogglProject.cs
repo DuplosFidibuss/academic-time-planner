@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
-        public TogglProject(int togglId, string name)
+        public TogglProject(long togglId, string name)
         {
             Id = Guid.NewGuid();
             TogglId = togglId;
@@ -20,7 +20,7 @@
 
         public Guid Id { get; }
 
-        public int TogglId { get; }
+        public long TogglId { get; }
 
         public string Name { get; set; }
 
