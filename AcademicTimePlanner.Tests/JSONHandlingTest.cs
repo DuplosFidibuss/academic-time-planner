@@ -19,7 +19,7 @@ namespace AcademicTimePlanner.Tests
         private PlanEntryRepetition testPlanEntryRepetition;
         private PlanTask testPlanTask;
         private PlanProject testPlanProject;
-        private importExportJSON ieJson = new importExportJSON();
+        private JsonFileHandler ieJson = new JsonFileHandler();
 
         [TestInitialize]
         public void initialize() 
