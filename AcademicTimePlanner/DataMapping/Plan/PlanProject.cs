@@ -1,13 +1,16 @@
 ﻿using AcademicTimePlanner.DataMapping.Toggl;
+using System.Text.Json.Serialization;
 
 namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanProject
     {
 
-        private const int NoTogglId = -1;
+        private const long NoTogglId = -1;
 
-        private LinkedList<PlanTask> _taskList;
+        [JsonPropertyName("_taskList")]
+        [JsonInclude]
+        public List<PlanTask> _taskList;
 
         /// <summary>
         /// This class implements the plan project.
@@ -17,31 +20,35 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// </summary>
         /// <param name="togglProjectId"></param>
         /// <param name="name"></param>
-        public PlanProject(int togglProjectId, string name)
+        [JsonConstructor]
+        public PlanProject(long togglProjectId, string name)
         {
             Id = Guid.NewGuid();
             TogglProjectId = togglProjectId;
             Name = name;
-            _taskList = new LinkedList<PlanTask>();
+            _taskList = new List<PlanTask>();
         }
 
         public PlanProject(string name)
         {
             Id = Guid.NewGuid();
             Name = name;
-            _taskList = new LinkedList<PlanTask>();
+            _taskList = new List<PlanTask>();
             TogglProjectId = NoTogglId;
         }
 
+        [JsonPropertyName("Id")]
         public Guid Id { get; }
 
-        public int TogglProjectId { get; set; }
+        [JsonPropertyName("TogglProjectId")]
+        public long TogglProjectId { get; set; }
 
+        [JsonPropertyName("Name")]
         public String Name { get; set; }
 
        public void AddPlanTask(PlanTask planTask)
         {
-            _taskList.AddLast(planTask);
+            _taskList.Add(planTask);
         }
 
         public void RemovePlanTask(PlanTask planTask)

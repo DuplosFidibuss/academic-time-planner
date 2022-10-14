@@ -1,8 +1,12 @@
-﻿namespace AcademicTimePlanner.DataMapping.Plan
+﻿using System.Text.Json.Serialization;
+
+namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanEntryRepetition
     {
-        private LinkedList<PlanEntry> _entries;
+        [JsonPropertyName("_entries")]
+        [JsonInclude]
+        public List<PlanEntry> _entries;
 
         /// <summary>
         /// This class implements the plan entry repetition. 
@@ -17,7 +21,9 @@
         /// <param name="repetitionEndDate"></param>
         /// <param name="interval"></param>
         /// <param name="duration"></param>
-        public PlanEntryRepetition(string name,  DateOnly repetitionStartDate, DateOnly repetitionEndDate, int interval, int duration)
+
+        [JsonConstructor]
+        public PlanEntryRepetition(string name,  DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, int duration)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -29,37 +35,44 @@
             Modify();
         }
 
-
+        [JsonPropertyName("Id")]
         public Guid Id { get; }
 
+        [JsonPropertyName("TimeSpan")]
         public TimeSpan TimeSpan { get; set; }
 
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        public DateOnly RepetitionStartDate { get; set; }
+        [JsonPropertyName("RepetitionStartDate")]
+        public DateTime RepetitionStartDate { get; set; }
 
-        public DateOnly RepetitionEndDate { get; set; }
+        [JsonPropertyName("RepetitionEndDate")]
+        public DateTime RepetitionEndDate { get; set; }
 
+        [JsonPropertyName("Interval")]
         public int Interval { get; set; }
 
+        [JsonPropertyName("Duration")]
         public int Duration { get; set; }
 
         public void Modify()
         {
             _entries.Clear();
-            DateOnly start = RepetitionStartDate;
-            DateOnly end = RepetitionEndDate;
+            DateTime start = RepetitionStartDate;
+            DateTime end = RepetitionEndDate;
             int i = 1;
 
             while(start < end)
             {
                 string entryName = Name + i;
-                DateOnly oldStart = start;
+                i += 1;
+                DateTime oldStart = start;
                 start = start.AddDays(Interval-1);
                 if (start > RepetitionEndDate) 
                     start = RepetitionEndDate; 
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
-                _entries.AddLast(planEntry);
+                _entries.Add(planEntry);
                 start = start.AddDays(1);
             }
         }
