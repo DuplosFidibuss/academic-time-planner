@@ -1,5 +1,6 @@
 using AcademicTimePlanner;
 using AcademicTimePlanner.Services.BootstrapModalService;
+using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglApiService;
 using AcademicTimePlanner.Services.TogglService;
 using AcademicTimePlanner.Store.Middleware.Persistence;
@@ -25,5 +26,6 @@ builder.Services.AddFluxor(options => options
 builder.Services.AddScoped<ITogglApiService, TogglApiService>();
 builder.Services.AddScoped<ITogglService, TogglService>();
 builder.Services.AddScoped<IBootstrapModalService, BootstrapModalService>();
+builder.Services.AddScoped<IDataManagerService, DataManagerService>();
 
 await builder.Build().RunAsync();

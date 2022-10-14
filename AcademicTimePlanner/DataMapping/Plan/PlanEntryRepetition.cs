@@ -31,8 +31,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
             Duration = duration;
-            _entries = new List<PlanEntry>();
-            modify();
+            _entries = new LinkedList<PlanEntry>();
+            Modify();
         }
 
         [JsonPropertyName("Id")]
@@ -56,7 +56,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonPropertyName("Duration")]
         public int Duration { get; set; }
 
-        public void modify()
+        public void Modify()
         {
             _entries.Clear();
             DateTime start = RepetitionStartDate;

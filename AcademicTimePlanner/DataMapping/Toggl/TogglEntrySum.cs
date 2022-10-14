@@ -24,7 +24,7 @@
 
         public DateOnly Date { get; }
 
-        public int Duration { get; } 
+        public int Duration { get; set; } 
 
         public long TogglId { get; }
 

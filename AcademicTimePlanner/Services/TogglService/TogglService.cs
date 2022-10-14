@@ -1,5 +1,5 @@
 using AcademicTimePlanner.Services.TogglApiService;
-using AcademicTimePlanner.Store.State.Toggl;
+using AcademicTimePlanner.DataMapping.Toggl;
 
 namespace AcademicTimePlanner.Services.TogglService;
 
@@ -12,19 +12,27 @@ public class TogglService : ITogglService
         _togglApiService = togglApiService;
     }
     
-    public async Task<List<TogglEntrySum>> GetTogglEntrySumAsync(DateOnly since)
+    public async Task<List<TogglProject>> GetTogglProjects(DateOnly since)
     {
         TogglDetailResponse togglDetailResponseWithSinceDate = await _togglApiService.GetDetailsSinceAsync(since);
+        var togglProjects = new List<TogglProject>();
 
-        var togglDetailResponseDatasPerDates = togglDetailResponseWithSinceDate.Data.GroupBy(entry => entry.DateTime.Date, entry => entry, (date, group) => (GroupDate:date, Datas:group.ToList()));
+        togglDetailResponseWithSinceDate.Data.ForEach(response => {
 
-        var togglEntrySumList = togglDetailResponseDatasPerDates.Select(togglDetailResponseDatasPerDate =>
-        {
-            var dateOnly = DateOnly.FromDateTime(togglDetailResponseDatasPerDate.GroupDate);
-            var duration = togglDetailResponseDatasPerDate.Datas.Sum(data => data.Duration);
-            return new TogglEntrySum(dateOnly, duration);
-        }).ToList();
+            var togglProjectId = response.ProjectId.GetValueOrDefault(TogglProject.NoTogglProjectId);
+            var togglTaskId = response.TaskId.GetValueOrDefault(TogglTask.NoTogglTaskId);
 
-        return togglEntrySumList;
+            var togglProject = togglProjects.FindLast(togglProject => togglProject.TogglId == togglProjectId); 
+            if (togglProject == null)
+            {
+                togglProject = new TogglProject(togglProjectId, response.Project);
+                togglProjects.Add(togglProject);
+            }
+
+            var togglTask = togglProject.GetOrCreateTogglTask(togglTaskId, response.Task);
+            togglTask.AddEntry(new TogglEntrySum(DateOnly.FromDateTime(response.StartTime), response.Duration, response.Id, togglTaskId));
+        });
+
+        return togglProjects;
     }
 }
