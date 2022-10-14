@@ -18,8 +18,7 @@ public partial class Toggl
     private string TogglApiKey;
     private string TogglWorkspaceKey;
     
-    private List<(double Number, string Label)> TogglChartData => TogglState.Value.TogglEntrySums
-        .Select(item => ((double) item.Duration, item.Date.ToString("yyyy-MM-dd"))).ToList();
+    private int NumberOfTogglProjects => TogglState.Value.NumberOfTogglProjects;
     
     private const string Title = "Toggl";
     

@@ -2,6 +2,8 @@
 {
     public class TogglTask
     {
+        public const long NoTogglTaskId = -1;
+
         private List<TogglEntrySum> _togglEntrySums;
 
         /// <summary>
@@ -25,9 +27,13 @@
 
         public string Name { get; set; }
 
-        public void AddEntrySum (TogglEntrySum entrySum)
+        public void AddEntry (TogglEntrySum entry)
         {
-            _togglEntrySums.Add(entrySum);
+            var entrySumOfSameDay = _togglEntrySums.FindLast(entrySum => entrySum.Date.Equals(entry.Date));
+            if (entrySumOfSameDay != null)
+                entrySumOfSameDay.Duration += entry.Duration;
+            else
+                _togglEntrySums.Add(entry);
         }
     }
 }

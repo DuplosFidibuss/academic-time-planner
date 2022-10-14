@@ -39,6 +39,5 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         [JsonPropertyName("Duration")]
         public int Duration { get; set; }
-
     }
 }

@@ -7,13 +7,13 @@ public class TogglState
 {
     public bool Loaded { get; }
 
-    public List<TogglEntrySum> TogglEntrySums { get; }
+    public int NumberOfTogglProjects { get; }
 
     private TogglState() { }
 
-    public TogglState(bool loaded, List<TogglEntrySum> togglEntrySums)
+    public TogglState(bool loaded, int numberOfTogglProjects)
     {
         Loaded = loaded;
-        TogglEntrySums = togglEntrySums;
+        NumberOfTogglProjects = numberOfTogglProjects;
     }
 }
