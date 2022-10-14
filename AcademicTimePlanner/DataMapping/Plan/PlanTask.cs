@@ -5,7 +5,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanTask
     {      
-        private const long NoToggleId = -1;
+        private const long NoTogglId = -1;
 
         [JsonPropertyName("_planEntries")]
         [JsonInclude]
@@ -41,7 +41,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             Name = name;
             _planEntries = new List<PlanEntry>();
             _repetitionEntries = new List<PlanEntryRepetition>();
-            TogglTaskId = NoToggleId;
+            TogglTaskId = NoTogglId;
         }
 
         [JsonConstructor]
