@@ -8,6 +8,27 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonInclude]
         public List<PlanEntry> _entries;
 
+        [JsonPropertyName("Id")]
+        public Guid Id { get; }
+
+        [JsonPropertyName("TimeSpan")]
+        public TimeSpan TimeSpan { get; set; }
+
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("RepetitionStartDate")]
+        public DateTime RepetitionStartDate { get; set; }
+
+        [JsonPropertyName("RepetitionEndDate")]
+        public DateTime RepetitionEndDate { get; set; }
+
+        [JsonPropertyName("Interval")]
+        public int Interval { get; set; }
+
+        [JsonPropertyName("Duration")]
+        public int Duration { get; set; }
+
         /// <summary>
         /// This class implements the plan entry repetition. 
         /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.
@@ -34,27 +55,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _entries = new LinkedList<PlanEntry>();
             Modify();
         }
-
-        [JsonPropertyName("Id")]
-        public Guid Id { get; }
-
-        [JsonPropertyName("TimeSpan")]
-        public TimeSpan TimeSpan { get; set; }
-
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("RepetitionStartDate")]
-        public DateTime RepetitionStartDate { get; set; }
-
-        [JsonPropertyName("RepetitionEndDate")]
-        public DateTime RepetitionEndDate { get; set; }
-
-        [JsonPropertyName("Interval")]
-        public int Interval { get; set; }
-
-        [JsonPropertyName("Duration")]
-        public int Duration { get; set; }
 
         public void Modify()
         {

@@ -5,6 +5,11 @@ namespace AcademicTimePlanner.DataMapping.Budget
     public class Budget
     {
         private List<PlanProjectBudget> _planProjectBudgets;
+        public Guid Id { get; }
+
+        public string Name { get; set; }
+
+        public int Duration { get; set; }
 
         /// <summary>
         /// This is an optional class for better management of non uniform projects.
@@ -18,13 +23,6 @@ namespace AcademicTimePlanner.DataMapping.Budget
             Duration = duration;
             _planProjectBudgets = new List<PlanProjectBudget>();
         }
-
-        public Guid Id { get; }
-
-        public string Name { get; set; }
-
-        public int Duration { get; set; }
-
         public void AddPlanProjectBudget(PlanProjectBudget planProjectBudget)
         {
             _planProjectBudgets.Add(planProjectBudget);

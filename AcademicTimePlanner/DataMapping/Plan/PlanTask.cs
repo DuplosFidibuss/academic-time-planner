@@ -15,6 +15,18 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonInclude]
         public List<PlanEntryRepetition> _repetitionEntries;
 
+        [JsonConstructor]
+        public PlanTask() { }
+
+        [JsonPropertyName("Id")]
+        public Guid Id { get; }
+
+        [JsonPropertyName("TogglTaskId")]
+        public long TogglTaskId { get; set; }
+
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
         /// <summary>
         /// This class implements a plan task. 
         /// A task can be liked to a <see cref="Toggl.TogglTask"> Toggl task</see> but does not have to.
@@ -25,7 +37,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
-        
+
         public PlanTask(long togglId, string name)
         {
             Id = Guid.NewGuid();
@@ -43,18 +55,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _repetitionEntries = new List<PlanEntryRepetition>();
             TogglTaskId = NoTogglId;
         }
-
-        [JsonConstructor]
-        public PlanTask() { }
-
-        [JsonPropertyName("Id")]
-        public Guid Id { get; }
-
-        [JsonPropertyName("TogglTaskId")]
-        public long TogglTaskId { get; set; }
-
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
 
         public void AddPlanEntry(PlanEntry planEntry)
         {

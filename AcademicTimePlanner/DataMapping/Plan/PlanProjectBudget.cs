@@ -4,6 +4,12 @@
     {
         private List<PlanProject> _projects;
 
+        public Guid Id { get; }
+
+        public string Name { get; set; }
+
+        public int Percentage { get; set; }
+
         /// <summary>
         /// This class implements the conection between the <see cref="PlanProject"> plan project </see> and the <see cref="Budget.Budget"> budget </see>.
         /// 
@@ -16,12 +22,6 @@
             Id = Guid.NewGuid();
             Percentage = 0;
         }
-
-        public Guid Id { get; }
-
-        public string Name { get; set; }
-
-        public int Percentage { get; set; }
 
         public void AddPlanProject(PlanProject planProject)
         {

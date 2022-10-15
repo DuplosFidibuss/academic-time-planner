@@ -12,6 +12,15 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonInclude]
         public List<PlanTask> _taskList;
 
+        [JsonPropertyName("Id")]
+        public Guid Id { get; }
+
+        [JsonPropertyName("TogglProjectId")]
+        public long TogglProjectId { get; set; }
+
+        [JsonPropertyName("Name")]
+        public String Name { get; set; }
+
         /// <summary>
         /// This class implements the plan project.
         /// The project can be linked to a <see cref="TogglProject"> Toggl project</see> but it does not have to.
@@ -36,15 +45,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _taskList = new List<PlanTask>();
             TogglProjectId = NoTogglId;
         }
-
-        [JsonPropertyName("Id")]
-        public Guid Id { get; }
-
-        [JsonPropertyName("TogglProjectId")]
-        public long TogglProjectId { get; set; }
-
-        [JsonPropertyName("Name")]
-        public String Name { get; set; }
 
        public void AddPlanTask(PlanTask planTask)
         {
