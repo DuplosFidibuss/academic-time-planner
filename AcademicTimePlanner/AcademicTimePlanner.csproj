@@ -30,7 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="JSON_Files\PlanProject.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="DataMapping\Budget\" />
-    <Folder Include="JSON_Files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="JSON_Files\PlanProject.json" />
   </ItemGroup>
 </Project>
