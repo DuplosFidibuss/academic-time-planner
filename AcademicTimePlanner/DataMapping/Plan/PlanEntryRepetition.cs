@@ -52,7 +52,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
             Duration = duration;
-            _entries = new LinkedList<PlanEntry>();
+            _entries = new List<PlanEntry>();
             Modify();
         }
 
