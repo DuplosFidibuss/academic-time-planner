@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
 
 namespace AcademicTimePlanner.Services.DataManagerService
@@ -14,6 +15,8 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// </summary>
         /// <param name="togglProjects"></param>
         /// <returns><c>true</c> if the update was successful, otherwise <c>false</c>.</returns>
-        public Task<bool> SetTogglProjects(List<TogglProject> togglProjects);
+        public Task SetTogglProjects(List<TogglProject> togglProjects);
+
+        public Task SetPlanProjects(List<PlanProject> planProjects);
     }
 }
