@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
 using Blazored.LocalStorage;
 
@@ -13,27 +14,18 @@ namespace AcademicTimePlanner.Services.DataManagerService
             _localStorage = localStorage;
         }
 
-        public async Task<bool> SetTogglProjects(List<TogglProject> togglProjects)
+        public async Task SetTogglProjects(List<TogglProject> togglProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
-            var isInitialized = await _localStorage.GetItemAsync<bool>("Initialized");
-            if (dataManager == null)
-            {
-                if (!isInitialized)
-                {
-                    dataManager = new DataManager();
-                    await _localStorage.SetItemAsync("Initialized", true);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            await _localStorage.RemoveItemAsync(nameof(DataManager));
             dataManager.TogglProjects = togglProjects;
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
-            return true;
+        }
+
+        public async Task SetPlanProjects(List<PlanProject> planProjects)
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            dataManager.PlanProjects = planProjects;
+            await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
     }
 }

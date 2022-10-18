@@ -45,7 +45,7 @@ namespace AcademicTimePlanner.Tests
         [TestMethod]
         public void testLoadJson()
         {
-            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName; ;
+            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
             string dataPath = directory + @"\AcademicTimePlanner.Tests\JSON_Files\PlanProject.json";
             PlanProject loadedPlanProject = ieJson.loadJson(dataPath);
             Assert.AreEqual(testPlanProject.Name, loadedPlanProject.Name);

@@ -1,3 +1,13 @@
 ﻿@page "/"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <PageTitle>AcademicTimePlanner</PageTitle>
+
+@if (ProjectFilesState.Value.Loaded)
+{
+    <p>@NumberOfPlanProjects Plan-Projekte geladen</p>
+}
+else
+{
+    <InputFile OnChange="@LoadPlanProjects" />
+}

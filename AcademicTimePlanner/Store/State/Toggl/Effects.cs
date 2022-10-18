@@ -20,11 +20,7 @@ public class Effects
     public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
     {
         List<TogglProject> togglDetailResponseWithSinceDate = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddDays(-30));
-        bool hasDataBeenSaved = await _dataManagerService.SetTogglProjects(togglDetailResponseWithSinceDate);
-
-        if (hasDataBeenSaved)
-            dispatcher.Dispatch(new SetTogglDataAction(togglDetailResponseWithSinceDate.Count));
-        else
-            dispatcher.Dispatch(new SetTogglDataAction(0));
+        await _dataManagerService.SetTogglProjects(togglDetailResponseWithSinceDate);
+        dispatcher.Dispatch(new SetTogglDataAction(togglDetailResponseWithSinceDate.Count));
     }
 }
