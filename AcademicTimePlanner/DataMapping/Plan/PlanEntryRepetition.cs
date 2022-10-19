@@ -76,5 +76,10 @@ namespace AcademicTimePlanner.DataMapping.Plan
                 start = start.AddDays(1);
             }
         }
+
+        public int GetTotalTime()
+        {
+            return (from entry in _entries select entry.Duration).Sum();
+        }
     }
 }

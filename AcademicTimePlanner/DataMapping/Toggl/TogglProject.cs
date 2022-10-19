@@ -1,4 +1,7 @@
-﻿namespace AcademicTimePlanner.DataMapping.Toggl
+﻿using System;
+using System.Linq;
+
+namespace AcademicTimePlanner.DataMapping.Toggl
 {
     public class TogglProject
     {
@@ -45,6 +48,11 @@
                 AddTogglTask(togglTask);
             }
             return togglTask;
+        }
+
+        public int GetTotalTime()
+        {
+            return (from task in _taskList select task.GetTotalTime()).Sum();
         }
     }
 }
