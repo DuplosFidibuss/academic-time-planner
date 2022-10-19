@@ -75,7 +75,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _repetitionEntries.Remove(planEntryRepetition);
         }
 
-        public int GetTotalTime()
+        public double GetTotalTime()
         {
             return (from planEntry in _planEntries select planEntry.Duration).Sum() + (from repetitionEntry in _repetitionEntries select repetitionEntry.GetTotalTime()).Sum();
         }

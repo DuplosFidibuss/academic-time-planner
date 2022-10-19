@@ -5,6 +5,16 @@ namespace AcademicTimePlanner.Data
 {
     public class ChartData
     {
+        public List<TogglProject> TogglProjects { get; }
+
+        public List<PlanProject> PlanProjects { get; }
+
+        public double TotalTrackedTime { get; }
+
+        public double TotalPlannedTime { get; }
+
+        public double RemainingTime { get; }
+
         /// <summary>
         /// This class holds all data needed for the graphical overview of planning and tracked time data.
         /// </summary>
@@ -19,14 +29,5 @@ namespace AcademicTimePlanner.Data
             RemainingTime = TotalPlannedTime - TotalTrackedTime;
         }
 
-        public List<TogglProject> TogglProjects { get; }
-
-        public List<PlanProject> PlanProjects { get; }
-
-        public int TotalTrackedTime { get; }
-
-        public int TotalPlannedTime { get; }
-
-        public int RemainingTime { get; }
     }
 }

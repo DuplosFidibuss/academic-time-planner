@@ -1,10 +1,5 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.JSONHandling;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AcademicTimePlanner.Tests
 {

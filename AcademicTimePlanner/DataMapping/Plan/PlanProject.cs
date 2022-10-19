@@ -56,7 +56,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _taskList.Remove(planTask);
         }
 
-        public int GetTotalTime()
+        public double GetTotalTime()
         {
             return (from planTask in _taskList select planTask.GetTotalTime()).Sum();
         }

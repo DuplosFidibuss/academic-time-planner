@@ -27,7 +27,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public int Interval { get; set; }
 
         [JsonPropertyName("Duration")]
-        public int Duration { get; set; }
+        public double Duration { get; set; }
 
         /// <summary>
         /// This class implements the plan entry repetition. 
@@ -44,7 +44,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="duration"></param>
 
         [JsonConstructor]
-        public PlanEntryRepetition(string name,  DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, int duration)
+        public PlanEntryRepetition(string name,  DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -77,7 +77,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             }
         }
 
-        public int GetTotalTime()
+        public double GetTotalTime()
         {
             return (from entry in _entries select entry.Duration).Sum();
         }
