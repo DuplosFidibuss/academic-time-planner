@@ -27,7 +27,9 @@ public partial class Charts
         {
             Text = "Bar"
         },
-        BarMode = BarModeEnum.Stack,
+        BarMode = BarModeEnum.Group,
+        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0 }, new XAxis { Anchor="free", Position=0, Overlaying="x" } },
+
         Height = 500
     };
 
@@ -37,13 +39,29 @@ public partial class Charts
         {
             X = new List<object> {"giraffes", "orangutans", "monkeys"},
             Y = new List<object> {20, 14, 23},
-            Name = "SF Zoo"
+            Name = "SF Zoo",
         },
         new Bar
         {
             X = new List<object> {"giraffes", "orangutans", "monkeys"},
             Y = new List<object> {12, 18, 29},
-            Name = "LA Zoo"
+            Name = "LA Zoo",
+        },
+        new Bar
+        {
+            X = new List<object> {"giraffes", "orangutans", "monkeys"},
+            Y = new List<object> {20, 5, 5},
+            Name = "Addition",
+            XAxis = "x2",
+            Opacity = (decimal) 0.5
+        },
+        new Bar
+        {
+            X = new List<object> {"giraffes", "orangutans", "monkeys"},
+            Y = new List<object> {22, 0, 0},
+            Name = "Addition",
+            XAxis = "x2",
+            Opacity = (decimal) 0.5
         }
     };
 
