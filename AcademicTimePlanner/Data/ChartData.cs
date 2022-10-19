@@ -5,6 +5,11 @@ namespace AcademicTimePlanner.Data
 {
     public class ChartData
     {
+        /// <summary>
+        /// This class holds all data needed for the graphical overview of planning and tracked time data.
+        /// </summary>
+        /// <param name="togglProjects"></param>
+        /// <param name="planProjects"></param>
         public ChartData(List<TogglProject> togglProjects, List<PlanProject> planProjects)
         {
             TogglProjects = togglProjects;
