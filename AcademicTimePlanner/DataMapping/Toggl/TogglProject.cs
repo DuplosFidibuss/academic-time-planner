@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace AcademicTimePlanner.DataMapping.Toggl
+﻿namespace AcademicTimePlanner.DataMapping.Toggl
 {
     public class TogglProject
     {
