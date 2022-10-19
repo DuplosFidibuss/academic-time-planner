@@ -47,7 +47,7 @@
             return togglTask;
         }
 
-        public int GetTotalTime()
+        public double GetTotalTime()
         {
             return (from task in _taskList select task.GetTotalTime()).Sum();
         }

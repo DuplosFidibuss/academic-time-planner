@@ -21,7 +21,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
     public DateTime EndDate { get; set; }
 
     [JsonPropertyName("Duration")]
-    public int Duration { get; set; }
+    public double Duration { get; set; }
    
         /// <summary>
         /// This class implements a single plan entry. It has a start and an end date as well as a duration and a name.
@@ -32,7 +32,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="endDate"></param>
         /// <param name="duration"></param>
         [JsonConstructor]
-        public PlanEntry(string name, DateTime startDate, DateTime endDate, int duration)
+        public PlanEntry(string name, DateTime startDate, DateTime endDate, double duration)
         {
             Id = Guid.NewGuid();
             Name = name;
