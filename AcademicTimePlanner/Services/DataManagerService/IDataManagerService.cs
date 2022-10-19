@@ -23,5 +23,11 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// <param name="planProjects"></param>
         /// <returns></returns>
         public Task SetPlanProjects(List<PlanProject> planProjects);
+
+        /// <summary>
+        /// Gets the current chart data from the <see cref="DataManager"/>
+        /// </summary>
+        /// <returns></returns>
+        public Task<ChartData> GetChartData();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using System.Xml.Linq;
 
 namespace AcademicTimePlanner.DataMapping.Plan
 {
@@ -74,6 +73,11 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)
         {
             _repetitionEntries.Remove(planEntryRepetition);
+        }
+
+        public int GetTotalTime()
+        {
+            return (from planEntry in _planEntries select planEntry.Duration).Sum() + (from repetitionEntry in _repetitionEntries select repetitionEntry.GetTotalTime()).Sum();
         }
     }
 }
