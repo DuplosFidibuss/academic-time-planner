@@ -4,9 +4,9 @@
     {
         public Guid Id { get; }
 
-        public DateOnly Date { get; }
+        public DateTime Date { get; }
 
-        public int Duration { get; set; }
+        public double Duration { get; set; }
 
         public long TogglId { get; }
 
@@ -21,7 +21,7 @@
         /// <param name="togglId"></param>
         /// <param name="togglTaskId"></param>
 
-        public TogglEntrySum(DateOnly date, int duration, long togglId, long togglTaskId)
+        public TogglEntrySum(DateTime date, double duration, long togglId, long togglTaskId)
         {
             Id = Guid.NewGuid();
             Date = date;
