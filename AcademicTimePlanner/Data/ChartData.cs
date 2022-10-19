@@ -9,16 +9,19 @@ namespace AcademicTimePlanner.Data
         {
             TogglProjects = togglProjects;
             PlanProjects = planProjects;
+            TotalTrackedTime = (from togglProject in togglProjects select togglProject.GetTotalTime()).Sum();
+            TotalPlannedTime = (from planProject in planProjects select planProject.GetTotalTime()).Sum();
+            RemainingTime = TotalPlannedTime - TotalTrackedTime;
         }
 
-        public List<TogglProject> TogglProjects { get; set; }
+        public List<TogglProject> TogglProjects { get; }
 
-        public List<PlanProject> PlanProjects { get; set; }
+        public List<PlanProject> PlanProjects { get; }
 
-        public int TotalTrackedTime { get; set; }
+        public int TotalTrackedTime { get; }
 
-        public int TotalPlannedTime { get; set; }
+        public int TotalPlannedTime { get; }
 
-        public int RemainingTime { get; set; }
+        public int RemainingTime { get; }
     }
 }
