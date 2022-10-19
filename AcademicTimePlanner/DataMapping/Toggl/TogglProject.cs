@@ -6,6 +6,12 @@
 
         private List<TogglTask> _taskList;
 
+        public Guid Id { get; }
+
+        public long TogglId { get; }
+
+        public string Name { get; set; }
+
         /// <summary>
         /// This class implements the conection between the application and TogglTrack projects.
         /// A project can have multiple <see cref="TogglTask"> Toggl tasks</see>.
@@ -19,12 +25,6 @@
             Name = name;
             _taskList = new List<TogglTask>();
         }
-
-        public Guid Id { get; }
-
-        public long TogglId { get; }
-
-        public string Name { get; set; }
 
         public void AddTogglTask(TogglTask togglTask)
         {

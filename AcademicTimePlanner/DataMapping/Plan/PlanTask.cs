@@ -1,11 +1,31 @@
-﻿namespace AcademicTimePlanner.DataMapping.Plan
+﻿using System.Text.Json.Serialization;
+using System.Xml.Linq;
+
+namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanTask
     {      
-        private const int NoToggleId = -1;
+        private const long NoTogglId = -1;
 
-        private LinkedList<PlanEntry> _planEntries;
-        private LinkedList<PlanEntryRepetition> _repetitionEntries;
+        [JsonPropertyName("_planEntries")]
+        [JsonInclude]
+        public List<PlanEntry> _planEntries;
+
+        [JsonPropertyName("_repetitionEntries")]
+        [JsonInclude]
+        public List<PlanEntryRepetition> _repetitionEntries;
+
+        [JsonConstructor]
+        public PlanTask() { }
+
+        [JsonPropertyName("Id")]
+        public Guid Id { get; }
+
+        [JsonPropertyName("TogglTaskId")]
+        public long TogglTaskId { get; set; }
+
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// This class implements a plan task. 
@@ -17,33 +37,28 @@
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
-        public PlanTask(int togglId, string name)
+
+        public PlanTask(long togglId, string name)
         {
             Id = Guid.NewGuid();
             TogglTaskId = togglId;
             Name = name;
-            _planEntries = new LinkedList<PlanEntry>();
-            _repetitionEntries = new LinkedList<PlanEntryRepetition>();
+            _planEntries = new List<PlanEntry>();
+            _repetitionEntries = new List<PlanEntryRepetition>();
         }
 
         public PlanTask(string name)
         {
             Id = Guid.NewGuid();
             Name = name;
-            _planEntries = new LinkedList<PlanEntry>();
-            _repetitionEntries = new LinkedList<PlanEntryRepetition>();
-            TogglTaskId = NoToggleId;
+            _planEntries = new List<PlanEntry>();
+            _repetitionEntries = new List<PlanEntryRepetition>();
+            TogglTaskId = NoTogglId;
         }
-
-        public Guid Id { get; }
-
-        public int TogglTaskId { get; set; }
-     
-        public string Name { get; set; }
 
         public void AddPlanEntry(PlanEntry planEntry)
         {
-            _planEntries.AddLast(planEntry);
+            _planEntries.Add(planEntry);
         }
 
         public void RemovePlanEntry(PlanEntry planEntry)
@@ -53,7 +68,7 @@
 
         public void AddRepetitionEntry(PlanEntryRepetition planEntryRepetition)
         {
-            _repetitionEntries.AddLast(planEntryRepetition);
+            _repetitionEntries.Add(planEntryRepetition);
         }
 
         public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)

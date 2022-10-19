@@ -352,3 +352,5 @@ MigrationBackup/
 #LATEX
 !**/doc/**.pdf
 doc/*.pdf
+AcademicTimePlanner/JSON_Files/*.json
+

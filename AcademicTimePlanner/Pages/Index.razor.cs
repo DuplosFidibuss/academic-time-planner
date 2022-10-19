@@ -1,13 +1,20 @@
+using AcademicTimePlanner.Store.State.ProjectFiles;
 using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace AcademicTimePlanner.Pages;
 
 public partial class Index
 {
     [Inject]
+    private IState<ProjectFilesState> ProjectFilesState { get; set; }
+
+    [Inject]
     private IDispatcher Dispatcher { get; set; }
+
+    private int NumberOfPlanProjects => ProjectFilesState.Value.NumberOfPlanProjects;
     
     private const string Title = "Startseite";
 
@@ -15,5 +22,11 @@ public partial class Index
     {
         base.OnInitialized();
         Dispatcher.Dispatch(new SetTitleAction(Title));
+    }
+
+    private async Task LoadPlanProjects(InputFileChangeEventArgs e)
+    {
+        var json = await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
+        Dispatcher.Dispatch(new LoadPlanProjectsAction(json));
     }
 }

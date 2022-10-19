@@ -4,7 +4,12 @@ namespace AcademicTimePlanner.DataMapping.Budget
 {
     public class Budget
     {
-        private LinkedList<PlanProjectBudget> _planProjectBudgets;
+        private List<PlanProjectBudget> _planProjectBudgets;
+        public Guid Id { get; }
+
+        public string Name { get; set; }
+
+        public int Duration { get; set; }
 
         /// <summary>
         /// This is an optional class for better management of non uniform projects.
@@ -16,18 +21,11 @@ namespace AcademicTimePlanner.DataMapping.Budget
             Id = Guid.NewGuid();
             Name = name;
             Duration = duration;
-            _planProjectBudgets = new LinkedList<PlanProjectBudget>();
+            _planProjectBudgets = new List<PlanProjectBudget>();
         }
-
-        public Guid Id { get; }
-
-        public string Name { get; set; }
-
-        public int Duration { get; set; }
-
         public void AddPlanProjectBudget(PlanProjectBudget planProjectBudget)
         {
-            _planProjectBudgets.AddLast(planProjectBudget);
+            _planProjectBudgets.Add(planProjectBudget);
         }
 
         public void RemovePlanProjectBudget(PlanProjectBudget planProjectBudget)

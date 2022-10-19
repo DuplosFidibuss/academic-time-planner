@@ -6,6 +6,12 @@
 
         private List<TogglEntrySum> _togglEntrySums;
 
+        public Guid Id { get; }
+
+        public long TogglId { get; }
+
+        public string Name { get; set; }
+
         /// <summary>
         /// This class implements the conection between ToggleTrack tasks and the application.
         /// Only application relevant data is saved.
@@ -20,12 +26,6 @@
             Name = name;
             _togglEntrySums = new List<TogglEntrySum>();
         }
-
-        public Guid Id { get; }
-
-        public long TogglId { get; }
-
-        public string Name { get; set; }
 
         public void AddEntry (TogglEntrySum entry)
         {

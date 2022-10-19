@@ -24,7 +24,7 @@ The different features, however, have not been fully implemented yet. The charts
 \section{Toggl Track}
 Toggl Track is an easy-to-use, multifunctional online time tracking application. Tasks can be tracked and grouped into projects. Tracking can be started and stopped using start and stop buttons. Times can also be manually entered and assigned to a task and a project. Toggl Track offers many additional functionalities including billing and invoicing, payroll calculating, generation of detailed reports and project budgeting. Toggl Track can be used on different devices like computers, smartphones and tablets. The tracking data is then synchronized between the devices. Furthermore, Toggl Track provides an API to be used to query tracked time entries from Toggl Track which can then be used outside Toggl Track itself, e. g. by other applications. \cite{bachelorarbeit_Egger_Verstappen_page8} \cite{toggl_track_url}
 
-\section{Mapping Concept}
+\section{Mapping Concept} \label{Mapping concept}
 The mapping concept developed in the aforementioned bachelor thesis \cite{bachelorarbeit_Egger_Verstappen_page20-22} laid the foundation for this project. It determined how the data structure would be built and how the application would interact with Toggl Track. The concept was split into three entities; Plan, Toggl, and Budget and Group. 
 
 \begin{figure}[H]
@@ -58,3 +58,18 @@ GitHub Actions is a (CI/CD) platform \cite{github_actions_url}. It allows for bu
 \subsection{GitHub Issues} \label{GitHub Issues}
 Issues are often related to features and the corresponding feature branches. They provide the possibility to break down a milestone into manageable tasks which can then be assigned to the members of the team to work on. Thus, tasks and their assigned members can be monitored and identified. 
 
+\section{JSON}
+JSON (JavaScript Object Notation) \cite{json_url} is a data-interchange format. JSON is easily readable by humans and machines alike. It is also easy to write/generate a JSON file. Furthermore, it is language independent.\newline
+JSON consists of two structures:
+\begin{itemize}
+	\item A collection of unordered name/value pairs. They are enclosed in curly brackets. A pair is seperated by a colon and after each name/value pair, a comma follows to separate them from the next pair.
+	\item An ordered list of variables. Such a list starts with a left and ends with a right square bracket.
+\end{itemize}
+These two structures can be combined in a JSON file to get something akin to the JSON file shown in picture \ref{figure4}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\columnwidth]{JSONExample}
+	\caption{Example of a JSON file}
+	\label{figure4}
+\end{figure}
