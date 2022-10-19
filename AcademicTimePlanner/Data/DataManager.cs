@@ -19,5 +19,10 @@ namespace AcademicTimePlanner.Data
         public List<Budget> Budgets { get; set; }
         public List<PlanProject> PlanProjects { get; set; }
         public List<TogglProject> TogglProjects { get; set; }
+
+        public ChartData GetChartData()
+        {
+            return new ChartData(TogglProjects, PlanProjects);
+        }
     }
 }
