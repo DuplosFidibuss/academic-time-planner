@@ -1,5 +1,14 @@
 @page "/chart"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 @using Plotly.Blazor.LayoutLib
 
-<PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart"/>
+@if (ChartsState.Value.Loaded)
+{
+    <PlotlyChart Id="TestId" Config="config" Layout="layout" Data=GetData() @ref="chart"/>
+}
+else
+{
+    <button type="button" class="btn btn-secondary" @onclick="LoadChartData">Diagramme laden</button>
+}
+

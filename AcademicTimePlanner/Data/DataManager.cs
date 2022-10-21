@@ -13,7 +13,7 @@ namespace AcademicTimePlanner.Data
         {
             Budgets = new List<Budget>();
             PlanProjects = new List<PlanProject>();
-            TogglProjects = new List<TogglProject>();
+            TogglProjects = new List<TogglProject>() { TestTogglProject.GetTestTogglProject() };
         }
 
         public List<Budget> Budgets { get; set; }
