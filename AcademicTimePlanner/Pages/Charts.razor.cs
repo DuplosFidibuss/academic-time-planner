@@ -44,10 +44,16 @@ public partial class Charts
         {
             new Bar
             {
-                X = new List<object> {"Total planned", "Total tracked"},
-                Y = new List<object> {ChartData!.TotalPlannedTime, ChartData!.TotalTrackedTime},
-                Name = "Total",
+                X = new List<object> {"Total"},
+                Y = new List<object> {ChartData!.TotalPlannedTime},
+                Name = "Total planned"
             },
+            new Bar
+            {
+                X = new List<object> {"Total"},
+                Y = new List<object> {ChartData!.TotalTrackedTime},
+                Name = "Total tracked"
+            }
         };    
     }
 
