@@ -47,9 +47,9 @@
             return togglTask;
         }
 
-        public double GetTotalTime()
+        public double GetTotalDuration()
         {
-            return (from task in _taskList select task.GetTotalTime()).Sum();
+            return (from task in _taskList select task.GetTotalDuration()).Sum();
         }
     }
 }

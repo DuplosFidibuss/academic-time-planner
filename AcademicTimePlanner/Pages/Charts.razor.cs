@@ -6,6 +6,7 @@ using Plotly.Blazor;
 using Bar = Plotly.Blazor.Traces.Bar;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -20,6 +21,7 @@ public partial class Charts
     private ChartData? ChartData => ChartsState.Value.ChartData;
     
     private const string Title = "Graphen";
+    private const string TotalChartTitle = "Total";
     
     PlotlyChart chart;
 
@@ -28,32 +30,99 @@ public partial class Charts
         Responsive = true
     };
 
-    Layout layout = new Layout
+    Layout layoutTotal = new Layout
     {
         Title = new Title
         {
             Text = "Total overview"
         },
         BarMode = BarModeEnum.Group,
-        Height = 500
+        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0 }, new XAxis { Anchor="free", Position=0, Overlaying="x" } },
+        Height = 500,
+        Width = 500,
     };
 
-    private List<ITrace> GetData()
+    Layout layoutProjects = new Layout
+    {
+        Title = new Title
+        {
+            Text = "Projects overview"
+        },
+        BarMode = BarModeEnum.Group,
+        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0 }, new XAxis { Anchor="free", Position=0, Overlaying="x" } },
+        Height = 500,
+        Width = 700,
+    };
+
+    private List<ITrace> GetDataOfSingleProjectsToday()
+    {
+        var data = new List<ITrace>();
+        foreach (PlanProject planProject in ChartData!.PlanProjects)
+        {
+            var title = planProject.Name;
+            var togglProject = ChartData.GetTogglProjectWithTogglId(planProject.TogglProjectId);
+            var projectData = new List<ITrace>
+            {
+                new Bar
+                {
+                    X = new List<object> {title},
+                    Y = new List<object> {planProject.GetTotalDuration()},
+                    Name = "Predicted"
+                },
+                new Bar
+                {
+                    X = new List<object> {title},
+                    Y = new List<object> {togglProject!.GetTotalDuration() + planProject.GetRemainingDuration()},
+                    Name = "Predicted"
+                },
+                new Bar
+                {
+                    X = new List<object> {title},
+                    Y = new List<object> {planProject.GetTotalDuration() - planProject.GetRemainingDuration()},
+                    Name = "Planned",
+                    XAxis = "x2",
+
+                },
+                new Bar
+                {
+                    X = new List<object> {title},
+                    Y = new List<object> {togglProject!.GetTotalDuration()},
+                    Name = "Tracked",
+                    XAxis = "x2",
+
+                },
+            };
+            data.AddRange(projectData);
+        }
+        return data;
+    }
+
+    private List<ITrace> GetDataTotal()
     {
         return new List<ITrace>
         {
             new Bar
             {
-                X = new List<object> {"Total"},
-                Y = new List<object> {ChartData!.TotalPlannedTime},
-                Name = "Total planned"
+                X = new List<object> {TotalChartTitle},
+                Y = new List<object> {ChartData!.TotalTrackedTime + ChartData!.RemainingDuration},
+                Name = "Total predicted",
             },
             new Bar
             {
-                X = new List<object> {"Total"},
+                X = new List<object> {TotalChartTitle},
+                Y = new List<object> {ChartData!.TotalPlannedTime},
+                Name = "Total planned",
+                XAxis = "x2",
+
+            },
+            new Bar
+            {
+                X = new List<object> {TotalChartTitle},
                 Y = new List<object> {ChartData!.TotalTrackedTime},
-                Name = "Total tracked"
-            }
+                Name = "Total tracked",
+                XAxis = "x2",
+
+            },
         };    
     }
 

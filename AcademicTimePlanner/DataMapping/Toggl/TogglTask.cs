@@ -36,7 +36,7 @@
                 _togglEntrySums.Add(entry);
         }
 
-        public double GetTotalTime()
+        public double GetTotalDuration()
         {
             return (from entrySum in _togglEntrySums select entrySum.Duration).Sum();
         }
