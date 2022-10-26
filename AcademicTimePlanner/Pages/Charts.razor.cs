@@ -149,4 +149,9 @@ public partial class Charts
         Dispatcher.Dispatch(new SetTitleAction(Title));
         Dispatcher.Dispatch(new FetchChartDataAction());
     }
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("HandleValidSubmit");
+    }
 }
