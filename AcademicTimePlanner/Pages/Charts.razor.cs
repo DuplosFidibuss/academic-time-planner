@@ -58,6 +58,37 @@ public partial class Charts
         BarGroupGap = 0
     };
 
+    private List<ITrace> GetDataTotal()
+    {
+        return new List<ITrace>
+        {
+            new Bar
+            {
+                X = new List<object> {TotalChartTitle},
+                Y = new List<object> {ChartData!.TotalTrackedTime + ChartData!.RemainingDuration},
+                Name = "Total predicted",
+                Marker = PredictedDurationMarker,
+            },
+            new Bar
+            {
+                X = new List<object> {TotalChartTitle},
+                Y = new List<object> {ChartData!.TotalPlannedTime},
+                Name = "Total planned",
+                XAxis = "x2",
+                Marker = PlannedDurationMarker,
+
+            },
+            new Bar
+            {
+                X = new List<object> {TotalChartTitle},
+                Y = new List<object> {ChartData!.TotalTrackedTime},
+                Name = "Total tracked",
+                XAxis = "x2",
+                Marker = TrackedDurationMarker,
+            },
+        };    
+    }
+
     private List<ITrace> GetDataOfSingleProjectsToday()
     {
         var titles = new List<object>();
@@ -76,7 +107,7 @@ public partial class Charts
             trackedDurations.Add(togglProject.GetTotalDuration());
         }
 
-        var data = new List<ITrace>
+        return new List<ITrace>
         {
             new Bar
             {
@@ -109,38 +140,59 @@ public partial class Charts
                 Marker = TrackedDurationMarker,
             },
         };
-        return data;
     }
 
-    private List<ITrace> GetDataTotal()
+    private List<ITrace> GetDataOfSingleProjectsFiltered()
     {
+        var titles = new List<object>();
+        var totalDurations = new List<object>();
+        var predictedDurations = new List<object>();
+        var plannedDurations = new List<object>();
+        var trackedDurations = new List<object>();
+
+        foreach (var planProject in ChartData!.PlanProjects)
+        {
+            var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
+            titles.Add(planProject.Name);
+            totalDurations.Add(planProject.GetTotalDuration());
+            predictedDurations.Add(togglProject.GetTotalDuration() + planProject.GetRemainingDuration());
+            plannedDurations.Add(planProject.GetTotalDuration() - planProject.GetRemainingDuration());
+            trackedDurations.Add(togglProject.GetTotalDuration());
+        }
+
         return new List<ITrace>
         {
             new Bar
             {
-                X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ChartData!.TotalTrackedTime + ChartData!.RemainingDuration},
-                Name = "Total predicted",
+                X = titles,
+                Y = totalDurations,
+                Name = "Predicted",
+                Marker = TotalDurationMarker,
+            },
+            new Bar
+            {
+                X = titles,
+                Y = predictedDurations,
+                Name = "Predicted",
                 Marker = PredictedDurationMarker,
             },
             new Bar
             {
-                X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ChartData!.TotalPlannedTime},
-                Name = "Total planned",
+                X = titles,
+                Y = plannedDurations,
+                Name = "Planned",
                 XAxis = "x2",
                 Marker = PlannedDurationMarker,
-
             },
             new Bar
             {
-                X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ChartData!.TotalTrackedTime},
-                Name = "Total tracked",
+                X = titles,
+                Y = trackedDurations,
+                Name = "Tracked",
                 XAxis = "x2",
                 Marker = TrackedDurationMarker,
             },
-        };    
+        };
     }
 
     protected override void OnInitialized()
@@ -152,6 +204,6 @@ public partial class Charts
 
     private void HandleValidSubmit()
     {
-        Console.WriteLine("HandleValidSubmit");
+        Dispatcher.Dispatch(new FilterChartDataAction());
     }
 }

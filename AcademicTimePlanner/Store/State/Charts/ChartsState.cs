@@ -10,9 +10,9 @@ namespace AcademicTimePlanner.Store.State.Charts
 
         public ChartData? ChartData { get; }
 
-        public DateTime DefaultStartDate { get; set; } = DateTime.Today.AddDays(-30);
+        public DateTime FilterStartDate { get; set; } = DateTime.Today.AddDays(-30);
 
-        public DateTime DefaultEndDate { get; set; } = DateTime.Today;
+        public DateTime FilterEndDate { get; set; } = DateTime.Today;
 
         private ChartsState() { }
 

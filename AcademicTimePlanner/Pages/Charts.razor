@@ -3,18 +3,20 @@
 
 @using Plotly.Blazor.LayoutLib
 
-<EditForm Model="@ChartsState" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <label>Start date: <InputDate id="StartDate" @bind-Value="ChartsState.Value.DefaultStartDate" /></label>
-    <label>End date: <InputDate id="EndDate" @bind-Value="ChartsState.Value.DefaultEndDate" /></label>
-    <button type="submit">Submit</button>
-</EditForm>
-
 @if (ChartsState.Value.Loaded)
 {
     <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
     <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
+
+    <EditForm Model="@ChartsState" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <label>Start date: <InputDate id="StartDate" @bind-Value="ChartsState.Value.FilterStartDate" /></label>
+        <label>End date: <InputDate id="EndDate" @bind-Value="ChartsState.Value.FilterEndDate" /></label>
+        <button type="submit">Submit</button>
+    </EditForm>
+
+    <PlotlyChart Id="Projects filtered" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsFiltered()/>
 }
 
