@@ -5,11 +5,7 @@
 
 @if (ChartsState.Value.Loaded)
 {
-    <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday() @ref="chart"/>
-    <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal() @ref="chart"/>
-}
-else
-{
-    <button type="button" class="btn btn-secondary" @onclick="LoadChartData">Diagramme laden</button>
+    <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
+    <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
 }
 
