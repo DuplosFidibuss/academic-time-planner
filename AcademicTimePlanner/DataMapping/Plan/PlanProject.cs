@@ -65,5 +65,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
         {
             return (from planTask in _taskList select planTask.GetRemainingDuration()).Sum();
         }
+
+        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            double duration = 0;
+            _taskList.ForEach(planTask => duration += planTask.GetDurationInTimeRange(startDate, endDate));
+            return duration;
+        }
     }
 }

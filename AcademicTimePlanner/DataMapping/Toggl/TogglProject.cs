@@ -51,5 +51,12 @@
         {
             return (from task in _taskList select task.GetTotalDuration()).Sum();
         }
+
+        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            double duration = 0;
+            _taskList.ForEach(togglTask => duration += togglTask.GetDurationInTimeRange(startDate, endDate));
+            return duration;
+        }
     }
 }

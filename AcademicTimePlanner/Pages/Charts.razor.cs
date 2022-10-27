@@ -19,6 +19,8 @@ public partial class Charts
     private IDispatcher Dispatcher { get; set; }
 
     private ChartData? ChartData => ChartsState.Value.ChartData;
+    private DateTime FilterStartDate => ChartsState.Value.FilterStartDate;
+    private DateTime FilterEndDate => ChartsState.Value.FilterEndDate;
     
     private const string Title = "Graphen";
     private const string TotalChartTitle = "Total";
@@ -53,6 +55,18 @@ public partial class Charts
         },
         BarMode = BarModeEnum.Group,
         XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45 }, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
+        Height = 500,
+        AutoSize = true,
+        BarGroupGap = 0
+    };
+
+    Layout layoutProjectsFiltered = new Layout
+    {
+        Title = new Title
+        {
+            Text = "Projects time range overview"
+        },
+        BarMode = BarModeEnum.Group,
         Height = 500,
         AutoSize = true,
         BarGroupGap = 0
@@ -101,6 +115,7 @@ public partial class Charts
         {
             var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
             titles.Add(planProject.Name);
+
             totalDurations.Add(planProject.GetTotalDuration());
             predictedDurations.Add(togglProject.GetTotalDuration() + planProject.GetRemainingDuration());
             plannedDurations.Add(planProject.GetTotalDuration() - planProject.GetRemainingDuration());
@@ -145,37 +160,24 @@ public partial class Charts
     private List<ITrace> GetDataOfSingleProjectsFiltered()
     {
         var titles = new List<object>();
-        var totalDurations = new List<object>();
-        var predictedDurations = new List<object>();
         var plannedDurations = new List<object>();
         var trackedDurations = new List<object>();
 
         foreach (var planProject in ChartData!.PlanProjects)
         {
+            double plannedDurationInTimeRange = planProject.GetDurationInTimeRange(FilterStartDate, FilterEndDate);
+            if (plannedDurationInTimeRange == 0)
+                continue;
+
             var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
             titles.Add(planProject.Name);
-            totalDurations.Add(planProject.GetTotalDuration());
-            predictedDurations.Add(togglProject.GetTotalDuration() + planProject.GetRemainingDuration());
-            plannedDurations.Add(planProject.GetTotalDuration() - planProject.GetRemainingDuration());
-            trackedDurations.Add(togglProject.GetTotalDuration());
+
+            plannedDurations.Add(plannedDurationInTimeRange);
+            trackedDurations.Add(togglProject.GetDurationInTimeRange(FilterStartDate, FilterEndDate));
         }
 
         return new List<ITrace>
         {
-            new Bar
-            {
-                X = titles,
-                Y = totalDurations,
-                Name = "Predicted",
-                Marker = TotalDurationMarker,
-            },
-            new Bar
-            {
-                X = titles,
-                Y = predictedDurations,
-                Name = "Predicted",
-                Marker = PredictedDurationMarker,
-            },
             new Bar
             {
                 X = titles,
