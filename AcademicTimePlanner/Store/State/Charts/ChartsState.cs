@@ -8,15 +8,18 @@ namespace AcademicTimePlanner.Store.State.Charts
     {
         public bool Loaded { get; }
 
+        public bool LoadedFiltered { get; }
+
         public ChartData? ChartData { get; }
 
         public DateFilter? DateFilter { get; }
 
         private ChartsState() { }
 
-        public ChartsState(bool loaded, ChartData chartData, DateFilter dateFilter)
+        public ChartsState(bool loaded, bool loadedFiltered, ChartData chartData, DateFilter dateFilter)
         {
             Loaded = loaded;
+            LoadedFiltered = loadedFiltered;
             ChartData = chartData;
             DateFilter = dateFilter;
         }

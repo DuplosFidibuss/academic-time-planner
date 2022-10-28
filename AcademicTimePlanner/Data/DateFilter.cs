@@ -5,10 +5,10 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public DateFilter(DateTime startDate, DateTime endDate)
+        public DateFilter()
         {
-            StartDate = startDate;
-            EndDate = endDate;
+            StartDate = DateTime.Today.AddDays(-30);
+            EndDate = DateTime.Today;
         }
     }
 }

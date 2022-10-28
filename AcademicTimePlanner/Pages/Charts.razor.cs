@@ -207,4 +207,9 @@ public partial class Charts
     {
         Dispatcher.Dispatch(new FilterChartDataAction());
     }
+
+    private void ChangeFilter()
+    {
+        Dispatcher.Dispatch(new ChangeFilterAction());
+    }
 }
