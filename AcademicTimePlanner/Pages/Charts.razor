@@ -8,15 +8,15 @@
     <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
     <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
 
-    <EditForm Model="@ChartsState" OnValidSubmit="@HandleValidSubmit">
+    <EditForm Model="@DateFilter" OnValidSubmit="@SetDateFilter">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        <label>Start date: <InputDate id="StartDate" @bind-Value="ChartsState.Value.FilterStartDate" /></label>
-        <label>End date: <InputDate id="EndDate" @bind-Value="ChartsState.Value.FilterEndDate" /></label>
+        <label>Start date: <InputDate id="StartDate" @bind-Value="DateFilter.StartDate" /></label>
+        <label>End date: <InputDate id="EndDate" @bind-Value="DateFilter.EndDate" /></label>
         <button type="submit">Submit</button>
     </EditForm>
 
-    <PlotlyChart Id="Projects filtered" Config="config" Layout="layoutProjectsFiltered" Data=GetDataOfSingleProjectsFiltered()/>
+    <PlotlyChart Id="ProjectsFiltered" Config="config" Layout="layoutProjectsFiltered" Data="GetDataOfSingleProjectsFiltered()"/>
 }
 

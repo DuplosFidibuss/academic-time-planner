@@ -10,18 +10,15 @@ namespace AcademicTimePlanner.Store.State.Charts
 
         public ChartData? ChartData { get; }
 
-        public DateTime FilterStartDate { get; set; }
-
-        public DateTime FilterEndDate { get; set; }
+        public DateFilter? DateFilter { get; }
 
         private ChartsState() { }
 
-        public ChartsState(bool loaded, ChartData chartData, DateTime filterStartDate, DateTime filterEndDate)
+        public ChartsState(bool loaded, ChartData chartData, DateFilter dateFilter)
         {
             Loaded = loaded;
             ChartData = chartData;
-            FilterStartDate = filterStartDate;
-            FilterEndDate = filterEndDate;
+            DateFilter = dateFilter;
         }
     }
 }

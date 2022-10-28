@@ -19,8 +19,7 @@ public partial class Charts
     private IDispatcher Dispatcher { get; set; }
 
     private ChartData? ChartData => ChartsState.Value.ChartData;
-    private DateTime FilterStartDate => ChartsState.Value.FilterStartDate;
-    private DateTime FilterEndDate => ChartsState.Value.FilterEndDate;
+    private DateFilter? DateFilter => ChartsState.Value.DateFilter;
     
     private const string Title = "Graphen";
     private const string TotalChartTitle = "Total";
@@ -165,7 +164,7 @@ public partial class Charts
 
         foreach (var planProject in ChartData!.PlanProjects)
         {
-            double plannedDurationInTimeRange = planProject.GetDurationInTimeRange(FilterStartDate, FilterEndDate);
+            double plannedDurationInTimeRange = planProject.GetDurationInTimeRange(DateFilter!.StartDate, DateFilter.EndDate);
             if (plannedDurationInTimeRange == 0)
                 continue;
 
@@ -173,7 +172,7 @@ public partial class Charts
             titles.Add(planProject.Name);
 
             plannedDurations.Add(plannedDurationInTimeRange);
-            trackedDurations.Add(togglProject.GetDurationInTimeRange(FilterStartDate, FilterEndDate));
+            trackedDurations.Add(togglProject!.GetDurationInTimeRange(DateFilter.StartDate, DateFilter.EndDate));
         }
 
         return new List<ITrace>
@@ -204,7 +203,7 @@ public partial class Charts
         Dispatcher.Dispatch(new FetchChartDataAction());
     }
 
-    private void HandleValidSubmit()
+    private void SetDateFilter()
     {
         Dispatcher.Dispatch(new FilterChartDataAction());
     }

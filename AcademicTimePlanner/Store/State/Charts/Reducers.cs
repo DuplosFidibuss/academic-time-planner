@@ -1,4 +1,5 @@
 ﻿using Fluxor;
+using AcademicTimePlanner.Data;
 
 namespace AcademicTimePlanner.Store.State.Charts
 {
@@ -7,13 +8,13 @@ namespace AcademicTimePlanner.Store.State.Charts
         [ReducerMethod]
         public static ChartsState Reduce(ChartsState state , SetChartDataAction action)
         {
-            return new ChartsState(true, action.ChartData, DateTime.Today.AddDays(-30), DateTime.Today);
+            return new ChartsState(true, action.ChartData, new DateFilter(DateTime.Today.AddDays(-30), DateTime.Today));
         }
 
         [ReducerMethod]
         public static ChartsState Reduce(ChartsState state, FilterChartDataAction action)
         {
-            return new ChartsState(true, state.ChartData!, state.FilterStartDate, state.FilterEndDate);
+            return new ChartsState(true, state.ChartData!, state.DateFilter!);
         }
     }
 }
