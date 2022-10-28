@@ -14,27 +14,19 @@ namespace AcademicTimePlanner.Data
         private static readonly TogglEntrySum togglEntrySum_3 = new TogglEntrySum(date_3, 1.5, 3, 1);
         private static readonly TogglEntrySum togglEntrySum_4 = new TogglEntrySum(date_4, 2, 4, 1);
 
-        private static readonly TogglTask togglTask = new TogglTask(1, "TestTogglTask_1");
-        
-
-        private static readonly TogglProject togglProject = new TogglProject(1, "TestTogglProject_1");
-
-        private static void addEntries()
+        private static void addEntries(TogglTask task)
         {
-            togglTask.AddEntry(togglEntrySum_1);
-            togglTask.AddEntry(togglEntrySum_2);
-            togglTask.AddEntry(togglEntrySum_3);
-            togglTask.AddEntry(togglEntrySum_4);
+            task.AddEntry(togglEntrySum_1);
+            task.AddEntry(togglEntrySum_2);
+            task.AddEntry(togglEntrySum_3);
+            task.AddEntry(togglEntrySum_4);
         }
 
-        private static void addTasks()
-        {
+        public static TogglProject GetTestTogglProject() {
+            var togglTask = new TogglTask(1, "TestTogglTask_1");
+            addEntries(togglTask);
+            var togglProject = new TogglProject(1, "TestTogglProject_1");
             togglProject.AddTogglTask(togglTask);
-        }
-
-        public static TogglProject GetTestTogglProject() { 
-            addEntries();
-            addTasks();
             return togglProject; 
         }
     }
