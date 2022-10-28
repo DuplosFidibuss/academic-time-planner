@@ -5,7 +5,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanProject
     {
-
         private const long NoTogglId = -1;
 
         [JsonPropertyName("_taskList")]
