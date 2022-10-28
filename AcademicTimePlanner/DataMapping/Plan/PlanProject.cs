@@ -58,12 +58,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         public double GetTotalDuration()
         {
-            return (from planTask in _taskList select planTask.GetTotalDuration()).Sum();
+            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
         }
 
         public double GetRemainingDuration()
         {
-            return (from planTask in _taskList select planTask.GetRemainingDuration()).Sum();
+            return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
         }
 
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)

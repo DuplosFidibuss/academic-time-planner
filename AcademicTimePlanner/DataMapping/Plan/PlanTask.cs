@@ -75,17 +75,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _repetitionEntries.Remove(planEntryRepetition);
         }
 
-        public double GetTotalDuration()
-        {
-            return (from planEntry in _planEntries select planEntry.Duration).Sum() + (from repetitionEntry in _repetitionEntries select repetitionEntry.GetTotalDuration()).Sum();
-        }
-
-        public double GetRemainingDuration()
-        {
-            return (from planEntry in _planEntries.FindAll(planEntry => planEntry.EndDate > DateTime.Today) select planEntry.Duration).Sum() +
-                   (from repetitionEntry in _repetitionEntries select repetitionEntry.GetRemainingDuration()).Sum();
-        }
-
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +

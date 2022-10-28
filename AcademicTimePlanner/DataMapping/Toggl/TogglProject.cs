@@ -49,7 +49,7 @@
 
         public double GetTotalDuration()
         {
-            return (from task in _taskList select task.GetTotalDuration()).Sum();
+            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
         }
 
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)

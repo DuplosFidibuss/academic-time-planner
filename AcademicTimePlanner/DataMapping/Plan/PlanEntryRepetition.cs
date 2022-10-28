@@ -77,16 +77,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
             }
         }
 
-        public double GetTotalDuration()
-        {
-            return (from entry in _entries select entry.Duration).Sum();
-        }
-
-        public double GetRemainingDuration()
-        {
-            return (from entry in _entries.FindAll(entry => entry.EndDate > DateTime.Today) select entry.Duration).Sum();
-        }
-
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             return (from entry in _entries.FindAll(entry => entry.StartDate >= startDate && entry.EndDate <= endDate) select entry.Duration).Sum();
