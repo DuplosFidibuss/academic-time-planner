@@ -5,7 +5,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanProject
     {
-
         private const long NoTogglId = -1;
 
         [JsonPropertyName("_taskList")]
@@ -56,9 +55,21 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _taskList.Remove(planTask);
         }
 
-        public double GetTotalTime()
+        public double GetTotalDuration()
         {
-            return (from planTask in _taskList select planTask.GetTotalTime()).Sum();
+            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
+        }
+
+        public double GetRemainingDuration()
+        {
+            return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
+        }
+
+        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            double duration = 0;
+            _taskList.ForEach(planTask => duration += planTask.GetDurationInTimeRange(startDate, endDate));
+            return duration;
         }
     }
 }

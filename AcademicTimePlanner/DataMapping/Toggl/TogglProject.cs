@@ -47,9 +47,16 @@
             return togglTask;
         }
 
-        public double GetTotalTime()
+        public double GetTotalDuration()
         {
-            return (from task in _taskList select task.GetTotalTime()).Sum();
+            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
+        }
+
+        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            double duration = 0;
+            _taskList.ForEach(togglTask => duration += togglTask.GetDurationInTimeRange(startDate, endDate));
+            return duration;
         }
     }
 }

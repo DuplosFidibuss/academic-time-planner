@@ -1,5 +1,28 @@
-@page "/chart"
+@page "/charts"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 @using Plotly.Blazor.LayoutLib
 
-<PlotlyChart Id="TestId" Config="config" Layout="layout" Data="data" @ref="chart"/>
+@if (ChartsState.Value.Loaded)
+{
+    <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
+    <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
+
+    @if (!ChartsState.Value.LoadedFiltered)
+    {
+        <EditForm Model="@DateFilter" OnValidSubmit="@SetDateFilter">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <label>Start date: <InputDate id="StartDate" @bind-Value="DateFilter.StartDate" /></label>
+            <label>End date: <InputDate id="EndDate" @bind-Value="DateFilter.EndDate" /></label>
+            <button type="submit">Filter setzen</button>
+        </EditForm>
+    }
+    else
+    {
+        <PlotlyChart Id="ProjectsFiltered" Config="config" Layout="layoutProjectsFiltered" Data="GetDataOfSingleProjectsFiltered()"/>
+        <button type="button" class="btn btn-secondary" @onclick="ChangeFilter">Filter neu setzen</button>
+    }
+}
+

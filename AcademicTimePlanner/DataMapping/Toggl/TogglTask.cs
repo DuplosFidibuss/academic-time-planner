@@ -36,9 +36,9 @@
                 _togglEntrySums.Add(entry);
         }
 
-        public double GetTotalTime()
+        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            return (from entrySum in _togglEntrySums select entrySum.Duration).Sum();
+            return (from entrySum in _togglEntrySums.FindAll(entrySum => entrySum.Date >= startDate && entrySum.Date <= endDate) select entrySum.Duration).Sum();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AcademicTimePlanner.Data
 
         public double TotalPlannedTime { get; }
 
-        public double RemainingTime { get; }
+        public double RemainingDuration { get; }
 
         /// <summary>
         /// This class holds all data needed for the graphical overview of planning and tracked time data.
@@ -24,10 +24,14 @@ namespace AcademicTimePlanner.Data
         {
             TogglProjects = togglProjects;
             PlanProjects = planProjects;
-            TotalTrackedTime = (from togglProject in togglProjects select togglProject.GetTotalTime()).Sum();
-            TotalPlannedTime = (from planProject in planProjects select planProject.GetTotalTime()).Sum();
-            RemainingTime = TotalPlannedTime - TotalTrackedTime;
+            TotalTrackedTime = (from togglProject in togglProjects select togglProject.GetTotalDuration()).Sum();
+            TotalPlannedTime = (from planProject in planProjects select planProject.GetTotalDuration()).Sum();
+            RemainingDuration = (from planProject in planProjects select planProject.GetRemainingDuration()).Sum();
         }
 
+        public TogglProject? GetTogglProjectWithTogglId(long id)
+        {
+            return TogglProjects.FindLast(togglProject => togglProject.TogglId == id);
+        }
     }
 }
