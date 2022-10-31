@@ -47,6 +47,9 @@ All four packages were tested by trying to include a sample chart into the appli
 	\label{figure1}
 \end{figure}
 
+\subsection{Test projects}
+To correctly simulate a working environment test projects were created. These projects include a toggl project with the same characteristics as a real project imported from TogglTrack. This allowed to simulate the situation without the need of a real project from TogglTrack. A further test project was a JSON file which simulated a real save state of a plan project. This allowed to test the loading of a saved plan project as well as the use of said project internally for other methods like the display of the discrepancy of the plan project and the current state in the toggl project. The combination of these two projects allowed the whole application to run without the need for real data while still displaying reasonable values for the user.
+
 \section{Organization methodology}
 For this project a reduced and modified version of SCRUM \cite{scrum_url} was chosen. The modifications include reducing the daily SCRUM meetings to two to three meetings a week, as we did not work on the project full time. One of these meetings was also attended by our project advisor Mr. Feisthammel. This meeting was usually held on Tuesday morning. There, a short progress report as well as the next weekly goals were discussed. Milestones as described in chapter \ref{Time management} have been defined. They roughly correspond with the two-week sprint plan. An additional reduction is the absence of a sprint review as we do something similar in the weekly meetings described above. The point system as well as the burn down chart were also dropped.
 
@@ -55,4 +58,6 @@ For appropriate software code management, the Git version control system and the
 
 \section{Time management} \label{Time management}
 Four milestones were proposed at the beginning of the project. They were taken from the project outline and include three programming milestones and one documentation milestone. The first one was the implementation of the overview of difference between plan and tracking, followed by the application status display. The final programming milestone was composed of the import and export as well as the creation of plan projects. After this the documentation had to be finalized. These milestones were meant as a guideline to see if the progress was adequate or if we had to rethink our approach. Those milestones were created and managed in GitHub (see chapter \ref{GitHub}). 
+
+
 
