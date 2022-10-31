@@ -12,8 +12,8 @@
           "Id": "1",
           "TimeSpan": null,
           "Name": "testPlanEntry_1",
-          "StartDate": "2022-01-01T00:00:00",
-          "EndDate": "2022-01-02T00:00:00",
+          "StartDate": "2022-10-16T00:00:00",
+          "EndDate": "2022-10-22T00:00:00",
           "Duration": 2
         }
       ],
@@ -22,49 +22,49 @@
           "Id": "1",
           "TimeSpan": null,
           "Name": "testPlanEntryRepetition_1",
-          "RepetitionStartDate": "2022-01-01T00:00:00",
-          "RepetitionEndDate": "2022-01-31T00:00:00",
+          "RepetitionStartDate": "2022-10-16T00:00:00",
+          "RepetitionEndDate": "2022-11-15T00:00:00",
           "Interval": 7,
           "Duration": 2,
           "_entries": [
             {
-              "Id": "1",
+              "Id": "11",
               "TimeSpan": null,
               "Name": "testPlanEntryRepetition_11",
-              "StartDate": "2022-01-01T00:00:00",
-              "EndDate": "2022-01-07T00:00:00",
+              "StartDate": "2022-10-16T00:00:00",
+              "EndDate": "2022-10-22T00:00:00",
               "Duration": 2
             },
             {
-              "Id": "2",
+              "Id": "12",
               "TimeSpan": null,
               "Name": "testPlanEntryRepetition_12",
-              "StartDate": "2022-01-08T00:00:00",
-              "EndDate": "2022-01-14T00:00:00",
+              "StartDate": "2022-10-23T00:00:00",
+              "EndDate": "2022-10-29T00:00:00",
               "Duration": 2
             },
             {
-              "Id": "3",
+              "Id": "13",
               "TimeSpan": null,
               "Name": "testPlanEntryRepetition_13",
-              "StartDate": "2022-01-15T00:00:00",
-              "EndDate": "2022-01-21T00:00:00",
+              "StartDate": "2022-10-30T00:00:00",
+              "EndDate": "2022-11-05T00:00:00",
               "Duration": 2
             },
             {
-              "Id": "4",
+              "Id": "14",
               "TimeSpan": null,
               "Name": "testPlanEntryRepetition_14",
-              "StartDate": "2022-01-22T00:00:00",
-              "EndDate": "2022-01-28T00:00:00",
+              "StartDate": "2022-11-06T00:00:00",
+              "EndDate": "2022-11-12T00:00:00",
               "Duration": 2
             },
             {
-              "Id": "5",
+              "Id": "15",
               "TimeSpan": null,
               "Name": "testPlanEntryRepetition_15",
-              "StartDate": "2022-01-29T00:00:00",
-              "EndDate": "2022-01-31T00:00:00",
+              "StartDate": "2022-11-13T00:00:00",
+              "EndDate": "2022-11-15T00:00:00",
               "Duration": 2
             }
           ]
