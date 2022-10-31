@@ -23,7 +23,7 @@ namespace AcademicTimePlanner.Data
         public ChartData GetChartData()
         {
             TogglProjects.Clear();
-            TogglProjects.Add(TestTogglProject.GetTestTogglProject());
+            TogglProjects = TestTogglProject.GetTestTogglProject();
             return new ChartData(TogglProjects, PlanProjects);
         }
     }

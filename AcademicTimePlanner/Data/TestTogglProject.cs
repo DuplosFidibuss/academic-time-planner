@@ -22,13 +22,21 @@ namespace AcademicTimePlanner.Data
             //task.AddEntry(togglEntrySum_4);
         }
 
-        public static TogglProject GetTestTogglProject()
+        public static List<TogglProject> GetTestTogglProject()
         {
+            List<TogglProject> togglProjects = new List<TogglProject>();
             var togglTask = new TogglTask(1, "TestTogglTask_1");
             addEntries(togglTask);
-            var togglProject = new TogglProject(1, "TestTogglProject_1");
-            togglProject.AddTogglTask(togglTask);
-            return togglProject;
+
+            var togglProject_1 = new TogglProject(1, "TestTogglProject_1");
+            var togglProject_2 = new TogglProject(2, "TestTogglProject_2");
+
+            togglProject_1.AddTogglTask(togglTask);
+            togglProject_2.AddTogglTask(togglTask);
+
+            togglProjects.Add(togglProject_1);
+            togglProjects.Add(togglProject_2);
+            return togglProjects;
         }
     }
 }
