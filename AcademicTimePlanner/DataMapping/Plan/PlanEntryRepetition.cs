@@ -11,9 +11,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonPropertyName("Id")]
         public Guid Id { get; }
 
-        [JsonPropertyName("TimeSpan")]
-        public TimeSpan TimeSpan { get; set; }
-
         [JsonPropertyName("Name")]
         public string Name { get; set; }
 
