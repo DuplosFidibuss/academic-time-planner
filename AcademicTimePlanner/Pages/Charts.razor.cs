@@ -165,8 +165,9 @@ public partial class Charts
         foreach (var planProject in ChartData!.PlanProjects)
         {
             double plannedDurationInTimeRange = planProject.GetDurationInTimeRange(DateFilter!.StartDate, DateFilter.EndDate);
-            if (plannedDurationInTimeRange == 0)
-                continue;
+            //TODO fix this as it blockes visualisation of tracked time if planned time is longer than filter.
+            /*if (plannedDurationInTimeRange == 0) 
+            continue;*/
 
             var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
             titles.Add(planProject.Name);
