@@ -4,7 +4,7 @@
     {
         public const long NoTogglTaskId = -1;
 
-        private List<TogglEntrySum> _togglEntrySums;
+        public List<TogglEntrySum> _togglEntrySums;
 
         public Guid Id { get; }
 

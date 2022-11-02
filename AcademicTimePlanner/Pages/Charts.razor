@@ -21,7 +21,10 @@
     }
     else
     {
-        <PlotlyChart Id="ProjectsFiltered" Config="config" Layout="layoutProjectsFiltered" Data="GetDataOfSingleProjectsFiltered()"/>
+        @foreach(var project in ChartData.PlanProjects)
+        {
+            <PlotlyChart Id="ProjectsFiltered" Config="config" Layout="GetLayout()" Data="GetDataOfSingleProjectsFiltered(project)" />
+        }        
         <button type="button" class="btn btn-secondary" @onclick="ChangeFilter">Filter neu setzen</button>
     }
 }

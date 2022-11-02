@@ -1,4 +1,6 @@
-﻿namespace AcademicTimePlanner.DataMapping.Toggl
+﻿using AcademicTimePlanner.DataMapping.Plan;
+
+namespace AcademicTimePlanner.DataMapping.Toggl
 {
     public class TogglProject
     {
@@ -52,11 +54,55 @@
             return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
         }
 
-        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             double duration = 0;
             _taskList.ForEach(togglTask => duration += togglTask.GetDurationInTimeRange(startDate, endDate));
             return duration;
+        }
+
+        public List<double> GetDurationTime()
+        {
+            List<double> duration = new List<double>();
+            return duration;
+        }
+        
+        public List<DateTime> GetDurationDate()
+        {
+            List<DateTime> duration = new List<DateTime>();
+            return duration;
+        }
+
+        private SortedDictionary<DateTime, double> GetDuration()
+        {
+            SortedDictionary<DateTime, double> duration = new SortedDictionary<DateTime, double>();
+            double sum = 0;
+
+            foreach (TogglTask task in _taskList)
+            {
+                foreach (TogglEntrySum entry in task._togglEntrySums)
+                {
+                    duration.Add(entry.Date, entry.Duration);
+                }
+                
+            }
+            foreach (var entry in duration.Keys)
+            {
+                sum += duration[entry];
+                duration[entry] = sum;
+            }
+            return duration;
+        }
+
+        public SortedDictionary<DateTime, double> GetDurationDictionaryInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            SortedDictionary<DateTime, double> result = new SortedDictionary<DateTime, double>();
+
+            foreach (var entry in GetDuration())
+            {
+                if (entry.Key >= startDate && entry.Key <= endDate) result.Add(entry.Key, entry.Value);
+            }
+            return result;
         }
     }
 }

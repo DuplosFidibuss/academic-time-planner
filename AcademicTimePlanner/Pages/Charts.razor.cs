@@ -4,9 +4,12 @@ using Microsoft.AspNetCore.Components;
 using Plotly.Blazor.LayoutLib;
 using Plotly.Blazor;
 using Bar = Plotly.Blazor.Traces.Bar;
+using Scatter = Plotly.Blazor.Traces.Scatter;
 using Marker = Plotly.Blazor.Traces.BarLib.Marker;
+using Plotly.Blazor.Traces.ScatterLib;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -59,17 +62,20 @@ public partial class Charts
         BarGroupGap = 0
     };
 
-    Layout layoutProjectsFiltered = new Layout
+    //TODO change to linediagram
+    private Layout GetLayout()
     {
-        Title = new Title
+        return new Layout
         {
-            Text = "Projects time range overview"
-        },
-        BarMode = BarModeEnum.Group,
-        Height = 500,
-        AutoSize = true,
-        BarGroupGap = 0
-    };
+            Title = new Title
+            {
+                Text = "Project overview in time range (" + DateFilter.StartDate.Date + " - " + DateFilter.EndDate.Date + ")"
+            },
+
+            Height = 500,
+            AutoSize = true,
+        };
+    }
 
     private List<ITrace> GetDataTotal()
     {
@@ -156,43 +162,32 @@ public partial class Charts
         };
     }
 
-    private List<ITrace> GetDataOfSingleProjectsFiltered()
+    private List<ITrace> GetDataOfSingleProjectsFiltered(PlanProject planProject)
     {
+        var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
         var titles = new List<object>();
-        var plannedDurations = new List<object>();
-        var trackedDurations = new List<object>();
+        var plannedDurations = planProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
+        var trackedDurations = togglProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
-        foreach (var planProject in ChartData!.PlanProjects)
-        {
-            double plannedDurationInTimeRange = planProject.GetDurationInTimeRange(DateFilter!.StartDate, DateFilter.EndDate);
-            //TODO fix this as it blockes visualisation of tracked time if planned time is longer than filter.
-            /*if (plannedDurationInTimeRange == 0) 
-            continue;*/
-
-            var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
-            titles.Add(planProject.Name);
-
-            plannedDurations.Add(plannedDurationInTimeRange);
-            trackedDurations.Add(togglProject!.GetDurationInTimeRange(DateFilter.StartDate, DateFilter.EndDate));
-        }
+        titles.Add(planProject.Name);
 
         return new List<ITrace>
         {
-            new Bar
+            new Scatter
             {
-                X = titles,
-                Y = plannedDurations,
+                X = (IList<object>)plannedDurations.Keys.ToList(),
+                Y = (IList<object>)plannedDurations.Values.ToList(),
                 Name = "Planned",
-                XAxis = "x2",
-                Marker = PlannedDurationMarker,
+                Mode = ModeFlag.Lines| ModeFlag.Markers,
+                //Marker = PlannedDurationMarker,
             },
-            new Bar
+            new Scatter
             {
-                X = titles,
-                Y = trackedDurations,
+                X = (IList<object>)trackedDurations.Keys.ToList(),
+                Y = (IList<object>)trackedDurations.Values.ToList(),
                 Name = "Tracked",
-                XAxis = "x2",
-                Marker = TrackedDurationMarker,
+                Mode = ModeFlag.Lines| ModeFlag.Markers,
+                //Marker = TrackedDurationMarker,
             },
         };
     }

@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.DataMapping.Toggl;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace AcademicTimePlanner.DataMapping.Plan
@@ -65,11 +66,57 @@ namespace AcademicTimePlanner.DataMapping.Plan
             return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
         }
 
-        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             double duration = 0;
             _taskList.ForEach(planTask => duration += planTask.GetDurationInTimeRange(startDate, endDate));
             return duration;
+        }
+
+        private SortedDictionary<DateTime, double> GetDuration()
+        {
+            SortedDictionary<DateTime, double> duration = new SortedDictionary<DateTime, double>();
+            double sum = 0;
+
+            foreach(PlanTask planTask in _taskList)
+            {
+                foreach (PlanEntry entry in planTask._planEntries)
+                {
+                    duration.Add(entry.StartDate, entry.Duration);
+                }
+                foreach (PlanEntryRepetition entries in planTask._repetitionEntries)
+                {
+                    foreach (PlanEntry entry in entries._entries)
+                    {
+                        if (duration.ContainsKey(entry.StartDate))
+                        {
+                            duration[entry.StartDate] += entry.Duration;
+                        }
+                        else
+                        {
+                            duration.Add(entry.StartDate, entry.Duration);
+                        }
+                        duration.Add(entry.EndDate, 0);
+                    }
+                }
+            }
+            foreach(var entry in duration.Keys)
+            {
+                sum += duration[entry];
+                duration[entry] = sum;
+            }
+            return duration;
+        } 
+
+        public SortedDictionary<DateTime,double> GetDurationDictionaryInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            SortedDictionary<DateTime, double> result = new SortedDictionary<DateTime, double>();
+
+            foreach(var entry in GetDuration())
+            {
+                if (entry.Key >= startDate && entry.Key <= endDate) result.Add(entry.Key, entry.Value);
+            }
+            return result;
         }
     }
 }
