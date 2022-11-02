@@ -1,4 +1,4 @@
-@page "/toggle"
+@page "/toggl"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <h3>Anzahl Toggl-Projekte</h3>
@@ -10,5 +10,12 @@
 else
 {
     <p>Keine Daten geladen - Toggl-Einstellungen fehlen</p>
-    <button type="button" class="btn btn-secondary" @onclick="SaveTogglSettings">Toggl-Einstellungen eingeben</button>
+    
+    <EditForm Model="@TogglSettings" OnValidSubmit="@SaveTogglSettings">
+        <label>Toggl API-Key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></label>
+        <label>Toggl Workspace-Id: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></label>
+        <button type="submit">Toggl-Daten speichern</button>
+    </EditForm>
+
+
 }

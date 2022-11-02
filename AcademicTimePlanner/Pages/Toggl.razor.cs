@@ -1,3 +1,4 @@
+using AcademicTimePlanner.Data;
 using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
@@ -13,8 +14,7 @@ public partial class Toggl
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private string TogglApiKey;
-    private string TogglWorkspaceKey;
+	private TogglSettings TogglSettings { get; set; } = new();
     
     private int NumberOfTogglProjects => TogglState.Value.NumberOfTogglProjects;
     
