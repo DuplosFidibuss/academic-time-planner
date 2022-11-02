@@ -165,11 +165,9 @@ public partial class Charts
     private List<ITrace> GetDataOfSingleProjectsFiltered(PlanProject planProject)
     {
         var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
-        var titles = new List<object>();
         var plannedDurations = planProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
         var trackedDurations = togglProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
-        titles.Add(planProject.Name);
 
         return new List<ITrace>
         {
