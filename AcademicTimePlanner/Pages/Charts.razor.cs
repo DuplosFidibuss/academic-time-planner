@@ -6,6 +6,7 @@ using Plotly.Blazor;
 using Bar = Plotly.Blazor.Traces.Bar;
 using Scatter = Plotly.Blazor.Traces.Scatter;
 using Marker = Plotly.Blazor.Traces.BarLib.Marker;
+using LineMarker = Plotly.Blazor.Traces.ScatterLib.Marker;
 using Plotly.Blazor.Traces.ScatterLib;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Data;
@@ -31,6 +32,9 @@ public partial class Charts
     private static readonly Marker PlannedDurationMarker = new Marker { Color = "rgb(20, 70, 150)" };
     private static readonly Marker PredictedDurationMarker = new Marker { Color = "rgb(34, 220, 93)" };
     private static readonly Marker TotalDurationMarker = new Marker { Color = "rgb(34, 120, 250)" };
+
+    private static readonly LineMarker TrackedDurationLine = new LineMarker { Color = "rgb(20, 150, 70)" };
+    private static readonly LineMarker PlannedDurationLine = new LineMarker { Color = "rgb(20, 70, 150)" };
 
     Config config = new Config
     {
@@ -177,7 +181,7 @@ public partial class Charts
                 Y = (IList<object>)plannedDurations.Values.ToList(),
                 Name = "Planned",
                 Mode = ModeFlag.Lines| ModeFlag.Markers,
-                //Marker = PlannedDurationMarker,
+                Marker = PlannedDurationLine,
             },
             new Scatter
             {
@@ -185,7 +189,7 @@ public partial class Charts
                 Y = (IList<object>)trackedDurations.Values.ToList(),
                 Name = "Tracked",
                 Mode = ModeFlag.Lines| ModeFlag.Markers,
-                //Marker = TrackedDurationMarker,
+                Marker = TrackedDurationLine,
             },
         };
     }
