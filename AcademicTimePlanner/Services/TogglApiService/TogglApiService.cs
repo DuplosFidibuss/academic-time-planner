@@ -2,48 +2,53 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Web;
-using AcademicTimePlanner.Services.TogglService;
-using AcademicTimePlanner.Store.State.TogglSettings;
-using Fluxor;
+using AcademicTimePlanner.Data;
+using Blazored.LocalStorage;
 
 namespace AcademicTimePlanner.Services.TogglApiService;
 
 public class TogglApiService : ITogglApiService
 {
-    private readonly IState<TogglSettingsState> _settingsState;
     private readonly HttpClient _httpClient;
+	private readonly ILocalStorageService _localStorageService;
     private const string UserAgent = "AcademicTimePlanner";
 
-    public TogglApiService(HttpClient httpClient, IState<TogglSettingsState> settingsState)
+    public TogglApiService(HttpClient httpClient, ILocalStorageService localStorageService)
     {
-        _settingsState = settingsState;
         _httpClient = httpClient;
+		_localStorageService = localStorageService;
     }
 
-    private void SetDefaultRequestHeaders()
+    private async void SetDefaultRequestHeaders()
     {
-        var byteArray = Encoding.ASCII.GetBytes($"{_settingsState.Value.TogglApiKey}:api_token");
+		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+		Console.WriteLine(togglSettings.TogglApiKey);
+		Console.WriteLine(togglSettings.TogglWorkspaceId);
+		var byteArray = Encoding.ASCII.GetBytes($"{togglSettings.TogglApiKey}:api_token");
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
     }
     
     public async Task<TogglDetailResponse> GetDetailsAsync()
     {
         SetDefaultRequestHeaders();
-        string json = await _httpClient.GetStringAsync($"https://api.track.toggl.com/reports/api/v2/details?user_agent={UserAgent}&workspace_id={_settingsState.Value.TogglWorkspaceId}");
+		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+		string json = await _httpClient.GetStringAsync($"https://api.track.toggl.com/reports/api/v2/details?user_agent={UserAgent}&workspace_id={togglSettings.TogglWorkspaceId}");
 
-        TogglDetailResponse togglDetailResponse = JsonSerializer.Deserialize<TogglDetailResponse>(json, new JsonSerializerOptions(){PropertyNameCaseInsensitive = true});
-        return togglDetailResponse;
+		TogglDetailResponse togglDetailResponse = JsonSerializer.Deserialize<TogglDetailResponse>(json, new JsonSerializerOptions(){PropertyNameCaseInsensitive = true});
+		return togglDetailResponse;
+		return null;
     }
     
     public async Task<TogglDetailResponse> GetDetailsSinceAsync(DateOnly since)
     {
         SetDefaultRequestHeaders();
+		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
 
-        var sinceAsString = since.ToString("yyyy-MM-dd");
+		var sinceAsString = since.ToString("yyyy-MM-dd");
         var baseUri = new Uri("https://api.track.toggl.com/reports/api/v2/details");
         var query = HttpUtility.ParseQueryString(string.Empty);
         query["user_agent"] = UserAgent;
-        query["workspace_id"] = _settingsState.Value.TogglWorkspaceId;
+        query["workspace_id"] = togglSettings.TogglWorkspaceId;
         query["since"] = sinceAsString;
         var uriBuilder = new UriBuilder(baseUri)
         {

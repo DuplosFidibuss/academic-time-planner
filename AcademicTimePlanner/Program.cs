@@ -1,10 +1,7 @@
 using AcademicTimePlanner;
-using AcademicTimePlanner.Services.BootstrapModalService;
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglApiService;
 using AcademicTimePlanner.Services.TogglService;
-using AcademicTimePlanner.Store.Middleware.Persistence;
-using AcademicTimePlanner.Store.Middleware.Setup;
 using Blazored.LocalStorage;
 using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
@@ -18,14 +15,11 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddBlazoredLocalStorage();
 var currentAssembly = typeof(Program).Assembly;
 builder.Services.AddFluxor(options => options
-    .ScanAssemblies(currentAssembly)
-    .UseReduxDevTools()
-    .AddMiddleware<PersistenceMiddleware>()
-    .AddMiddleware<SetupMiddleware>());
+	.ScanAssemblies(currentAssembly)
+	.UseReduxDevTools());
 
 builder.Services.AddScoped<ITogglApiService, TogglApiService>();
 builder.Services.AddScoped<ITogglService, TogglService>();
-builder.Services.AddScoped<IBootstrapModalService, BootstrapModalService>();
 builder.Services.AddScoped<IDataManagerService, DataManagerService>();
 
 await builder.Build().RunAsync();
