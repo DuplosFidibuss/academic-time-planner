@@ -28,6 +28,6 @@ public partial class Toggl
     
     private void SaveTogglSettings()
     {
-        //Dispatcher.Dispatch(new SetTogglSettingsAction(TogglApiKey, TogglWorkspaceKey));
+        Dispatcher.Dispatch(new SaveTogglSettingsAction(TogglSettings));
     }
 }

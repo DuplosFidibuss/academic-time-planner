@@ -2,33 +2,38 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Web;
-using Fluxor;
+using AcademicTimePlanner.Data;
+using Blazored.LocalStorage;
 
 namespace AcademicTimePlanner.Services.TogglApiService;
 
 public class TogglApiService : ITogglApiService
 {
     private readonly HttpClient _httpClient;
+	private readonly ILocalStorageService _localStorageService;
     private const string UserAgent = "AcademicTimePlanner";
 
-    public TogglApiService(HttpClient httpClient)
+    public TogglApiService(HttpClient httpClient, ILocalStorageService localStorageService)
     {
         _httpClient = httpClient;
+		_localStorageService = localStorageService;
     }
 
-    private void SetDefaultRequestHeaders()
+    private async void SetDefaultRequestHeaders()
     {
-        //var byteArray = Encoding.ASCII.GetBytes($"{_settingsState.Value.TogglApiKey}:api_token");
-        //_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+        var byteArray = Encoding.ASCII.GetBytes($"{togglSettings.TogglApiKey}:api_token");
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
     }
     
     public async Task<TogglDetailResponse> GetDetailsAsync()
     {
         SetDefaultRequestHeaders();
-		//string json = await _httpClient.GetStringAsync($"https://api.track.toggl.com/reports/api/v2/details?user_agent={UserAgent}&workspace_id={_settingsState.Value.TogglWorkspaceId}");
+		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+		string json = await _httpClient.GetStringAsync($"https://api.track.toggl.com/reports/api/v2/details?user_agent={UserAgent}&workspace_id={togglSettings.TogglWorkspaceId}");
 
-		//TogglDetailResponse togglDetailResponse = JsonSerializer.Deserialize<TogglDetailResponse>(json, new JsonSerializerOptions(){PropertyNameCaseInsensitive = true});
-		//return togglDetailResponse;
+		TogglDetailResponse togglDetailResponse = JsonSerializer.Deserialize<TogglDetailResponse>(json, new JsonSerializerOptions(){PropertyNameCaseInsensitive = true});
+		return togglDetailResponse;
 		return null;
     }
     
