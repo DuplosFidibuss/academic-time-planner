@@ -100,7 +100,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
                     }
                 }
             }
-            foreach(var entry in duration.Keys)
+            
+            foreach(DateTime entry in duration.Keys.ToList())
             {
                 sum += duration[entry];
                 duration[entry] = sum;
