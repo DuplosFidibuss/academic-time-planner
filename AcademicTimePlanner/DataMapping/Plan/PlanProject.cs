@@ -78,30 +78,25 @@ namespace AcademicTimePlanner.DataMapping.Plan
             SortedDictionary<DateTime, double> duration = new SortedDictionary<DateTime, double>();
             double sum = 0;
 
-            foreach(PlanTask planTask in _taskList)
+            foreach (PlanTask planTask in _taskList)
             {
-                foreach (PlanEntry entry in planTask._planEntries)
+                foreach (PlanEntry entry in planTask.GetAllPlanEntriesList())
                 {
-                    duration.Add(entry.StartDate, entry.Duration);
-                }
-                foreach (PlanEntryRepetition entries in planTask._repetitionEntries)
-                {
-                    foreach (PlanEntry entry in entries._entries)
+                  
+                    if (duration.ContainsKey(entry.StartDate))
                     {
-                        if (duration.ContainsKey(entry.StartDate))
-                        {
-                            duration[entry.StartDate] += entry.Duration;
-                        }
-                        else
-                        {
-                            duration.Add(entry.StartDate, entry.Duration);
-                        }
-                        duration.Add(entry.EndDate, 0);
+                        duration[entry.StartDate] += entry.Duration;
                     }
+                    else
+                    {
+                        duration.Add(entry.StartDate, entry.Duration);
+                    }
+                    if (!duration.ContainsKey(entry.EndDate)) duration.Add(entry.EndDate, 0);
+                    
                 }
             }
             
-            foreach(DateTime entry in duration.Keys.ToList())
+            foreach (DateTime entry in duration.Keys.ToList())
             {
                 sum += duration[entry];
                 duration[entry] = sum;
@@ -113,7 +108,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         {
             SortedDictionary<DateTime, double> result = new SortedDictionary<DateTime, double>();
 
-            foreach(var entry in GetDuration())
+            foreach (var entry in GetDuration())
             {
                 if (entry.Key >= startDate && entry.Key <= endDate) result.Add(entry.Key, entry.Value);
             }

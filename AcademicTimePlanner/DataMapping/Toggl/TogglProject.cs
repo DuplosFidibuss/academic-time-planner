@@ -92,7 +92,6 @@ namespace AcademicTimePlanner.DataMapping.Toggl
                 sum += duration[entry];
                 duration[entry] = sum;
             }
-
             return duration;
         }
 

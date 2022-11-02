@@ -80,5 +80,24 @@ namespace AcademicTimePlanner.DataMapping.Plan
             return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
                    (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
+
+        public List<PlanEntry> GetAllPlanEntriesList()
+        {
+            List<PlanEntry> list = new List<PlanEntry>();
+
+            foreach (PlanEntry planEntry in _planEntries)
+            {
+                list.Add(planEntry);
+            }
+
+            foreach (PlanEntryRepetition planEntryRepetition in _repetitionEntries)
+            {
+                foreach(PlanEntry planEntry in planEntryRepetition._entries)
+                {
+                    list.Add(planEntry);
+                }
+            }
+            return list;
+        }
     }
 }
