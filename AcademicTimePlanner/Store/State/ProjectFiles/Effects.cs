@@ -17,9 +17,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         [EffectMethod]
         public async Task HandleAsync(LoadPlanProjectsAction action, IDispatcher dispatcher)
         {
-            var planProject = JsonSerializer.Deserialize<PlanProject>(action.PlanProjectsJson);
-            await _dataManagerService.SetPlanProjects(new List<PlanProject>(){ planProject });
-            dispatcher.Dispatch(new SetPlanProjectsAction(1));
+            var planProjects = new List<PlanProject>();
+            foreach (var project in action.PlanProjectsJson)
+            {
+                planProjects.Add(JsonSerializer.Deserialize<PlanProject>(project)!);
+            }
+            await _dataManagerService.SetPlanProjects(planProjects);
+            dispatcher.Dispatch(new SetPlanProjectsAction(planProjects.Count()));
         }
     }
 }

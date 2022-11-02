@@ -26,7 +26,11 @@ public partial class Index
 
     private async Task LoadPlanProjects(InputFileChangeEventArgs e)
     {
-        var json = await new StreamReader(e.File.OpenReadStream()).ReadToEndAsync();
+        var json = new List<string>();
+        foreach (var file in e.GetMultipleFiles(int.MaxValue))
+        {
+            json.Add(await new StreamReader(file.OpenReadStream()).ReadToEndAsync());
+        }
         Dispatcher.Dispatch(new LoadPlanProjectsAction(json));
     }
 }
