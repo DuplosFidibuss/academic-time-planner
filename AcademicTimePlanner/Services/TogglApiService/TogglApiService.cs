@@ -22,7 +22,9 @@ public class TogglApiService : ITogglApiService
     private async void SetDefaultRequestHeaders()
     {
 		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
-        var byteArray = Encoding.ASCII.GetBytes($"{togglSettings.TogglApiKey}:api_token");
+		Console.WriteLine(togglSettings.TogglApiKey);
+		Console.WriteLine(togglSettings.TogglWorkspaceId);
+		var byteArray = Encoding.ASCII.GetBytes($"{togglSettings.TogglApiKey}:api_token");
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
     }
     
@@ -40,12 +42,13 @@ public class TogglApiService : ITogglApiService
     public async Task<TogglDetailResponse> GetDetailsSinceAsync(DateOnly since)
     {
         SetDefaultRequestHeaders();
+		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
 
-        var sinceAsString = since.ToString("yyyy-MM-dd");
+		var sinceAsString = since.ToString("yyyy-MM-dd");
         var baseUri = new Uri("https://api.track.toggl.com/reports/api/v2/details");
         var query = HttpUtility.ParseQueryString(string.Empty);
         query["user_agent"] = UserAgent;
-        //query["workspace_id"] = _settingsState.Value.TogglWorkspaceId;
+        query["workspace_id"] = togglSettings.TogglWorkspaceId;
         query["since"] = sinceAsString;
         var uriBuilder = new UriBuilder(baseUri)
         {
