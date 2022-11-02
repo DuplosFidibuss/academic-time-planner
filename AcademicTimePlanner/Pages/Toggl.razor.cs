@@ -1,6 +1,4 @@
-using AcademicTimePlanner.Store.State.Editor;
 using AcademicTimePlanner.Store.State.Toggl;
-using AcademicTimePlanner.Store.State.TogglSettings;
 using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
@@ -27,14 +25,9 @@ public partial class Toggl
         base.OnInitialized();
         Dispatcher.Dispatch(new SetTitleAction(Title));
     }
-
-    private void AskForTogglCredentials()
-    {
-        Dispatcher.Dispatch(new EditorAskForTogglCredentialsAction());
-    }
     
-    public void SaveTogglSettings()
+    private void SaveTogglSettings()
     {
-        Dispatcher.Dispatch(new SetTogglSettingsAction(TogglApiKey, TogglWorkspaceKey));
+        //Dispatcher.Dispatch(new SetTogglSettingsAction(TogglApiKey, TogglWorkspaceKey));
     }
 }

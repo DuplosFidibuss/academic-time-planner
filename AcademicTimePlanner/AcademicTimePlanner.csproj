@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <Folder Include="DataMapping\Budget\" />
+    <Folder Include="Store\Middleware\" />
   </ItemGroup>
 
   <ItemGroup>
