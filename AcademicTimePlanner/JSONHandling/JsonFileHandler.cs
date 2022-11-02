@@ -20,10 +20,10 @@ namespace AcademicTimePlanner.JSONHandling
             IncludeFields = true
         };
 
-        private string getDataPath()
+        private string getDataPath(String filename)
         {
             string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName; ;
-            string dataPath = directory + @"\AcademicTimePlanner\JSON_Files\ATP_data.json";
+            string dataPath = directory + @"\AcademicTimePlanner\JSON_Files\"+filename+".json";
             return dataPath;
         }
 
@@ -35,7 +35,7 @@ namespace AcademicTimePlanner.JSONHandling
         public void saveJson(PlanProject project)
         {
             string jsonString = JsonSerializer.Serialize(project, options);
-            File.WriteAllText(getDataPath(), jsonString);
+            File.WriteAllText(getDataPath(project.Name), jsonString);
         }
     }
 }

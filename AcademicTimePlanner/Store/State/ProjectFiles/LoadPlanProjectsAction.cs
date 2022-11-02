@@ -2,9 +2,9 @@
 {
     public class LoadPlanProjectsAction
     {
-        public string PlanProjectsJson { get; set; }
+        public List<string> PlanProjectsJson { get; set; }
 
-        public LoadPlanProjectsAction(string planProjectsJson)
+        public LoadPlanProjectsAction(List<string> planProjectsJson)
         {
             PlanProjectsJson = planProjectsJson;
         }
