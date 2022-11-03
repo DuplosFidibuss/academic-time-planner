@@ -6,6 +6,8 @@
 @if (TogglState.Value.Loaded)
 {
     <p>@NumberOfTogglProjects Toggl-Projekte geladen</p>
+    <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronisieren</button>
+    <label>Zuletzt synchronisiert: @TogglState.Value.LastSynchronized.ToString()</label>
 }
 else
 {
