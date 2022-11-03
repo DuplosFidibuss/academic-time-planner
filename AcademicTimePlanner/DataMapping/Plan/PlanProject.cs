@@ -91,6 +91,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
                     {
                         duration.Add(entry.StartDate, entry.Duration);
                     }
+                    //TODO check if this will work as intended or if there is to be an else statement added.
                     if (!duration.ContainsKey(entry.EndDate)) duration.Add(entry.EndDate, 0);
                     
                 }
