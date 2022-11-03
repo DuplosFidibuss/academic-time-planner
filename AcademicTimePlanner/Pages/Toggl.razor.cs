@@ -17,6 +17,7 @@ public partial class Toggl
 	private TogglSettings TogglSettings { get; set; } = new();
     
     private int NumberOfTogglProjects => TogglState.Value.NumberOfTogglProjects;
+	private DateTime LastSynchronized => TogglState.Value.LastSynchronized;
     
     private const string Title = "Toggl";
     

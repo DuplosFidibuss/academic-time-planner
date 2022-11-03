@@ -9,11 +9,14 @@ public class TogglState
 
     public int NumberOfTogglProjects { get; }
 
+	public DateTime LastSynchronized { get; }
+
     private TogglState() { }
 
-    public TogglState(bool loaded, int numberOfTogglProjects)
+    public TogglState(bool loaded, int numberOfTogglProjects, DateTime lastSynchronized)
     {
         Loaded = loaded;
         NumberOfTogglProjects = numberOfTogglProjects;
+		LastSynchronized = lastSynchronized;
     }
 }
