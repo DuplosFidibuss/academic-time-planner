@@ -62,7 +62,7 @@ public partial class Charts
             Text = "Projects overview"
         },
         BarMode = BarModeEnum.Group,
-        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45}, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
+        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45 }, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
         YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         AutoSize = true,
