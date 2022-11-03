@@ -82,6 +82,7 @@ namespace AcademicTimePlanner.DataMapping.Toggl
             {
                 foreach (TogglEntrySum entry in task._togglEntrySums)
                 {
+                    duration.Add(entry.Date.AddMilliseconds(-1), 0);
                     duration.Add(entry.Date, entry.Duration);
                 }
                 

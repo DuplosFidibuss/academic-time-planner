@@ -88,15 +88,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
                         duration[entry.StartDate] += entry.Duration;
                     }
                     else
-                    {
+                    {   
+                        duration.Add(entry.StartDate.AddMilliseconds(-1), 0);
                         duration.Add(entry.StartDate, entry.Duration);
                     }
-                    //TODO check if this will work as intended or if there is to be an else statement added.
-                    if (!duration.ContainsKey(entry.EndDate)) duration.Add(entry.EndDate, 0);
-                    
                 }
             }
-            
             foreach (DateTime entry in duration.Keys.ToList())
             {
                 sum += duration[entry];
@@ -113,6 +110,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             {
                 if (entry.Key >= startDate && entry.Key <= endDate) result.Add(entry.Key, entry.Value);
             }
+            result.Add(endDate, result.Last().Value);
             return result;
         }
     }
