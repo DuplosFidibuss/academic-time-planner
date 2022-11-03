@@ -3,9 +3,10 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Plotly.Blazor.LayoutLib;
 using Plotly.Blazor;
+using YAxisTitle = Plotly.Blazor.LayoutLib.YAxisLib.Title;
 using Bar = Plotly.Blazor.Traces.Bar;
 using Scatter = Plotly.Blazor.Traces.Scatter;
-using Marker = Plotly.Blazor.Traces.BarLib.Marker;
+using BarMarker = Plotly.Blazor.Traces.BarLib.Marker;
 using LineMarker = Plotly.Blazor.Traces.ScatterLib.Marker;
 using Plotly.Blazor.Traces.ScatterLib;
 using AcademicTimePlanner.Store.State.Charts;
@@ -28,10 +29,10 @@ public partial class Charts
     private const string Title = "Graphen";
     private const string TotalChartTitle = "Total";
 
-    private static readonly Marker TrackedDurationMarker = new Marker { Color = "rgb(20, 150, 70)" };
-    private static readonly Marker PlannedDurationMarker = new Marker { Color = "rgb(20, 70, 150)" };
-    private static readonly Marker PredictedDurationMarker = new Marker { Color = "rgb(34, 220, 93)" };
-    private static readonly Marker TotalDurationMarker = new Marker { Color = "rgb(34, 120, 250)" };
+    private static readonly BarMarker TrackedDurationMarker = new BarMarker { Color = "rgb(20, 150, 70)" };
+    private static readonly BarMarker PlannedDurationMarker = new BarMarker { Color = "rgb(20, 70, 150)" };
+    private static readonly BarMarker PredictedDurationMarker = new BarMarker { Color = "rgb(34, 220, 93)" };
+    private static readonly BarMarker TotalDurationMarker = new BarMarker { Color = "rgb(34, 120, 250)" };
 
     private static readonly LineMarker TrackedDurationLine = new LineMarker { Color = "rgb(20, 150, 70)" };
     private static readonly LineMarker PlannedDurationLine = new LineMarker { Color = "rgb(20, 70, 150)" };
@@ -49,6 +50,7 @@ public partial class Charts
         },
         BarMode = BarModeEnum.Group,
         XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0 }, new XAxis { Anchor="free", Position=0, Overlaying="x" } },
+        YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         Width = 700,
     };
@@ -60,22 +62,23 @@ public partial class Charts
             Text = "Projects overview"
         },
         BarMode = BarModeEnum.Group,
-        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45 }, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
+        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45}, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
+        YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         AutoSize = true,
         BarGroupGap = 0
     };
 
     //TODO change to linediagram
-    private Layout GetLayout()
+    private Layout GetLayout(string projectName)
     {
         return new Layout
         {
             Title = new Title
             {
-                Text = "Project overview in time range (" + DateFilter.StartDate.Date + " - " + DateFilter.EndDate.Date + ")"
+                Text = projectName + " overview in time range (" + DateFilter.StartDate.Date + " - " + DateFilter.EndDate.Date + ")"
             },
-
+            YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
             Height = 500,
             AutoSize = true,
         };
