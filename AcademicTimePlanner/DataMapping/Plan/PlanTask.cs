@@ -85,18 +85,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
         {
             List<PlanEntry> list = new List<PlanEntry>();
 
-            foreach (PlanEntry planEntry in _planEntries)
-            {
-                list.Add(planEntry);
-            }
-
             foreach (PlanEntryRepetition planEntryRepetition in _repetitionEntries)
             {
-                foreach(PlanEntry planEntry in planEntryRepetition._entries)
-                {
-                    list.Add(planEntry);
-                }
+                list.AddRange(planEntryRepetition._entries);
             }
+
+            list.AddRange(_planEntries);
             return list;
         }
     }
