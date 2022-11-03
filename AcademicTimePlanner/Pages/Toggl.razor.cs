@@ -30,4 +30,9 @@ public partial class Toggl
     {
         Dispatcher.Dispatch(new SaveTogglSettingsAction(TogglSettings));
     }
+
+	private void Synchronize()
+	{
+		Dispatcher.Dispatch(new FetchTogglDataAction());
+	}
 }

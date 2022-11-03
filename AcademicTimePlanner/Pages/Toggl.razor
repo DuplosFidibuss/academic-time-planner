@@ -6,6 +6,7 @@
 @if (TogglState.Value.Loaded)
 {
     <p>@NumberOfTogglProjects Toggl-Projekte geladen</p>
+    <button type="button" class="btn btn-secondary" @onclick="Synchronize">Synchronisieren</button>
 }
 else
 {
