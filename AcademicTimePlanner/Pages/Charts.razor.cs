@@ -172,21 +172,30 @@ public partial class Charts
         var plannedDurations = planProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
         var trackedDurations = togglProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
+		var plannedDurationsDates = new List<object>();
+		var plannedDurationsTimes = new List<object>();
+		plannedDurations.Keys.ToList().ForEach(date => plannedDurationsDates.Add(date));
+		plannedDurations.Values.ToList().ForEach(time => plannedDurationsTimes.Add(time));
 
-        return new List<ITrace>
+		var trackedDurationsDates = new List<object>();
+		var trackedDurationsTimes = new List<object>();
+		trackedDurations.Keys.ToList().ForEach(date => trackedDurationsDates.Add(date));
+		trackedDurations.Values.ToList().ForEach(time => trackedDurationsTimes.Add(time));
+
+		return new List<ITrace>
         {
             new Scatter
             {
-                X = (IList<object>)plannedDurations.Keys.ToList(),
-                Y = (IList<object>)plannedDurations.Values.ToList(),
+                X = plannedDurationsDates,
+                Y = plannedDurationsTimes,
                 Name = "Planned",
                 Mode = ModeFlag.Lines| ModeFlag.Markers,
                 Marker = PlannedDurationLine,
             },
             new Scatter
             {
-                X = (IList<object>)trackedDurations.Keys.ToList(),
-                Y = (IList<object>)trackedDurations.Values.ToList(),
+                X = trackedDurationsDates,
+                Y = trackedDurationsTimes,
                 Name = "Tracked",
                 Mode = ModeFlag.Lines| ModeFlag.Markers,
                 Marker = TrackedDurationLine,
