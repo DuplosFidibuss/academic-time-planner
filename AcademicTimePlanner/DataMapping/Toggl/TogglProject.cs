@@ -82,8 +82,8 @@ namespace AcademicTimePlanner.DataMapping.Toggl
             {
                 foreach (TogglEntrySum entry in task._togglEntrySums)
                 {
-                    duration.Add(entry.Date.AddMilliseconds(-1), 0);
-                    duration.Add(entry.Date, entry.Duration);
+                    duration.Add(entry.Date, 0);                                //Start of the Day
+                    duration.Add(entry.Date.AddHours(23.9), entry.Duration);    //End of the Day
                 }
                 
             }
@@ -99,10 +99,23 @@ namespace AcademicTimePlanner.DataMapping.Toggl
         public SortedDictionary<DateTime, double> GetDurationDictionaryInTimeRange(DateTime startDate, DateTime endDate)
         {
             SortedDictionary<DateTime, double> result = new SortedDictionary<DateTime, double>();
-
-            foreach (var entry in GetDuration())
+            SortedDictionary<DateTime, double> entry = GetDuration();
+            List<DateTime> entryKeys = new List<DateTime>();
+            foreach (DateTime key in entry.Keys)
             {
-                if (entry.Key >= startDate && entry.Key <= endDate) result.Add(entry.Key, entry.Value);
+                entryKeys.Add(key);
+            }
+
+            for(int i = 0; i < entry.Count; i++)
+            {
+                if (entryKeys[i] >= startDate && entryKeys[i] <= endDate)
+                {
+                    if (result.Count == 0 && i > 0)
+                    {
+                        result.Add(startDate.AddMilliseconds(-1), entry[entryKeys[i - 1]]);
+                    }
+                    result.Add(entryKeys[i], entry[entryKeys[i]]);
+                }
             }
             return result;
         }

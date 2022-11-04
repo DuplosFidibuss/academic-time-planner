@@ -110,7 +110,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
             {
                 if (entry.Key >= startDate && entry.Key <= endDate) result.Add(entry.Key, entry.Value);
             }
-            result.Add(endDate, result.Last().Value);
+            if(result.First().Value != 0 && !result.ContainsKey(startDate)) result.Add(startDate, result.First().Value);
+            result.Add(endDate.AddMilliseconds(1), result.Last().Value);
             return result;
         }
     }
