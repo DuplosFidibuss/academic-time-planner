@@ -77,7 +77,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            //TODO: Fix error if one of those List is null/ no entries.
+            if (_planEntries == null && _repetitionEntries == null) return 0;
             if (_planEntries == null) return (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
             if (_repetitionEntries == null) return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
             return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
@@ -87,7 +87,11 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public List<PlanEntry> GetAllPlanEntriesList()
         {
             List<PlanEntry> list = new List<PlanEntry>();
-
+            if (_repetitionEntries == null && _planEntries == null)
+            {
+                list.Add(new PlanEntry("NoEntries", DateTime.Today, DateTime.Today, 0));
+                return list;
+            }
             if (_repetitionEntries != null)
             {
                 foreach (PlanEntryRepetition planEntryRepetition in _repetitionEntries)
