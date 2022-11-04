@@ -82,7 +82,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             {
                 foreach (PlanEntry entry in planTask.GetAllPlanEntriesList())
                 {
-                    double dailyDuration = entry.Duration / (entry.EndDate - entry.StartDate).TotalDays; //TODO This returns duration/6.5 why????
+                    double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays+1);
                     for (int i = 0; entry.StartDate.AddDays(i) <= entry.EndDate; i++)
                     {
                         if (duration.ContainsKey(entry.StartDate.AddDays(i)))
