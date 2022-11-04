@@ -77,6 +77,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
+            //TODO: Fix error if one of those List is null/ no entries.
             return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
                    (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
