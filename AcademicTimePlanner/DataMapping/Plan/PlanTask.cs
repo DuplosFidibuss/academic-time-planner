@@ -77,30 +77,41 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            if (_planEntries == null && _repetitionEntries == null) return 0;
-            if (_planEntries == null) return (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
-            if (_repetitionEntries == null) return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
+            if (_planEntries == null && _repetitionEntries == null)
+				return 0;
+
+            if (_planEntries == null) 
+				return (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+
+            if (_repetitionEntries == null) 
+				return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
+
             return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
                    (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
 
         public List<PlanEntry> GetAllPlanEntriesList()
         {
-            List<PlanEntry> list = new List<PlanEntry>();
+            var planEntries = new List<PlanEntry>();
+
             if (_repetitionEntries == null && _planEntries == null)
             {
-                list.Add(new PlanEntry("NoEntries", DateTime.Today, DateTime.Today, 0));
-                return list;
+                planEntries.Add(new PlanEntry("NoEntries", DateTime.Today, DateTime.Today, 0));
+                return planEntries;
             }
+
             if (_repetitionEntries != null)
             {
                 foreach (PlanEntryRepetition planEntryRepetition in _repetitionEntries)
                 {
-                    list.AddRange(planEntryRepetition._entries);
+                    planEntries.AddRange(planEntryRepetition.Entries);
                 }
             }
-            if (_planEntries != null) list.AddRange(_planEntries);
-            return list;
+
+            if (_planEntries != null)
+				planEntries.AddRange(_planEntries);
+
+            return planEntries;
         }
     }
 }

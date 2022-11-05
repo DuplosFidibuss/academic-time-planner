@@ -6,7 +6,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
     {
         [JsonPropertyName("_entries")]
         [JsonInclude]
-        public List<PlanEntry> _entries;
+        public List<PlanEntry> Entries { get; }
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
@@ -49,13 +49,13 @@ namespace AcademicTimePlanner.DataMapping.Plan
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
             Duration = duration;
-            _entries = new List<PlanEntry>();
+            Entries = new List<PlanEntry>();
             Modify();
         }
 
         public void Modify()
         {
-            _entries.Clear();
+            Entries.Clear();
             DateTime start = RepetitionStartDate;
             DateTime end = RepetitionEndDate;
             int i = 1;
@@ -69,14 +69,14 @@ namespace AcademicTimePlanner.DataMapping.Plan
                 if (start > RepetitionEndDate) 
                     start = RepetitionEndDate; 
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
-                _entries.Add(planEntry);
+                Entries.Add(planEntry);
                 start = start.AddDays(1);
             }
         }
 
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            return (from entry in _entries.FindAll(entry => entry.StartDate >= startDate && entry.EndDate <= endDate) select entry.Duration).Sum();
+            return (from entry in Entries.FindAll(entry => entry.StartDate >= startDate && entry.EndDate <= endDate) select entry.Duration).Sum();
         }
     }
 }

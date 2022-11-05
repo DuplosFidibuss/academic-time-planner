@@ -69,7 +69,6 @@ public partial class Charts
         BarGroupGap = 0
     };
 
-    //TODO change to linediagram
     private Layout GetLayout(string projectName)
     {
         return new Layout
@@ -172,7 +171,7 @@ public partial class Charts
     private List<ITrace> GetDataOfSingleProjectsFiltered(PlanProject planProject)
     {
         var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
-        var plannedDurations = planProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
+        var plannedDurations = planProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
         var trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
 		var plannedDurationsDates = new List<object>();
