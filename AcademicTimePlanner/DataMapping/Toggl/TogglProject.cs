@@ -1,6 +1,6 @@
 ﻿namespace AcademicTimePlanner.DataMapping.Toggl
 {
-	public class TogglProject
+    public class TogglProject
     {
         public const long NoTogglProjectId = -1;
 
@@ -67,7 +67,7 @@
 
             for(int i = 0; i < durationsPerDate.Count; i++)
             {
-				var date = dates[i];
+                var date = dates[i];
                 if (date >= startDate && date <= endDate)
                 {
                     if (durationsPerDateInTimeRange.Count == 0 && i > 0)
@@ -81,27 +81,27 @@
             return durationsPerDateInTimeRange;
         }
 
-		private SortedDictionary<DateTime, double> GetDurationsPerDate()
-		{
-			SortedDictionary<DateTime, double> durationsPerDate = new SortedDictionary<DateTime, double>();
-			double sum = 0;
+        private SortedDictionary<DateTime, double> GetDurationsPerDate()
+        {
+	        SortedDictionary<DateTime, double> durationsPerDate = new SortedDictionary<DateTime, double>();
+	        double sum = 0;
 
-			foreach (var task in _taskList)
-			{
-				foreach (var entry in task.GetTogglEntrySums())
-				{
-					durationsPerDate.Add(entry.Date, 0);                                //Start of the Day
-					durationsPerDate.Add(entry.Date.AddHours(23.9), entry.Duration);    //End of the Day
-				}
-			}
+	        foreach (var task in _taskList)
+	        {
+		        foreach (var entry in task.GetTogglEntrySums())
+		        {
+			        durationsPerDate.Add(entry.Date, 0);                                //Start of the Day
+			        durationsPerDate.Add(entry.Date.AddHours(23.9), entry.Duration);    //End of the Day
+		        }
+	        }
 
-			foreach (var entry in durationsPerDate.Keys.ToList())
-			{
-				sum += durationsPerDate[entry];
-				durationsPerDate[entry] = sum;
-			}
+	        foreach (var entry in durationsPerDate.Keys.ToList())
+	        {
+		        sum += durationsPerDate[entry];
+		        durationsPerDate[entry] = sum;
+	        }
 
-			return durationsPerDate;
-		}
+	        return durationsPerDate;
+        }
 	}
 }

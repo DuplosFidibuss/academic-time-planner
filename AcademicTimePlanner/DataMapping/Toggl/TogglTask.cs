@@ -43,9 +43,9 @@ namespace AcademicTimePlanner.DataMapping.Toggl
             return (from entrySum in _togglEntrySums.FindAll(entrySum => entrySum.Date >= startDate && entrySum.Date <= endDate) select entrySum.Duration).Sum();
         }
 
-		public ImmutableList<TogglEntrySum> GetTogglEntrySums()
-		{
-			return _togglEntrySums.ToImmutableList();
-		}
+        public ImmutableList<TogglEntrySum> GetTogglEntrySums()
+        {
+	        return _togglEntrySums.ToImmutableList();
+        }
     }
 }
