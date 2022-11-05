@@ -173,7 +173,7 @@ public partial class Charts
     {
         var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
         var plannedDurations = planProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
-        var trackedDurations = togglProject.GetDurationDictionaryInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
+        var trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
 		var plannedDurationsDates = new List<object>();
 		var plannedDurationsTimes = new List<object>();

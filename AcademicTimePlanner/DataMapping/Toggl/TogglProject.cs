@@ -1,8 +1,6 @@
-﻿using AcademicTimePlanner.DataMapping.Plan;
-
-namespace AcademicTimePlanner.DataMapping.Toggl
+﻿namespace AcademicTimePlanner.DataMapping.Toggl
 {
-    public class TogglProject
+	public class TogglProject
     {
         public const long NoTogglProjectId = -1;
 
@@ -61,63 +59,49 @@ namespace AcademicTimePlanner.DataMapping.Toggl
             return duration;
         }
 
-        public List<double> GetDurationTime()
+        public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
         {
-            List<double> duration = new List<double>();
-            return duration;
-        }
-        
-        public List<DateTime> GetDurationDate()
-        {
-            List<DateTime> duration = new List<DateTime>();
-            return duration;
-        }
+            var durationsPerDateInTimeRange = new SortedDictionary<DateTime, double>();
+            var durationsPerDate = GetDurationsPerDate();
+            var dates = durationsPerDate.Keys.ToList();
 
-        private SortedDictionary<DateTime, double> GetDuration()
-        {
-            SortedDictionary<DateTime, double> duration = new SortedDictionary<DateTime, double>();
-            double sum = 0;
-
-            foreach (TogglTask task in _taskList)
+            for(int i = 0; i < durationsPerDate.Count; i++)
             {
-                foreach (TogglEntrySum entry in task._togglEntrySums)
+				var date = dates[i];
+                if (date >= startDate && date <= endDate)
                 {
-                    duration.Add(entry.Date, 0);                                //Start of the Day
-                    duration.Add(entry.Date.AddHours(23.9), entry.Duration);    //End of the Day
-                }
-                
-            }
-            
-            foreach (DateTime entry in duration.Keys.ToList())
-            {
-                sum += duration[entry];
-                duration[entry] = sum;
-            }
-            return duration;
-        }
-
-        public SortedDictionary<DateTime, double> GetDurationDictionaryInTimeRange(DateTime startDate, DateTime endDate)
-        {
-            SortedDictionary<DateTime, double> result = new SortedDictionary<DateTime, double>();
-            SortedDictionary<DateTime, double> entry = GetDuration();
-            List<DateTime> entryKeys = new List<DateTime>();
-            foreach (DateTime key in entry.Keys)
-            {
-                entryKeys.Add(key);
-            }
-
-            for(int i = 0; i < entry.Count; i++)
-            {
-                if (entryKeys[i] >= startDate && entryKeys[i] <= endDate)
-                {
-                    if (result.Count == 0 && i > 0)
+                    if (durationsPerDateInTimeRange.Count == 0 && i > 0)
                     {
-                        result.Add(startDate.AddMilliseconds(-1), entry[entryKeys[i - 1]]);
+                        durationsPerDateInTimeRange.Add(startDate.AddMilliseconds(-1), durationsPerDate[dates[i - 1]]);
                     }
-                    result.Add(entryKeys[i], entry[entryKeys[i]]);
+                    durationsPerDateInTimeRange.Add(date, durationsPerDate[date]);
                 }
             }
-            return result;
+
+            return durationsPerDateInTimeRange;
         }
-    }
+
+		private SortedDictionary<DateTime, double> GetDurationsPerDate()
+		{
+			SortedDictionary<DateTime, double> durationsPerDate = new SortedDictionary<DateTime, double>();
+			double sum = 0;
+
+			foreach (var task in _taskList)
+			{
+				foreach (var entry in task.GetTogglEntrySums())
+				{
+					durationsPerDate.Add(entry.Date, 0);                                //Start of the Day
+					durationsPerDate.Add(entry.Date.AddHours(23.9), entry.Duration);    //End of the Day
+				}
+			}
+
+			foreach (var entry in durationsPerDate.Keys.ToList())
+			{
+				sum += durationsPerDate[entry];
+				durationsPerDate[entry] = sum;
+			}
+
+			return durationsPerDate;
+		}
+	}
 }
