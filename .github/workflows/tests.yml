@@ -3,7 +3,10 @@ name: .NET Build with Tests
 on:
   pull_request:
     branches: 
-      - master
+      - main
+  push:
+    paths-ignore:
+      - 'doc/**'
 
 jobs:
   build_and_test:
