@@ -3,10 +3,15 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Plotly.Blazor.LayoutLib;
 using Plotly.Blazor;
+using YAxisTitle = Plotly.Blazor.LayoutLib.YAxisLib.Title;
 using Bar = Plotly.Blazor.Traces.Bar;
-using Marker = Plotly.Blazor.Traces.BarLib.Marker;
+using Scatter = Plotly.Blazor.Traces.Scatter;
+using BarMarker = Plotly.Blazor.Traces.BarLib.Marker;
+using LineMarker = Plotly.Blazor.Traces.ScatterLib.Marker;
+using Plotly.Blazor.Traces.ScatterLib;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -24,10 +29,13 @@ public partial class Charts
     private const string Title = "Graphen";
     private const string TotalChartTitle = "Total";
 
-    private static readonly Marker TrackedDurationMarker = new Marker { Color = "rgb(20, 150, 70)" };
-    private static readonly Marker PlannedDurationMarker = new Marker { Color = "rgb(20, 70, 150)" };
-    private static readonly Marker PredictedDurationMarker = new Marker { Color = "rgb(34, 220, 93)" };
-    private static readonly Marker TotalDurationMarker = new Marker { Color = "rgb(34, 120, 250)" };
+    private static readonly BarMarker TrackedDurationMarker = new BarMarker { Color = "rgb(20, 150, 70)" };
+    private static readonly BarMarker PlannedDurationMarker = new BarMarker { Color = "rgb(20, 70, 150)" };
+    private static readonly BarMarker PredictedDurationMarker = new BarMarker { Color = "rgb(34, 220, 93)" };
+    private static readonly BarMarker TotalDurationMarker = new BarMarker { Color = "rgb(34, 120, 250)" };
+
+    private static readonly LineMarker TrackedDurationLine = new LineMarker { Color = "rgb(20, 150, 70)" };
+    private static readonly LineMarker PlannedDurationLine = new LineMarker { Color = "rgb(20, 70, 150)" };
 
     Config config = new Config
     {
@@ -42,6 +50,7 @@ public partial class Charts
         },
         BarMode = BarModeEnum.Group,
         XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0 }, new XAxis { Anchor="free", Position=0, Overlaying="x" } },
+        YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         Width = 700,
     };
@@ -54,22 +63,25 @@ public partial class Charts
         },
         BarMode = BarModeEnum.Group,
         XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45 }, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
+        YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         AutoSize = true,
         BarGroupGap = 0
     };
 
-    Layout layoutProjectsFiltered = new Layout
+    private Layout GetLayout(string projectName)
     {
-        Title = new Title
+        return new Layout
         {
-            Text = "Projects time range overview"
-        },
-        BarMode = BarModeEnum.Group,
-        Height = 500,
-        AutoSize = true,
-        BarGroupGap = 0
-    };
+            Title = new Title
+            {
+                Text = projectName + " overview in time range (" + DateFilter.StartDate.Date + " - " + DateFilter.EndDate.Date + ")"
+            },
+            YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
+            Height = 500,
+            AutoSize = true,
+        };
+    }
 
     private List<ITrace> GetDataTotal()
     {
@@ -156,43 +168,39 @@ public partial class Charts
         };
     }
 
-    private List<ITrace> GetDataOfSingleProjectsFiltered()
+    private List<ITrace> GetDataOfSingleProjectsFiltered(PlanProject planProject)
     {
-        var titles = new List<object>();
-        var plannedDurations = new List<object>();
-        var trackedDurations = new List<object>();
+        var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
+        var plannedDurations = planProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
+        var trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
-        foreach (var planProject in ChartData!.PlanProjects)
+		var plannedDurationsDates = new List<object>();
+		var plannedDurationsTimes = new List<object>();
+		plannedDurations.Keys.ToList().ForEach(date => plannedDurationsDates.Add(date));
+		plannedDurations.Values.ToList().ForEach(time => plannedDurationsTimes.Add(time));
+
+		var trackedDurationsDates = new List<object>();
+		var trackedDurationsTimes = new List<object>();
+		trackedDurations.Keys.ToList().ForEach(date => trackedDurationsDates.Add(date));
+		trackedDurations.Values.ToList().ForEach(time => trackedDurationsTimes.Add(time));
+
+		return new List<ITrace>
         {
-            double plannedDurationInTimeRange = planProject.GetDurationInTimeRange(DateFilter!.StartDate, DateFilter.EndDate);
-            //TODO fix this as it blockes visualisation of tracked time if planned time is longer than filter.
-            /*if (plannedDurationInTimeRange == 0) 
-            continue;*/
-
-            var togglProject = ChartData!.GetTogglProjectWithTogglId(planProject.TogglProjectId);
-            titles.Add(planProject.Name);
-
-            plannedDurations.Add(plannedDurationInTimeRange);
-            trackedDurations.Add(togglProject!.GetDurationInTimeRange(DateFilter.StartDate, DateFilter.EndDate));
-        }
-
-        return new List<ITrace>
-        {
-            new Bar
+            new Scatter
             {
-                X = titles,
-                Y = plannedDurations,
+                X = plannedDurationsDates,
+                Y = plannedDurationsTimes,
                 Name = "Planned",
-                XAxis = "x2",
-                Marker = PlannedDurationMarker,
+                Mode = ModeFlag.Lines| ModeFlag.Markers,
+                Marker = PlannedDurationLine,
             },
-            new Bar
+            new Scatter
             {
-                X = titles,
-                Y = trackedDurations,
+                X = trackedDurationsDates,
+                Y = trackedDurationsTimes,
                 Name = "Tracked",
-                XAxis = "x2",
-                Marker = TrackedDurationMarker,
+                Mode = ModeFlag.Lines| ModeFlag.Markers,
+                Marker = TrackedDurationLine,
             },
         };
     }

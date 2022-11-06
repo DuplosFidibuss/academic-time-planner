@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.DataMapping.Toggl;
+using System.Collections.Immutable;
 using System.Text.Json.Serialization;
 
 namespace AcademicTimePlanner.DataMapping.Plan
@@ -65,11 +66,58 @@ namespace AcademicTimePlanner.DataMapping.Plan
             return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
         }
 
-        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             double duration = 0;
             _taskList.ForEach(planTask => duration += planTask.GetDurationInTimeRange(startDate, endDate));
             return duration;
         }
-    }
+
+        public SortedDictionary<DateTime,double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            var durationsPerDateInTimeRange = new SortedDictionary<DateTime, double>();
+
+            foreach (var entry in GetDurationsPerDate())
+            {
+                if (entry.Key >= startDate && entry.Key <= endDate) durationsPerDateInTimeRange.Add(entry.Key, entry.Value);
+            }
+            if (durationsPerDateInTimeRange.First().Value != 0 && !durationsPerDateInTimeRange.ContainsKey(startDate))
+                durationsPerDateInTimeRange.Add(startDate, durationsPerDateInTimeRange.First().Value);
+
+            durationsPerDateInTimeRange.Add(endDate.AddMilliseconds(1), durationsPerDateInTimeRange.Last().Value);
+            return durationsPerDateInTimeRange;
+        }
+
+        private SortedDictionary<DateTime, double> GetDurationsPerDate()
+        {
+	        var durationsPerDate = new SortedDictionary<DateTime, double>();
+	        double sum = 0;
+
+	        foreach (PlanTask planTask in _taskList)
+	        {
+		        foreach (PlanEntry entry in planTask.GetAllPlanEntriesList())
+		        {
+			        double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays + 1);
+			        for (int i = 0; entry.StartDate.AddDays(i) <= entry.EndDate; i++)
+			        {
+				        if (durationsPerDate.ContainsKey(entry.StartDate.AddDays(i)))
+				        {
+					        durationsPerDate[entry.StartDate.AddDays(i)] += dailyDuration;
+				        }
+				        else
+				        {
+					        durationsPerDate.Add(entry.StartDate.AddDays(i).AddMilliseconds(-1), 0);
+					        durationsPerDate.Add(entry.StartDate.AddDays(i), dailyDuration);
+				        }
+			        }
+		        }
+	        }
+	        foreach (DateTime entry in durationsPerDate.Keys.ToList())
+	        {
+		        sum += durationsPerDate[entry];
+		        durationsPerDate[entry] = sum;
+	        }
+	        return durationsPerDate;
+        }
+	}
 }

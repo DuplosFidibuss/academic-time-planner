@@ -1,4 +1,6 @@
-﻿namespace AcademicTimePlanner.DataMapping.Toggl
+﻿using System.Collections.Immutable;
+
+namespace AcademicTimePlanner.DataMapping.Toggl
 {
     public class TogglTask
     {
@@ -39,6 +41,11 @@
         public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             return (from entrySum in _togglEntrySums.FindAll(entrySum => entrySum.Date >= startDate && entrySum.Date <= endDate) select entrySum.Duration).Sum();
+        }
+
+        public ImmutableList<TogglEntrySum> GetTogglEntrySums()
+        {
+	        return _togglEntrySums.ToImmutableList();
         }
     }
 }
