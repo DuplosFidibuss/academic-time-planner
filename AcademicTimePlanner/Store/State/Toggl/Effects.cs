@@ -24,7 +24,7 @@ public class Effects
     [EffectMethod]
     public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
     {
-        List<TogglProject> togglDetailResponseWithSinceDate = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddDays(-30));
+        List<TogglProject> togglDetailResponseWithSinceDate = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
         await _dataManagerService.SetTogglProjects(togglDetailResponseWithSinceDate);
         var projectNamesList = (from togglProject in togglDetailResponseWithSinceDate select togglProject.Name).ToImmutableSortedSet();
         dispatcher.Dispatch(new SetTogglDataAction(projectNamesList));
