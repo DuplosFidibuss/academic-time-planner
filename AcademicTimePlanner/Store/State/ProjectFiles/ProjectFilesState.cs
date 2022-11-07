@@ -1,4 +1,5 @@
 ﻿using Fluxor;
+using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
@@ -7,14 +8,14 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
     {
         public bool Loaded { get; }
 
-        public int NumberOfPlanProjects { get; }
+        public ImmutableSortedSet<string> PlanProjectsNames { get; }
 
         private ProjectFilesState() { }
 
-        public ProjectFilesState(bool loaded, int numberOfPlanProjects)
+        public ProjectFilesState(bool loaded, ImmutableSortedSet<string> planProjectsNames)
         {
             Loaded = loaded;
-            NumberOfPlanProjects = numberOfPlanProjects;
+            PlanProjectsNames = planProjectsNames;
         }
     }
 }
