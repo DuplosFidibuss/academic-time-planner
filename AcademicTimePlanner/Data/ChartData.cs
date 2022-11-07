@@ -18,13 +18,18 @@ namespace AcademicTimePlanner.Data
         /// <summary>
         /// This class holds all data needed for the graphical overview of planning and tracked time data.
         /// </summary>
-        /// <param name="togglProjects"></param>
+        /// <param name="allTogglProjects"></param>
         /// <param name="planProjects"></param>
-        public ChartData(List<TogglProject> togglProjects, List<PlanProject> planProjects)
+        public ChartData(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
         {
-            TogglProjects = togglProjects;
+            TogglProjects = new List<TogglProject>();
             PlanProjects = planProjects;
-            TotalTrackedTime = (from togglProject in togglProjects select togglProject.GetTotalDuration()).Sum();
+            foreach (TogglProject togglProject in allTogglProjects)
+            {
+                if (planProjects.Exists(planProject => planProject.TogglProjectId == togglProject.TogglId))
+                    TogglProjects.Add(togglProject);
+            }
+            TotalTrackedTime = (from togglProject in TogglProjects select togglProject.GetTotalDuration()).Sum();
             TotalPlannedTime = (from planProject in planProjects select planProject.GetTotalDuration()).Sum();
             RemainingDuration = (from planProject in planProjects select planProject.GetRemainingDuration()).Sum();
         }
