@@ -4,6 +4,7 @@ using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
 using Blazored.LocalStorage;
 using Fluxor;
+using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.Toggl;
 
@@ -23,9 +24,10 @@ public class Effects
     [EffectMethod]
     public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
     {
-        List<TogglProject> togglDetailResponseWithSinceDate = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddDays(-30));
+        List<TogglProject> togglDetailResponseWithSinceDate = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
         await _dataManagerService.SetTogglProjects(togglDetailResponseWithSinceDate);
-        dispatcher.Dispatch(new SetTogglDataAction(togglDetailResponseWithSinceDate.Count));
+        var projectNamesList = (from togglProject in togglDetailResponseWithSinceDate select togglProject.Name).ToImmutableSortedSet();
+        dispatcher.Dispatch(new SetTogglDataAction(projectNamesList));
     }
 
 	[EffectMethod]

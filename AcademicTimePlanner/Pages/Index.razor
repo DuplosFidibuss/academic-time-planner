@@ -5,9 +5,17 @@
 
 @if (ProjectFilesState.Value.Loaded)
 {
-    <p>@NumberOfPlanProjects Plan-Projekte geladen</p>
+    <p>@PlanProjectsNames.Count Plan-Projekte geladen</p>
 }
-else
+
+<InputFile OnChange="@LoadPlanProjects" multiple />
+
+@if (ProjectFilesState.Value.Loaded)
 {
-    <InputFile OnChange="@LoadPlanProjects" multiple />
+    <ul>
+    @foreach (var name in PlanProjectsNames)
+    {
+       <li>@name</li>
+    }
+    </ul>
 }

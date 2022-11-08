@@ -1,11 +1,13 @@
-﻿namespace AcademicTimePlanner.Store.State.ProjectFiles
+﻿using System.Collections.Immutable;
+
+namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
     public class SetPlanProjectsAction
     {
-        public int NumberOfPlanProjects { get; }
-        public SetPlanProjectsAction(int numberOfPlanProjects)
+        public ImmutableSortedSet<string> PlanProjectsNames { get; }
+        public SetPlanProjectsAction(ImmutableSortedSet<string> planProjectsNames)
         {
-            NumberOfPlanProjects = numberOfPlanProjects;
+            PlanProjectsNames = planProjectsNames;
         }
     }
 }

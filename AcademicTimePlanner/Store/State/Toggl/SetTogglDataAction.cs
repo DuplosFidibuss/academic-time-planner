@@ -1,10 +1,12 @@
+using System.Collections.Immutable;
+
 namespace AcademicTimePlanner.Store.State.Toggl;
 
 public class SetTogglDataAction
 {
-    public int NumberOfTogglProjects { get; }
-    public SetTogglDataAction(int numberOfTogglProjects)
+    public ImmutableSortedSet<string> TogglProjectsNames { get; }
+    public SetTogglDataAction(ImmutableSortedSet<string> togglProjectsNames)
     {
-        NumberOfTogglProjects = numberOfTogglProjects;
+        TogglProjectsNames = togglProjectsNames;
     }
 }
