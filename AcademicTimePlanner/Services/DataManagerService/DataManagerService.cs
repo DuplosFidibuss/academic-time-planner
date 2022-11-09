@@ -48,5 +48,14 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
             return dataManager.GetChartData();
         }
+
+        public async Task<List<PlanProject>> GetPlanProjects()
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            var planProjects = new List<PlanProject>();
+            if (dataManager != null)
+                planProjects.AddRange(dataManager.PlanProjects);
+            return planProjects;
+        }
     }
 }
