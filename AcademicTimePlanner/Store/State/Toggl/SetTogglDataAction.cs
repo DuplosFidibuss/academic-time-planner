@@ -4,8 +4,8 @@ namespace AcademicTimePlanner.Store.State.Toggl;
 
 public class SetTogglDataAction
 {
-    public ImmutableSortedSet<string> TogglProjectsNames { get; }
-    public SetTogglDataAction(ImmutableSortedSet<string> togglProjectsNames)
+    public ImmutableSortedDictionary<string, bool> TogglProjectsNames { get; }
+    public SetTogglDataAction(ImmutableSortedDictionary<string, bool> togglProjectsNames)
     {
         TogglProjectsNames = togglProjectsNames;
     }

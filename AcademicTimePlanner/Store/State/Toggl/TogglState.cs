@@ -8,13 +8,13 @@ public class TogglState
 {
     public bool Loaded { get; }
 
-    public ImmutableSortedSet<string> TogglProjectsNames { get; }
+    public ImmutableSortedDictionary<string, bool> TogglProjectsNames { get; }
 
     public DateTime LastSynchronized { get; }
 
     private TogglState() { }
 
-    public TogglState(bool loaded, ImmutableSortedSet<string> togglProjectsNames, DateTime lastSynchronized)
+    public TogglState(bool loaded, ImmutableSortedDictionary<string, bool> togglProjectsNames, DateTime lastSynchronized)
     {
         Loaded = loaded;
         TogglProjectsNames = togglProjectsNames;

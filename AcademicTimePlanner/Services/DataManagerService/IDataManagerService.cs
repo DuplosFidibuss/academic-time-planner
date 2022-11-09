@@ -18,6 +18,12 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public Task SetTogglProjects(List<TogglProject> togglProjects);
 
         /// <summary>
+        /// Gets the Toggl data hold by <see cref="DataManager"/>.
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<TogglProject>> GetTogglProjects();
+
+        /// <summary>
         /// Updates the planning data hold by <see cref="DataManager"/>
         /// </summary>
         /// <param name="planProjects"></param>

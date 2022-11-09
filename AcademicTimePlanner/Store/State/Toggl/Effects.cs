@@ -24,10 +24,18 @@ public class Effects
     [EffectMethod]
     public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
     {
-        List<TogglProject> togglDetailResponseWithSinceDate = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
-        await _dataManagerService.SetTogglProjects(togglDetailResponseWithSinceDate);
-        var projectNamesList = (from togglProject in togglDetailResponseWithSinceDate select togglProject.Name).ToImmutableSortedSet();
-        dispatcher.Dispatch(new SetTogglDataAction(projectNamesList));
+        var updatedTogglProjects = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
+        var currentTogglProjects = await _dataManagerService.GetTogglProjects();
+
+        var deletedTogglProjects = new List<TogglProject>();
+        if (currentTogglProjects.Count > 0)
+            deletedTogglProjects.AddRange(currentTogglProjects.FindAll(project => !updatedTogglProjects.Any(updatedProject => project.TogglId == updatedProject.TogglId)));
+
+        var allTogglProjects = updatedTogglProjects.Union(deletedTogglProjects).ToList();
+        await _dataManagerService.SetTogglProjects(allTogglProjects);
+
+        var projectNamesWithStates = allTogglProjects.ToImmutableSortedDictionary(project => project.Name != null ? project.Name : "Entries without project", project => !deletedTogglProjects.Contains(project));
+        dispatcher.Dispatch(new SetTogglDataAction(projectNamesWithStates));
     }
 
 	[EffectMethod]

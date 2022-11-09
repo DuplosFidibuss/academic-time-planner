@@ -10,9 +10,16 @@
     <label>Zuletzt synchronisiert: @TogglState.Value.LastSynchronized.ToString()</label>
 
     <ul>
-    @foreach (var name in TogglProjectsNames)
+    @foreach (var name in TogglProjectsNames.Keys)
     {
-       <li>@name</li>
+        @if (TogglProjectsNames[name])
+        {
+            <li>@name</li>
+        }   
+        else
+        {
+            <li style="color:red">@name (deleted)</li>
+        }
     }
     </ul>
 }
