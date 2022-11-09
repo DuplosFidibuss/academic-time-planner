@@ -4,6 +4,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanEntryRepetition
     {
+        private const long NoTaskId = -1;
+
         [JsonPropertyName("_entries")]
         [JsonInclude]
         public List<PlanEntry> Entries { get; }
@@ -26,6 +28,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonPropertyName("Duration")]
         public double Duration { get; set; }
 
+        public long TaskId { get; set; }
+
         /// <summary>
         /// This class implements the plan entry repetition. 
         /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.
@@ -41,10 +45,24 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="duration"></param>
 
         [JsonConstructor]
-        public PlanEntryRepetition(string name,  DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
+        public PlanEntryRepetition(string name,  long taskId, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
         {
             Id = Guid.NewGuid();
             Name = name;
+            TaskId = taskId;
+            RepetitionStartDate = repetitionStartDate;
+            RepetitionEndDate = repetitionEndDate;
+            Interval = interval;
+            Duration = duration;
+            Entries = new List<PlanEntry>();
+            Modify();
+        }
+        
+        public PlanEntryRepetition(string name, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            TaskId = NoTaskId;
             RepetitionStartDate = repetitionStartDate;
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
