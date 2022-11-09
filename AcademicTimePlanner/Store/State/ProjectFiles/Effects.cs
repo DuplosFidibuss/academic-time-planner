@@ -1,6 +1,7 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.Services.DataManagerService;
 using Fluxor;
+using System.Collections.Immutable;
 using System.Text.Json;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
@@ -23,7 +24,8 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
                 planProjects.Add(JsonSerializer.Deserialize<PlanProject>(project)!);
             }
             await _dataManagerService.SetPlanProjects(planProjects);
-            dispatcher.Dispatch(new SetPlanProjectsAction(planProjects.Count()));
+            var projectNamesList = (from planProject in planProjects select planProject.Name).ToImmutableSortedSet();
+            dispatcher.Dispatch(new SetPlanProjectsAction(projectNamesList));
         }
     }
 }

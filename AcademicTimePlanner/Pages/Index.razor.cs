@@ -3,6 +3,7 @@ using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -14,7 +15,7 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private int NumberOfPlanProjects => ProjectFilesState.Value.NumberOfPlanProjects;
+    private ImmutableSortedSet<string> PlanProjectsNames => ProjectFilesState.Value.PlanProjectsNames;
     
     private const string Title = "Startseite";
 
