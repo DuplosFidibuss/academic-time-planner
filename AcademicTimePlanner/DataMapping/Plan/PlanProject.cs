@@ -81,10 +81,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             {
                 if (entry.Key >= startDate && entry.Key <= endDate) durationsPerDateInTimeRange.Add(entry.Key, entry.Value);
             }
-            if (durationsPerDateInTimeRange.First().Value != 0 && !durationsPerDateInTimeRange.ContainsKey(startDate))
-                durationsPerDateInTimeRange.Add(startDate, durationsPerDateInTimeRange.First().Value);
 
-            durationsPerDateInTimeRange.Add(endDate.AddMilliseconds(1), durationsPerDateInTimeRange.Last().Value);
             return durationsPerDateInTimeRange;
         }
 
@@ -98,15 +95,16 @@ namespace AcademicTimePlanner.DataMapping.Plan
 		        foreach (PlanEntry entry in planTask.GetAllPlanEntriesList())
 		        {
 			        double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays + 1);
-			        for (int i = 0; entry.StartDate.AddDays(i) <= entry.EndDate; i++)
+			        for (int i = 1; entry.StartDate.AddDays(i) <= entry.EndDate.AddDays(1); i++)
 			        {
 				        if (durationsPerDate.ContainsKey(entry.StartDate.AddDays(i)))
 				        {
 					        durationsPerDate[entry.StartDate.AddDays(i)] += dailyDuration;
 				        }
 				        else
-				        {
-					        durationsPerDate.Add(entry.StartDate.AddDays(i).AddMilliseconds(-1), 0);
+                        { 
+                            if(durationsPerDate.Count == 0)
+                                durationsPerDate.Add(entry.StartDate, 0);
 					        durationsPerDate.Add(entry.StartDate.AddDays(i), dailyDuration);
 				        }
 			        }
