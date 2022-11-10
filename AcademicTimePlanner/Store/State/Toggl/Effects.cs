@@ -36,7 +36,11 @@ public class Effects
 
         var planProjects = await _dataManagerService.GetPlanProjects();
         var loadOverview = new List<TogglLoadOverviewData>();
-        allTogglProjects.ForEach(togglProject => loadOverview.Add(new TogglLoadOverviewData(togglProject.Name, !deletedTogglProjects.Contains(togglProject), planProjects.Find(planProject => planProject.TogglProjectId == togglProject.TogglId).Name)));
+        allTogglProjects.ForEach(togglProject =>
+        {
+            var planProject = planProjects.Find(planProject => planProject.TogglProjectId == togglProject.TogglId);
+            loadOverview.Add(new TogglLoadOverviewData(togglProject.Name != null ? togglProject.Name : "Entries without project", deletedTogglProjects.Contains(togglProject), planProject != null ? planProject.Name : "Not associated"));
+        });
         dispatcher.Dispatch(new SetTogglDataAction(loadOverview));
     }
 
