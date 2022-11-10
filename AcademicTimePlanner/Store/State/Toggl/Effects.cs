@@ -4,7 +4,6 @@ using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
 using Blazored.LocalStorage;
 using Fluxor;
-using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.Toggl;
 
