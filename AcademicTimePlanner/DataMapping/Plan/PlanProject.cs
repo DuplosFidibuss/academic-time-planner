@@ -16,10 +16,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonInclude]
         public List<PlanEntryRepetition> _repetitionEntries;
 
-        /*
         [JsonPropertyName("_taskList")]
         [JsonInclude]
-        */
         public Dictionary<long, string>? _taskList;
 
         [JsonPropertyName("Id")]

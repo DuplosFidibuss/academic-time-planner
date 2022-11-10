@@ -21,6 +21,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonPropertyName("Duration")]
         public double Duration { get; set; }
 
+        [JsonPropertyName("TaskId")]
         public long TaskId { get; set; }
 
         /// <summary>
