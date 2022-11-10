@@ -34,7 +34,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// This class implements the plan project.
         /// The project can be linked to a <see cref="TogglProject"> Toggl project</see> but it does not have to.
         /// If no Toggle project is linked, the toggleProjectId will be -1.
-        /// A project has a name and can have multiple <see cref="PlanTask"> plan tasks </see>.
+        /// A project has a name and can have multiple plan tasks </see>.
         /// </summary>
         /// <param name="togglProjectId"></param>
         /// <param name="name"></param>

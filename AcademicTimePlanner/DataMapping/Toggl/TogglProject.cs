@@ -16,7 +16,7 @@
 
         /// <summary>
         /// This class implements the conection between the application and TogglTrack projects.
-        /// A project can have multiple <see cref="TogglTask"> Toggl tasks</see>.
+        /// A project can have multiple Toggl tasks</see>.
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
