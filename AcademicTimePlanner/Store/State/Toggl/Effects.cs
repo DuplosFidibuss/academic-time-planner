@@ -34,8 +34,10 @@ public class Effects
         var allTogglProjects = updatedTogglProjects.Union(deletedTogglProjects).ToList();
         await _dataManagerService.SetTogglProjects(allTogglProjects);
 
-        var projectNamesWithStates = allTogglProjects.ToImmutableSortedDictionary(project => project.Name != null ? project.Name : "Entries without project", project => !deletedTogglProjects.Contains(project));
-        dispatcher.Dispatch(new SetTogglDataAction(projectNamesWithStates));
+        var planProjects = await _dataManagerService.GetPlanProjects();
+        var loadOverview = new List<TogglLoadOverviewData>();
+        allTogglProjects.ForEach(togglProject => loadOverview.Add(new TogglLoadOverviewData(togglProject.Name, !deletedTogglProjects.Contains(togglProject), planProjects.Find(planProject => planProject.TogglProjectId == togglProject.TogglId).Name)));
+        dispatcher.Dispatch(new SetTogglDataAction(loadOverview));
     }
 
 	[EffectMethod]
