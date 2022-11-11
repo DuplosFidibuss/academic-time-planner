@@ -10,15 +10,15 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         [JsonPropertyName("PlanEntries")]
         [JsonInclude]
-        public List<PlanEntry> PlanEntries { get; }
+        public List<PlanEntry> PlanEntries { get; set; }
 
         [JsonPropertyName("RepetitionEntries")]
         [JsonInclude]
-        public List<PlanEntryRepetition> RepetitionEntries { get; }
+        public List<PlanEntryRepetition> RepetitionEntries { get; set; }
 
         [JsonPropertyName("Tasks")]
         [JsonInclude]
-        public Dictionary<long, string>? Tasks { get; }
+        public Dictionary<long, string>? Tasks { get; set; }
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
