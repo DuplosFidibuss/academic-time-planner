@@ -14,8 +14,6 @@ namespace AcademicTimePlanner.Tests
         private PlanEntry testPlanEntry_2;
         private PlanEntryRepetition testPlanEntryRepetition_1;
         private PlanEntryRepetition testPlanEntryRepetition_2;
-        private PlanTask testPlanTask_1;
-        private PlanTask testPlanTask_2;
         private PlanProject testPlanProject_1;
         private PlanProject testPlanProject_2;
         private JsonFileHandler ieJson = new JsonFileHandler();
@@ -29,19 +27,14 @@ namespace AcademicTimePlanner.Tests
             testPlanEntryRepetition_1 = new PlanEntryRepetition("testPlanEntryRepetition_1", startDate, endDate2, 7, 2);
             testPlanEntryRepetition_2 = new PlanEntryRepetition("testPlanEntryRepetition_2", startDate, endDate2, 7, 2);
 
-            testPlanTask_1 = new PlanTask(1,"testTask_1");
-            testPlanTask_1.AddPlanEntry(testPlanEntry_1);
-            testPlanTask_1.AddRepetitionEntry(testPlanEntryRepetition_1);
-            
-            testPlanTask_2 = new PlanTask(2,"testTask_2");
-            testPlanTask_2.AddPlanEntry(testPlanEntry_2);
-            testPlanTask_2.AddRepetitionEntry(testPlanEntryRepetition_2);
 
             testPlanProject_1 = new PlanProject(1, "testProject_1");
-            testPlanProject_1.AddPlanTask(testPlanTask_1);
-            
+            testPlanProject_1.AddPlanEntry(testPlanEntry_1);
+            testPlanProject_1.AddRepetitionEntry(testPlanEntryRepetition_1);
+
             testPlanProject_2 = new PlanProject(2, "testProject_2");
-            testPlanProject_2.AddPlanTask(testPlanTask_2);
+            testPlanProject_2.AddPlanEntry(testPlanEntry_2);
+            testPlanProject_2.AddRepetitionEntry(testPlanEntryRepetition_2);
         }
 
         [TestMethod]
@@ -52,7 +45,7 @@ namespace AcademicTimePlanner.Tests
         }
         
         [TestMethod]
-		[Ignore]
+        [Ignore]
         public void testLoadJson()
         {
             string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
