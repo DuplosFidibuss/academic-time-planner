@@ -16,9 +16,9 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonInclude]
         public List<PlanEntryRepetition> _repetitionEntries;
 
-        [JsonPropertyName("_taskList")]
+        [JsonPropertyName("_task")]
         [JsonInclude]
-        public Dictionary<long, string>? _taskList;
+        public Dictionary<long, string>? _task;
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
@@ -44,7 +44,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             Id = Guid.NewGuid();
             TogglProjectId = togglProjectId;
             Name = name;
-            _taskList = new Dictionary<long, string>();
+            _task = new Dictionary<long, string>();
             _planEntries = new List<PlanEntry>();
             _repetitionEntries = new List<PlanEntryRepetition>();
         }
@@ -53,7 +53,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         {
             Id = Guid.NewGuid();
             Name = name;
-            _taskList = new Dictionary<long, string>();
+            _task = new Dictionary<long, string>();
             TogglProjectId = NoTogglId;
             _planEntries = new List<PlanEntry>();
             _repetitionEntries = new List<PlanEntryRepetition>();
@@ -61,13 +61,13 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
        public void AddPlanTask(long taskId, string name)
         {
-            if (!_taskList.ContainsKey(taskId))
-                _taskList.Add(taskId, name);
+            if (!_task.ContainsKey(taskId))
+                _task.Add(taskId, name);
         }
 
         public void RemovePlanTask(long taskId)
         {
-            _taskList.Remove(taskId);
+            _task.Remove(taskId);
         }
 
         public void AddPlanEntry(PlanEntry planEntry)
@@ -90,7 +90,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             _repetitionEntries.Remove(planEntryRepetition);
         }
 
-        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             if (_planEntries == null && _repetitionEntries == null)
                 return 0;
@@ -105,7 +105,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
                     (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
 
-        public List<PlanEntry> GetAllPlanEntriesList()
+        private List<PlanEntry> GetAllPlanEntriesList()
         {
             var planEntries = new List<PlanEntry>();
 
