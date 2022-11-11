@@ -23,6 +23,15 @@ namespace AcademicTimePlanner.Services.DataManagerService
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
+        public async Task<List<TogglProject>> GetTogglProjects()
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            var togglProjects = new List<TogglProject>();
+            if (dataManager != null)
+                togglProjects.AddRange(dataManager.TogglProjects);
+            return togglProjects;
+        }
+
         public async Task SetPlanProjects(List<PlanProject> planProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
@@ -38,6 +47,15 @@ namespace AcademicTimePlanner.Services.DataManagerService
             if (dataManager == null)
                 dataManager = new DataManager();
             return dataManager.GetChartData();
+        }
+
+        public async Task<List<PlanProject>> GetPlanProjects()
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            var planProjects = new List<PlanProject>();
+            if (dataManager != null)
+                planProjects.AddRange(dataManager.PlanProjects);
+            return planProjects;
         }
     }
 }
