@@ -8,17 +8,17 @@ namespace AcademicTimePlanner.DataMapping.Plan
     {
         private const long NoTogglId = -1;
 
-        [JsonPropertyName("_planEntries")]
+        [JsonPropertyName("PlanEntries")]
         [JsonInclude]
-        public List<PlanEntry> _planEntries;
+        public List<PlanEntry> PlanEntries { get; }
 
-        [JsonPropertyName("_repetitionEntries")]
+        [JsonPropertyName("RepetitionEntries")]
         [JsonInclude]
-        public List<PlanEntryRepetition> _repetitionEntries;
+        public List<PlanEntryRepetition> RepetitionEntries { get; }
 
-        [JsonPropertyName("_task")]
+        [JsonPropertyName("Tasks")]
         [JsonInclude]
-        public Dictionary<long, string>? _task;
+        public Dictionary<long, string>? Tasks { get; }
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
@@ -44,87 +44,87 @@ namespace AcademicTimePlanner.DataMapping.Plan
             Id = Guid.NewGuid();
             TogglProjectId = togglProjectId;
             Name = name;
-            _task = new Dictionary<long, string>();
-            _planEntries = new List<PlanEntry>();
-            _repetitionEntries = new List<PlanEntryRepetition>();
+            Tasks = new Dictionary<long, string>();
+            PlanEntries = new List<PlanEntry>();
+            RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
         public PlanProject(string name)
         {
             Id = Guid.NewGuid();
             Name = name;
-            _task = new Dictionary<long, string>();
+            Tasks = new Dictionary<long, string>();
             TogglProjectId = NoTogglId;
-            _planEntries = new List<PlanEntry>();
-            _repetitionEntries = new List<PlanEntryRepetition>();
+            PlanEntries = new List<PlanEntry>();
+            RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
        public void AddPlanTask(long taskId, string name)
         {
-            if (!_task.ContainsKey(taskId))
-                _task.Add(taskId, name);
+            if (!Tasks.ContainsKey(taskId))
+                Tasks.Add(taskId, name);
         }
 
         public void RemovePlanTask(long taskId)
         {
-            _task.Remove(taskId);
+            Tasks.Remove(taskId);
         }
 
         public void AddPlanEntry(PlanEntry planEntry)
         {
-            _planEntries.Add(planEntry);
+            PlanEntries.Add(planEntry);
         }
 
         public void RemovePlanEntry(PlanEntry planEntry)
         {
-            _planEntries.Remove(planEntry);
+            PlanEntries.Remove(planEntry);
         }
 
         public void AddRepetitionEntry(PlanEntryRepetition planEntryRepetition)
         {
-            _repetitionEntries.Add(planEntryRepetition);
+            RepetitionEntries.Add(planEntryRepetition);
         }
 
         public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)
         {
-            _repetitionEntries.Remove(planEntryRepetition);
+            RepetitionEntries.Remove(planEntryRepetition);
         }
 
         private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            if (_planEntries == null && _repetitionEntries == null)
+            if (PlanEntries == null && RepetitionEntries == null)
                 return 0;
 
-            if (_planEntries == null)
-                return (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+            if (PlanEntries == null)
+                return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
-            if (_repetitionEntries == null)
-                return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
+            if (RepetitionEntries == null)
+                return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
 
-            return (from planEntry in _planEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
-                    (from repetitionEntry in _repetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+            return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
+                    (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
 
         private List<PlanEntry> GetAllPlanEntriesList()
         {
             var planEntries = new List<PlanEntry>();
 
-            if (_repetitionEntries == null && _planEntries == null)
+            if (RepetitionEntries == null && PlanEntries == null)
             {
                 planEntries.Add(new PlanEntry("NoEntries", DateTime.Today, DateTime.Today, 0));
                 return planEntries;
             }
 
-            if (_repetitionEntries != null)
+            if (RepetitionEntries != null)
             {
-                foreach (PlanEntryRepetition planEntryRepetition in _repetitionEntries)
+                foreach (PlanEntryRepetition planEntryRepetition in RepetitionEntries)
                 {
                     planEntries.AddRange(planEntryRepetition.Entries);
                 }
             }
 
-            if (_planEntries != null)
-                planEntries.AddRange(_planEntries);
+            if (PlanEntries != null)
+                planEntries.AddRange(PlanEntries);
 
             return planEntries;
         }

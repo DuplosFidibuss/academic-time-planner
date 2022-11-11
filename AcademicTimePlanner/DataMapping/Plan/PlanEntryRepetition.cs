@@ -6,7 +6,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
     {
         private const long NoTaskId = -1;
 
-        [JsonPropertyName("_entries")]
+        [JsonPropertyName("Entries")]
         [JsonInclude]
         public List<PlanEntry> Entries { get; }
 

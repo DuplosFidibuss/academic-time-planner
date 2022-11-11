@@ -4,7 +4,7 @@
     {
         public const long NoTogglProjectId = -1;
 
-        private Dictionary<long, string> _task;
+        private Dictionary<long, string> _tasks;
 
         private List<TogglEntrySum> _togglEntrySums;
 
@@ -25,19 +25,19 @@
             Id = Guid.NewGuid();
             TogglId = togglId;
             Name = name;
-            _task = new Dictionary<long, string>();
+            _tasks = new Dictionary<long, string>();
             _togglEntrySums = new List<TogglEntrySum>();
         }
 
         public void AddTogglTask(long togglTaskId, string name)
         {
-            if (!_task.ContainsKey(togglTaskId))
-             _task.Add(togglTaskId, name);
+            if (!_tasks.ContainsKey(togglTaskId))
+             _tasks.Add(togglTaskId, name);
         }
 
         public void RemoveTogglTask(long togglTaskId)
         {
-            _task.Remove(togglTaskId);
+            _tasks.Remove(togglTaskId);
         }
 
 
