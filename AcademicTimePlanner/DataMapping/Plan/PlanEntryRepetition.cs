@@ -6,10 +6,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
     {
         private const long NoTaskId = -1;
 
-        [JsonPropertyName("Entries")]
-        [JsonInclude]
-        public List<PlanEntry> Entries { get; }
-
         [JsonPropertyName("Id")]
         public Guid Id { get; }
 
@@ -30,6 +26,10 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         [JsonPropertyName("TaskId")]
         public long TaskId { get; set; }
+
+        [JsonPropertyName("Entries")]
+        [JsonInclude]
+        public List<PlanEntry> Entries { get; }
 
         /// <summary>
         /// This class implements the plan entry repetition. 
