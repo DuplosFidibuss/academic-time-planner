@@ -8,9 +8,17 @@ namespace AcademicTimePlanner.DataMapping.Plan
     {
         private const long NoTogglId = -1;
 
-        [JsonPropertyName("_taskList")]
+        [JsonPropertyName("PlanEntries")]
         [JsonInclude]
-        public List<PlanTask> _taskList;
+        public List<PlanEntry> PlanEntries { get; set; }
+
+        [JsonPropertyName("RepetitionEntries")]
+        [JsonInclude]
+        public List<PlanEntryRepetition> RepetitionEntries { get; set; }
+
+        [JsonPropertyName("Tasks")]
+        [JsonInclude]
+        public Dictionary<long, string>? Tasks { get; set; }
 
         [JsonPropertyName("Id")]
         public Guid Id { get; }
@@ -21,11 +29,12 @@ namespace AcademicTimePlanner.DataMapping.Plan
         [JsonPropertyName("Name")]
         public String Name { get; set; }
 
+
         /// <summary>
         /// This class implements the plan project.
         /// The project can be linked to a <see cref="TogglProject"> Toggl project</see> but it does not have to.
         /// If no Toggle project is linked, the toggleProjectId will be -1.
-        /// A project has a name and can have multiple <see cref="PlanTask"> plan tasks </see>.
+        /// A project has a name and can have multiple plan tasks </see>.
         /// </summary>
         /// <param name="togglProjectId"></param>
         /// <param name="name"></param>
@@ -35,25 +44,89 @@ namespace AcademicTimePlanner.DataMapping.Plan
             Id = Guid.NewGuid();
             TogglProjectId = togglProjectId;
             Name = name;
-            _taskList = new List<PlanTask>();
+            Tasks = new Dictionary<long, string>();
+            PlanEntries = new List<PlanEntry>();
+            RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
         public PlanProject(string name)
         {
             Id = Guid.NewGuid();
             Name = name;
-            _taskList = new List<PlanTask>();
+            Tasks = new Dictionary<long, string>();
             TogglProjectId = NoTogglId;
+            PlanEntries = new List<PlanEntry>();
+            RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
-       public void AddPlanTask(PlanTask planTask)
+       public void AddPlanTask(long taskId, string name)
         {
-            _taskList.Add(planTask);
+            if (!Tasks.ContainsKey(taskId))
+                Tasks.Add(taskId, name);
         }
 
-        public void RemovePlanTask(PlanTask planTask)
+        public void RemovePlanTask(long taskId)
         {
-            _taskList.Remove(planTask);
+            Tasks.Remove(taskId);
+        }
+
+        public void AddPlanEntry(PlanEntry planEntry)
+        {
+            PlanEntries.Add(planEntry);
+        }
+
+        public void RemovePlanEntry(PlanEntry planEntry)
+        {
+            PlanEntries.Remove(planEntry);
+        }
+
+        public void AddRepetitionEntry(PlanEntryRepetition planEntryRepetition)
+        {
+            RepetitionEntries.Add(planEntryRepetition);
+        }
+
+        public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)
+        {
+            RepetitionEntries.Remove(planEntryRepetition);
+        }
+
+        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+        {
+            if (PlanEntries == null && RepetitionEntries == null)
+                return 0;
+
+            if (PlanEntries == null)
+                return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+
+            if (RepetitionEntries == null)
+                return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
+
+            return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
+                    (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+        }
+
+        private List<PlanEntry> GetAllPlanEntriesList()
+        {
+            var planEntries = new List<PlanEntry>();
+
+            if (RepetitionEntries == null && PlanEntries == null)
+            {
+                planEntries.Add(new PlanEntry("NoEntries", DateTime.Today, DateTime.Today, 0));
+                return planEntries;
+            }
+
+            if (RepetitionEntries != null)
+            {
+                foreach (PlanEntryRepetition planEntryRepetition in RepetitionEntries)
+                {
+                    planEntries.AddRange(planEntryRepetition.Entries);
+                }
+            }
+
+            if (PlanEntries != null)
+                planEntries.AddRange(PlanEntries);
+
+            return planEntries;
         }
 
         public double GetTotalDuration()
@@ -64,13 +137,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public double GetRemainingDuration()
         {
             return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
-        }
-
-        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-        {
-            double duration = 0;
-            _taskList.ForEach(planTask => duration += planTask.GetDurationInTimeRange(startDate, endDate));
-            return duration;
         }
 
         public SortedDictionary<DateTime,double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
@@ -90,26 +156,24 @@ namespace AcademicTimePlanner.DataMapping.Plan
 	        var durationsPerDate = new SortedDictionary<DateTime, double>();
 	        double sum = 0;
 
-	        foreach (PlanTask planTask in _taskList)
-	        {
-		        foreach (PlanEntry entry in planTask.GetAllPlanEntriesList())
-		        {
-			        double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays + 1);
-			        for (int i = 1; entry.StartDate.AddDays(i) <= entry.EndDate.AddDays(1); i++)
-			        {
-				        if (durationsPerDate.ContainsKey(entry.StartDate.AddDays(i)))
-				        {
-					        durationsPerDate[entry.StartDate.AddDays(i)] += dailyDuration;
-				        }
-				        else
-                        { 
-                            if(durationsPerDate.Count == 0)
-                                durationsPerDate.Add(entry.StartDate, 0);
-					        durationsPerDate.Add(entry.StartDate.AddDays(i), dailyDuration);
-				        }
-			        }
-		        }
-	        }
+	        foreach (PlanEntry entry in GetAllPlanEntriesList())
+		    {
+			    double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays + 1);
+			    for (int i = 1; entry.StartDate.AddDays(i) <= entry.EndDate.AddDays(1); i++)
+			    {
+				    if (durationsPerDate.ContainsKey(entry.StartDate.AddDays(i)))
+				    {
+					    durationsPerDate[entry.StartDate.AddDays(i)] += dailyDuration;
+				    }
+				    else
+                    { 
+                        if(durationsPerDate.Count == 0)
+                            durationsPerDate.Add(entry.StartDate, 0);
+					    durationsPerDate.Add(entry.StartDate.AddDays(i), dailyDuration);
+				    }
+			    }
+		    }
+	        
 	        foreach (DateTime entry in durationsPerDate.Keys.ToList())
 	        {
 		        sum += durationsPerDate[entry];
