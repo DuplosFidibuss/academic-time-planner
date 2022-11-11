@@ -22,8 +22,6 @@ public class TogglApiService : ITogglApiService
     private async void SetDefaultRequestHeaders()
     {
 		var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
-		Console.WriteLine(togglSettings.TogglApiKey);
-		Console.WriteLine(togglSettings.TogglWorkspaceId);
 		var byteArray = Encoding.ASCII.GetBytes($"{togglSettings.TogglApiKey}:api_token");
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
     }
