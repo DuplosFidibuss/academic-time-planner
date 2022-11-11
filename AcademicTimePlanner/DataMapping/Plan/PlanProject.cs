@@ -8,18 +8,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
     {
         private const long NoTogglId = -1;
 
-        [JsonPropertyName("PlanEntries")]
-        [JsonInclude]
-        public List<PlanEntry> PlanEntries { get; set; }
-
-        [JsonPropertyName("RepetitionEntries")]
-        [JsonInclude]
-        public List<PlanEntryRepetition> RepetitionEntries { get; set; }
-
-        [JsonPropertyName("Tasks")]
-        [JsonInclude]
-        public Dictionary<long, string>? Tasks { get; set; }
-
         [JsonPropertyName("Id")]
         public Guid Id { get; }
 
@@ -28,6 +16,18 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         [JsonPropertyName("Name")]
         public String Name { get; set; }
+
+        [JsonPropertyName("Tasks")]
+        [JsonInclude]
+        public Dictionary<long, string>? Tasks { get; set; }
+
+        [JsonPropertyName("PlanEntries")]
+        [JsonInclude]
+        public List<PlanEntry> PlanEntries { get; set; }
+
+        [JsonPropertyName("RepetitionEntries")]
+        [JsonInclude]
+        public List<PlanEntryRepetition> RepetitionEntries { get; set; }
 
 
         /// <summary>

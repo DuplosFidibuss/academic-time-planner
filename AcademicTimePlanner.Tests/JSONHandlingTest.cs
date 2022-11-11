@@ -25,7 +25,7 @@ namespace AcademicTimePlanner.Tests
             testPlanEntry_2 = new PlanEntry("testPlanEntry_2", startDate, endDate, 2);
 
             testPlanEntryRepetition_1 = new PlanEntryRepetition("testPlanEntryRepetition_1", startDate, endDate2, 7, 2);
-            testPlanEntryRepetition_2 = new PlanEntryRepetition("testPlanEntryRepetition_2", startDate, endDate2, 7, 2);
+            testPlanEntryRepetition_2 = new PlanEntryRepetition("testPlanEntryRepetition_2", startDate, endDate2, 14, 4);
 
 
             testPlanProject_1 = new PlanProject(1, "testProject_1");
