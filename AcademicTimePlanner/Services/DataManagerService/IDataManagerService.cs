@@ -28,7 +28,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// Gets the Toggl load overview from the <see cref="DataManager"/>.
         /// </summary>
         /// <returns></returns>
-        public Task<List<PlanProject>> GetTogglLoadOverview();
+        public Task<List<TogglLoadOverviewData>> GetTogglLoadOverview();
 
         /// <summary>
         /// Gets the current chart data from the <see cref="DataManager"/>

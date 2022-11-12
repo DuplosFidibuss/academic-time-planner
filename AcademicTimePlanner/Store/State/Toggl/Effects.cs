@@ -1,4 +1,3 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
 using Blazored.LocalStorage;
@@ -24,15 +23,8 @@ public class Effects
     {
         var togglProjects = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
         await _dataManagerService.UpdateTogglProjects(togglProjects);
-
-        var planProjects = await _dataManagerService.GetTogglLoadOverview();
-        var loadOverview = new List<TogglLoadOverviewData>();
-        allTogglProjects.ForEach(togglProject =>
-        {
-            var planProject = planProjects.Find(planProject => planProject.TogglProjectId == togglProject.TogglId);
-            loadOverview.Add(new TogglLoadOverviewData(togglProject.Name != null ? togglProject.Name : "Entries without project", deletedTogglProjects.Contains(togglProject), planProject != null ? planProject.Name : "Not associated"));
-        });
-        dispatcher.Dispatch(new SetTogglDataAction(loadOverview));
+        var togglLoadOverview = await _dataManagerService.GetTogglLoadOverview();
+        dispatcher.Dispatch(new SetTogglDataAction(togglLoadOverview));
     }
 
     [EffectMethod]

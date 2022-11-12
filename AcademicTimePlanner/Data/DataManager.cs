@@ -40,5 +40,18 @@ namespace AcademicTimePlanner.Data
             TestTogglProject.GetTestTogglProject().ForEach(project => _togglProjects.Add(project, true));
             return new ChartData(_togglProjects.Keys.ToList(), PlanProjects);
         }
+
+        public List<TogglLoadOverviewData> GetTogglLoadOverview()
+        {
+            var loadOverview = new List<TogglLoadOverviewData>();
+            foreach (var togglProject in _togglProjects.Keys)
+            {
+                var planProject = PlanProjects.Find(project => project.TogglProjectId == togglProject.TogglId);
+                var planProjectName = planProject != null ? planProject.Name : "No plan project associated";
+                var projectOverviewData = new TogglLoadOverviewData(togglProject.Name, _togglProjects[togglProject], planProjectName);
+                loadOverview.Add(projectOverviewData);
+            }
+            return loadOverview;
+        }
     }
 }

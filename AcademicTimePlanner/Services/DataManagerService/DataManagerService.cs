@@ -40,13 +40,12 @@ namespace AcademicTimePlanner.Services.DataManagerService
             return dataManager.GetChartData();
         }
 
-        public async Task<List<PlanProject>> GetTogglLoadOverview()
+        public async Task<List<TogglLoadOverviewData>> GetTogglLoadOverview()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
-            var planProjects = new List<PlanProject>();
-            if (dataManager != null)
-                planProjects.AddRange(dataManager.PlanProjects);
-            return planProjects;
+            if (dataManager == null)
+                dataManager = new DataManager();
+            return dataManager.GetTogglLoadOverview();
         }
     }
 }
