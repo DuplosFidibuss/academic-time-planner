@@ -1,4 +1,4 @@
-using AcademicTimePlanner.DataMapping.Toggl;
+using AcademicTimePlanner.Data;
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
 using Blazored.LocalStorage;
@@ -22,17 +22,10 @@ public class Effects
     [EffectMethod]
     public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
     {
-        var updatedTogglProjects = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
-        var currentTogglProjects = await _dataManagerService.GetTogglProjects();
+        var togglProjects = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
+        await _dataManagerService.UpdateTogglProjects(togglProjects);
 
-        var deletedTogglProjects = new List<TogglProject>();
-        if (currentTogglProjects.Count > 0)
-            deletedTogglProjects.AddRange(currentTogglProjects.FindAll(project => !updatedTogglProjects.Any(updatedProject => project.TogglId == updatedProject.TogglId)));
-
-        var allTogglProjects = updatedTogglProjects.Union(deletedTogglProjects).ToList();
-        await _dataManagerService.UpdateTogglProjects(allTogglProjects);
-
-        var planProjects = await _dataManagerService.GetPlanProjects();
+        var planProjects = await _dataManagerService.GetTogglLoadOverview();
         var loadOverview = new List<TogglLoadOverviewData>();
         allTogglProjects.ForEach(togglProject =>
         {
