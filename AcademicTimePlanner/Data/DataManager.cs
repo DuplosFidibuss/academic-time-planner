@@ -13,18 +13,18 @@ namespace AcademicTimePlanner.Data
         {
             Budgets = new List<Budget>();
             PlanProjects = new List<PlanProject>();
-            TogglProjects = new List<TogglProject>();
+            TogglProjects = new Dictionary<TogglProject, bool>();
         }
 
         public List<Budget> Budgets { get; set; }
         public List<PlanProject> PlanProjects { get; set; }
-        public List<TogglProject> TogglProjects { get; set; }
+        public Dictionary<TogglProject, bool> TogglProjects { get; set; }
 
         public ChartData GetChartData()
         {
             TogglProjects.Clear();
-            TogglProjects = TestTogglProject.GetTestTogglProject();
-            return new ChartData(TogglProjects, PlanProjects);
+            TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project, true));
+            return new ChartData(TogglProjects.Keys.ToList(), PlanProjects);
         }
     }
 }
