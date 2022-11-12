@@ -9,7 +9,7 @@
 
 This section shows the results achieved during realization of the project.
 
-\subsection{Overview PlanProject vs TogglProject} \label{Graphical overview}
+\section{Overview PlanProject vs TogglProject} \label{Graphical overview}
 To display the difference between the plan projects and the corresponding Toggl project, three different charts are displayed in the charts tab.
 \begin{itemize}
 	\item Total overview
@@ -23,8 +23,15 @@ This bar chart shows the overall sum of the time planned for all plan projects, 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TotalOverview}
-	\caption{Total Overview}
+	\caption{Total overview for two projects}
 	\label{figure9}
+\end{figure}
+If all projects have been completed already, meaning there are no future plan entries for any project, then no prediction will be displayed. An example for one project is shown in \ref{figure10}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{TotalOverview_FinishedProject}
+	\caption{Total overview for one finished project}
+	\label{figure10}
 \end{figure}
 
 \subsubsection{Projects Overview}
@@ -32,8 +39,15 @@ This bar chart is similar to the total overview, but the single projects are dis
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{ProjectOverview}
-	\caption{Total Overview}
-	\label{figure10}
+	\caption{Project overview for two projects}
+	\label{figure11}
+\end{figure}
+If a project has been completed already, meaning there are no future plan entries for it, then no prediction will be displayed for that project. An example for one project is shown in \ref{figure12}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{ProjectOverview_FinishedProject}
+	\caption{Project overview for one finished project}
+	\label{figure12}
 \end{figure}
 
 \subsubsection{Project time range overview}
@@ -41,6 +55,6 @@ To display the chart, the user first has to choose the applicable time range. On
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TimeOverview}
-	\caption{Time Overview}
-	\label{figure11}
+	\caption{Time overview for one project}
+	\label{figure13}
 \end{figure}
