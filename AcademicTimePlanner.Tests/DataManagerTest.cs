@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
 
 namespace AcademicTimePlanner.Tests
@@ -17,9 +18,9 @@ namespace AcademicTimePlanner.Tests
         [TestMethod]
         public void DataCollectionsAreInitializedCorrectlyOnCreation()
         {
-            Assert.IsTrue(_dataManager.Budgets.Count == 0);
-            Assert.IsTrue(_dataManager.PlanProjects.Count == 0);
-            Assert.IsTrue(_dataManager.TogglProjects.Count == 0);
+            Assert.AreEqual(0, _dataManager.Budgets.Count);
+            Assert.AreEqual(0, _dataManager.PlanProjects.Count);
+            Assert.AreEqual(0, _dataManager.TogglProjects.Count);
         }
 
         [TestMethod]
@@ -59,6 +60,31 @@ namespace AcademicTimePlanner.Tests
 
             Assert.IsFalse(_dataManager.TogglProjects[testTogglProjects[0]]);
             Assert.IsTrue(_dataManager.TogglProjects[testTogglProjects[1]]);
+        }
+
+        [TestMethod]
+        public void GetChartDataReturnsCorrectChartDataWithEmptyDataCollections()
+        {
+            var chartData = _dataManager.GetChartData();
+
+            Assert.IsNotNull(chartData);
+            Assert.AreEqual(0, chartData.PlanProjects.Count);
+            Assert.AreEqual(0, chartData.TogglProjects.Count);
+        }
+
+        [TestMethod]
+        public void GetChartDataReturnsCorrectChartDataWithNonEmptyDataCollections()
+        {
+            var testPlanProject = new PlanProject(0, "Test");
+            var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
+            _dataManager.PlanProjects.Add(testPlanProject);
+            _dataManager.TogglProjects.Add(testTogglProject, true);
+
+            var chartData = _dataManager.GetChartData();
+
+            Assert.IsNotNull(chartData);
+            Assert.IsTrue(chartData.PlanProjects.Contains(testPlanProject));
+            Assert.IsTrue(chartData.TogglProjects.Contains(testTogglProject));
         }
     }
 }

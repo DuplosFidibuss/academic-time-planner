@@ -36,8 +36,9 @@ namespace AcademicTimePlanner.Data
 
         public ChartData GetChartData()
         {
-            TogglProjects.Clear();
-            TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project, true));
+            // This is for chart display test purposes.
+            //TogglProjects.Clear();
+            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project, true));
             return new ChartData(TogglProjects.Keys.ToList(), PlanProjects);
         }
 
