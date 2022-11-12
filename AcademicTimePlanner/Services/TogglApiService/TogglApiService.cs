@@ -2,7 +2,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Web;
-using AcademicTimePlanner.Data;
+using AcademicTimePlanner.Store.State.Toggl;
 using Blazored.LocalStorage;
 
 namespace AcademicTimePlanner.Services.TogglApiService;

@@ -1,6 +1,4 @@
-﻿using AcademicTimePlanner.Data;
-
-namespace AcademicTimePlanner.Store.State.Toggl
+﻿namespace AcademicTimePlanner.Store.State.Toggl
 {
     public class SaveTogglSettingsAction
     {
