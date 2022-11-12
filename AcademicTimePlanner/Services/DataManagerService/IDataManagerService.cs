@@ -15,13 +15,13 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// </summary>
         /// <param name="togglProjects"></param>
         /// <returns></returns>
-        public Task SetTogglProjects(List<TogglProject> togglProjects);
+        public Task UpdateTogglProjects(List<TogglProject> togglProjects);
 
         /// <summary>
         /// Gets the Toggl data hold by <see cref="DataManager"/>.
         /// </summary>
         /// <returns></returns>
-        public Task<List<TogglProject>> GetTogglProjects();
+        public Task<Dictionary<TogglProject, bool>> GetTogglProjects();
 
         /// <summary>
         /// Updates the planning data hold by <see cref="DataManager"/>

@@ -14,7 +14,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             _localStorage = localStorage;
         }
 
-        public async Task SetTogglProjects(List<TogglProject> togglProjects)
+        public async Task UpdateTogglProjects(List<TogglProject> togglProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
