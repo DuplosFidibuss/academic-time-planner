@@ -6,6 +6,8 @@ namespace AcademicTimePlanner.Data
 {
     public class DataManager
     {
+        public const string NoAssociatedPlanProjectName = "No plan project associated";
+
         public List<Budget> Budgets { get; set; }
         public List<PlanProject> PlanProjects { get; set; }
 
@@ -48,8 +50,8 @@ namespace AcademicTimePlanner.Data
             foreach (var togglProject in TogglProjects.Keys)
             {
                 var planProject = PlanProjects.Find(project => project.TogglProjectId == togglProject.TogglId);
-                var planProjectName = planProject != null ? planProject.Name : "No plan project associated";
-                var projectOverviewData = new TogglLoadOverviewData(togglProject.Name, TogglProjects[togglProject], planProjectName);
+                var planProjectName = planProject != null ? planProject.Name : NoAssociatedPlanProjectName;
+                var projectOverviewData = new TogglLoadOverviewData(togglProject.Name, !TogglProjects[togglProject], planProjectName);
                 loadOverview.Add(projectOverviewData);
             }
             return loadOverview;

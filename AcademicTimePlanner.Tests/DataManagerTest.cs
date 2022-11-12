@@ -75,8 +75,8 @@ namespace AcademicTimePlanner.Tests
         [TestMethod]
         public void GetChartDataReturnsCorrectChartDataWithNonEmptyDataCollections()
         {
-            var testPlanProject = new PlanProject(0, "Test");
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
+            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject, true);
 
@@ -85,6 +85,60 @@ namespace AcademicTimePlanner.Tests
             Assert.IsNotNull(chartData);
             Assert.IsTrue(chartData.PlanProjects.Contains(testPlanProject));
             Assert.IsTrue(chartData.TogglProjects.Contains(testTogglProject));
+        }
+
+        [TestMethod]
+        public void GetTogglLoadOverviewReturnsEmptyListWithEmptyTogglProjects()
+        {
+            var loadOverview = _dataManager.GetTogglLoadOverview();
+
+            Assert.AreEqual(0, loadOverview.Count);
+        }
+
+        [TestMethod]
+        public void GetTogglLoadOverviewReturnsCorrectOverviewWithAssociatedPlanProject()
+        {
+            var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
+            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            _dataManager.PlanProjects.Add(testPlanProject);
+            _dataManager.TogglProjects.Add(testTogglProject, true);
+
+            var loadOverview = _dataManager.GetTogglLoadOverview();
+
+            Assert.AreEqual(1, loadOverview.Count);
+            Assert.AreEqual(testTogglProject.Name, loadOverview[0].TogglProjectName);
+            Assert.IsFalse(loadOverview[0].IsDeleted);
+            Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectName);
+        }
+
+        [TestMethod]
+        public void GetTogglLoadOverviewReturnsCorrectOverviewWithoutAssociatedPlanProject()
+        {
+            var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
+            _dataManager.TogglProjects.Add(testTogglProject, true);
+
+            var loadOverview = _dataManager.GetTogglLoadOverview();
+
+            Assert.AreEqual(1, loadOverview.Count);
+            Assert.AreEqual(testTogglProject.Name, loadOverview[0].TogglProjectName);
+            Assert.IsFalse(loadOverview[0].IsDeleted);
+            Assert.AreEqual(DataManager.NoAssociatedPlanProjectName, loadOverview[0].PlanProjectName);
+        }
+
+        [TestMethod]
+        public void GetTogglLoadOverviewReturnsCorrectOverviewWithDeletedTogglProject()
+        {
+            var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
+            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            _dataManager.PlanProjects.Add(testPlanProject);
+            _dataManager.TogglProjects.Add(testTogglProject, false);
+
+            var loadOverview = _dataManager.GetTogglLoadOverview();
+
+            Assert.AreEqual(1, loadOverview.Count);
+            Assert.AreEqual(testTogglProject.Name, loadOverview[0].TogglProjectName);
+            Assert.IsTrue(loadOverview[0].IsDeleted);
+            Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectName);
         }
     }
 }
