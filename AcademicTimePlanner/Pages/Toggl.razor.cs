@@ -3,6 +3,7 @@ using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -16,7 +17,7 @@ public partial class Toggl
 
 	private TogglSettings TogglSettings { get; set; } = new();
     
-    private int NumberOfTogglProjects => TogglState.Value.NumberOfTogglProjects;
+    private List<TogglLoadOverviewData> LoadOverview => TogglState.Value.LoadOverview;
 	private DateTime LastSynchronized => TogglState.Value.LastSynchronized;
     
     private const string Title = "Toggl";

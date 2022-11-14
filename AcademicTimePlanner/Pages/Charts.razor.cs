@@ -208,6 +208,7 @@ public partial class Charts
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        ChartsState.Value.Loaded = false;
         Dispatcher.Dispatch(new SetTitleAction(Title));
         Dispatcher.Dispatch(new FetchChartDataAction());
     }

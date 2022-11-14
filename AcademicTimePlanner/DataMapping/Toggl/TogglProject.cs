@@ -4,7 +4,9 @@
     {
         public const long NoTogglProjectId = -1;
 
-        private List<TogglTask> _taskList;
+        private Dictionary<long, string> _tasks;
+
+        private List<TogglEntrySum> _togglEntrySums;
 
         public Guid Id { get; }
 
@@ -14,7 +16,7 @@
 
         /// <summary>
         /// This class implements the conection between the application and TogglTrack projects.
-        /// A project can have multiple <see cref="TogglTask"> Toggl tasks</see>.
+        /// A project can have multiple Toggl tasks</see>.
         /// </summary>
         /// <param name="togglId"></param>
         /// <param name="name"></param>
@@ -23,40 +25,35 @@
             Id = Guid.NewGuid();
             TogglId = togglId;
             Name = name;
-            _taskList = new List<TogglTask>();
+            _tasks = new Dictionary<long, string>();
+            _togglEntrySums = new List<TogglEntrySum>();
         }
 
-        public void AddTogglTask(TogglTask togglTask)
+        public void AddTogglTask(long togglTaskId, string name)
         {
-            _taskList.Add(togglTask);
+            if (!_tasks.ContainsKey(togglTaskId))
+             _tasks.Add(togglTaskId, name);
         }
 
-        public void RemoveTogglTask(TogglTask togglTask)
+        public void RemoveTogglTask(long togglTaskId)
         {
-            _taskList.Remove(togglTask);
+            _tasks.Remove(togglTaskId);
         }
 
-        public TogglTask GetOrCreateTogglTask(long taskId, string taskName)
+
+        public void AddEntry(TogglEntrySum entry)
         {
-            var togglTask = _taskList.FindLast(togglTask => togglTask.TogglId == taskId);
-            if (togglTask == null)
-            {
-                togglTask = new TogglTask(taskId, taskName);
-                AddTogglTask(togglTask);
-            }
-            return togglTask;
+            var entrySumOfSameDay = _togglEntrySums.FindLast(entrySum => entrySum.Date.Equals(entry.Date));
+            if (entrySumOfSameDay != null)
+                entrySumOfSameDay.Duration += entry.Duration;
+            else
+                _togglEntrySums.Add(entry);
         }
 
         public double GetTotalDuration()
         {
-            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
-        }
+            return (from entrySum in _togglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue) select entrySum.Duration).Sum();
 
-        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-        {
-            double duration = 0;
-            _taskList.ForEach(togglTask => duration += togglTask.GetDurationInTimeRange(startDate, endDate));
-            return duration;
         }
 
         public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
@@ -64,8 +61,25 @@
             var durationsPerDateInTimeRange = new SortedDictionary<DateTime, double>();
             var durationsPerDate = GetDurationsPerDate();
             var dates = durationsPerDate.Keys.ToList();
+            var startDateEntry = DateTime.MinValue;
+            var endDateEntry = DateTime.MaxValue;
 
-            for(int i = 0; i < durationsPerDate.Count; i++)
+            for (int i = 0; i < durationsPerDate.Count; i++)
+            {
+                var date = dates[i];
+                if (date > startDate && startDateEntry == DateTime.MinValue)
+                {
+                    if (i > 0)
+                        startDateEntry = dates[i - 1];
+                    else 
+                        startDateEntry = dates[i];
+                }
+
+                if (date >= endDate && endDateEntry == DateTime.MaxValue)
+                    endDateEntry = dates[i];
+            }
+
+            for (int i = 0; i < durationsPerDate.Count; i++)
             {
                 var date = dates[i];
                 if (date >= startDate && date <= endDate)
@@ -77,6 +91,11 @@
                     durationsPerDateInTimeRange.Add(date, durationsPerDate[date]);
                 }
             }
+            if (!durationsPerDateInTimeRange.ContainsKey(startDateEntry) && startDateEntry != DateTime.MinValue)
+                durationsPerDateInTimeRange.Add(startDate, durationsPerDate[startDateEntry]);
+
+            if (!durationsPerDateInTimeRange.ContainsKey(endDateEntry) && endDateEntry != DateTime.MaxValue)
+                durationsPerDateInTimeRange.Add(endDate, durationsPerDate[endDateEntry]);
 
             return durationsPerDateInTimeRange;
         }
@@ -86,14 +105,16 @@
 	        SortedDictionary<DateTime, double> durationsPerDate = new SortedDictionary<DateTime, double>();
 	        double sum = 0;
 
-	        foreach (var task in _taskList)
-	        {
-		        foreach (var entry in task.GetTogglEntrySums())
-		        {
-			        durationsPerDate.Add(entry.Date, 0);                                //Start of the Day
-			        durationsPerDate.Add(entry.Date.AddHours(23.9), entry.Duration);    //End of the Day
-		        }
-	        }
+	        foreach (var entry in _togglEntrySums)
+		    {
+			    if (!durationsPerDate.ContainsKey(entry.Date))
+                    durationsPerDate.Add(entry.Date, 0);                            //Start of the Day
+
+                if (!durationsPerDate.ContainsKey(entry.Date.AddDays(1)))
+			        durationsPerDate.Add(entry.Date.AddDays(1), entry.Duration);    //End of the Day
+                else
+                    durationsPerDate[entry.Date.AddDays(1)] += entry.Duration;
+            }
 
 	        foreach (var entry in durationsPerDate.Keys.ToList())
 	        {

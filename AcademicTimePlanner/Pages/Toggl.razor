@@ -5,9 +5,24 @@
 
 @if (TogglState.Value.Loaded)
 {
-    <p>@NumberOfTogglProjects Toggl-Projekte geladen</p>
+    <p>@LoadOverview.Count Toggl-Projekte geladen</p>
     <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronisieren</button>
     <label>Zuletzt synchronisiert: @TogglState.Value.LastSynchronized.ToString()</label>
+
+    <p>Folgende Toggl-Projekte wurden geladen. Anzeigeformat: Toggl-Projekt -> assoziiertes Planprojekt</p>
+    <ul>
+    @foreach (var overviewData in LoadOverview)
+    {
+        @if (!overviewData.IsDeleted)
+        {
+            <li>@overviewData.TogglProjectName -> @overviewData.PlanProjectName</li>
+        }   
+        else
+        {
+            <li style="color:red">@overviewData.TogglProjectName (deleted) -> @overviewData.PlanProjectName</li>
+        }
+    }
+    </ul>
 }
 else
 {

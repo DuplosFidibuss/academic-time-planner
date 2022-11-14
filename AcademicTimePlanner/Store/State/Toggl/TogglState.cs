@@ -1,4 +1,6 @@
+using AcademicTimePlanner.Data;
 using Fluxor;
+using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.Toggl;
 
@@ -7,16 +9,16 @@ public class TogglState
 {
     public bool Loaded { get; }
 
-    public int NumberOfTogglProjects { get; }
+    public List<TogglLoadOverviewData> LoadOverview { get; }
 
-	public DateTime LastSynchronized { get; }
+    public DateTime LastSynchronized { get; }
 
     private TogglState() { }
 
-    public TogglState(bool loaded, int numberOfTogglProjects, DateTime lastSynchronized)
+    public TogglState(bool loaded, List<TogglLoadOverviewData> loadOverview, DateTime lastSynchronized)
     {
         Loaded = loaded;
-        NumberOfTogglProjects = numberOfTogglProjects;
+        LoadOverview= loadOverview;
 		LastSynchronized = lastSynchronized;
     }
 }

@@ -6,7 +6,7 @@ namespace AcademicTimePlanner.Store.State.Charts
     [FeatureState]
     public class ChartsState
     {
-        public bool Loaded { get; }
+        public bool Loaded { get; set; }
 
         public bool LoadedFiltered { get; }
 

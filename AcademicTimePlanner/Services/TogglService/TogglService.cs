@@ -20,7 +20,7 @@ public class TogglService : ITogglService
         togglDetailResponseWithSinceDate.Data.ForEach(response => {
 
             var togglProjectId = response.ProjectId.GetValueOrDefault(TogglProject.NoTogglProjectId);
-            var togglTaskId = response.TaskId.GetValueOrDefault(TogglTask.NoTogglTaskId);
+            var togglTaskId = response.TaskId.GetValueOrDefault(TogglProject.NoTogglProjectId);
 
             var togglProject = togglProjects.FindLast(togglProject => togglProject.TogglId == togglProjectId); 
             if (togglProject == null)
@@ -29,8 +29,8 @@ public class TogglService : ITogglService
                 togglProjects.Add(togglProject);
             }
 
-            var togglTask = togglProject.GetOrCreateTogglTask(togglTaskId, response.Task);
-            togglTask.AddEntry(new TogglEntrySum(response.StartTime, response.Duration/(double)3600000, response.Id, togglTaskId));
+            togglProject.AddTogglTask(togglTaskId, response.Task);
+            togglProject.AddEntry(new TogglEntrySum(response.StartTime, response.Duration/(double)3600000, response.Id, togglTaskId));
         });
 
         return togglProjects;
