@@ -36,7 +36,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
+            {
                 dataManager = new DataManager();
+                await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+            }
             return dataManager.GetChartData();
         }
 
@@ -44,7 +47,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
+            {
                 dataManager = new DataManager();
+                await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+            }
             return dataManager.GetTogglLoadOverview();
         }
     }
