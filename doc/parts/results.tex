@@ -7,33 +7,57 @@
 % !TEX encoding = UTF-8 Unicode
 % !TEX root = ../doc.tex
 
-This section shows the final results of the project as well as the partial results that were made along the way.
+This section shows the results achieved during realization of the project.
 
-\subsection{Overview PlanProject vs TogglProject}
-To display the difference between the plan projects and the corresponding toggl project three different graphs are displayed in the graphs tab. Those three graphs consist of a total overview, a project overview and an overview where the user can set the start and end date for the analysis.
+\section{Application data persistence with LocalStorage}
+To store application data (plan project data, data fetched from Toggl etc.), the approach described in chapter \ref{Local Storage} was applied. The data is hold by a data manager object which is stored in Local Storage and can be loaded from there using the interface provided by the LocalStorage library.
+
+\section{Overview PlanProject vs TogglProject} \label{Graphical overview}
+To display the difference between the plan projects and the corresponding Toggl project, three different charts are displayed in the charts tab.
+\begin{itemize}
+	\item Total overview
+	\item Projects overview
+	\item Project time range overview
+\end{itemize}
+The different charts are explained in more detail in the following subsections.
+
 \subsubsection{Total Overview}
-This graph shows the total time planned in all plan projects summed up. (See figure \ref{figure9} ) This is compared with the total tracked time as well as a prognosis of how much time will be needed according to the future plan entries. For example if only one project exists and the whole project has a duration of 5 weeks and every week 2 hours are planned the total time will be 10. If the user is now in week 3 and has worked for 5 hours, the tracked time would show 5 and the prediction would show 9 as week 4 and 5 have both 2 hours planned. This data shows that the user is 1 hour behind the plan project and needs to spend one more hour in week 3.
+This bar chart shows the overall sum of the time planned for all plan projects, compared to the total tracked time of their associated Toggl projects. Additionally, a prediction of how much time will be needed according to the future plan entries is displayed. An example for two projects is shown in \ref{figure9}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TotalOverview}
-	\caption{Total Overview}
+	\caption{Total overview for two projects}
 	\label{figure9}
 \end{figure}
-
-\subsubsection{Projects Overview}
-This graph is similar to the total overview but the single projects are all show separately. An other minor difference is that the prognosis is added to both the tracked time and the planned time, creating a prediction for both. If there is only one project this overview is mostly the same as the total overview.
+If all projects have been completed already, meaning there are no future plan entries for any project, then no prediction will be displayed. An example for one project is shown in \ref{figure10}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\columnwidth]{ProjectOverview}
-	\caption{Total Overview}
+	\includegraphics[width=1.0\columnwidth]{TotalOverview_FinishedProject}
+	\caption{Total overview for one finished project}
 	\label{figure10}
 \end{figure}
 
+\subsubsection{Projects Overview}
+This bar chart is similar to the total overview, but the single projects are displayed separately. An other minor difference is that the prognosis is added to both the tracked time and the planned time, creating a prediction for both. An example for two projects is shown in \ref{figure10}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{ProjectOverview}
+	\caption{Project overview for two projects}
+	\label{figure11}
+\end{figure}
+If a project has been completed already, meaning there are no future plan entries for it, then no prediction will be displayed for that project. An example for one project is shown in \ref{figure12}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{ProjectOverview_FinishedProject}
+	\caption{Project overview for one finished project}
+	\label{figure12}
+\end{figure}
+
 \subsubsection{Project time range overview}
-In this graph the user can choose in which time frame the project should be shown. This allows to see if the user is on track and/or if the progression is getting better or worse. As an example if in the first week only half an hour was spent but in the second and third week 3. Then the project overall would show, that half an hour was spent too much and the information of the single weeks would be lost. This graph allows the user to still find these inconsistencies to the planned time.
+To display the chart, the user first has to choose the applicable time range. On hitting the "Filter setzen" button, the time range is set, and a line chart is drawn for every project, showing the development of planned time and tracked time during the selected time range. To reset the filter, the "Filter neu setzen" button has to be hit. This chart allows to see how the time amounts displayed in the other charts have been achieved and thus allows a user to estimate the quality of their planning. An example for one project is shown in \ref{figure11}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TimeOverview}
-	\caption{Total Overview}
-	\label{figure11}
+	\caption{Time overview for one project}
+	\label{figure13}
 \end{figure}

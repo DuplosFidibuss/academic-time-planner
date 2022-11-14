@@ -73,3 +73,6 @@ These two structures can be combined in a JSON file to get something akin to the
 	\caption{Example of a JSON file}
 	\label{figure4}
 \end{figure}
+
+\section{Local Storage} \label{Local Storage}
+Local Storage is a mechanism provided by the Web Storage API by which browsers can store data as key/value pairs without having to use cookies. Data stored in Local Storage persists when the browser is closed and reopened and only is deleted on cache clearing \cite{web-storage-api-url}. Moreover, the data is scoped to the browser window, which means that multiple tabs within the same browser window share the data \cite{blazor-state-management-url}. The maximum amount of data which can be stored in Local Storage is 5 MB. To access Local Storage from within a Blazor application, there is an open-source library available, which is called LocalStorage and provided by Blazored \cite{local-storage-url}.
