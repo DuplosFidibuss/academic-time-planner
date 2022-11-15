@@ -237,12 +237,12 @@ public class TogglServiceTests
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
 
         // Asset
-        Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
+        //There is an empty project here -> count + 1
+        Assert.AreEqual(expectedTogglProjectList.Count+1, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
             Assert.IsNull(actualTogglProjectList);
-            //TODO how to test this
-            //Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
+            Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
         }
     }
 }
