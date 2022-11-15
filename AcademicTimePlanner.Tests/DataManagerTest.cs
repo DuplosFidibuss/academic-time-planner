@@ -32,7 +32,8 @@ namespace AcademicTimePlanner.Tests
 
             foreach (var project in testTogglProjects)
             {
-                Assert.IsTrue(_dataManager.TogglProjects[project]);
+                Assert.IsTrue(_dataManager.TogglProjects.Contains(project));
+                Assert.IsFalse(_dataManager.DeletedTogglProjectIds.Contains(project.TogglId));
             }
         }
 
@@ -40,13 +41,14 @@ namespace AcademicTimePlanner.Tests
         public void NonEmptyTogglProjectsIsUpdatedCorrectly()
         {
             var testTogglProjects = TestTogglProject.GetTestTogglProject();
-            _dataManager.TogglProjects[testTogglProjects[0]] = true;
+            _dataManager.TogglProjects.Add(testTogglProjects[0]);
 
             _dataManager.UpdateTogglData(testTogglProjects);
 
             foreach (var project in testTogglProjects)
             {
-                Assert.IsTrue(_dataManager.TogglProjects[project]);
+                Assert.IsTrue(_dataManager.TogglProjects.Contains(project));
+                Assert.IsFalse(_dataManager.DeletedTogglProjectIds.Contains(project.TogglId));
             }
         }
 
@@ -58,8 +60,12 @@ namespace AcademicTimePlanner.Tests
 
             _dataManager.UpdateTogglData(new List<TogglProject> { testTogglProjects[1] });
 
-            Assert.IsFalse(_dataManager.TogglProjects[testTogglProjects[0]]);
-            Assert.IsTrue(_dataManager.TogglProjects[testTogglProjects[1]]);
+            foreach (var project in testTogglProjects)
+            {
+                Assert.IsTrue(_dataManager.TogglProjects.Contains(project));
+            }
+            Assert.IsFalse(_dataManager.DeletedTogglProjectIds.Contains(testTogglProjects[1].TogglId));
+            Assert.IsTrue(_dataManager.DeletedTogglProjectIds.Contains(testTogglProjects[0].TogglId));
         }
 
         [TestMethod]
@@ -78,7 +84,7 @@ namespace AcademicTimePlanner.Tests
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
             var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
-            _dataManager.TogglProjects.Add(testTogglProject, true);
+            _dataManager.TogglProjects.Add(testTogglProject);
 
             var chartData = _dataManager.GetChartData();
 
@@ -101,7 +107,7 @@ namespace AcademicTimePlanner.Tests
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
             var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
-            _dataManager.TogglProjects.Add(testTogglProject, true);
+            _dataManager.TogglProjects.Add(testTogglProject);
 
             var loadOverview = _dataManager.GetTogglLoadOverview();
 
@@ -115,7 +121,7 @@ namespace AcademicTimePlanner.Tests
         public void GetTogglLoadOverviewReturnsCorrectOverviewWithoutAssociatedPlanProject()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            _dataManager.TogglProjects.Add(testTogglProject, true);
+            _dataManager.TogglProjects.Add(testTogglProject);
 
             var loadOverview = _dataManager.GetTogglLoadOverview();
 
@@ -131,7 +137,8 @@ namespace AcademicTimePlanner.Tests
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
             var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
-            _dataManager.TogglProjects.Add(testTogglProject, false);
+            _dataManager.TogglProjects.Add(testTogglProject);
+            _dataManager.DeletedTogglProjectIds.Add(testTogglProject.TogglId);
 
             var loadOverview = _dataManager.GetTogglLoadOverview();
 
