@@ -242,7 +242,7 @@ public class TogglServiceTests
         {
             Assert.IsNull(actualTogglProjectList);
             //TODO how to test this
-            Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
+            //Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
         }
     }
 }
