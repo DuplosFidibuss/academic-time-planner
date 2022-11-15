@@ -54,8 +54,8 @@ public class TogglServiceTests
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
-            Assert.IsTrue(expectedTogglProjectList[index].TogglId == actualTogglProjectList[index].TogglId);
-            Assert.IsTrue(expectedTogglProjectList[index].Name == projectName);
+            Assert.AreEqual(expectedTogglProjectList[index].TogglId, actualTogglProjectList[index].TogglId);
+            Assert.AreEqual(expectedTogglProjectList[index].Name, projectName);
         }
     }
 
@@ -102,8 +102,8 @@ public class TogglServiceTests
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
-            Assert.IsTrue(expectedTogglProjectList[index].TogglId == actualTogglProjectList[index].TogglId);
-            Assert.IsTrue(expectedTogglProjectList[index].Name == projectName);
+            Assert.AreEqual(expectedTogglProjectList[index].TogglId, actualTogglProjectList[index].TogglId);
+            Assert.AreEqual(expectedTogglProjectList[index].Name, projectName);
         }
     }
 
@@ -150,9 +150,9 @@ public class TogglServiceTests
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
-            Assert.IsTrue(expectedTogglProjectList[index].TogglId == actualTogglProjectList[index].TogglId);
-            Assert.IsTrue(expectedTogglProjectList[index].Name == projectName);
-            Assert.IsTrue(expectedTogglProjectList[index].Tasks.Count == actualTogglProjectList[index].Tasks.Count);
+            Assert.AreEqual(expectedTogglProjectList[index].TogglId, actualTogglProjectList[index].TogglId);
+            Assert.AreEqual(expectedTogglProjectList[index].Name, projectName);
+            Assert.AreEqual(expectedTogglProjectList[index].Tasks.Count, actualTogglProjectList[index].Tasks.Count);
         }
     }
 
@@ -190,9 +190,9 @@ public class TogglServiceTests
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
-            Assert.IsTrue(expectedTogglProjectList[index].TogglId == actualTogglProjectList[index].TogglId);
-            Assert.IsTrue(expectedTogglProjectList[index].Name == projectName);
-            Assert.IsTrue(expectedTogglProjectList[index].GetTotalDuration() == 0);
+            Assert.AreEqual(expectedTogglProjectList[index].TogglId, actualTogglProjectList[index].TogglId);
+            Assert.AreEqual(expectedTogglProjectList[index].Name, projectName);
+            Assert.AreEqual(expectedTogglProjectList[index].GetTotalDuration(), 0);
         }
 
     }
@@ -241,7 +241,8 @@ public class TogglServiceTests
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
             Assert.IsNull(actualTogglProjectList);
-            Assert.IsTrue(actualTogglProjectList[index].GetTotalDuration() == durations[index]);
+            //TODO how to test this
+            Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
         }
     }
 }
