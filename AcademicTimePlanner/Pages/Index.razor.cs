@@ -38,10 +38,10 @@ public partial class Index
         Dispatcher.Dispatch(new LoadPlanProjectsAction(json));
     }
 
-    /*public PlanProject(long togglProjectId, string name)
+    /*public PlanProject(string name)
         {
             Id = Guid.NewGuid();
-            TogglProjectId = togglProjectId;
+            TogglProjectId = -1;
             Name = name;
             Tasks = new Dictionary<long, string>();
             PlanEntries = new List<PlanEntry>();
