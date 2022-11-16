@@ -219,8 +219,8 @@ public class TogglServiceTests
             Data = new List<TogglDetailResponseData>()
             {
                 new() { Id = 0, StartTime = dates[0], EndTime = dates[1], Duration = durations[0] },
-                new() { Id = 1, StartTime = dates[0], EndTime = dates[1], Duration = durations[1] },
-                new() { Id = 2, StartTime = dates[0], EndTime = dates[1], Duration = durations[2] },
+                new() { Id = 1, StartTime = dates[0], EndTime = dates[2], Duration = durations[1] },
+                new() { Id = 2, StartTime = dates[1], EndTime = dates[2], Duration = durations[2] },
             }
         };
 
@@ -242,7 +242,7 @@ public class TogglServiceTests
         for (var index = 0; index < actualTogglProjectList.Count; index++)
         {
             //apparently this returns 1.6666666667E-6
-            Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
+            Assert.AreEqual(durations.Sum(), actualTogglProjectList[index].GetTotalDuration() * (double)3600000);
         }
     }
 }
