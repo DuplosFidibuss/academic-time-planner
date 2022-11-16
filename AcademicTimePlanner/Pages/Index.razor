@@ -29,15 +29,15 @@
 {
     case ProjectFilesState.CreationStep.NamingProject :
         <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
-        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Weiter</button>
+        <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Weiter</button>
         break;
     case ProjectFilesState.CreationStep.EnableTasks :
-        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Zurück</button>
+        <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Zurück</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
-        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Weiter</button>
+        <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Weiter</button>
         break;
     case ProjectFilesState.CreationStep.EnterEntries :
-        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Zurück</button>
+        <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Zurück</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
         <button type="button" class="btn btn-primary" @onclick="Finish">Projekt erstellen</button>
         break;
