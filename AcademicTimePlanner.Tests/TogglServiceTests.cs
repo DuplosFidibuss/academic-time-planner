@@ -25,7 +25,8 @@ public class TogglServiceTests
         var taskName = "Test task";
         var projectIds = new List<long>() { 1, 2 };
         var taskIds = new List<long>() { 3, 4, 5 };
-        
+
+        // Arrange
         var togglDetailResponse = new TogglDetailResponse()
         {
             Data = new List<TogglDetailResponseData>()
@@ -50,7 +51,7 @@ public class TogglServiceTests
         // Act
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
         
-        // Asset
+        // Assert
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
@@ -65,6 +66,7 @@ public class TogglServiceTests
         var projectName = "Test project";
         var projectIds = new List<long>() { 1, 2, 3 };
 
+        // Arrange
         var togglDetailResponse = new TogglDetailResponse()
         {
             Data = new List<TogglDetailResponseData>()
@@ -89,7 +91,7 @@ public class TogglServiceTests
         // Act
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
 
-        // Asset
+        // Assert
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
@@ -106,6 +108,7 @@ public class TogglServiceTests
         var projectIds = new List<long>() { 0, 1, 2 };
         var taskIds = new List<long>() { 3, 4, 5 };
 
+        // Arrange
         var togglDetailResponse = new TogglDetailResponse()
         {
             Data = new List<TogglDetailResponseData>()
@@ -137,7 +140,7 @@ public class TogglServiceTests
         // Act
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
 
-        // Asset
+        // Assert
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
@@ -153,6 +156,7 @@ public class TogglServiceTests
         var projectName = "Test project";
         var projectIds = new List<long>() { 0, 1, 2 };
 
+        // Arrange
         var togglDetailResponse = new TogglDetailResponse()
         {
             Data = new List<TogglDetailResponseData>()
@@ -177,7 +181,7 @@ public class TogglServiceTests
         // Act
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
 
-        // Asset
+        // Assert
         Assert.AreEqual(expectedTogglProjectList.Count, actualTogglProjectList.Count);
         for (var index = 0; index < expectedTogglProjectList.Count; index++)
         {
@@ -227,7 +231,7 @@ public class TogglServiceTests
         // Act
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
 
-        // Asset
+        // Assert
         //There is an empty project here -> count == 1
         Assert.AreEqual(1, actualTogglProjectList.Count);
         //actualTogglProjectList is in Milliseconds -> *3600000
