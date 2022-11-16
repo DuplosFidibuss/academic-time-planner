@@ -9,6 +9,7 @@ namespace AcademicTimePlanner.Data
         public const string NoAssociatedPlanProjectName = "No plan project associated";
 
         public List<Budget> Budgets { get; set; }
+
         public List<PlanProject> PlanProjects { get; set; }
 
         public List<TogglProject> TogglProjects { get; set; }
