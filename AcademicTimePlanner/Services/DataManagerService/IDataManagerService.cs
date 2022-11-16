@@ -15,13 +15,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// </summary>
         /// <param name="togglProjects"></param>
         /// <returns></returns>
-        public Task SetTogglProjects(List<TogglProject> togglProjects);
-
-        /// <summary>
-        /// Gets the Toggl data hold by <see cref="DataManager"/>.
-        /// </summary>
-        /// <returns></returns>
-        public Task<List<TogglProject>> GetTogglProjects();
+        public Task UpdateTogglProjects(List<TogglProject> togglProjects);
 
         /// <summary>
         /// Updates the planning data hold by <see cref="DataManager"/>
@@ -31,10 +25,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public Task SetPlanProjects(List<PlanProject> planProjects);
 
         /// <summary>
-        /// Gets the planning data hold by <see cref="DataManager"/>.
+        /// Gets the Toggl load overview from the <see cref="DataManager"/>.
         /// </summary>
         /// <returns></returns>
-        public Task<List<PlanProject>> GetPlanProjects();
+        public Task<List<TogglLoadOverviewData>> GetTogglLoadOverview();
 
         /// <summary>
         /// Gets the current chart data from the <see cref="DataManager"/>

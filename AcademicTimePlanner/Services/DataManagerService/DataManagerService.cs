@@ -14,22 +14,13 @@ namespace AcademicTimePlanner.Services.DataManagerService
             _localStorage = localStorage;
         }
 
-        public async Task SetTogglProjects(List<TogglProject> togglProjects)
+        public async Task UpdateTogglProjects(List<TogglProject> togglProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
                 dataManager = new DataManager();
-            dataManager.TogglProjects = togglProjects;
+            dataManager.UpdateTogglData(togglProjects);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
-        }
-
-        public async Task<List<TogglProject>> GetTogglProjects()
-        {
-            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
-            var togglProjects = new List<TogglProject>();
-            if (dataManager != null)
-                togglProjects.AddRange(dataManager.TogglProjects);
-            return togglProjects;
         }
 
         public async Task SetPlanProjects(List<PlanProject> planProjects)
@@ -45,17 +36,22 @@ namespace AcademicTimePlanner.Services.DataManagerService
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
+            {
                 dataManager = new DataManager();
+                await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+            }
             return dataManager.GetChartData();
         }
 
-        public async Task<List<PlanProject>> GetPlanProjects()
+        public async Task<List<TogglLoadOverviewData>> GetTogglLoadOverview()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
-            var planProjects = new List<PlanProject>();
-            if (dataManager != null)
-                planProjects.AddRange(dataManager.PlanProjects);
-            return planProjects;
+            if (dataManager == null)
+            {
+                dataManager = new DataManager();
+                await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+            }
+            return dataManager.GetTogglLoadOverview();
         }
     }
 }
