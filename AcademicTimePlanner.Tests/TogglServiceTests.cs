@@ -219,8 +219,8 @@ public class TogglServiceTests
             Data = new List<TogglDetailResponseData>()
             {
                 new() { Id = 0, StartTime = dates[0], EndTime = dates[1], Duration = durations[0] },
-                new() { Id = 1, StartTime = dates[0], EndTime = dates[2], Duration = durations[1] },
-                new() { Id = 2, StartTime = dates[1], EndTime = dates[2], Duration = durations[2] },
+                new() { Id = 1, StartTime = dates[0], EndTime = dates[1], Duration = durations[1] },
+                new() { Id = 2, StartTime = dates[0], EndTime = dates[1], Duration = durations[2] },
             }
         };
 
@@ -237,11 +237,11 @@ public class TogglServiceTests
         var actualTogglProjectList = await _componentUnderTest.GetTogglProjects(It.IsAny<DateOnly>());
 
         // Asset
-        //There is an empty project here -> count + 1
-        Assert.AreEqual(expectedTogglProjectList.Count+1, actualTogglProjectList.Count);
-        for (var index = 0; index < expectedTogglProjectList.Count; index++)
+        //There is an empty project here -> count == 1
+        Assert.AreEqual(1, actualTogglProjectList.Count);
+        for (var index = 0; index < actualTogglProjectList.Count; index++)
         {
-            Assert.IsNull(actualTogglProjectList);
+            //apparently this returns 1.6666666667E-6
             Assert.AreEqual(durations[index], actualTogglProjectList[index].GetTotalDuration());
         }
     }
