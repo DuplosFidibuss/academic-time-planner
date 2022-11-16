@@ -183,7 +183,7 @@ public class TogglServiceTests
         {
             Assert.AreEqual(expectedTogglProjectList[index].TogglId, actualTogglProjectList[index].TogglId);
             Assert.AreEqual(expectedTogglProjectList[index].Name, projectName);
-            Assert.AreEqual(expectedTogglProjectList[index].GetTotalDuration(), 0);
+            Assert.AreEqual(expectedTogglProjectList[index].TogglEntrySums.Count, 0);
         }
 
     }
