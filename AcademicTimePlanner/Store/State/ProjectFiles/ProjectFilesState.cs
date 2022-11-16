@@ -1,4 +1,5 @@
-﻿using Fluxor;
+﻿using AcademicTimePlanner.DataMapping.Plan;
+using Fluxor;
 using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
@@ -20,6 +21,8 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public ImmutableSortedSet<string> PlanProjectsNames { get; }
 
+        public PlanProject? PlanProject { get; }
+
         private ProjectFilesState() { }
 
         public ProjectFilesState(CreationStep step, bool loaded, ImmutableSortedSet<string> planProjectsNames)
@@ -27,6 +30,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             Step = step;
             Loaded = loaded;
             PlanProjectsNames = planProjectsNames;
+        }
+        public ProjectFilesState(CreationStep step, bool loaded, ImmutableSortedSet<string> planProjectsNames, PlanProject planProject)
+        {
+            Step = step;
+            Loaded = loaded;
+            PlanProjectsNames = planProjectsNames;
+            PlanProject = planProject;
         }
     }
 }

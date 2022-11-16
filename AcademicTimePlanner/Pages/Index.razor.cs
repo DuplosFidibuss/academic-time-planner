@@ -20,7 +20,7 @@ public partial class Index
     
     private const string Title = "Startseite";
 
-    private PlanProject planProject;
+    private PlanProject? planProject => ProjectState.Value.PlanProject;
 
     protected override void OnInitialized()
     {
@@ -50,8 +50,16 @@ public partial class Index
     */
     private void CreatePlanProject()
     {
-        planProject = new();
+        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, new()));
+    }
 
+    private void Cancel()
+    {
+        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
+    }
 
+    private void NextOrBack(ProjectFilesState.CreationStep step)
+    {
+        Dispatcher.Dispatch(new SwitchCreationStepAction(step, planProject!));
     }
 }

@@ -22,13 +22,24 @@
             }
         </ul>
     }
+    <button type="button" class="btn btn-primary" @onclick="CreatePlanProject">Plan-Projekt erstellen</button>
 }
 
-<button type="button" class="btn btn-primary" @onclick="CreatePlanProject">Plan-Projekt erstellen</button>
 @switch (ProjectState.Value.Step) 
 {
-    case ProjectFilesState.CreationStep.NamingProject : break;
-    case ProjectFilesState.CreationStep.EnableTasks : break;
-    case ProjectFilesState.CreationStep.EnterEntries : break;
+    case ProjectFilesState.CreationStep.NamingProject :
+        <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
+        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Weiter</button>
+        break;
+    case ProjectFilesState.CreationStep.EnableTasks :
+        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Zurück</button>
+        <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
+        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Weiter</button>
+        break;
+    case ProjectFilesState.CreationStep.EnterEntries :
+        <button type="button" class="btn btn-primary" @onclick="@(e=>NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Zurück</button>
+        <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
+        <button type="button" class="btn btn-primary" @onclick="Finish">Projekt erstellen</button>
+        break;
     default : break;
 }
