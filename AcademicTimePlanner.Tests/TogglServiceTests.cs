@@ -65,15 +65,6 @@ public class TogglServiceTests
         var projectName = "Test project";
         var projectIds = new List<long>() { 1, 2, 3 };
 
-
-        // Arrange
-        var dates = new List<DateTime>()
-        {
-            new (2022, 01, 01),
-            new (2022, 01, 02),
-            new (2022, 01, 03),
-        };
-
         var togglDetailResponse = new TogglDetailResponse()
         {
             Data = new List<TogglDetailResponseData>()
@@ -239,10 +230,7 @@ public class TogglServiceTests
         // Asset
         //There is an empty project here -> count == 1
         Assert.AreEqual(1, actualTogglProjectList.Count);
-        for (var index = 0; index < actualTogglProjectList.Count; index++)
-        {
-            //apparently this returns 1.6666666667E-6
-            Assert.AreEqual(durations.Sum(), actualTogglProjectList[index].GetTotalDuration() * (double)3600000);
-        }
+        //actualTogglProjectList is in Milliseconds -> *3600000
+        Assert.AreEqual(durations.Sum(), actualTogglProjectList[0].TogglEntrySums.Sum(entry => entry.Duration) * 3600000);
     }
 }

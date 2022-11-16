@@ -6,7 +6,7 @@
 
         public Dictionary<long, string> Tasks { get; }
 
-        private List<TogglEntrySum> _togglEntrySums;
+        public List<TogglEntrySum> TogglEntrySums { get; }
 
         public Guid Id { get; }
 
@@ -26,7 +26,7 @@
             TogglId = togglId;
             Name = name;
             Tasks = new Dictionary<long, string>();
-            _togglEntrySums = new List<TogglEntrySum>();
+            TogglEntrySums = new List<TogglEntrySum>();
         }
 
         public void AddTogglTask(long togglTaskId, string name)
@@ -43,16 +43,16 @@
 
         public void AddEntry(TogglEntrySum entry)
         {
-            var entrySumOfSameDay = _togglEntrySums.FindLast(entrySum => entrySum.Date.Equals(entry.Date));
+            var entrySumOfSameDay = TogglEntrySums.FindLast(entrySum => entrySum.Date.Equals(entry.Date));
             if (entrySumOfSameDay != null)
                 entrySumOfSameDay.Duration += entry.Duration;
             else
-                _togglEntrySums.Add(entry);
+                TogglEntrySums.Add(entry);
         }
 
         public double GetTotalDuration()
         {
-            return (from entrySum in _togglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue) select entrySum.Duration).Sum();
+            return (from entrySum in TogglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue) select entrySum.Duration).Sum();
 
         }
 
@@ -105,7 +105,7 @@
 	        SortedDictionary<DateTime, double> durationsPerDate = new SortedDictionary<DateTime, double>();
 	        double sum = 0;
 
-	        foreach (var entry in _togglEntrySums)
+	        foreach (var entry in TogglEntrySums)
 		    {
 			    if (!durationsPerDate.ContainsKey(entry.Date))
                     durationsPerDate.Add(entry.Date, 0);                            //Start of the Day
