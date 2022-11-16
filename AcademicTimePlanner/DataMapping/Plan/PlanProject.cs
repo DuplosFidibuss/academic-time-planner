@@ -15,7 +15,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         public long TogglProjectId { get; set; }
 
         [JsonPropertyName("Name")]
-        public String Name { get; set; }
+        public String? Name { get; set; }
 
         [JsonPropertyName("Tasks")]
         [JsonInclude]
@@ -23,11 +23,11 @@ namespace AcademicTimePlanner.DataMapping.Plan
 
         [JsonPropertyName("PlanEntries")]
         [JsonInclude]
-        public List<PlanEntry> PlanEntries { get; set; }
+        public List<PlanEntry>? PlanEntries { get; set; }
 
         [JsonPropertyName("RepetitionEntries")]
         [JsonInclude]
-        public List<PlanEntryRepetition> RepetitionEntries { get; set; }
+        public List<PlanEntryRepetition>? RepetitionEntries { get; set; }
 
 
         /// <summary>
@@ -58,6 +58,8 @@ namespace AcademicTimePlanner.DataMapping.Plan
             PlanEntries = new List<PlanEntry>();
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
+
+        public PlanProject() {}
 
        public void AddPlanTask(long taskId, string name)
         {
