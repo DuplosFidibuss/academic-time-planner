@@ -28,6 +28,9 @@
 @switch (ProjectState.Value.Step) 
 {
     case ProjectFilesState.CreationStep.NamingProject :
+        <EditForm Model="@planProject">
+            <InputText id="projectName" @bind-Value="planProject!.Name"/>
+        </EditForm>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Weiter</button>
         break;
