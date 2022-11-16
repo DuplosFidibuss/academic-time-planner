@@ -59,7 +59,10 @@ namespace AcademicTimePlanner.DataMapping.Plan
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
-        public PlanProject() {}
+        public PlanProject() 
+        {
+            Id = Guid.NewGuid();
+        }
 
        public void AddPlanTask(long taskId, string name)
         {
