@@ -13,7 +13,7 @@ namespace AcademicTimePlanner.Data
 
         public List<TogglProject> TogglProjects { get; set; }
 
-        public List<long> DeletedTogglProjectIds { get; }
+        public List<long> DeletedTogglProjectIds { get; set; }
 
         /// <summary>
         /// This class holds all data used and created by the application.
@@ -30,6 +30,7 @@ namespace AcademicTimePlanner.Data
         {
             var currentTogglProjects = new List<TogglProject>(TogglProjects);
             TogglProjects.Clear();
+            DeletedTogglProjectIds.Clear();
             foreach (var project in togglProjects)
             {
                 TogglProjects.Add(project);
@@ -43,6 +44,7 @@ namespace AcademicTimePlanner.Data
                     DeletedTogglProjectIds.Add(currentProject.TogglId);
                 }
             }
+            Console.WriteLine(DeletedTogglProjectIds.Count);
         }
 
         public ChartData GetChartData()
