@@ -62,4 +62,9 @@ public partial class Index
     {
         Dispatcher.Dispatch(new SwitchCreationStepAction(step, planProject!));
     }
+
+    private void Finish()
+    {
+        Dispatcher.Dispatch(new FinishPlanProjectCreationAction(planProject!));
+    }
 }

@@ -27,5 +27,12 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             var projectNamesList = (from planProject in planProjects select planProject.Name).ToImmutableSortedSet();
             dispatcher.Dispatch(new SetPlanProjectsAction(projectNamesList));
         }
+
+        [EffectMethod]
+        public async Task HandleAsync(FinishPlanProjectCreationAction action, IDispatcher dispatcher)
+        {
+            await _dataManagerService.AddPlanProject(action.PlanProject);
+            dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
+        }
     }
 }
