@@ -7,7 +7,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         [ReducerMethod]
         public static ProjectFilesState Reduce(ProjectFilesState state , SetPlanProjectsAction action)
         {
-            return new ProjectFilesState(true, action.PlanProjectsNames);
+            return new ProjectFilesState(ProjectFilesState.CreationStep.NotCreating, true, action.PlanProjectsNames);
         }
     }
 }
