@@ -22,7 +22,7 @@ namespace AcademicTimePlanner.JSONHandling
 
         private string getDataPath(String filename)
         {
-            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName; ;
+            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
             string dataPath = directory + @"\AcademicTimePlanner\JSON_Files\"+filename+".json";
             return dataPath;
         }
