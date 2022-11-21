@@ -147,5 +147,36 @@ namespace AcademicTimePlanner.Tests
             Assert.IsTrue(loadOverview[0].IsDeleted);
             Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectName);
         }
+
+        [TestMethod]
+        public void UpdateTogglProjectsDoesNotDuplicateShiftedEntries()
+        {
+            var shiftedTestEntry = new TogglEntrySum(DateTime.Today, 3, 1, -1);
+            var remainingTestEntry = new TogglEntrySum(DateTime.Today.AddDays(-3), 2, 2, -1);
+
+            var testTogglProject1 = new TogglProject(3, "Test project 1");
+            var testTogglProject2 = new TogglProject(4, "Test project 2");
+
+            testTogglProject1.TogglEntrySums.Add(shiftedTestEntry);
+            testTogglProject1.TogglEntrySums.Add(remainingTestEntry);
+
+            _dataManager.UpdateTogglData(new List<TogglProject> { testTogglProject1, testTogglProject2 });
+
+            Assert.AreEqual(2, _dataManager.TogglProjects.Count);
+            Assert.AreEqual(2, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
+            Assert.AreEqual(0, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
+
+            var updatedTestTogglProject1 = new TogglProject(3, "Test project 1");
+            var updatedTestTogglProject2 = new TogglProject(4, "Test project 2");
+
+            updatedTestTogglProject1.TogglEntrySums.Add(remainingTestEntry);
+            updatedTestTogglProject2.TogglEntrySums.Add(shiftedTestEntry);
+
+            _dataManager.UpdateTogglData(new List<TogglProject> { updatedTestTogglProject1, updatedTestTogglProject2 });
+
+            Assert.AreEqual(2, _dataManager.TogglProjects.Count);
+            Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
+            Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
+        }
     }
 }

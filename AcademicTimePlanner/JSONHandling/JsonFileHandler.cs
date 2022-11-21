@@ -1,9 +1,5 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
-using System.IO;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.Json;
-
+using Newtonsoft.Json;
 
 
 namespace AcademicTimePlanner.JSONHandling
@@ -12,29 +8,25 @@ namespace AcademicTimePlanner.JSONHandling
     /// </summary>
     public class JsonFileHandler
     {
-
-        JsonSerializerOptions options = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,  // set camelCase       
-            WriteIndented = true,                              // write pretty json
-            IncludeFields = true
-        };
-
         private string getDataPath(String filename)
         {
-            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-            string dataPath = directory + @"\AcademicTimePlanner\JSON_Files\"+filename+".json";
+            string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName; ;
+            string dataPath = directory + @"\AcademicTimePlanner\JSON_Files\" + filename + ".json";
             return dataPath;
         }
 
-        public PlanProject loadJson(string path) {
+        public PlanProject loadJson(string path)
+        {
             string jsonString = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<PlanProject>(jsonString);
+            return JsonConvert.DeserializeObject<PlanProject>(jsonString, new JsonSerializerSettings
+            {
+                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+            });
         }
-        
+
         public void saveJson(PlanProject project)
         {
-            string jsonString = JsonSerializer.Serialize(project, options);
+            string jsonString = JsonConvert.SerializeObject(project, Formatting.Indented);
             File.WriteAllText(getDataPath(project.Name), jsonString);
         }
     }

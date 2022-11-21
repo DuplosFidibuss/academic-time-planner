@@ -23,7 +23,7 @@ namespace AcademicTimePlanner.Data
         public ChartData(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
         {
             TogglProjects = new List<TogglProject>();
-            PlanProjects = planProjects;
+            PlanProjects = new List<PlanProject>(planProjects);
             foreach (TogglProject togglProject in allTogglProjects)
             {
                 if (planProjects.Exists(planProject => planProject.TogglProjectId == togglProject.TogglId))

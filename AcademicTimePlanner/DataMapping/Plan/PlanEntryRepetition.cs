@@ -1,35 +1,26 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AcademicTimePlanner.DataMapping.Plan
+﻿namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanEntryRepetition
     {
         private const long NoTaskId = -1;
 
-        [JsonPropertyName("Id")]
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
-        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("RepetitionStartDate")]
         public DateTime RepetitionStartDate { get; set; }
 
-        [JsonPropertyName("RepetitionEndDate")]
         public DateTime RepetitionEndDate { get; set; }
 
-        [JsonPropertyName("Interval")]
         public int Interval { get; set; }
 
-        [JsonPropertyName("Duration")]
         public double Duration { get; set; }
 
-        [JsonPropertyName("TaskId")]
         public long TaskId { get; set; }
 
-        [JsonPropertyName("Entries")]
-        [JsonInclude]
-        public List<PlanEntry> Entries { get; }
+        public List<PlanEntry> Entries { get; set; }
+
+        private PlanEntryRepetition() { }
 
         /// <summary>
         /// This class implements the plan entry repetition. 
@@ -44,9 +35,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="repetitionEndDate"></param>
         /// <param name="interval"></param>
         /// <param name="duration"></param>
-
-        [JsonConstructor]
-        public PlanEntryRepetition(string name,  long taskId, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
+        public PlanEntryRepetition(string name, long taskId, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -58,7 +47,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             Entries = new List<PlanEntry>();
             Modify();
         }
-        
+
         public PlanEntryRepetition(string name, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
         {
             Id = Guid.NewGuid();
@@ -79,14 +68,14 @@ namespace AcademicTimePlanner.DataMapping.Plan
             DateTime end = RepetitionEndDate;
             int i = 1;
 
-            while(start < end)
+            while (start < end)
             {
                 string entryName = Name + i;
                 i += 1;
                 DateTime oldStart = start;
-                start = start.AddDays(Interval-1);
-                if (start > RepetitionEndDate) 
-                    start = RepetitionEndDate; 
+                start = start.AddDays(Interval - 1);
+                if (start > RepetitionEndDate)
+                    start = RepetitionEndDate;
                 PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
                 Entries.Add(planEntry);
                 start = start.AddDays(1);

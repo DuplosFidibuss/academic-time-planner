@@ -52,7 +52,7 @@ namespace AcademicTimePlanner.Data
         {
             // This is for chart display test purposes.
             //TogglProjects.Clear();
-            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project, true));
+            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             return new ChartData(TogglProjects, PlanProjects);
         }
 
@@ -67,6 +67,12 @@ namespace AcademicTimePlanner.Data
                 loadOverview.Add(projectOverviewData);
             }
             return loadOverview;
+        }
+
+        public void UpdatePlanningData(List<PlanProject> planProjects)
+        {
+            PlanProjects.Clear();
+            PlanProjects.AddRange(planProjects);
         }
     }
 }

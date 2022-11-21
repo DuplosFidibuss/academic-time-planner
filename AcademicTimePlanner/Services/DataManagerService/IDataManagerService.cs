@@ -22,7 +22,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// </summary>
         /// <param name="planProjects"></param>
         /// <returns></returns>
-        public Task SetPlanProjects(List<PlanProject> planProjects);
+        public Task UpdatePlanProjects(List<PlanProject> planProjects);
 
         /// <summary>
         /// Adds a <see cref="PlanProject"/> to the <see cref="DataManager"/>

@@ -1,67 +1,67 @@
 {
-  "Id": "20e0e62a-ac7a-49db-bf46-8c153d6698cd",
+  "Id": "761e1fcc-2ad8-4946-b60a-338657a32f3a",
   "TogglProjectId": 1,
   "Name": "testProject_1",
-  "Tasks": [],
+  "Tasks": {},
   "PlanEntries": [
     {
-      "Id": "3a0b9e26-0387-4459-8550-4d3e2f2b8cfb",
+      "Id": "7ef53c77-12c9-4cad-9b6c-e2c3a0f18cf1",
       "Name": "testPlanEntry_1",
       "StartDate": "2022-10-16T00:00:00",
       "EndDate": "2022-10-22T00:00:00",
-      "Duration": 2,
-      "TaskId": "00000000-0000-0000-0000-000000000000"
+      "Duration": 2.0,
+      "TaskId": -1
     }
   ],
   "RepetitionEntries": [
     {
-      "Id": "3bde823b-44a5-44ee-b1c6-c245b4624fa8",
+      "Id": "8610786e-4b1c-491b-8598-f6a0f4062168",
       "Name": "testPlanEntryRepetition_1",
       "RepetitionStartDate": "2022-10-16T00:00:00",
       "RepetitionEndDate": "2022-11-15T00:00:00",
       "Interval": 7,
-      "Duration": 2,
-      "TaskId": "00000000-0000-0000-0000-000000000000",
+      "Duration": 2.0,
+      "TaskId": -1,
       "Entries": [
         {
-          "Id": "b8d1ec89-6ff0-45a0-af85-755349bded52",
+          "Id": "2f42bf7a-7a22-4fb4-951a-1cb3c1620032",
           "Name": "testPlanEntryRepetition_11",
           "StartDate": "2022-10-16T00:00:00",
           "EndDate": "2022-10-22T00:00:00",
-          "Duration": 2,
-          "TaskId": "00000000-0000-0000-0000-000000000000"
+          "Duration": 2.0,
+          "TaskId": -1
         },
         {
-          "Id": "2178fe72-a347-44bd-9dee-f380dd65fd01",
+          "Id": "d7d7c018-7bc4-497e-813c-39c94d665fbf",
           "Name": "testPlanEntryRepetition_12",
           "StartDate": "2022-10-23T00:00:00",
           "EndDate": "2022-10-29T00:00:00",
-          "Duration": 2,
-          "TaskId": "00000000-0000-0000-0000-000000000000"
+          "Duration": 2.0,
+          "TaskId": -1
         },
         {
-          "Id": "6fa89489-9675-451f-8044-d68bb9e8a27e",
+          "Id": "8c4ecbcb-d4b1-43c1-89a8-a72d77e942c4",
           "Name": "testPlanEntryRepetition_13",
           "StartDate": "2022-10-30T00:00:00",
           "EndDate": "2022-11-05T00:00:00",
-          "Duration": 2,
-          "TaskId": "00000000-0000-0000-0000-000000000000"
+          "Duration": 2.0,
+          "TaskId": -1
         },
         {
-          "Id": "5f139757-0b64-440c-9702-96d2a67ad004",
+          "Id": "9fa4fd94-4902-4230-9db2-4519bd1161c3",
           "Name": "testPlanEntryRepetition_14",
           "StartDate": "2022-11-06T00:00:00",
           "EndDate": "2022-11-12T00:00:00",
-          "Duration": 2,
-          "TaskId": "00000000-0000-0000-0000-000000000000"
+          "Duration": 2.0,
+          "TaskId": -1
         },
         {
-          "Id": "45ed2773-96e6-42c3-baf3-4c7866c2add9",
+          "Id": "1878859e-8e20-479e-8d2d-09acd5364ab8",
           "Name": "testPlanEntryRepetition_15",
           "StartDate": "2022-11-13T00:00:00",
           "EndDate": "2022-11-15T00:00:00",
-          "Duration": 2,
-          "TaskId": "00000000-0000-0000-0000-000000000000"
+          "Duration": 2.0,
+          "TaskId": -1
         }
       ]
     }
