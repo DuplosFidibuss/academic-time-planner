@@ -23,12 +23,12 @@ namespace AcademicTimePlanner.Services.DataManagerService
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
-        public async Task SetPlanProjects(List<PlanProject> planProjects)
+        public async Task UpdatePlanProjects(List<PlanProject> planProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
                 dataManager = new DataManager();
-            dataManager.PlanProjects = planProjects;
+            dataManager.UpdatePlanningData(planProjects);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 

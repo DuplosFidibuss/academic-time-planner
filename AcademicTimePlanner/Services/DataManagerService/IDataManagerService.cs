@@ -22,7 +22,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// </summary>
         /// <param name="planProjects"></param>
         /// <returns></returns>
-        public Task SetPlanProjects(List<PlanProject> planProjects);
+        public Task UpdatePlanProjects(List<PlanProject> planProjects);
 
         /// <summary>
         /// Gets the Toggl load overview from the <see cref="DataManager"/>.
