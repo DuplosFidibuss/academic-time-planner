@@ -76,7 +76,7 @@
                 start = start.AddDays(Interval - 1);
                 if (start > RepetitionEndDate)
                     start = RepetitionEndDate;
-                PlanEntry planEntry = new PlanEntry("NoEntries", start, start, Duration);
+                PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
                 Entries.Add(planEntry);
                 start = start.AddDays(1);
             }
