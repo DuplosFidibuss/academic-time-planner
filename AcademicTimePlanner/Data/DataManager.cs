@@ -9,6 +9,7 @@ namespace AcademicTimePlanner.Data
         public const string NoAssociatedPlanProjectName = "No plan project associated";
 
         public List<Budget> Budgets { get; set; }
+
         public List<PlanProject> PlanProjects { get; set; }
 
         public List<TogglProject> TogglProjects { get; set; }
@@ -50,8 +51,8 @@ namespace AcademicTimePlanner.Data
         public ChartData GetChartData()
         {
             // This is for chart display test purposes.
-            //TogglProjects.Clear();
-            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project, true));
+            TogglProjects.Clear();
+            TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             return new ChartData(TogglProjects, PlanProjects);
         }
 
@@ -66,6 +67,12 @@ namespace AcademicTimePlanner.Data
                 loadOverview.Add(projectOverviewData);
             }
             return loadOverview;
+        }
+
+        public void UpdatePlanningData(List<PlanProject> planProjects)
+        {
+            PlanProjects.Clear();
+            PlanProjects.AddRange(planProjects);
         }
     }
 }

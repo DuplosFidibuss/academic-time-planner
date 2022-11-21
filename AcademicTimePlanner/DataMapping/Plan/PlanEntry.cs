@@ -1,28 +1,22 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AcademicTimePlanner.DataMapping.Plan
+﻿namespace AcademicTimePlanner.DataMapping.Plan
 {
     public class PlanEntry
     {
         private const long NoTaskId = -1;
 
-        [JsonPropertyName("Id")]
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
-        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("StartDate")]
         public DateTime StartDate { get; set; }
 
-        [JsonPropertyName("EndDate")]
         public DateTime EndDate { get; set; }
 
-        [JsonPropertyName("Duration")]
         public double Duration { get; set; }
 
-        [JsonPropertyName("TaskId")]
         public long TaskId { get; set; }
+
+        private PlanEntry() { }
 
         /// <summary>
         /// This class implements a single plan entry. It has a start and an end date as well as a duration and a name.
@@ -33,7 +27,6 @@ namespace AcademicTimePlanner.DataMapping.Plan
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <param name="duration"></param>
-        [JsonConstructor]
         public PlanEntry(string name, long taskId, DateTime startDate, DateTime endDate, double duration)
         {
             Id = Guid.NewGuid();
@@ -43,7 +36,7 @@ namespace AcademicTimePlanner.DataMapping.Plan
             EndDate = endDate;
             Duration = duration;
         }
-        
+
         public PlanEntry(string name, DateTime startDate, DateTime endDate, double duration)
         {
             Id = Guid.NewGuid();

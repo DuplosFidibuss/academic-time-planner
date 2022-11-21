@@ -19,7 +19,7 @@ namespace AcademicTimePlanner.Tests
         private JsonFileHandler ieJson = new JsonFileHandler();
 
         [TestInitialize]
-        public void initialize() 
+        public void initialize()
         {
             testPlanEntry_1 = new PlanEntry("testPlanEntry_1", startDate, endDate, 2);
             testPlanEntry_2 = new PlanEntry("testPlanEntry_2", startDate, endDate, 2);
@@ -43,16 +43,19 @@ namespace AcademicTimePlanner.Tests
             ieJson.saveJson(testPlanProject_1);
             ieJson.saveJson(testPlanProject_2);
         }
-        
+
         [TestMethod]
-        [Ignore]
+        // [Ignore]
         public void testLoadJson()
         {
             string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
             string dataPath = directory + @"\AcademicTimePlanner.Tests\JSON_Files\PlanProject.json";
             PlanProject loadedPlanProject = ieJson.loadJson(dataPath);
+            var oldId = testPlanProject_1.Id;
+            testPlanProject_1.Id = loadedPlanProject.Id;
+            Assert.AreNotEqual(oldId, testPlanProject_1.Id);
             Assert.AreEqual(testPlanProject_1.Name, loadedPlanProject.Name);
         }
-        
+
     }
 }
