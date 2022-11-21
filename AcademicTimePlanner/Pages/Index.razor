@@ -35,6 +35,10 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Weiter</button>
         break;
     case ProjectFilesState.CreationStep.EnableTasks :
+        <EditForm Model="@planTask" OnInvalidSubmit="@CreatePlanTask">
+            <InputText id="taskName" @bind-Value="planTask!.Name"/>
+            <button type="submit">Task erstellen</button>
+        </EditForm>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Zurück</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Abbrechen</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Weiter</button>

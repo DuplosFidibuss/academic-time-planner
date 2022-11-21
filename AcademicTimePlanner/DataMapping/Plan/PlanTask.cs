@@ -23,5 +23,10 @@
             Name = name;
             TogglId = togglId;
         }
+
+        public PlanTask(Guid id)
+        {
+            Id = id;
+        }
     }
 }

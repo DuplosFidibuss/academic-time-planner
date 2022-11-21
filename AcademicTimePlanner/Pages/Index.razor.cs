@@ -22,6 +22,8 @@ public partial class Index
 
     private PlanProject? planProject => ProjectState.Value.PlanProject;
 
+    private PlanTask? planTask = new PlanTask(Guid.NewGuid());
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -38,19 +40,15 @@ public partial class Index
         Dispatcher.Dispatch(new LoadPlanProjectsAction(json));
     }
 
-    /*public PlanProject(string name)
-        {
-            Id = Guid.NewGuid();
-            TogglProjectId = -1;
-            Name = name;
-            Tasks = new Dictionary<long, string>();
-            PlanEntries = new List<PlanEntry>();
-            RepetitionEntries = new List<PlanEntryRepetition>();
-        }
-    */
     private void CreatePlanProject()
     {
         Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, new PlanProject(Guid.NewGuid())));
+    }
+
+    private void CreatePlanTask()
+    {
+        Dispatcher.Dispatch(new CreatePlanTaskAction(planTask));
+        planTask = new PlanTask(Guid.NewGuid());
     }
 
     private void Cancel()

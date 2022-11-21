@@ -15,5 +15,12 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         {
             return new ProjectFilesState(action.NextStep, state.Loaded, state.PlanProjectsNames, action.PlanProject);   
         }
+
+        [ReducerMethod]
+        public static ProjectFilesState Reduce(ProjectFilesState state, CreatePlanTaskAction action)
+        {
+            //TODO finish this!
+            return null;
+        }
     }
 }
