@@ -50,7 +50,7 @@ public partial class Index
     */
     private void CreatePlanProject()
     {
-        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, new()));
+        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, new PlanProject(Guid.NewGuid())));
     }
 
     private void Cancel()

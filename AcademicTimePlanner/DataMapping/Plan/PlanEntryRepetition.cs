@@ -2,7 +2,7 @@
 {
     public class PlanEntryRepetition
     {
-        private const long NoTaskId = -1;
+        private static readonly Guid NoTaskId = Guid.Empty;
 
         public Guid Id { get; set; }
 
@@ -16,7 +16,7 @@
 
         public double Duration { get; set; }
 
-        public long TaskId { get; set; }
+        public Guid TaskId { get; set; }
 
         public List<PlanEntry> Entries { get; set; }
 
@@ -35,7 +35,7 @@
         /// <param name="repetitionEndDate"></param>
         /// <param name="interval"></param>
         /// <param name="duration"></param>
-        public PlanEntryRepetition(string name, long taskId, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
+        public PlanEntryRepetition(string name, Guid taskId, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
         {
             Id = Guid.NewGuid();
             Name = name;
@@ -76,7 +76,7 @@
                 start = start.AddDays(Interval - 1);
                 if (start > RepetitionEndDate)
                     start = RepetitionEndDate;
-                PlanEntry planEntry = new PlanEntry(entryName, oldStart, start, Duration);
+                PlanEntry planEntry = new PlanEntry(entryName, TaskId, oldStart, start, Duration);
                 Entries.Add(planEntry);
                 start = start.AddDays(1);
             }

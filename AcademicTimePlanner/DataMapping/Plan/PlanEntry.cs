@@ -2,7 +2,7 @@
 {
     public class PlanEntry
     {
-        private const long NoTaskId = -1;
+        private static readonly Guid NoTaskId = Guid.Empty;
 
         public Guid Id { get; set; }
 
@@ -14,7 +14,7 @@
 
         public double Duration { get; set; }
 
-        public long TaskId { get; set; }
+        public Guid TaskId { get; set; }
 
         private PlanEntry() { }
 
@@ -27,7 +27,7 @@
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <param name="duration"></param>
-        public PlanEntry(string name, long taskId, DateTime startDate, DateTime endDate, double duration)
+        public PlanEntry(string name, Guid taskId, DateTime startDate, DateTime endDate, double duration)
         {
             Id = Guid.NewGuid();
             Name = name;
