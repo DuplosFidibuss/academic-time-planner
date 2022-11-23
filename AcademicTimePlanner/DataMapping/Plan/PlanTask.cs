@@ -1,5 +1,9 @@
 ﻿namespace AcademicTimePlanner.DataMapping.Plan
 {
+    /// <summary>
+    /// This class implements the optional plan task.
+    /// The task can be linked to a Toggl task in <see cref="TogglProject"/>
+    /// </summary>
     public class PlanTask
     {
         public Guid Id { get; set; }
