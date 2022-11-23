@@ -4,8 +4,8 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
     public class SetPlanProjectsAction
     {
-        public ImmutableSortedSet<string> PlanProjectsNames { get; }
-        public SetPlanProjectsAction(ImmutableSortedSet<string> planProjectsNames)
+        public List<string> PlanProjectsNames { get; }
+        public SetPlanProjectsAction(List<string> planProjectsNames)
         {
             PlanProjectsNames = planProjectsNames;
         }
