@@ -64,5 +64,16 @@ namespace AcademicTimePlanner.Services.DataManagerService
             }
             return dataManager.GetTogglLoadOverview();
         }
+
+        public async Task<List<string>> GetPlanProjectNames()
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            if (dataManager == null)
+            {
+                dataManager = new DataManager();
+                await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+            }
+            return (from planProject in dataManager.PlanProjects select planProject.Name).ToList();
+        }
     }
 }
