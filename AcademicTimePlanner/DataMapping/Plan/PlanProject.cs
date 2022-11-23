@@ -10,13 +10,21 @@
 
         public string Name { get; set; }
 
-        public Dictionary<long, string>? Tasks { get; set; }
+        public List<PlanTask> PlanTasks { get; set; }
 
         public List<PlanEntry> PlanEntries { get; set; }
 
         public List<PlanEntryRepetition> RepetitionEntries { get; set; }
 
         private PlanProject() { }
+
+        public PlanProject(Guid id)
+        {
+            Id = id;
+            PlanTasks = new List<PlanTask>();
+            PlanEntries = new List<PlanEntry>();
+            RepetitionEntries = new List<PlanEntryRepetition>();
+        }
 
         /// <summary>
         /// This class implements the plan project.
@@ -31,7 +39,7 @@
             Id = Guid.NewGuid();
             TogglProjectId = togglProjectId;
             Name = name;
-            Tasks = new Dictionary<long, string>();
+            PlanTasks = new List<PlanTask>();
             PlanEntries = new List<PlanEntry>();
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
@@ -40,21 +48,20 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            Tasks = new Dictionary<long, string>();
+            PlanTasks = new List<PlanTask>();
             TogglProjectId = NoTogglId;
             PlanEntries = new List<PlanEntry>();
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
-        public void AddPlanTask(long taskId, string name)
+        public void AddPlanTask(PlanTask planTask)
         {
-            if (!Tasks.ContainsKey(taskId))
-                Tasks.Add(taskId, name);
+            PlanTasks.Add(planTask); 
         }
 
-        public void RemovePlanTask(long taskId)
+        public void RemovePlanTask(PlanTask planTask)
         {
-            Tasks.Remove(taskId);
+            PlanTasks.Remove(planTask);
         }
 
         public void AddPlanEntry(PlanEntry planEntry)
