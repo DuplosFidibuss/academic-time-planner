@@ -1,6 +1,5 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
 using Fluxor;
-using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
