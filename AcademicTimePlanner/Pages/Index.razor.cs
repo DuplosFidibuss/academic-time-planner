@@ -4,7 +4,6 @@ using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -16,13 +15,17 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private ImmutableSortedSet<string> PlanProjectsNames => ProjectState.Value.PlanProjectsNames;
+    private List<string> PlanProjectsNames => ProjectState.Value.PlanProjectsNames;
     
     private const string Title = "Startseite";
 
     private PlanProject? planProject => ProjectState.Value.PlanProject;
 
-    private PlanTask? planTask = new PlanTask(Guid.NewGuid());
+    private PlanTask? planTask => ProjectState.Value.PlanTask;
+
+    private PlanEntry? planEntry => ProjectState.Value.PlanEntry;
+
+    private PlanEntryRepetition? planEntryRepetition => ProjectState.Value.PlanEntryRepetition;
 
     protected override void OnInitialized()
     {
@@ -48,7 +51,28 @@ public partial class Index
     private void CreatePlanTask()
     {
         Dispatcher.Dispatch(new CreatePlanTaskAction(planTask));
-        planTask = new PlanTask(Guid.NewGuid());
+    }
+
+    private void CreatePlanEntry()
+    {
+        planProject.AddPlanEntry(planEntry);
+        Dispatcher.Dispatch(new AddSingleEntryAction());
+    }
+
+    private void CreateRepetitionEntry()
+    {
+        planProject.AddRepetitionEntry(planEntryRepetition);
+        Dispatcher.Dispatch(new AddRepetitionEntryAction());
+    }
+
+    private void AddSingleEntry()
+    {
+        Dispatcher.Dispatch(new AddSingleEntryAction());
+    }
+
+    private void AddRepetitionEntry()
+    {
+        Dispatcher.Dispatch(new AddRepetitionEntryAction());
     }
 
     private void Cancel()
