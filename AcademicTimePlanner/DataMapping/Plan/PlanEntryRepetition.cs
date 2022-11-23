@@ -22,6 +22,14 @@
 
         private PlanEntryRepetition() { }
 
+        public PlanEntryRepetition(Guid id)
+        {
+            Id = id;
+            RepetitionStartDate = DateTime.Today;
+            RepetitionEndDate = DateTime.Today.AddDays(1);
+            Entries = new List<PlanEntry>();
+        }
+
         /// <summary>
         /// This class implements the plan entry repetition. 
         /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.

@@ -21,6 +21,9 @@
         public PlanProject(Guid id)
         {
             Id = id;
+            PlanTasks = new List<PlanTask>();
+            PlanEntries = new List<PlanEntry>();
+            RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
         /// <summary>
