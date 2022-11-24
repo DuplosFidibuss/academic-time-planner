@@ -97,7 +97,8 @@ namespace AcademicTimePlanner.Data
                 double duration = pProjects[p].GetTotalDuration();
                 foreach (int t in tProjects.Keys)
                 {
-                    mapping[p,t] = duration;
+                    if (pProjects[p].TogglProjectIds.ContainsKey(tProjects[t].TogglId))
+                        mapping[p,t] = duration;
                 }
             }
 
@@ -114,11 +115,11 @@ namespace AcademicTimePlanner.Data
 
             foreach(int p in pProjects.Keys)
             {
-                foreach(int s in sum)
+                for(int s = 0; s < sum.Count; s++)
                 {
                     if (mapping[p,s] != 0)
                     {
-                        pProjects[p].TogglProjectIds[tProjects[s].TogglId] = s / mapping[p, s];
+                        pProjects[p].TogglProjectIds[tProjects[s].TogglId] = mapping[p, s] / sum[s];
                     }
                 }
             }
