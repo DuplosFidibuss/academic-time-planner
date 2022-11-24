@@ -42,6 +42,7 @@
 @if (ProjectState.Value.IsDownloading)
 {
     @DownloadPlanProject();
+    ProjectState.Value.IsDownloading = false;
 }
 
 @switch (ProjectState.Value.Step) 

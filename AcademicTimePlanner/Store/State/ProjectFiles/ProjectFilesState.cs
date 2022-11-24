@@ -19,7 +19,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public bool Loaded { get; }
 
-        public bool IsDownloading { get; }
+        public bool IsDownloading { get; set; }
 
         public CreationStep Step { get; }
 
