@@ -105,6 +105,7 @@ namespace AcademicTimePlanner.Data
 
             foreach(int t in tProjects.Keys)
             {
+                sum.Add(0);
                 foreach(int p in pProjects.Keys)
                 {
                     sum[t] += mapping[p, t];
