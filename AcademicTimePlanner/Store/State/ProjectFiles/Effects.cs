@@ -2,7 +2,6 @@
 using AcademicTimePlanner.Services.DataManagerService;
 using Fluxor;
 using Newtonsoft.Json;
-using System.Collections.Immutable;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
@@ -37,6 +36,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             await _dataManagerService.AddPlanProject(action.PlanProject);
             var projectNamesList = await _dataManagerService.GetPlanProjectNames();
             dispatcher.Dispatch(new SetPlanProjectsAction(projectNamesList));
+        }
+
+        [EffectMethod]
+        public async Task HandleAsync(GetPlanProjectForDownloadAction action, IDispatcher dispatcher)
+        {
+            var planProject = await _dataManagerService.GetPlanProjectByName(action.ProjectName);
+            dispatcher.Dispatch(new DownloadPlanProjectAction(planProject));
         }
     }
 }

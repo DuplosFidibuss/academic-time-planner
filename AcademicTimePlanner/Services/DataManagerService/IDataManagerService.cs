@@ -48,5 +48,12 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// </summary>
         /// <returns></returns>
         public Task<List<string>> GetPlanProjectNames();
+
+        /// <summary>
+        /// Gets the plan project with the given name from the <see cref="DataManager"/>
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Task<PlanProject> GetPlanProjectByName(string name);
     }
 }
