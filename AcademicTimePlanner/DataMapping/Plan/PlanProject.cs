@@ -6,7 +6,7 @@
 
         public Guid Id { get; set; }
 
-        public long TogglProjectId { get; set; }
+        public Dictionary<long, double> TogglProjectIds { get; set; }
 
         public string Name { get; set; }
 
@@ -34,10 +34,10 @@
         /// </summary>
         /// <param name="togglProjectId"></param>
         /// <param name="name"></param>
-        public PlanProject(long togglProjectId, string name)
+        public PlanProject(Dictionary<long, double> togglProjectIds, string name)
         {
             Id = Guid.NewGuid();
-            TogglProjectId = togglProjectId;
+            TogglProjectIds = togglProjectIds;
             Name = name;
             PlanTasks = new List<PlanTask>();
             PlanEntries = new List<PlanEntry>();
@@ -49,7 +49,7 @@
             Id = Guid.NewGuid();
             Name = name;
             PlanTasks = new List<PlanTask>();
-            TogglProjectId = NoTogglId;
+            TogglProjectIds = new Dictionary<long, double>();
             PlanEntries = new List<PlanEntry>();
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
