@@ -124,23 +124,19 @@ public partial class Charts
 
         foreach (var planProject in ChartData!.PlanProjects)
         {
-            double totalDurationsSum = 0;
             double predictedDurationsSum = 0;
-            double plannedDurationsSum = 0;
             double trackedDurationsSum = 0;
             foreach (long togglP in planProject.TogglProjectIds.Keys)
             {
                 var togglProject = ChartData!.GetTogglProjectWithTogglId(togglP);
-                totalDurationsSum += (planProject.GetTotalDuration());
                 predictedDurationsSum += (togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglP] + planProject.GetRemainingDuration());
-                plannedDurationsSum += (planProject.GetTotalDuration() - planProject.GetRemainingDuration());
                 trackedDurationsSum += (togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglP]);
             }
             titles.Add(planProject.Name);
 
-            totalDurations.Add(totalDurationsSum);
+            totalDurations.Add(planProject.GetTotalDuration());
             predictedDurations.Add(predictedDurationsSum);
-            plannedDurations.Add(plannedDurationsSum);
+            plannedDurations.Add(planProject.GetTotalDuration() - planProject.GetRemainingDuration());
             trackedDurations.Add(trackedDurationsSum);
         }
 
