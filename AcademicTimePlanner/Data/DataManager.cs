@@ -61,7 +61,7 @@ namespace AcademicTimePlanner.Data
             var loadOverview = new List<TogglLoadOverviewData>();
             foreach (var togglProject in TogglProjects)
             {
-                var planProject = PlanProjects.Find(project => project.TogglProjectId == togglProject.TogglId);
+                var planProject = PlanProjects.Find(project => project.TogglProjectIds.ContainsKey(togglProject.TogglId));
                 var planProjectName = planProject != null ? planProject.Name : NoAssociatedPlanProjectName;
                 var projectOverviewData = new TogglLoadOverviewData(togglProject.Name, DeletedTogglProjectIds.Contains(togglProject.TogglId), planProjectName);
                 loadOverview.Add(projectOverviewData);
