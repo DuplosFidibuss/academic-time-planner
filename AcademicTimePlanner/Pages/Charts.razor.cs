@@ -132,9 +132,9 @@ public partial class Charts
             {
                 var togglProject = ChartData!.GetTogglProjectWithTogglId(togglP);
                 totalDurationsSum += (planProject.GetTotalDuration());
-                predictedDurationsSum += (togglProject.GetTotalDuration() / planProject.TogglProjectIds[togglP] + planProject.GetRemainingDuration());
+                predictedDurationsSum += (togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglP] + planProject.GetRemainingDuration());
                 plannedDurationsSum += (planProject.GetTotalDuration() - planProject.GetRemainingDuration());
-                trackedDurationsSum += (togglProject.GetTotalDuration() / planProject.TogglProjectIds[togglP]);
+                trackedDurationsSum += (togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglP]);
             }
             titles.Add(planProject.Name);
 
