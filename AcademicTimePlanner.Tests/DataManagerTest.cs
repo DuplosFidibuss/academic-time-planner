@@ -82,7 +82,7 @@ namespace AcademicTimePlanner.Tests
         public void GetChartDataReturnsCorrectChartDataWithNonEmptyDataCollections()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { {testTogglProject.TogglId, 1.0 } }, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
 
@@ -105,7 +105,7 @@ namespace AcademicTimePlanner.Tests
         public void GetTogglLoadOverviewReturnsCorrectOverviewWithAssociatedPlanProject()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject.TogglId, 1.0 } }, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
 
@@ -135,7 +135,7 @@ namespace AcademicTimePlanner.Tests
         public void GetTogglLoadOverviewReturnsCorrectOverviewWithDeletedTogglProject()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject.TogglId, 1.0 } }, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
             _dataManager.DeletedTogglProjectIds.Add(testTogglProject.TogglId);
