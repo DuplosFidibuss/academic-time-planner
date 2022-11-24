@@ -74,5 +74,52 @@ namespace AcademicTimePlanner.Data
             PlanProjects.Clear();
             PlanProjects.AddRange(planProjects);
         }
+
+        public void UpdateTogglDictionaryInPlanProjects(List<PlanProject> planProjects, List<TogglProject> togglProjects)
+        {
+            SortedList<int, PlanProject> pProjects = new SortedList<int, PlanProject>();
+            SortedList<int, TogglProject> tProjects = new SortedList<int, TogglProject>();
+
+            for(int i = 0; i < togglProjects.Count; i++)
+            {
+                tProjects.Add(i, togglProjects[i]);
+            }
+            for(int i = 0; i < planProjects.Count; i++)
+            {
+                pProjects.Add(i, planProjects[i]);
+            }
+
+            double[,] mapping = new double[pProjects.Count, tProjects.Count];
+
+            foreach(int p in pProjects.Keys)
+            {
+                double duration = pProjects[p].GetTotalDuration();
+                foreach (int t in tProjects.Keys)
+                {
+                    mapping[p,t] = duration;
+                }
+            }
+
+            List<double> sum = new List<double>();
+
+            foreach(int t in tProjects.Keys)
+            {
+                foreach(int p in pProjects.Keys)
+                {
+                    sum[t] += mapping[p, t];
+                }
+            }
+
+            foreach(int p in pProjects.Keys)
+            {
+                foreach(int s in sum)
+                {
+                    if (mapping[p,s] != 0)
+                    {
+                        pProjects[p].TogglProjectIds[tProjects[s].TogglId] = s / mapping[p, s];
+                    }
+                }
+            }
+        }
     }
 }
