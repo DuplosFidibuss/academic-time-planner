@@ -26,8 +26,9 @@ namespace AcademicTimePlanner.Data
             PlanProjects = new List<PlanProject>(planProjects);
             foreach (TogglProject togglProject in allTogglProjects)
             {
-                if (planProjects.Exists(planProject => planProject.TogglProjectId == togglProject.TogglId))
-                    TogglProjects.Add(togglProject);
+                if (planProjects.Exists(planProject => planProject.TogglProjectIds.ContainsKey(togglProject.TogglId)))
+                    if(!TogglProjects.Contains(togglProject))
+                        TogglProjects.Add(togglProject);
             }
             TotalTrackedTime = (from togglProject in TogglProjects select togglProject.GetTotalDuration()).Sum();
             TotalPlannedTime = (from planProject in planProjects select planProject.GetTotalDuration()).Sum();
