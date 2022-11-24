@@ -51,8 +51,8 @@ namespace AcademicTimePlanner.Data
         public ChartData GetChartData()
         {
             // This is for chart display test purposes.
-            //TogglProjects.Clear();
-            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
+            TogglProjects.Clear();
+            TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             return new ChartData(TogglProjects, PlanProjects);
         }
 
@@ -75,6 +75,7 @@ namespace AcademicTimePlanner.Data
             PlanProjects.AddRange(planProjects);
         }
 
+        //TODO figure out where to call this method
         public void UpdateTogglDictionaryInPlanProjects(List<PlanProject> planProjects, List<TogglProject> togglProjects)
         {
             SortedList<int, PlanProject> pProjects = new SortedList<int, PlanProject>();
