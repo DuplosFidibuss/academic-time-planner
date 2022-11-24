@@ -190,6 +190,11 @@ namespace AcademicTimePlanner.Tests
             var testPlanProject_2 = new PlanProject(new Dictionary<long, double> { { testTogglProject_2.TogglId, 1.0 } }, "Test_2");
             var expectedPlanProject_2 = new PlanProject(new Dictionary<long, double> { { testTogglProject_2.TogglId, 0.5 } }, "Test_2");
 
+            PlanEntry planEntry = new PlanEntry("test", DateTime.Today, DateTime.Today.AddDays(1), 1);
+
+            testPlanProject_1.AddPlanEntry(planEntry);
+            testPlanProject_2.AddPlanEntry(planEntry);
+
             _dataManager.PlanProjects.Add(testPlanProject_1);
             _dataManager.PlanProjects.Add(testPlanProject_2);
 
