@@ -75,5 +75,16 @@ namespace AcademicTimePlanner.Services.DataManagerService
             }
             return (from planProject in dataManager.PlanProjects select planProject.Name).ToList();
         }
+
+        public async Task<PlanProject> GetPlanProjectByName(string name)
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            if (dataManager == null)
+            {
+                dataManager = new DataManager();
+                await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+            }
+            return dataManager.PlanProjects.Find(planProject => planProject.Name == name)!;
+        }
     }
 }

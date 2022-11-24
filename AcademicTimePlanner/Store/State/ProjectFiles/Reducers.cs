@@ -1,5 +1,5 @@
-﻿using Fluxor;
-using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.DataMapping.Plan;
+using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
@@ -16,9 +16,9 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         {
             if (action.NextStep == ProjectFilesState.CreationStep.EnableTasks)
             {
-                return new ProjectFilesState(action.NextStep, state.Loaded, state.PlanProjectsNames, action.PlanProject, new PlanTask(Guid.NewGuid()));   
+                return new ProjectFilesState(action.NextStep, state.Loaded, state.PlanProjectsNames, action.PlanProject, new PlanTask(Guid.NewGuid()));
             }
-            return new ProjectFilesState(action.NextStep, state.Loaded, state.PlanProjectsNames, action.PlanProject);   
+            return new ProjectFilesState(action.NextStep, state.Loaded, state.PlanProjectsNames, action.PlanProject);
         }
 
         [ReducerMethod]
@@ -38,6 +38,12 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         public static ProjectFilesState Reduce(ProjectFilesState state, AddRepetitionEntryAction action)
         {
             return new ProjectFilesState(ProjectFilesState.CreationStep.AddRepetitionEntry, state.Loaded, state.PlanProjectsNames, state.PlanProject, new PlanEntryRepetition(Guid.NewGuid()));
+        }
+
+        [ReducerMethod]
+        public static ProjectFilesState Reduce(ProjectFilesState state, DownloadPlanProjectAction action)
+        {
+            return new ProjectFilesState(state.Loaded, true, state.PlanProjectsNames, action.PlanProject);
         }
     }
 }

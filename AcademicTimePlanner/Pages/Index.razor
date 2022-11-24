@@ -22,7 +22,26 @@
             }
         </ul>
     }
+
+    <p></p>
     <button type="button" class="btn btn-primary" @onclick="CreatePlanProject">Plan-Projekt erstellen</button>
+    <p></p>
+    <EditForm Model="@downloader" OnValidSubmit="@InitializePlanProjectDownload">
+        <label>Planprojekt zum Download: </label>
+        <InputSelect @bind-Value="downloader.ProjectName">
+            <option value="">Select project ...</option>
+            @foreach (var name in PlanProjectsNames)
+            {
+                <option value=@name>@name</option>
+            }
+        </InputSelect>
+        <button type="submit">Download</button>
+    </EditForm>
+}
+
+@if (ProjectState.Value.IsDownloading)
+{
+    @DownloadPlanProject();
 }
 
 @switch (ProjectState.Value.Step) 

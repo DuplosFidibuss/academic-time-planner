@@ -1,4 +1,5 @@
-﻿using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
@@ -8,7 +9,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
     {
         public enum CreationStep
         {
-            NotCreating, 
+            NotCreating,
             NamingProject,
             EnableTasks,
             EnterEntries,
@@ -18,9 +19,11 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public bool Loaded { get; }
 
+        public bool IsDownloading { get; }
+
         public CreationStep Step { get; }
 
-        public List<string> PlanProjectsNames { get; }
+        public List<string> PlanProjectsNames { get; } = new List<string>();
 
         public PlanProject? PlanProject { get; }
 
@@ -29,6 +32,8 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         public PlanEntry? PlanEntry { get; }
 
         public PlanEntryRepetition? PlanEntryRepetition { get; }
+
+        public PlanProjectDownloader PlanProjectDownloader { get; } = new PlanProjectDownloader();
 
         private ProjectFilesState() { }
 
@@ -45,7 +50,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             PlanProjectsNames = planProjectsNames;
             PlanProject = planProject;
         }
-        
+
         public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames, PlanProject planProject, PlanTask planTask)
         {
             Step = step;
@@ -54,7 +59,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             PlanProject = planProject;
             PlanTask = planTask;
         }
-        
+
         public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames, PlanProject planProject, PlanEntry planEntry)
         {
             Step = step;
@@ -70,6 +75,14 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             PlanProjectsNames = planProjectsNames;
             PlanProject = planProject;
             PlanEntryRepetition = planEntryRepetition;
+        }
+
+        public ProjectFilesState(bool loaded, bool isDownloading, List<string> planProjectsNames, PlanProject planProject)
+        {
+            Loaded = loaded;
+            IsDownloading = isDownloading;
+            PlanProjectsNames = planProjectsNames;
+            PlanProject = planProject;
         }
     }
 }
