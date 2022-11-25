@@ -53,6 +53,7 @@ namespace AcademicTimePlanner.Data
             // This is for chart display test purposes.
             TogglProjects.Clear();
             TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
+            UpdateTogglDictionaryInPlanProjects();
             return new ChartData(TogglProjects, PlanProjects);
         }
 
@@ -76,18 +77,18 @@ namespace AcademicTimePlanner.Data
         }
 
         //TODO figure out where to call this method
-        public void UpdateTogglDictionaryInPlanProjects(List<PlanProject> planProjects, List<TogglProject> togglProjects)
+        public void UpdateTogglDictionaryInPlanProjects()
         {
             SortedList<int, PlanProject> pProjects = new SortedList<int, PlanProject>();
             SortedList<int, TogglProject> tProjects = new SortedList<int, TogglProject>();
 
-            for(int i = 0; i < togglProjects.Count; i++)
+            for(int i = 0; i < TogglProjects.Count; i++)
             {
-                tProjects.Add(i, togglProjects[i]);
+                tProjects.Add(i, TogglProjects[i]);
             }
-            for(int i = 0; i < planProjects.Count; i++)
+            for(int i = 0; i < PlanProjects.Count; i++)
             {
-                pProjects.Add(i, planProjects[i]);
+                pProjects.Add(i, PlanProjects[i]);
             }
 
             double[,] mapping = new double[pProjects.Count, tProjects.Count];
