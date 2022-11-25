@@ -76,7 +76,6 @@ namespace AcademicTimePlanner.Data
             PlanProjects.AddRange(planProjects);
         }
 
-        //TODO figure out where to call this method
         public void UpdateTogglDictionaryInPlanProjects()
         {
             SortedList<int, PlanProject> pProjects = new SortedList<int, PlanProject>();
