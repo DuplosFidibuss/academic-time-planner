@@ -53,7 +53,7 @@ namespace AcademicTimePlanner.Data
             // This is for chart display test purposes.
             //TogglProjects.Clear();
             //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
-            //UpdateTogglDictionaryInPlanProjects();
+            UpdateTogglDictionaryInPlanProjects();
             return new ChartData(TogglProjects, PlanProjects);
         }
 
