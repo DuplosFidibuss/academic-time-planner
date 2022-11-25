@@ -187,12 +187,20 @@ public partial class Charts
         var trackedDurationsDates = new List<object>();
         var trackedDurationsTimes = new List<object>();
         SortedDictionary<DateTime, double> trackedDurations = new SortedDictionary<DateTime, double>();
+        int i = 0;
 
         foreach (long togglP in planProject.TogglProjectIds.Keys)
         {
+            i += 1;
             var togglProject = ChartData!.GetTogglProjectWithTogglId(togglP);
-            //TODO ??????? whats the datetime here? what happens if the date is already in use?
-            trackedDurations = (togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate));
+            if (i != planProject.TogglProjectIds.Count)
+            {
+                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, trackedDurations, planProject.TogglProjectIds[togglP], false);
+            }
+            else
+            {
+                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, trackedDurations, planProject.TogglProjectIds[togglP], true);
+            }
         }
         trackedDurations.Keys.ToList().ForEach(date => trackedDurationsDates.Add(date));
         trackedDurations.Values.ToList().ForEach(time => trackedDurationsTimes.Add(time));
