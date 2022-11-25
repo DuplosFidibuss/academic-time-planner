@@ -201,7 +201,7 @@ namespace AcademicTimePlanner.Tests
             _dataManager.TogglProjects.Add(testTogglProject_1);
             _dataManager.TogglProjects.Add(testTogglProject_2);
 
-            _dataManager.UpdateTogglDictionaryInPlanProjects(_dataManager.PlanProjects, _dataManager.TogglProjects);
+            _dataManager.UpdateTogglDictionaryInPlanProjects();
 
             foreach (var i in expectedPlanProject_1.TogglProjectIds.Keys)
             {
