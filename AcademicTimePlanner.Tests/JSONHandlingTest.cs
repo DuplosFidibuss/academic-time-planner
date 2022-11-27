@@ -58,6 +58,7 @@ namespace AcademicTimePlanner.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void TestLoadTogglJson()
         {
             string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
