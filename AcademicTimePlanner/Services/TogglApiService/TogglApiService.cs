@@ -1,8 +1,9 @@
 using AcademicTimePlanner.Store.State.Toggl;
 using Blazored.LocalStorage;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Web;
 
 namespace AcademicTimePlanner.Services.TogglApiService;
@@ -12,6 +13,12 @@ public class TogglApiService : ITogglApiService
     private readonly HttpClient _httpClient;
     private readonly ILocalStorageService _localStorageService;
     private const string UserAgent = "AcademicTimePlanner";
+
+    private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+    {
+        ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
+        Formatting = Formatting.Indented,
+    };
 
     public TogglApiService(HttpClient httpClient, ILocalStorageService localStorageService)
     {
@@ -32,7 +39,7 @@ public class TogglApiService : ITogglApiService
         var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
         string json = await _httpClient.GetStringAsync($"https://api.track.toggl.com/reports/api/v2/details?user_agent={UserAgent}&workspace_id={togglSettings.TogglWorkspaceId}");
 
-        TogglDetailResponse togglDetailResponse = JsonSerializer.Deserialize<TogglDetailResponse>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+        TogglDetailResponse togglDetailResponse = JsonConvert.DeserializeObject<TogglDetailResponse>(json, _serializerSettings);
         return togglDetailResponse;
     }
 
@@ -54,7 +61,7 @@ public class TogglApiService : ITogglApiService
         var requestUri = uriBuilder.Uri.ToString();
         var json = await _httpClient.GetStringAsync(requestUri);
 
-        TogglDetailResponse togglDetailResponse = JsonSerializer.Deserialize<TogglDetailResponse>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+        TogglDetailResponse togglDetailResponse = JsonConvert.DeserializeObject<TogglDetailResponse>(json, _serializerSettings);
         return togglDetailResponse;
     }
 }
