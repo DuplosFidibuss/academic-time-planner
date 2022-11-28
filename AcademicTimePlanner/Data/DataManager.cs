@@ -78,48 +78,52 @@ namespace AcademicTimePlanner.Data
 
         public void UpdateTogglDictionaryInPlanProjects()
         {
-            SortedList<int, PlanProject> pProjects = new SortedList<int, PlanProject>();
-            SortedList<int, TogglProject> tProjects = new SortedList<int, TogglProject>();
+            SortedList<int, PlanProject> sortedPlanProjects = new SortedList<int, PlanProject>();
+            SortedList<int, TogglProject> sortedTogglProjects = new SortedList<int, TogglProject>();
 
+            //fill both lists with the applicable data and give them an index to find them later.
             for(int i = 0; i < TogglProjects.Count; i++)
             {
-                tProjects.Add(i, TogglProjects[i]);
+                sortedTogglProjects.Add(i, TogglProjects[i]);
             }
             for(int i = 0; i < PlanProjects.Count; i++)
             {
-                pProjects.Add(i, PlanProjects[i]);
+                sortedPlanProjects.Add(i, PlanProjects[i]);
             }
 
-            double[,] mapping = new double[pProjects.Count, tProjects.Count];
+            double[,] mapping = new double[sortedPlanProjects.Count, sortedTogglProjects.Count];
 
-            foreach(int p in pProjects.Keys)
+            //fill the 2D array with the total duration of planprojects.
+            //for every togglProject the total duration of the linked planProject is entered.
+            foreach(int p in sortedPlanProjects.Keys)
             {
-                double duration = pProjects[p].GetTotalDuration();
-                foreach (int t in tProjects.Keys)
+                double duration = sortedPlanProjects[p].GetTotalDuration();
+                foreach (int t in sortedTogglProjects.Keys)
                 {
-                    if (pProjects[p].TogglProjectIds.ContainsKey(tProjects[t].TogglId))
+                    if (sortedPlanProjects[p].TogglProjectIds.ContainsKey(sortedTogglProjects[t].TogglId))
                         mapping[p,t] = duration;
                 }
             }
 
-            List<double> totalDurationSums = new List<double>();
+            List<double> totalDurationSums = new List<double>(sortedTogglProjects.Count);
 
-            foreach(int t in tProjects.Keys)
+            //sum up all the durations per togglProject.
+            foreach(int t in sortedTogglProjects.Keys)
             {
-                totalDurationSums.Add(0);
-                foreach(int p in pProjects.Keys)
+                foreach(int p in sortedPlanProjects.Keys)
                 {
                     totalDurationSums[t] += mapping[p, t];
                 }
             }
 
-            foreach(int p in pProjects.Keys)
+            //Divide the value in the map with the summed up duration.
+            foreach(int p in sortedPlanProjects.Keys)
             {
                 for(int s = 0; s < totalDurationSums.Count; s++)
                 {
                     if (mapping[p,s] != 0)
                     {
-                        pProjects[p].TogglProjectIds[tProjects[s].TogglId] = mapping[p, s] / totalDurationSums[s];
+                        sortedPlanProjects[p].TogglProjectIds[sortedTogglProjects[s].TogglId] = mapping[p, s] / totalDurationSums[s];
                     }
                 }
             }
