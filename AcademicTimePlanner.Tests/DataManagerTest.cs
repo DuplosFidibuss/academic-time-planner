@@ -82,7 +82,7 @@ namespace AcademicTimePlanner.Tests
         public void GetChartDataReturnsCorrectChartDataWithNonEmptyDataCollections()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { {testTogglProject.TogglId, 1.0 } }, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
 
@@ -105,7 +105,7 @@ namespace AcademicTimePlanner.Tests
         public void GetTogglLoadOverviewReturnsCorrectOverviewWithAssociatedPlanProject()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject.TogglId, 1.0 } }, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
 
@@ -135,7 +135,7 @@ namespace AcademicTimePlanner.Tests
         public void GetTogglLoadOverviewReturnsCorrectOverviewWithDeletedTogglProject()
         {
             var testTogglProject = TestTogglProject.GetTestTogglProject()[0];
-            var testPlanProject = new PlanProject(testTogglProject.TogglId, "Test");
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject.TogglId, 1.0 } }, "Test");
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
             _dataManager.DeletedTogglProjectIds.Add(testTogglProject.TogglId);
@@ -177,6 +177,40 @@ namespace AcademicTimePlanner.Tests
             Assert.AreEqual(2, _dataManager.TogglProjects.Count);
             Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
             Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
+        }
+
+        [TestMethod]
+        public void TestUpdateTogglDictionaryInPlanProjects()
+        {
+            var testTogglProject_1 = TestTogglProject.GetTestTogglProject()[0];
+            var testTogglProject_2 = TestTogglProject.GetTestTogglProject()[1];
+
+            var testPlanProject_1 = new PlanProject(new Dictionary<long, double> { { testTogglProject_1.TogglId, 1.0 }, { testTogglProject_2.TogglId, 1.0 } }, "Test_1");
+            var expectedPlanProject_1 = new PlanProject(new Dictionary<long, double> { { testTogglProject_1.TogglId, 1.0 }, { testTogglProject_2.TogglId, 0.5 } }, "Test_1");
+            var testPlanProject_2 = new PlanProject(new Dictionary<long, double> { { testTogglProject_2.TogglId, 1.0 } }, "Test_2");
+            var expectedPlanProject_2 = new PlanProject(new Dictionary<long, double> { { testTogglProject_2.TogglId, 0.5 } }, "Test_2");
+
+            PlanEntry planEntry = new PlanEntry("test", DateTime.Today, DateTime.Today.AddDays(1), 1);
+
+            testPlanProject_1.AddPlanEntry(planEntry);
+            testPlanProject_2.AddPlanEntry(planEntry);
+
+            _dataManager.PlanProjects.Add(testPlanProject_1);
+            _dataManager.PlanProjects.Add(testPlanProject_2);
+
+            _dataManager.TogglProjects.Add(testTogglProject_1);
+            _dataManager.TogglProjects.Add(testTogglProject_2);
+
+            _dataManager.UpdateTogglDictionaryInPlanProjects();
+
+            foreach (var i in expectedPlanProject_1.TogglProjectIds.Keys)
+            {
+                Assert.AreEqual(expectedPlanProject_1.TogglProjectIds[i], testPlanProject_1.TogglProjectIds[i]);
+            }
+            foreach (var i in expectedPlanProject_2.TogglProjectIds.Keys)
+            {
+                Assert.AreEqual(expectedPlanProject_2.TogglProjectIds[i], testPlanProject_2.TogglProjectIds[i]);
+            }
         }
     }
 }
