@@ -1,12 +1,12 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AcademicTimePlanner.Services.TogglApiService;
 
 public class TogglDetailResponse
 {
     public List<TogglDetailResponseData> Data { get; set; }
-    
+
     [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; }
+    public Dictionary<string, JToken> AdditionalProperties { get; set; }
 }

@@ -1,0 +1,80 @@
+{
+    "total_grand": 3147000,
+    "total_billable": 3147000,
+    "total_currencies": [
+        {
+            "currency": "USD",
+            "amount": 0.00
+        }
+    ],
+    "total_count": 3,
+    "per_page": 50,
+    "data": [
+        {
+            "id": 2675472997,
+            "pid": 185737550,
+            "tid": 85432625,
+            "uid": 8816279,
+            "description": "Part 1 of something 3",
+            "start": "2022-10-05T10:01:22+00:00",
+            "end": "2022-10-05T10:19:28+00:00",
+            "updated": "2022-10-05T10:19:50+00:00",
+            "dur": 1086000,
+            "user": "Jansluk",
+            "use_stop": true,
+            "client": "ZHAW",
+            "project": "Test",
+            "project_color": "0",
+            "project_hex_color": "#2da608",
+            "task": "Something 3",
+            "billable": 0.00,
+            "is_billable": true,
+            "cur": "USD",
+            "tags": []
+        },
+        {
+            "id": 2675423905,
+            "pid": 185737550,
+            "tid": 85432624,
+            "uid": 8816279,
+            "description": "Part 1 of something 2",
+            "start": "2022-10-05T09:28:35+00:00",
+            "end": "2022-10-05T09:52:35+00:00",
+            "updated": "2022-10-05T10:02:28+00:00",
+            "dur": 1440000,
+            "user": "Jansluk",
+            "use_stop": true,
+            "client": "ZHAW",
+            "project": "Test",
+            "project_color": "0",
+            "project_hex_color": "#2da608",
+            "task": "Something 2",
+            "billable": 0.00,
+            "is_billable": true,
+            "cur": "USD",
+            "tags": []
+        },
+        {
+            "id": 2658952421,
+            "pid": 185737550,
+            "tid": 85432623,
+            "uid": 8816279,
+            "description": "Part 1 of something 1",
+            "start": "2022-09-22T14:48:28+00:00",
+            "end": "2022-09-22T14:58:49+00:00",
+            "updated": "2022-09-22T14:58:56+00:00",
+            "dur": 621000,
+            "user": "Jansluk",
+            "use_stop": true,
+            "client": "ZHAW",
+            "project": "Test",
+            "project_color": "0",
+            "project_hex_color": "#2da608",
+            "task": "Something 1",
+            "billable": 0.00,
+            "is_billable": true,
+            "cur": "USD",
+            "tags": []
+        }
+    ]
+}
