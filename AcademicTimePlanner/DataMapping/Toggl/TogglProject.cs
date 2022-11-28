@@ -56,10 +56,9 @@
 
         }
 
-        public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate, SortedDictionary<DateTime, double> durations, double percentage, Boolean sumup)
+        public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate, SortedDictionary<DateTime, double> durationsPerDate)
         {
             var durationsPerDateInTimeRange = new SortedDictionary<DateTime, double>();
-            var durationsPerDate = GetDurationsPerDate(durations, percentage, sumup);
             var dates = durationsPerDate.Keys.ToList();
             var startDateEntry = DateTime.MinValue;
             var endDateEntry = DateTime.MaxValue;
@@ -100,10 +99,8 @@
             return durationsPerDateInTimeRange;
         }
 
-        private SortedDictionary<DateTime, double> GetDurationsPerDate(SortedDictionary<DateTime, double> durationsPerDate, double percentage, Boolean sumup)
+        public SortedDictionary<DateTime, double> GetDurationsPerDate(SortedDictionary<DateTime, double> durationsPerDate, double percentage)
         {
-	        double sum = 0;
-
 	        foreach (var entry in TogglEntrySums)
 		    {
 			    if (!durationsPerDate.ContainsKey(entry.Date))
@@ -114,17 +111,18 @@
                 else
                     durationsPerDate[entry.Date.AddDays(1)] += entry.Duration * percentage;
             }
-
-            if (sumup)
-            {
-                foreach (var entry in durationsPerDate.Keys.ToList())
-                {
-                    sum += durationsPerDate[entry];
-                    durationsPerDate[entry] = sum;
-                }
-            }
-
 	        return durationsPerDate;
+        }
+
+        public SortedDictionary<DateTime,double> Sumup(SortedDictionary<DateTime, double> durationsPerDate)
+        {
+            double sum = 0;
+            foreach (var entry in durationsPerDate.Keys.ToList())
+            {
+                sum += durationsPerDate[entry];
+                durationsPerDate[entry] = sum;
+            }
+            return durationsPerDate;
         }
 	}
 }

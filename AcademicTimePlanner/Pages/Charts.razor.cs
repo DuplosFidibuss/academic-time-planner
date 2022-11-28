@@ -195,11 +195,11 @@ public partial class Charts
             var togglProject = ChartData!.GetTogglProjectWithTogglId(togglP);
             if (i != planProject.TogglProjectIds.Count)
             {
-                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, trackedDurations, planProject.TogglProjectIds[togglP], false);
+                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglP]));
             }
             else
             {
-                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, trackedDurations, planProject.TogglProjectIds[togglP], true);
+                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, togglProject.Sumup(togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglP])));
             }
         }
         trackedDurations.Keys.ToList().ForEach(date => trackedDurationsDates.Add(date));
