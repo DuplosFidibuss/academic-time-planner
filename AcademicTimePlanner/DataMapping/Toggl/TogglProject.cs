@@ -114,7 +114,7 @@
 	        return durationsPerDate;
         }
 
-        public SortedDictionary<DateTime,double> Sumup(SortedDictionary<DateTime, double> durationsPerDate)
+        public SortedDictionary<DateTime, double> Sumup(SortedDictionary<DateTime, double> durationsPerDate)
         {
             double sum = 0;
             foreach (var entry in durationsPerDate.Keys.ToList())

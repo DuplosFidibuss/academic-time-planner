@@ -105,11 +105,12 @@ namespace AcademicTimePlanner.Data
                 }
             }
 
-            List<double> totalDurationSums = new List<double>(sortedTogglProjects.Count);
+            List<double> totalDurationSums = new List<double>();
 
             //sum up all the durations per togglProject.
             foreach(int t in sortedTogglProjects.Keys)
             {
+                totalDurationSums.Add(0);
                 foreach(int p in sortedPlanProjects.Keys)
                 {
                     totalDurationSums[t] += mapping[p, t];
