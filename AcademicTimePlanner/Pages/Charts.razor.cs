@@ -187,14 +187,14 @@ public partial class Charts
         var trackedDurationsDates = new List<object>();
         var trackedDurationsTimes = new List<object>();
         SortedDictionary<DateTime, double> trackedDurations = new SortedDictionary<DateTime, double>();
-        int i = 0;
+        List<long> togglProjects = new List<long>();
+        togglProjects.AddRange(planProject.TogglProjectIds.Keys.ToList());
 
-        foreach (long togglProjectId in planProject.TogglProjectIds.Keys)
+        for (int i = 0; i < togglProjects.Count; i++)
         {
-            i += 1;
-            var togglProject = ChartData!.GetTogglProjectWithTogglId(togglProjectId);
-            var durationsPerDate = togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglProjectId]);
-            if (i != planProject.TogglProjectIds.Count)
+            var togglProject = ChartData!.GetTogglProjectWithTogglId(togglProjects[i]);
+            var durationsPerDate = togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglProjects[i]]);
+            if (i != planProject.TogglProjectIds.Count - 1)
             {
                 trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, durationsPerDate);
             }
