@@ -35,7 +35,7 @@ public partial class Index
 
     private PlanProjectDownloader downloader => ProjectState.Value.PlanProjectDownloader;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         base.OnInitialized();
         Dispatcher.Dispatch(new SetTitleAction(Title));
