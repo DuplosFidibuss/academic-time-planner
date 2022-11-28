@@ -187,19 +187,20 @@ public partial class Charts
         var trackedDurationsDates = new List<object>();
         var trackedDurationsTimes = new List<object>();
         SortedDictionary<DateTime, double> trackedDurations = new SortedDictionary<DateTime, double>();
-        int i = 0;
+        List<long> togglIds = planProject.TogglProjectIds.Keys.ToList();
 
-        foreach (long togglP in planProject.TogglProjectIds.Keys)
+        for (int i = 0; i < planProject.TogglProjectIds.Count; i++)
         {
-            i += 1;
-            var togglProject = ChartData!.GetTogglProjectWithTogglId(togglP);
-            if (i != planProject.TogglProjectIds.Count)
+            var togglProjectId = togglIds[i];
+            var togglProject = ChartData!.GetTogglProjectWithTogglId(togglProjectId);
+            var durationsPerDate = togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglProjectId]);
+        if (i != planProject.TogglProjectIds.Count)
             {
-                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglP]));
+                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, durationsPerDate);
             }
             else
             {
-                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, togglProject.Sumup(togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglP])));
+                trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, togglProject.Sumup(durationsPerDate));
             }
         }
         trackedDurations.Keys.ToList().ForEach(date => trackedDurationsDates.Add(date));
