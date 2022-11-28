@@ -102,24 +102,24 @@ namespace AcademicTimePlanner.Data
                 }
             }
 
-            List<double> sum = new List<double>();
+            List<double> totalDurationSums = new List<double>();
 
             foreach(int t in tProjects.Keys)
             {
-                sum.Add(0);
+                totalDurationSums.Add(0);
                 foreach(int p in pProjects.Keys)
                 {
-                    sum[t] += mapping[p, t];
+                    totalDurationSums[t] += mapping[p, t];
                 }
             }
 
             foreach(int p in pProjects.Keys)
             {
-                for(int s = 0; s < sum.Count; s++)
+                for(int s = 0; s < totalDurationSums.Count; s++)
                 {
                     if (mapping[p,s] != 0)
                     {
-                        pProjects[p].TogglProjectIds[tProjects[s].TogglId] = mapping[p, s] / sum[s];
+                        pProjects[p].TogglProjectIds[tProjects[s].TogglId] = mapping[p, s] / totalDurationSums[s];
                     }
                 }
             }
