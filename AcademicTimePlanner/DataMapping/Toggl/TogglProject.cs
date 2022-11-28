@@ -100,9 +100,8 @@
             return durationsPerDateInTimeRange;
         }
 
-        private SortedDictionary<DateTime, double> GetDurationsPerDate(SortedDictionary<DateTime, double> oldDictionary, double percentage, Boolean sumup)
+        private SortedDictionary<DateTime, double> GetDurationsPerDate(SortedDictionary<DateTime, double> durationsPerDate, double percentage, Boolean sumup)
         {
-	        SortedDictionary<DateTime, double> durationsPerDate = oldDictionary;
 	        double sum = 0;
 
 	        foreach (var entry in TogglEntrySums)
