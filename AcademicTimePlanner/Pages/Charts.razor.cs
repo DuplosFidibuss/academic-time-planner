@@ -26,7 +26,7 @@ public partial class Charts
     private ChartData? ChartData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
     
-    private const string Title = "Graphen";
+    private const string Title = "Charts";
     private const string TotalChartTitle = "Total";
 
     private static readonly BarMarker TrackedDurationMarker = new BarMarker { Color = "rgb(20, 150, 70)" };
