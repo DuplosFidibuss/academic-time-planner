@@ -21,6 +21,7 @@
         public PlanProject(Guid id)
         {
             Id = id;
+            TogglProjectIds = new Dictionary<long, double>();
             PlanTasks = new List<PlanTask>();
             PlanEntries = new List<PlanEntry>();
             RepetitionEntries = new List<PlanEntryRepetition>();
@@ -56,7 +57,7 @@
 
         public void AddPlanTask(PlanTask planTask)
         {
-            PlanTasks.Add(planTask); 
+            PlanTasks.Add(planTask);
         }
 
         public void RemovePlanTask(PlanTask planTask)

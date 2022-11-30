@@ -1,17 +1,17 @@
+using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Plotly.Blazor.LayoutLib;
 using Plotly.Blazor;
-using YAxisTitle = Plotly.Blazor.LayoutLib.YAxisLib.Title;
+using Plotly.Blazor.LayoutLib;
+using Plotly.Blazor.Traces.ScatterLib;
 using Bar = Plotly.Blazor.Traces.Bar;
-using Scatter = Plotly.Blazor.Traces.Scatter;
 using BarMarker = Plotly.Blazor.Traces.BarLib.Marker;
 using LineMarker = Plotly.Blazor.Traces.ScatterLib.Marker;
-using Plotly.Blazor.Traces.ScatterLib;
-using AcademicTimePlanner.Store.State.Charts;
-using AcademicTimePlanner.Data;
-using AcademicTimePlanner.DataMapping.Plan;
+using Scatter = Plotly.Blazor.Traces.Scatter;
+using YAxisTitle = Plotly.Blazor.LayoutLib.YAxisLib.Title;
 
 namespace AcademicTimePlanner.Pages;
 
@@ -25,7 +25,7 @@ public partial class Charts
 
     private ChartData? ChartData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
-    
+
     private const string Title = "Charts";
     private const string TotalChartTitle = "Total";
 
@@ -49,7 +49,7 @@ public partial class Charts
             Text = "Total overview"
         },
         BarMode = BarModeEnum.Group,
-        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0 }, new XAxis { Anchor="free", Position=0, Overlaying="x" } },
+        XAxis = new List<XAxis> { new XAxis { Anchor = "free", Position = 0 }, new XAxis { Anchor = "free", Position = 0, Overlaying = "x" } },
         YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         Width = 700,
@@ -62,7 +62,7 @@ public partial class Charts
             Text = "Projects overview"
         },
         BarMode = BarModeEnum.Group,
-        XAxis = new List<XAxis> { new XAxis { Anchor="free", Position=0, TickAngle=45 }, new XAxis { Anchor="free", Position=0, Overlaying="x", TickAngle=45 } },
+        XAxis = new List<XAxis> { new XAxis { Anchor = "free", Position = 0, TickAngle = 45 }, new XAxis { Anchor = "free", Position = 0, Overlaying = "x", TickAngle = 45 } },
         YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
         Height = 500,
         AutoSize = true,
@@ -111,7 +111,7 @@ public partial class Charts
                 XAxis = "x2",
                 Marker = TrackedDurationMarker,
             },
-        };    
+        };
     }
 
     private List<ITrace> GetDataOfSingleProjectsToday()
@@ -126,11 +126,15 @@ public partial class Charts
         {
             double predictedDurationsSum = 0;
             double trackedDurationsSum = 0;
-            foreach (long togglP in planProject.TogglProjectIds.Keys)
+            foreach (long togglProjectId in planProject.TogglProjectIds.Keys)
             {
-                var togglProject = ChartData!.GetTogglProjectWithTogglId(togglP);
-                predictedDurationsSum += (togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglP] + planProject.GetRemainingDuration());
-                trackedDurationsSum += (togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglP]);
+                var togglProject = ChartData!.GetTogglProjectWithTogglId(togglProjectId);
+                if (togglProject != null)
+                {
+                    predictedDurationsSum += togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglProjectId];
+                    trackedDurationsSum += togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglProjectId];
+                }
+                predictedDurationsSum += planProject.GetRemainingDuration();
             }
             titles.Add(planProject.Name);
 
@@ -179,10 +183,10 @@ public partial class Charts
     {
         var plannedDurations = planProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate);
 
-		var plannedDurationsDates = new List<object>();
-		var plannedDurationsTimes = new List<object>();
-		plannedDurations.Keys.ToList().ForEach(date => plannedDurationsDates.Add(date));
-		plannedDurations.Values.ToList().ForEach(time => plannedDurationsTimes.Add(time));
+        var plannedDurationsDates = new List<object>();
+        var plannedDurationsTimes = new List<object>();
+        plannedDurations.Keys.ToList().ForEach(date => plannedDurationsDates.Add(date));
+        plannedDurations.Values.ToList().ForEach(time => plannedDurationsTimes.Add(time));
 
         var trackedDurationsDates = new List<object>();
         var trackedDurationsTimes = new List<object>();
