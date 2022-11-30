@@ -28,6 +28,9 @@ else
     <p>No data loaded - Missing Toggl settings</p>
     
     <EditForm Model="@TogglSettings" OnValidSubmit="@SaveTogglSettings">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
         <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></p>
         <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></p>
         <button type="submit">Save Toggl settings</button>

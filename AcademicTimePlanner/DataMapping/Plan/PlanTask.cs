@@ -14,7 +14,7 @@
 
         private PlanTask() { }
 
-        public PlanTask (Guid id, string name, long togglId)
+        public PlanTask(Guid id, string name, long togglId)
         {
             Id = id;
             Name = name;
@@ -31,6 +31,11 @@
         public PlanTask(Guid id)
         {
             Id = id;
+        }
+
+        public bool IsValidPlanTask()
+        {
+            return !string.IsNullOrWhiteSpace(Name);
         }
     }
 }

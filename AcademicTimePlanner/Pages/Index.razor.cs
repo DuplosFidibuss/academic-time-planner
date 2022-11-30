@@ -241,7 +241,8 @@ public partial class Index
 
     private void SetDateFilter()
     {
-        Dispatcher.Dispatch(new FilterChartDataAction());
+        if (DateFilter.IsValidTimeRange())
+            Dispatcher.Dispatch(new FilterChartDataAction());
     }
 
     private void ChangeFilter()

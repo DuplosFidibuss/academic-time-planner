@@ -94,5 +94,15 @@
         {
             return (from entry in Entries.FindAll(entry => entry.StartDate >= startDate && entry.EndDate <= endDate) select entry.Duration).Sum();
         }
+
+        public bool IsValidPlanEntryRepetition()
+        {
+            return RepetitionStartDate < RepetitionEndDate
+                && !string.IsNullOrWhiteSpace(Name)
+                && Interval > 0
+                && Interval <= (RepetitionEndDate - RepetitionStartDate).TotalDays
+                && Duration > 0
+                && Duration <= Interval * 24;
+        }
     }
 }
