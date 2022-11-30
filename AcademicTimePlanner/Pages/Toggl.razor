@@ -7,8 +7,7 @@
 {
     <p>@LoadOverview.Count Toggl projects loaded</p>
     <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronizing</button>
-    <label>Last synchronized: @TogglState.Value.LastSynchronized.ToString()</label>
-
+    <p>Last synchronized: @TogglState.Value.LastSynchronized.ToString()</p>
     <p>Following Toggl projects have been loaded. Display format: Toggl project -> associated plan project</p>
     <ul>
     @foreach (var overviewData in LoadOverview)
@@ -29,8 +28,8 @@ else
     <p>No data loaded - Missing Toggl settings</p>
     
     <EditForm Model="@TogglSettings" OnValidSubmit="@SaveTogglSettings">
-        <label>Toggl API key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></label>
-        <label>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></label>
+        <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></p>
+        <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></p>
         <button type="submit">Save Toggl settings</button>
     </EditForm>
 
