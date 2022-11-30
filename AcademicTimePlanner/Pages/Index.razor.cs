@@ -23,7 +23,7 @@ public partial class Index
 
     private List<string> PlanProjectsNames => ProjectState.Value.PlanProjectsNames;
 
-    private const string Title = "Startseite";
+    private const string Title = "Plan projects";
 
     private PlanProject? planProject => ProjectState.Value.PlanProject;
 

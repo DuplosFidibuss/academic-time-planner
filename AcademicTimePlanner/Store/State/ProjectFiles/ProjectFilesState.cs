@@ -14,7 +14,8 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             EnableTasks,
             EnterEntries,
             AddSingleEntry,
-            AddRepetitionEntry
+            AddRepetitionEntry,
+            FinalOverview
         }
 
         public bool Loaded { get; }
