@@ -1,5 +1,4 @@
-﻿using AcademicTimePlanner.Data;
-using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.DataMapping.Plan;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles

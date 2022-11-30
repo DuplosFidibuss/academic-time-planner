@@ -1,4 +1,3 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.Store.State.ProjectFiles;
 using AcademicTimePlanner.Store.State.Wrapper;
