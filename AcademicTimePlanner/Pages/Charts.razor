@@ -16,7 +16,7 @@
 
             <label>Start date: <InputDate id="StartDate" @bind-Value="DateFilter.StartDate" /></label>
             <label>End date: <InputDate id="EndDate" @bind-Value="DateFilter.EndDate" /></label>
-            <button type="submit">Filter setzen</button>
+            <button type="submit">Set filter</button>
         </EditForm>
     }
     else
@@ -25,7 +25,7 @@
         {
             <PlotlyChart Id="@project.Name" Config="config" Layout="GetLayout(project.Name)" Data="GetDataOfSingleProjectsFiltered(project)" />
         }        
-        <button type="button" class="btn btn-secondary" @onclick="ChangeFilter">Filter neu setzen</button>
+        <button type="button" class="btn btn-secondary" @onclick="ChangeFilter">Reset filter</button>
     }
 }
 
