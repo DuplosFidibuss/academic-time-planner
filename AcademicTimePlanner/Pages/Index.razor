@@ -48,7 +48,7 @@
 @switch (ProjectState.Value.Step) 
 {
     case ProjectFilesState.CreationStep.NamingProject :
-        <label>Create plan project</label>
+        <h3>Create plan project</h3>
         <EditForm Model="@planProject">
             <label>Plan project name : <InputText id="projectName" @bind-Value="planProject!.Name" /></label>
         </EditForm>
@@ -56,7 +56,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Next</button>
         break;
     case ProjectFilesState.CreationStep.EnableTasks :
-        <label>Create plan tasks (Optional)</label>
+        <h3>Create plan tasks (Optional)</h3>
         <EditForm Model="@planTask" OnValidSubmit="@CreatePlanTask">
             <label>Plan task name : <InputText id="taskName" @bind-Value="planTask!.Name" /></label>
             <button type="submit">Create task</button>
@@ -76,7 +76,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
     case ProjectFilesState.CreationStep.EnterEntries :
-        <label>Create plan entries or plan entry repertitions</label>
+        <h3>Create plan entries or plan entry repertitions</h3>
         <button type="button" class="btn btn-secondary" @onclick="AddSingleEntry">Add plan entry</button>
         <button type="button" class="btn btn-secondary" @onclick="AddRepetitionEntry">Add repetition entry</button>
         <p></p>
@@ -85,12 +85,12 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.FinalOverview))">Next</button>
         break;
     case ProjectFilesState.CreationStep.AddSingleEntry :
-        <label>Create plan entries</label>
+        <h3>Create plan entries</h3>
         <EditForm Model="@planEntry" OnValidSubmit="@CreatePlanEntry">
-            <label>Plan entry name : <InputText id="entryName" @bind-Value="planEntry!.Name" /></label>
-            <label>Start date: <InputDate id="StartDate" @bind-Value="planEntry!.StartDate" /></label>
-            <label>End date: <InputDate id="EndDate" @bind-Value="planEntry!.EndDate" /></label>
-            <label>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="planEntry!.Duration" /></label>
+            <label>Plan entry name : <InputText id="entryName" @bind-Value="planEntry!.Name" /></label><p></p>
+            <label>Start date: <InputDate id="StartDate" @bind-Value="planEntry!.StartDate" /></label><p></p>
+            <label>End date: <InputDate id="EndDate" @bind-Value="planEntry!.EndDate" /></label><p></p>
+            <label>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="planEntry!.Duration" /></label><p></p>
             <button type="submit">Create entry</button>
         </EditForm>
         @if (planProject!.PlanEntries.Count != 0)
@@ -107,13 +107,13 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
     case ProjectFilesState.CreationStep.AddRepetitionEntry :
-        <label>Create plan entry repetitions</label>
+        <h3>Create plan entry repetitions</h3>
         <EditForm Model="@planEntryRepetition" OnValidSubmit="@CreateRepetitionEntry">
-            <label>Plan entry repetition name : <InputText id="repetitionEntryName" @bind-Value="planEntryRepetition!.Name" /></label>
-            <label>Start date: <InputDate id="RepetitionStartDate" @bind-Value="planEntryRepetition!.RepetitionStartDate" /></label>
-            <label>End date: <InputDate id="RepetitionEndDate" @bind-Value="planEntryRepetition!.RepetitionEndDate" /></label>
-            <label>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration" /></label>
-            <label>Intervall [in days] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Interval" /></label>
+            <label>Plan entry repetition name : <InputText id="repetitionEntryName" @bind-Value="planEntryRepetition!.Name" /></label><p></p>
+            <label>Start date: <InputDate id="RepetitionStartDate" @bind-Value="planEntryRepetition!.RepetitionStartDate" /></label><p></p>
+            <label>End date: <InputDate id="RepetitionEndDate" @bind-Value="planEntryRepetition!.RepetitionEndDate" /></label><p></p>
+            <label>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration" /></label><p></p>
+            <label>Intervall [in days] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Interval" /></label><p></p>
             <button type="submit">Create repetition entry</button>
         </EditForm>
         @if (planProject!.RepetitionEntries.Count != 0)
@@ -130,15 +130,14 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
     case ProjectFilesState.CreationStep.FinalOverview :
-        <label>Final overview</label>
-        <label>Plan project name</label>
+        <h3>Final overview</h3>
         @if (planProject.Name != null) 
         {
-            <li>@planProject.Name</li>
+            <p>@planProject.Name</p>
         }
         else 
         {
-            <li>No plan project name chosen</li>
+            <p>No plan project name chosen</p>
         }
         @if (planProject!.PlanTasks.Count != 0)
         {
