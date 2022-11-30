@@ -150,7 +150,7 @@
         }
         else
         {
-            <li>No plan tasks created</li>
+            <p>No plan tasks created</p>
         }
         @if (planProject!.PlanEntries.Count != 0)
         {
@@ -164,7 +164,7 @@
         }
         else
         {
-            <li>No plan entry created</li>
+            <p>No plan entry created</p>
         }
         @if (planProject!.RepetitionEntries.Count != 0)
         {
@@ -178,7 +178,7 @@
         }
         else
         {
-            <li>No plan repetition entry created</li>
+            <p>No plan repetition entry created</p>
         }
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Back</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
