@@ -53,5 +53,13 @@
             EndDate = endDate;
             Duration = duration;
         }
+
+        public bool IsValidPlanEntry()
+        {
+            return StartDate <= EndDate
+                && !string.IsNullOrWhiteSpace(Name)
+                && Duration > 0
+                && Duration <= (EndDate - StartDate).TotalHours;
+        }
     }
 }

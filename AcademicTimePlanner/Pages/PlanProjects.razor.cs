@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace AcademicTimePlanner.Pages;
 
 public partial class PlanProjects
-{ 
+{
     [Inject]
     private IState<ProjectFilesState> ProjectState { get; set; }
 
@@ -57,19 +57,27 @@ public partial class PlanProjects
 
     private void CreatePlanTask()
     {
-        Dispatcher.Dispatch(new CreatePlanTaskAction(planTask));
+        if (planTask.IsValidPlanTask())
+            Dispatcher.Dispatch(new CreatePlanTaskAction(planTask));
     }
 
     private void CreatePlanEntry()
     {
-        planProject.AddPlanEntry(planEntry);
-        Dispatcher.Dispatch(new AddSingleEntryAction());
+        if (planEntry.IsValidPlanEntry())
+        {
+            planProject.AddPlanEntry(planEntry);
+            Dispatcher.Dispatch(new AddSingleEntryAction());
+        }
     }
 
     private void CreateRepetitionEntry()
     {
-        planProject.AddRepetitionEntry(planEntryRepetition);
-        Dispatcher.Dispatch(new AddRepetitionEntryAction());
+        if (planEntryRepetition.IsValidPlanEntryRepetition())
+        {
+            planEntryRepetition.Modify();
+            planProject.AddRepetitionEntry(planEntryRepetition);
+            Dispatcher.Dispatch(new AddRepetitionEntryAction());
+        }
     }
 
     private void AddSingleEntry()
@@ -94,7 +102,8 @@ public partial class PlanProjects
 
     private void Finish()
     {
-        Dispatcher.Dispatch(new FinishPlanProjectCreationAction(planProject!));
+        if (!string.IsNullOrWhiteSpace(planProject!.Name))
+            Dispatcher.Dispatch(new FinishPlanProjectCreationAction(planProject!));
     }
 
     private void InitializePlanProjectDownload()
