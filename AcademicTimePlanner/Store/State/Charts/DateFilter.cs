@@ -10,5 +10,10 @@
             StartDate = DateTime.Today.AddDays(-30);
             EndDate = DateTime.Today;
         }
+
+        public bool IsValidTimeRange()
+        {
+            return StartDate < EndDate;
+        }
     }
 }

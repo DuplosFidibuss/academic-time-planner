@@ -10,7 +10,7 @@
 
     @if (!ChartsState.Value.LoadedFiltered)
     {
-        <EditForm Model="@DateFilter" OnValidSubmit="@SetDateFilter">
+        <EditForm Model="@DateFilter" OnSubmit="@SetDateFilter">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
@@ -18,6 +18,8 @@
             <label>End date: <InputDate id="EndDate" @bind-Value="DateFilter.EndDate" /></label>
             <button type="submit">Set filter</button>
         </EditForm>
+
+        <p>No valid filter time range submitted.</p>
     }
     else
     {
