@@ -31,10 +31,10 @@ public class TogglServiceTests
         {
             Data = new List<TogglDetailResponseData>()
             {
-                new() { Id = 0, ProjectId = projectIds[0], TaskId = taskIds[0], Project = projectName, Task = taskName },
-                new() { Id = 1, ProjectId = projectIds[0], TaskId = taskIds[1], Project = projectName, Task = taskName },
-                new() { Id = 2, ProjectId = projectIds[1], TaskId = taskIds[2], Project = projectName, Task = taskName }, 
-                new() { Id = 3, ProjectId = projectIds[1], TaskId = taskIds[2], Project = projectName, Task = taskName },
+                new() { Id = 0, Pid = projectIds[0], Tid = taskIds[0], Project = projectName, Task = taskName },
+                new() { Id = 1, Pid = projectIds[0], Tid = taskIds[1], Project = projectName, Task = taskName },
+                new() { Id = 2, Pid = projectIds[1], Tid = taskIds[2], Project = projectName, Task = taskName }, 
+                new() { Id = 3, Pid = projectIds[1], Tid = taskIds[2], Project = projectName, Task = taskName },
             }
         };
 
@@ -71,9 +71,9 @@ public class TogglServiceTests
         {
             Data = new List<TogglDetailResponseData>()
             {
-                new() { Id = 0, ProjectId = projectIds[0], Project = projectName },
-                new() { Id = 1, ProjectId = projectIds[1], Project = projectName },
-                new() { Id = 2, ProjectId = projectIds[2], Project = projectName },
+                new() { Id = 0, Pid = projectIds[0], Project = projectName },
+                new() { Id = 1, Pid = projectIds[1], Project = projectName },
+                new() { Id = 2, Pid = projectIds[2], Project = projectName },
             }
         };
 
@@ -113,9 +113,9 @@ public class TogglServiceTests
         {
             Data = new List<TogglDetailResponseData>()
             {
-                new() { Id = 0, ProjectId = projectIds[0], TaskId = taskIds[0], Project = projectName, Task = taskName },
-                new() { Id = 1, ProjectId = projectIds[1], TaskId = taskIds[1], Project = projectName, Task = taskName },
-                new() { Id = 2, ProjectId = projectIds[2], TaskId = taskIds[2], Project = projectName, Task = taskName },
+                new() { Id = 0, Pid = projectIds[0], Tid = taskIds[0], Project = projectName, Task = taskName },
+                new() { Id = 1, Pid = projectIds[1], Tid = taskIds[1], Project = projectName, Task = taskName },
+                new() { Id = 2, Pid = projectIds[2], Tid = taskIds[2], Project = projectName, Task = taskName },
             }
         };
 
@@ -161,9 +161,9 @@ public class TogglServiceTests
         {
             Data = new List<TogglDetailResponseData>()
             {
-                new() { Id = 0, ProjectId = projectIds[0], Project = projectName },
-                new() { Id = 1, ProjectId = projectIds[1], Project = projectName },
-                new() { Id = 2, ProjectId = projectIds[2], Project = projectName },
+                new() { Id = 0, Pid = projectIds[0], Project = projectName },
+                new() { Id = 1, Pid = projectIds[1], Project = projectName },
+                new() { Id = 2, Pid = projectIds[2], Project = projectName },
             }
         };
 
@@ -213,9 +213,9 @@ public class TogglServiceTests
         {
             Data = new List<TogglDetailResponseData>()
             {
-                new() { Id = 0, StartTime = dates[0], EndTime = dates[1], Duration = durations[0] },
-                new() { Id = 1, StartTime = dates[0], EndTime = dates[2], Duration = durations[1] },
-                new() { Id = 2, StartTime = dates[1], EndTime = dates[2], Duration = durations[2] },
+                new() { Id = 0, Start = dates[0], End = dates[1], Dur = durations[0] },
+                new() { Id = 1, Start = dates[0], End = dates[2], Dur = durations[1] },
+                new() { Id = 2, Start = dates[1], End = dates[2], Dur = durations[2] },
             }
         };
 

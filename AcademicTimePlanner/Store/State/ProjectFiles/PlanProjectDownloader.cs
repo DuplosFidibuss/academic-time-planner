@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.Data
+﻿namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
     public class PlanProjectDownloader
     {

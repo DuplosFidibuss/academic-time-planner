@@ -1,15 +1,14 @@
 @page "/toggl"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<h3>Anzahl Toggl-Projekte</h3>
+<h3>Number of Toggl projects</h3>
 
 @if (TogglState.Value.Loaded)
 {
-    <p>@LoadOverview.Count Toggl-Projekte geladen</p>
-    <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronisieren</button>
-    <label>Zuletzt synchronisiert: @TogglState.Value.LastSynchronized.ToString()</label>
-
-    <p>Folgende Toggl-Projekte wurden geladen. Anzeigeformat: Toggl-Projekt -> assoziiertes Planprojekt</p>
+    <p>@LoadOverview.Count Toggl projects loaded</p>
+    <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronizing</button>
+    <p>Last synchronized: @TogglState.Value.LastSynchronized.ToString()</p>
+    <p>Following Toggl projects have been loaded. Display format: Toggl project -> associated plan project</p>
     <ul>
     @foreach (var overviewData in LoadOverview)
     {
@@ -26,13 +25,14 @@
 }
 else
 {
-    <p>Keine Daten geladen - Toggl-Einstellungen fehlen</p>
+    <p>No data loaded - Missing Toggl settings</p>
     
     <EditForm Model="@TogglSettings" OnValidSubmit="@SaveTogglSettings">
-        <label>Toggl API-Key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></label>
-        <label>Toggl Workspace-Id: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></label>
-        <button type="submit">Toggl-Daten speichern</button>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></p>
+        <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></p>
+        <button type="submit">Save Toggl settings</button>
     </EditForm>
-
-
 }

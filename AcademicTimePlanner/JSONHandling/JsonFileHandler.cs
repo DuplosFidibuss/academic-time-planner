@@ -1,6 +1,7 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.Services.TogglApiService;
 using Newtonsoft.Json;
-
+using Newtonsoft.Json.Serialization;
 
 namespace AcademicTimePlanner.JSONHandling
 {   /// <summary>
@@ -28,6 +29,20 @@ namespace AcademicTimePlanner.JSONHandling
         {
             string jsonString = JsonConvert.SerializeObject(project, Formatting.Indented);
             File.WriteAllText(getDataPath(project.Name), jsonString);
+        }
+
+        public TogglDetailResponse LoadTogglJson(string path)
+        {
+            var contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            };
+            string jsonString = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<TogglDetailResponse>(jsonString, new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Formatting = Formatting.Indented
+            });
         }
     }
 }

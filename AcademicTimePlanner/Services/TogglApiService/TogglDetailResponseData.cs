@@ -1,37 +1,28 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AcademicTimePlanner.Services.TogglApiService;
 
 public class TogglDetailResponseData
 {
-    [JsonPropertyName("id")]
     public long Id { get; set; }
 
-    [JsonPropertyName("pid")]
-    public long? ProjectId { get; set; }
+    public long? Pid { get; set; }
 
-    [JsonPropertyName("tid")]
-    public long? TaskId { get; set; }
+    public long? Tid { get; set; }
 
-    [JsonPropertyName("dur")]
-    public int Duration { get; set; }
+    public int Dur { get; set; }
 
-    [JsonPropertyName("description")]
     public string Description { get; set; }
-    
-    [JsonPropertyName("start")]
-    public DateTime StartTime { get; set; }
 
-    [JsonPropertyName("end")]
-    public DateTime EndTime { get; set; }
+    public DateTime Start { get; set; }
 
-    [JsonPropertyName("project")]
+    public DateTime End { get; set; }
+
     public string Project { get; set; }
 
-    [JsonPropertyName("task")]
     public string Task { get; set; }
-    
+
     [JsonExtensionData]
-    public Dictionary<string, JsonElement> AdditionalProperties { get; set; }
+    public Dictionary<string, JToken> AdditionalProperties { get; set; }
 }
