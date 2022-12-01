@@ -69,7 +69,7 @@ Pair programming \cite{pairprogramming-url} is a form of programming in which on
 \section{Unit tests}
 To ensure that the methods function as intended unit tests are necessary. They are also needed to check if everything still works after refactoring. To this end unit test were written for every back end class where it was possible. This includes the mapping classes described in the chapter \ref{Mapping concept} and the Datamanger as well as the JSONHandler. These three classes are essential for the whole application to work correctly as a mistake in them would effect all the other classes. Most of these test check if the handling of JSON files and the projects that are generated with them are as expected. The test cases are listed in the following table.
 \\ \\
-\begin{tabular}{||c|c|p{9cm}||}
+\begin{tabular}{||c|c|p{8cm}||}
 	\cline{1-3}
 	Class & Method & Case \\
 	\hline \hline
@@ -83,9 +83,9 @@ To ensure that the methods function as intended unit tests are necessary. They a
 	\hline
 	&  & Is a non empty Toggl project list correctly updated. \\
 	\hline
-	&  & TogglProjectsIsUpdatedCorrectlyWithDeletedProject\\
+	&  & Is a Toggl project that is deleted on TogglTrack, but still exists in the application, moved to the correct list.\\
 	\hline
-	& & UpdateTogglProjectsDoesNotDuplicateShiftedEntries\\
+	& & Is a Toggl project that got reassigned to a different plan project not duplicated.\\
 	\hline
 	& GetChartData & Are empty plan project and Toggl project lists returned empty as expected.\\
 	\hline
@@ -97,16 +97,18 @@ To ensure that the methods function as intended unit tests are necessary. They a
 	\hline
 	& & Is the overview correctly replied when the Toggl project has no associated plan project. \\
 	\hline
-	& &GetTogglLoadOverviewReturnsCorrectOverviewWithDeletedTogglProject \\
+	& & Is a Toggl project that is deleted on TogglTrack, but still exists in the application, displayed correctly. \\
 	\hline
-	TogglService & & GetTogglProjectsReturnsAllTogglProjects\\
+	& \scriptsize{UpdateTogglDictionaryInPlanProjects} & Are the percentages in the plan project updated correctly.\\
 	\hline
-	& & TestReceiveNormalDataWithoutTask\\
+	TogglService & GetTogglProjects & Are the Toggl projects returned as expected.\\
 	\hline
-	& & TestReceiveNormalDataWithTask\\
+	& & Can a Toggl project be handled if there is no task.\\
 	\hline
-	& & TestReceiveDataWithoutEntries\\
+	& & Is a Toggl project with a Toggl task handled correctly.\\
 	\hline
-	& & TestReceiveEntriesDataWithoutProject\\
+	& & Is the sum of durations of a Toggl project without any entries returned as 0 as expected.\\
+	\hline
+	& & Is the sum of the duration of entries without a project returned the correctly. \\
 	\cline{1-3}
 \end{tabular}
