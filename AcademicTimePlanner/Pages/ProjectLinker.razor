@@ -1,4 +1,22 @@
 ﻿@page "/linker"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
+@if (ProjectLinkerState.Value.Loaded)
+{
+    <h4>Select plan project</h4>
+    <EditForm Model="@ChartData" OnSubmit="@LinkProjects">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
+        <InputRadioGroup @bind-Value="ChartData.PlanProjects">
+            @foreach(var planProject in ChartData.PlanProjects)
+            {
+                <InputRadio Value="@planProject">@planProject.Name</InputRadio>
+            }
+        </InputRadioGroup>
+    </EditForm>
+}
+else
+{
+    <p>No data loaded.</p>
+}
