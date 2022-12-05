@@ -1,9 +1,12 @@
 name: GitHub Release
 
 on:
+  pull_request:
+    branches: 
+      - main
   push:
-    tags:
-      - v*
+    paths-ignore:
+      - 'doc/**'
 
 env:
   REGISTRY: ghcr.io
