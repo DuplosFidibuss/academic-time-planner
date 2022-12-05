@@ -35,7 +35,7 @@ jobs:
           cd $BLAZOR_PROJECT_FOLDER/$DOTNET_PUBLISH_FOLDER
           zip -r ${{ github.event.repository.name }}.zip .
       - name: Create github release from zip
-        uses: DuplosFidibuss/release-action@v1
+        uses: ncipollo/release-action@v1
         with:
           artifacts: ${{env.BLAZOR_PROJECT_FOLDER}}/${{env.DOTNET_PUBLISH_FOLDER}}/${{ github.event.repository.name }}.zip
           token: ${{ secrets.GITHUB_TOKEN }}
