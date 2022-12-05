@@ -114,7 +114,7 @@
             <p>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="planEntry!.Duration" /></p>
             <label>Link plan task (optional): </label>
             <InputSelect @bind-Value="planEntry.TaskId">
-                <option value="00000000-0000-0000-0000-000000000000"></option>
+                <option value="@Guid.Empty"></option>
                 @foreach (var task in planProject.PlanTasks)
                 {
                     <option value=@task.Id>@task.Name</option>
@@ -157,7 +157,7 @@
             <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration" /></p>
             <label>Link plan task (optional): </label>
             <InputSelect @bind-Value="planEntryRepetition.TaskId">
-                <option value="00000000-0000-0000-0000-000000000000"></option>
+                <option value="@Guid.Empty"></option>
                 @foreach (var task in planProject.PlanTasks)
                 {
                     <option value=@task.Id>@task.Name</option>
