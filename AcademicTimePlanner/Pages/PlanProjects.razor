@@ -112,6 +112,14 @@
             <p>Start date: <InputDate id="StartDate" @bind-Value="planEntry!.StartDate" /></p>
             <p>End date: <InputDate id="EndDate" @bind-Value="planEntry!.EndDate" /></p>
             <p>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="planEntry!.Duration" /></p>
+            <label>Link plan task (optional): </label>
+            <InputSelect @bind-Value="planEntry.TaskId">
+                <option value="@Guid.Empty"></option>
+                @foreach (var task in planProject.PlanTasks)
+                {
+                    <option value=@task.Id>@task.Name</option>
+                }
+            </InputSelect>
 
             <button type="submit">Create entry</button>
         </EditForm>
@@ -147,6 +155,14 @@
             <p>End date: <InputDate id="RepetitionEndDate" @bind-Value="planEntryRepetition!.RepetitionEndDate" /></p>
             <p>Interval [in days] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Interval" /></p>
             <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration" /></p>
+            <label>Link plan task (optional): </label>
+            <InputSelect @bind-Value="planEntryRepetition.TaskId">
+                <option value="@Guid.Empty"></option>
+                @foreach (var task in planProject.PlanTasks)
+                {
+                    <option value=@task.Id>@task.Name</option>
+                }
+            </InputSelect>
             <button type="submit">Create repetition entry</button>
         </EditForm>
 
