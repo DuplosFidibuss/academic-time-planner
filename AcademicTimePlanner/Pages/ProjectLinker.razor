@@ -1,5 +1,6 @@
 ﻿@page "/linker"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using AcademicTimePlanner.Store.State.ProjectLinker
 
 @if (ProjectLinkerState.Value.Loaded)
 {
@@ -7,13 +8,11 @@
     <EditForm Model="@ChartData" OnSubmit="@LinkProjects">
         <DataAnnotationsValidator />
         <ValidationSummary />
-
-        <InputRadioGroup @bind-Value="ChartData.PlanProjects">
-            @foreach(var planProject in ChartData.PlanProjects)
+            @foreach (var planProject in ChartData.PlanProjects)
             {
-                <InputRadio Value="@planProject">@planProject.Name</InputRadio>
+                <input type="radio" name="project" value="@planProject.Id" /> @planProject.Name<br />   
             }
-        </InputRadioGroup>
+        <input type="submit" />
     </EditForm>
 }
 else
