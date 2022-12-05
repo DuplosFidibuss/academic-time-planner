@@ -8,8 +8,6 @@ namespace AcademicTimePlanner.Data
     {
         public const string NoAssociatedPlanProjectName = "No plan project associated";
 
-        public List<Budget> Budgets { get; set; }
-
         public List<PlanProject> PlanProjects { get; set; }
 
         public List<TogglProject> TogglProjects { get; set; }
@@ -21,7 +19,6 @@ namespace AcademicTimePlanner.Data
         /// </summary>
         public DataManager()
         {
-            Budgets = new List<Budget>();
             PlanProjects = new List<PlanProject>();
             TogglProjects = new List<TogglProject>();
             DeletedTogglProjectIds = new List<long>();
