@@ -87,13 +87,13 @@
 
         private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            if (PlanEntries.Count == 0 && RepetitionEntries.Count == 0)
+            if (PlanEntries == null && RepetitionEntries == null)
                 return 0;
 
-            if (PlanEntries.Count == 0)
+            if (PlanEntries == null)
                 return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
-            if (RepetitionEntries.Count == 0) 
+            if (RepetitionEntries == null) 
             {
                 double sum = 0;
                 foreach (PlanEntry planEntry in PlanEntries)
@@ -102,13 +102,13 @@
                     {
                         sum += planEntry.Duration;
                     }
-                    if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
+                    else if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
                     {
-                        sum += planEntry.Duration * ((DateTime.Today - planEntry.StartDate).TotalDays + 1) / ((planEntry.EndDate - planEntry.StartDate).TotalDays + 1);
+                        sum += planEntry.Duration * ((DateTime.Today - planEntry.StartDate).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
                     }
                     else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
                     {
-                        sum += planEntry.Duration * ((planEntry.EndDate - planEntry.StartDate).TotalDays) / ((DateTime.Today - planEntry.StartDate).TotalDays);
+                        sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
                     }
                 }
                 return sum;
@@ -180,7 +180,7 @@
                     }
                     else
                     {
-                        if (durationsPerDate.Count == 0)
+                        if (durationsPerDate.Count == 0 || !durationsPerDate.ContainsKey(entry.StartDate))
                             durationsPerDate.Add(entry.StartDate, 0);
                         durationsPerDate.Add(entry.StartDate.AddDays(i), dailyDuration);
                     }
