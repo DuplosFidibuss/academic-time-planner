@@ -93,8 +93,8 @@
             double sum = 0;
 
             //TODO has to be changed to if (RepetitionEntries != null) and the return has to be reworked to sum += ...
-            if (RepetitionEntries != null)
-                foreach (PlanEntryRepetition repetitionEntry in RepetitionEntries)
+            if (RepetitionEntries != null && PlanEntries == null)
+                /*foreach (PlanEntryRepetition repetitionEntry in RepetitionEntries)
                 {
                     if (repetitionEntry.RepetitionStartDate >= startDate && repetitionEntry.RepetitionEndDate <= endDate)
                     {
@@ -110,10 +110,11 @@
                         //TODO figure out what the correct equation is.
                         sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
                     }
-                }
-            //return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+                }*/
+            //return sum;
+            return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
-            if (PlanEntries != null) 
+            if (PlanEntries != null && RepetitionEntries == null) 
             {
                 foreach (PlanEntry planEntry in PlanEntries)
                 {
@@ -130,12 +131,12 @@
                         sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
                     }
                 }
+                return sum;
                 //return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
             }
-            return sum;
-            //TODO will be deleted after rework as it is redundant.
-            //return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
-            //      (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
+             //TODO will be deleted after rework as it is redundant.
+            return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
+                    (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
 
         private List<PlanEntry> GetAllPlanEntriesList()
