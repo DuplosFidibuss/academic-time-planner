@@ -145,7 +145,10 @@
            <li>Start date cannot be after end date.</li>
            <li>Interval cannot be longer than timespan between start and end date.</li>
            <li>Interval must be greater than 0.</li>
-           <li>Time investment cannot be longer than timespan defined by interval.</li>
+           <li>Default Timespan is  equals to Interval.</li>
+           <li>Timespan cannot be longer than Interval.</li>
+           <li>Timespan must be greater than 0.</li>
+           <li>Time investment cannot be longer than Timespan.</li>
            <li>Time investment must be greater than 0.</li>
        </ul>
 
@@ -154,7 +157,9 @@
             <p>Start date: <InputDate id="RepetitionStartDate" @bind-Value="planEntryRepetition!.RepetitionStartDate" /></p>
             <p>End date: <InputDate id="RepetitionEndDate" @bind-Value="planEntryRepetition!.RepetitionEndDate" /></p>
             <p>Interval [in days] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Interval" /></p>
-            <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration" /></p>
+            <p>Timespan [in days] : <InputNumber id="RepetitionTimespan" @bind-Value="planEntryRepetition!.TimeSpan" /></p>
+            <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration">
+                <option value="planEntryRepetition.Zero"></option> </InputNumber></p>
             <label>Link plan task (optional): </label>
             <InputSelect @bind-Value="planEntryRepetition.TaskId">
                 <option value="@Guid.Empty"></option>
