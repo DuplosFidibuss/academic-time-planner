@@ -92,11 +92,11 @@
 
             double sum = 0;
 
-            //TODO has to be changed
+            //TODO has to be changed to if (RepetitionEntries != null) and the return has to be reworked to sum += ...
             if (PlanEntries == null)
                 return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
-            if (RepetitionEntries == null) 
+            if (PlanEntries != null) 
             {
                 foreach (PlanEntry planEntry in PlanEntries)
                 {
@@ -116,7 +116,7 @@
                 return sum;
                 //return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
             }
-             //TODO hast to be changed
+             //TODO will be deleted after rework as it is redundant.
             return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
                     (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
