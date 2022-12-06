@@ -87,13 +87,13 @@
 
         private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
-            if (PlanEntries == null && RepetitionEntries == null)
+            if (PlanEntries.Count == 0 && RepetitionEntries.Count == 0)
                 return 0;
 
-            if (PlanEntries == null)
+            if (PlanEntries.Count == 0)
                 return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
-            if (RepetitionEntries == null)
+            if (RepetitionEntries.Count == 0) 
                 return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
 
             return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
