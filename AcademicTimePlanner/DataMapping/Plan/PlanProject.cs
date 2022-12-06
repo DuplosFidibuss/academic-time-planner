@@ -90,12 +90,14 @@
             if (PlanEntries == null && RepetitionEntries == null)
                 return 0;
 
+            double sum = 0;
+
+            //TODO has to be changed
             if (PlanEntries == null)
                 return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
             if (RepetitionEntries == null) 
             {
-                double sum = 0;
                 foreach (PlanEntry planEntry in PlanEntries)
                 {
                     if (planEntry.StartDate >= startDate && planEntry.EndDate <= endDate)
@@ -114,6 +116,7 @@
                 return sum;
                 //return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
             }
+             //TODO hast to be changed
             return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
                     (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
