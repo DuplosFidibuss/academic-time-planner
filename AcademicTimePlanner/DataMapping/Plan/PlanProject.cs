@@ -94,8 +94,26 @@
                 return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
 
             if (RepetitionEntries.Count == 0) 
-                return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
-
+            {
+                double sum = 0;
+                foreach (PlanEntry planEntry in PlanEntries)
+                {
+                    if (planEntry.StartDate >= startDate && planEntry.EndDate <= endDate)
+                    {
+                        sum += planEntry.Duration;
+                    }
+                    if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
+                    {
+                        sum += planEntry.Duration * ((DateTime.Today - planEntry.StartDate).TotalDays + 1) / ((planEntry.EndDate - planEntry.StartDate).TotalDays + 1);
+                    }
+                    else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
+                    {
+                        sum += planEntry.Duration * ((planEntry.EndDate - planEntry.StartDate).TotalDays) / ((DateTime.Today - planEntry.StartDate).TotalDays);
+                    }
+                }
+                return sum;
+                //return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
+            }
             return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
                     (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
         }
