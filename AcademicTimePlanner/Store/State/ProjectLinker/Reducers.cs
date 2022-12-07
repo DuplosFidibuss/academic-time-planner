@@ -5,9 +5,9 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
     public class Reducers
     {
         [ReducerMethod]
-        public static ProjectLinkerState Reduce(ProjectLinkerState state, SetChartDataAction action)
+        public static ProjectLinkerState Reduce(ProjectLinkerState state, SetProjectsDataAction action)
         {
-            return new ProjectLinkerState(true, action.ChartData);
+            return new ProjectLinkerState(true, action.ProjectsData);
         }
     }
 }

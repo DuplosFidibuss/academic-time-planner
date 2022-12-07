@@ -8,14 +8,14 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
     {
         public bool Loaded { get; }
 
-        public Data.Data? ChartData { get; }
+        public DisplayData? ProjectsData { get; }
 
         private ProjectLinkerState() { }
 
-        public ProjectLinkerState(bool loaded, Data.Data chartData)
+        public ProjectLinkerState(bool loaded, Data.DisplayData chartData)
         {
             Loaded = loaded;
-            ChartData = chartData;
+            ProjectsData = chartData;
         }
     }
 }

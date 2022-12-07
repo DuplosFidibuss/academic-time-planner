@@ -41,7 +41,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// Gets the current chart data from the <see cref="DataManager"/>
         /// </summary>
         /// <returns></returns>
-        public Task<Data.Data> GetChartData();
+        public Task<Data.DisplayData> GetChartData();
 
         /// <summary>
         /// Gets the names of all plan projects loaded in the <see cref="DataManager"/>

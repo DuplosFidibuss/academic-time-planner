@@ -44,13 +44,13 @@ namespace AcademicTimePlanner.Data
             Console.WriteLine(DeletedTogglProjectIds.Count);
         }
 
-        public Data GetChartData()
+        public DisplayData GetDisplayData()
         {
             // This is for chart display test purposes.
             TogglProjects.Clear();
             TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             UpdateTogglDictionaryInPlanProjects();
-            return new Data(TogglProjects, PlanProjects);
+            return new DisplayData(TogglProjects, PlanProjects);
         }
 
         public List<TogglLoadOverviewData> GetTogglLoadOverview()

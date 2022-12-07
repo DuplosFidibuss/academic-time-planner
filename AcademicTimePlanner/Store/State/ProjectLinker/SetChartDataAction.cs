@@ -2,13 +2,13 @@
 
 namespace AcademicTimePlanner.Store.State.ProjectLinker
 {
-    public class SetChartDataAction
+    public class SetProjectsDataAction
     {
-        public Data.Data ChartData { get; set; }
+        public DisplayData ProjectsData { get; set; }
 
-        public SetChartDataAction(Data.Data chartData)
+        public SetProjectsDataAction(DisplayData projectsData)
         {
-            ChartData = chartData;
+            ProjectsData = projectsData;
         }
     }
 }

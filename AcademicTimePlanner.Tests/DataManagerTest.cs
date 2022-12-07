@@ -101,7 +101,7 @@ namespace AcademicTimePlanner.Tests
         [TestMethod]
         public void GetChartDataReturnsCorrectChartDataWithEmptyDataCollections()
         {
-            var chartData = _dataManager.GetChartData();
+            var chartData = _dataManager.GetDisplayData();
 
             Assert.IsNotNull(chartData);
             Assert.AreEqual(0, chartData.PlanProjects.Count);
@@ -116,7 +116,7 @@ namespace AcademicTimePlanner.Tests
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
 
-            var chartData = _dataManager.GetChartData();
+            var chartData = _dataManager.GetDisplayData();
 
             Assert.IsNotNull(chartData);
             Assert.IsTrue(chartData.PlanProjects.Contains(testPlanProject));

@@ -32,7 +32,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
-        public async Task<Data.Data> GetChartData()
+        public async Task<Data.DisplayData> GetChartData()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -40,7 +40,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return dataManager.GetChartData();
+            return dataManager.GetDisplayData();
         }
 
         public async Task AddPlanProject(PlanProject planProject)

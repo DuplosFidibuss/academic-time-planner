@@ -13,10 +13,10 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
         }
 
         [EffectMethod]
-        public async Task HandleAsync(FetchChartDataAction action, IDispatcher dispatcher)
+        public async Task HandleAsync(FetchProjectsDataAction action, IDispatcher dispatcher)
         {
             var chartData = await _dataManagerService.GetChartData();
-            dispatcher.Dispatch(new SetChartDataAction(chartData));
+            dispatcher.Dispatch(new SetProjectsDataAction(chartData));
         }
     }
 }

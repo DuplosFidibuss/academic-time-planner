@@ -5,15 +5,15 @@
 @if (ProjectLinkerState.Value.Loaded)
 {
     <h4>Select plan project</h4>
-    <EditForm Model="@ChartData" OnSubmit="@LinkProjects">
+    <EditForm Model="@ProjectsData" OnSubmit="@LinkProjects">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        @foreach (var planProject in ChartData.PlanProjects)
+        @foreach (var planProject in ProjectsData.PlanProjects)
         {
             <input type="radio" name="project" value="@planProject.Id" /> @planProject.Name<br />   
         }
-        @foreach (var togglProject in ChartData.LinkedTogglProjects)
+        @foreach (var togglProject in ProjectsData.LinkedTogglProjects)
         {
             <input type="checkbox" name="toggl" value="@togglProject.TogglId" /> @togglProject.Name<br />
         }

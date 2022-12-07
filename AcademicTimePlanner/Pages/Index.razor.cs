@@ -22,7 +22,7 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private Data.Data? ChartData => ChartsState.Value.ChartData;
+    private Data.DisplayData? ChartData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
 
     private const string Title = "Charts";
