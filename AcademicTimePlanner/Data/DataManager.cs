@@ -47,8 +47,8 @@ namespace AcademicTimePlanner.Data
         public DisplayData GetDisplayData()
         {
             // This is for chart display test purposes.
-            TogglProjects.Clear();
-            TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
+            //TogglProjects.Clear();
+            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             UpdateTogglDictionaryInPlanProjects();
             return new DisplayData(TogglProjects, PlanProjects);
         }
