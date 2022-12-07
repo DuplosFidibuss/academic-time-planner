@@ -79,15 +79,15 @@ namespace AcademicTimePlanner.Pages
         {
             var planTask = PlanProject.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
 
-            if (!planTask.TogglIds.Contains(TaskSelector.TogglTaskTogglId))
-                planTask.TogglIds.Add(TaskSelector.TogglTaskTogglId);
+            if (!planTask.TogglIds.ContainsKey(TaskSelector.TogglTaskTogglId))
+                planTask.TogglIds.Add(TaskSelector.TogglTaskTogglId, 1);
         }
 
         private void UnlinkTasks()
         {
             var planTask = PlanProject.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
 
-            if (planTask.TogglIds.Contains(TaskSelector.TogglTaskTogglId))
+            if (planTask.TogglIds.ContainsKey(TaskSelector.TogglTaskTogglId))
                 planTask.TogglIds.Remove(TaskSelector.TogglTaskTogglId);
         }
     }

@@ -10,14 +10,14 @@
 
         public string? Name { get; set; }
 
-        public List<long> TogglIds { get; set; }
+        public Dictionary<long, double> TogglIds { get; set; }
 
         private PlanTask() { }
 
         public PlanTask(Guid id)
         {
             Id = id;
-            TogglIds = new List<long>();
+            TogglIds = new Dictionary<long, double>();
         }
 
         public bool IsValidPlanTask()

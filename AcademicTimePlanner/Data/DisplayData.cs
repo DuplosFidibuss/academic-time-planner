@@ -82,7 +82,7 @@ namespace AcademicTimePlanner.Data
                 var togglProject = LinkedTogglProjects.Find(project => project.TogglId == togglProjectId)!;
                 foreach (var togglTask in togglProject.Tasks)
                 {
-                    if (planTask.TogglIds.Contains(togglTask.Key))
+                    if (planTask.TogglIds.ContainsKey(togglTask.Key))
                     {
                         sb.Append(togglTask.Value);
                         sb.Append("(" + togglProject.Name + ")");
