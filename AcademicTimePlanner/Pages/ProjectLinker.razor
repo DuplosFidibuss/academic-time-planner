@@ -70,11 +70,12 @@
                 <InputRadioGroup @bind-Value="TaskSelector.TogglTaskTogglId">
                     @foreach (var togglProject in ProjectsData!.LinkedTogglProjects.FindAll(project => PlanProject.TogglProjectIds.ContainsKey(project.TogglId)))
                     {
-                        <p>@togglProject.Name</p>
+                        <p><b>@togglProject.Name</b></p>
                         @foreach (var togglTask in togglProject.Tasks)
                         {
                             <InputRadio Value=@togglTask.Key />@togglTask.Value<br />
                         }
+                        <p></p>
                     }
                 </InputRadioGroup>
 

@@ -7,7 +7,7 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
         [ReducerMethod]
         public static ProjectLinkerState Reduce(ProjectLinkerState state, SetProjectsDataAction action)
         {
-            return new ProjectLinkerState(true, state.Step, action.ProjectsData);
+            return new ProjectLinkerState(true, state.Step, action.ProjectsData, state.PlanProject);
         }
 
         [ReducerMethod]

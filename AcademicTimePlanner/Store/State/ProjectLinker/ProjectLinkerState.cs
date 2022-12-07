@@ -27,13 +27,6 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
 
         private ProjectLinkerState() { }
 
-        public ProjectLinkerState(bool loaded, LinkingStep step, DisplayData projectsData)
-        {
-            Loaded = loaded;
-            Step = step;
-            ProjectsData = projectsData;
-        }
-
         public ProjectLinkerState(bool loaded, LinkingStep step, DisplayData projectsData, PlanProject planProject)
         {
             Loaded = loaded;

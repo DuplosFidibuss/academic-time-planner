@@ -21,7 +21,7 @@ namespace AcademicTimePlanner.Pages
 
         private TaskSelector TaskSelector => LinkerState.Value.TaskSelector;
 
-        private PlanProject PlanProject => LinkerState.Value.PlanProject;
+        private PlanProject? PlanProject => LinkerState.Value.PlanProject;
 
         private const string Title = "Link projects and tasks";
 
@@ -59,7 +59,7 @@ namespace AcademicTimePlanner.Pages
 
         private void SwitchLinkingStep(ProjectLinkerState.LinkingStep step)
         {
-            if (!ProjectSelector.PlanProjectId.Equals(Guid.Empty))
+            if (step == ProjectLinkerState.LinkingStep.TaskLinking && !ProjectSelector.PlanProjectId.Equals(Guid.Empty) || step == ProjectLinkerState.LinkingStep.ProjectLinking)
             {
                 var planProject = ProjectsData!.PlanProjects.Find(project => project.Id.Equals(ProjectSelector.PlanProjectId))!;
                 Dispatcher.Dispatch(new SwitchLinkingStepAction(step, planProject));
@@ -87,7 +87,7 @@ namespace AcademicTimePlanner.Pages
         {
             var planTask = PlanProject.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
 
-            if (!planTask.TogglIds.Contains(TaskSelector.TogglTaskTogglId))
+            if (planTask.TogglIds.Contains(TaskSelector.TogglTaskTogglId))
                 planTask.TogglIds.Remove(TaskSelector.TogglTaskTogglId);
         }
     }
