@@ -13,7 +13,7 @@
         {
             <input type="radio" name="project" value="@planProject.Id" /> @planProject.Name<br />   
         }
-        @foreach (var togglProject in ChartData.TogglProjects)
+        @foreach (var togglProject in ChartData.LinkedTogglProjects)
         {
             <input type="checkbox" name="toggl" value="@togglProject.TogglId" /> @togglProject.Name<br />
         }

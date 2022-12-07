@@ -105,7 +105,7 @@ namespace AcademicTimePlanner.Tests
 
             Assert.IsNotNull(chartData);
             Assert.AreEqual(0, chartData.PlanProjects.Count);
-            Assert.AreEqual(0, chartData.TogglProjects.Count);
+            Assert.AreEqual(0, chartData.LinkedTogglProjects.Count);
         }
 
         [TestMethod]
@@ -120,7 +120,7 @@ namespace AcademicTimePlanner.Tests
 
             Assert.IsNotNull(chartData);
             Assert.IsTrue(chartData.PlanProjects.Contains(testPlanProject));
-            Assert.IsTrue(chartData.TogglProjects.Contains(testTogglProject));
+            Assert.IsTrue(chartData.LinkedTogglProjects.Contains(testTogglProject));
         }
 
         [TestMethod]
