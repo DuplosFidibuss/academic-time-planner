@@ -3,7 +3,7 @@ using AcademicTimePlanner.DataMapping.Toggl;
 
 namespace AcademicTimePlanner.Data
 {
-    public class ChartData
+    public class Data
     {
         public List<TogglProject> TogglProjects { get; }
 
@@ -20,7 +20,7 @@ namespace AcademicTimePlanner.Data
         /// </summary>
         /// <param name="allTogglProjects"></param>
         /// <param name="planProjects"></param>
-        public ChartData(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
+        public Data(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
         {
             TogglProjects = new List<TogglProject>(allTogglProjects);
             PlanProjects = new List<PlanProject>(planProjects);

@@ -1,4 +1,3 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Store.State.Wrapper;
@@ -23,7 +22,7 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private ChartData? ChartData => ChartsState.Value.ChartData;
+    private Data.Data? ChartData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
 
     private const string Title = "Charts";

@@ -8,14 +8,15 @@
     <EditForm Model="@ChartData" OnSubmit="@LinkProjects">
         <DataAnnotationsValidator />
         <ValidationSummary />
-            @foreach (var planProject in ChartData.PlanProjects)
-            {
-                <input type="radio" name="project" value="@planProject.Id" /> @planProject.Name<br />   
-            }
-            @foreach (var togglProject in ChartData.TogglProjects)
-            {
-                <input type="checkbox" name="toggl" value="@togglProject.TogglId" /> @togglProject.Name<br />
-            }
+
+        @foreach (var planProject in ChartData.PlanProjects)
+        {
+            <input type="radio" name="project" value="@planProject.Id" /> @planProject.Name<br />   
+        }
+        @foreach (var togglProject in ChartData.TogglProjects)
+        {
+            <input type="checkbox" name="toggl" value="@togglProject.TogglId" /> @togglProject.Name<br />
+        }
         <input type="submit" />
     </EditForm>
 }

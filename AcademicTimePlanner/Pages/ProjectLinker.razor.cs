@@ -1,4 +1,3 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.Store.State.ProjectLinker;
 using AcademicTimePlanner.Store.State.Wrapper;
 using Fluxor;
@@ -14,7 +13,7 @@ namespace AcademicTimePlanner.Pages
         [Inject]
         private IDispatcher Dispatcher { get; set; }
 
-        private ChartData? ChartData => ProjectLinkerState.Value.ChartData;
+        private Data.Data? ChartData => ProjectLinkerState.Value.ChartData;
 
         private const string Title = "Link projects";
 
