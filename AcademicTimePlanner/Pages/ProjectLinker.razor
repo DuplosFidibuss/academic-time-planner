@@ -1,24 +1,45 @@
 ﻿@page "/linker"
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using AcademicTimePlanner.DataMapping.Plan;
 @using AcademicTimePlanner.Store.State.ProjectLinker
 
 @if (ProjectLinkerState.Value.Loaded)
 {
-    <h4>Select plan project</h4>
-    <EditForm Model="@ProjectsData" OnSubmit="@LinkProjects">
+    <EditForm Model="@ProjectSelector" OnSubmit="@LinkProjects">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        @foreach (var planProject in ProjectsData.PlanProjects)
-        {
-            <input type="radio" name="project" value="@planProject.Id" /> @planProject.Name<br />   
-        }
-        @foreach (var togglProject in ProjectsData.LinkedTogglProjects)
-        {
-            <input type="checkbox" name="toggl" value="@togglProject.TogglId" /> @togglProject.Name<br />
-        }
-        <input type="submit" />
+        <h4>Select plan project</h4>
+        <InputRadioGroup @bind-Value="ProjectSelector.PlanProjectId">
+            @foreach (var planProject in ProjectsData!.PlanProjects)
+            {
+                <InputRadio Value="@planProject.Id"/> @planProject.Name<br />   
+            }
+        </InputRadioGroup>
+
+        <p></p>
+        <h4>Select Toggl project</h4>
+        <InputRadioGroup @bind-Value="ProjectSelector.TogglProjectTogglId">
+            @foreach (var togglProject in ProjectsData!.GetAllTogglProjects())
+            {
+                <InputRadio Value=@togglProject.TogglId />@togglProject.Name<br />
+            }
+        </InputRadioGroup>
+
+        <p></p>
+        <button type="submit">Link projects</button>
     </EditForm>
+
+    <p></p>
+
+    <h4>Already linked projects</h4>
+    <p>Plan project -> Linked Toggl projects</p>
+    <ul>
+        @foreach (var planProject in ProjectsData!.PlanProjects)
+        {
+            <li>@planProject.Name -> @ProjectsData.GetLinkedTogglProjectsAsString(planProject)</li>
+        }
+    </ul>
 }
 else
 {

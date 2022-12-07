@@ -16,6 +16,8 @@ namespace AcademicTimePlanner.Pages
 
         private DisplayData? ProjectsData => ProjectLinkerState.Value.ProjectsData;
 
+        private ProjectSelector ProjectSelector => ProjectLinkerState.Value.ProjectSelector;
+
         private const string Title = "Link projects";
 
         protected override void OnInitialized()

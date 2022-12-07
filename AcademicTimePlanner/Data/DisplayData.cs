@@ -1,5 +1,6 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
+using System.Text;
 
 namespace AcademicTimePlanner.Data
 {
@@ -49,6 +50,26 @@ namespace AcademicTimePlanner.Data
         public TogglProject? GetTogglProjectWithTogglId(long id)
         {
             return LinkedTogglProjects.FindLast(togglProject => togglProject.TogglId == id);
+        }
+
+        public List<TogglProject> GetAllTogglProjects()
+        {
+            var togglProjects = new List<TogglProject>();
+            togglProjects.AddRange(LinkedTogglProjects);
+            togglProjects.AddRange(UnlinkedTogglProjects);
+            return togglProjects;
+        }
+
+        public string GetLinkedTogglProjectsAsString(PlanProject planProject)
+        {
+            var sb = new StringBuilder();
+            foreach (var togglProjectId in planProject.TogglProjectIds.Keys)
+            {
+                sb.Append(LinkedTogglProjects.Find(project => project.TogglId == togglProjectId)!.Name);
+                sb.Append(", ");
+            }
+            sb.Remove(sb.Length - 2, 2);
+            return sb.ToString();
         }
     }
 }

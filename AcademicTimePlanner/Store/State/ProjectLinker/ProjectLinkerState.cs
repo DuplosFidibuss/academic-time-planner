@@ -10,6 +10,8 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
 
         public DisplayData? ProjectsData { get; }
 
+        public ProjectSelector ProjectSelector { get; } = new();
+
         private ProjectLinkerState() { }
 
         public ProjectLinkerState(bool loaded, Data.DisplayData chartData)
