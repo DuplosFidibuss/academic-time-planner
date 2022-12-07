@@ -27,9 +27,29 @@ namespace AcademicTimePlanner.Pages
             Dispatcher.Dispatch(new FetchProjectsDataAction());
         }
 
+        protected void OnClick(EventArgs e, bool link)
+        {
+            if (link)
+                LinkProjects();
+            else
+                UnlinkProjects();
+            Dispatcher.Dispatch(new SaveProjectsDataAction(ProjectsData!));
+        }
+
         private void LinkProjects()
         {
+            var planProject = ProjectsData!.PlanProjects.Find(project => project.Id.Equals(ProjectSelector.PlanProjectId))!;
 
+            if (!planProject.TogglProjectIds.ContainsKey(ProjectSelector.TogglProjectTogglId))
+                planProject.TogglProjectIds.Add(ProjectSelector.TogglProjectTogglId, 1);
+        }
+
+        private void UnlinkProjects()
+        {
+            var planProject = ProjectsData!.PlanProjects.Find(project => project.Id.Equals(ProjectSelector.PlanProjectId))!;
+
+            if (planProject.TogglProjectIds.ContainsKey(ProjectSelector.TogglProjectTogglId))
+                planProject.TogglProjectIds.Remove(ProjectSelector.TogglProjectTogglId);
         }
     }
 }

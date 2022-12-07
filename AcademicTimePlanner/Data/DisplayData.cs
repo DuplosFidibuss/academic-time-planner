@@ -68,7 +68,23 @@ namespace AcademicTimePlanner.Data
                 sb.Append(LinkedTogglProjects.Find(project => project.TogglId == togglProjectId)!.Name);
                 sb.Append(", ");
             }
-            sb.Remove(sb.Length - 2, 2);
+
+            if (sb.Length > 0)
+                sb.Remove(sb.Length - 2, 2);
+            return sb.ToString();
+        }
+
+        public string GetUnlinkedTogglProjectsAsString()
+        {
+            var sb = new StringBuilder();
+            foreach (var togglProject in UnlinkedTogglProjects)
+            {
+                sb.Append(togglProject.Name);
+                sb.Append(", ");
+            }
+
+            if (sb.Length > 0)
+                sb.Remove(sb.Length - 2, 2);
             return sb.ToString();
         }
     }

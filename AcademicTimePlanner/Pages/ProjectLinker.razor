@@ -5,7 +5,7 @@
 
 @if (ProjectLinkerState.Value.Loaded)
 {
-    <EditForm Model="@ProjectSelector" OnSubmit="@LinkProjects">
+    <EditForm Model="@ProjectSelector">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -27,9 +27,13 @@
         </InputRadioGroup>
 
         <p></p>
-        <button type="submit">Link projects</button>
+        <button type="submit" @onclick="((e) => OnClick(e, true))">Link projects</button>
+        <button type="submit" @onclick="((e) => OnClick(e, false))">Unlink projects</button>
     </EditForm>
 
+    <p></p>
+    <h4>Unlinked Toggl projects</h4>
+    <label>@ProjectsData!.GetUnlinkedTogglProjectsAsString()</label>
     <p></p>
 
     <h4>Already linked projects</h4>

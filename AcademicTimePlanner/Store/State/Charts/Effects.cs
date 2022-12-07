@@ -15,7 +15,7 @@ namespace AcademicTimePlanner.Store.State.Charts
         [EffectMethod]
         public async Task HandleAsync(FetchChartDataAction action, IDispatcher dispatcher)
         {
-            var chartData = await _dataManagerService.GetChartData();
+            var chartData = await _dataManagerService.GetDisplayData();
             dispatcher.Dispatch(new SetChartDataAction(chartData));
         }
     }
