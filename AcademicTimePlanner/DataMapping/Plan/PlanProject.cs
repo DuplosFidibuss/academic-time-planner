@@ -111,39 +111,25 @@
 
         public double GetTotalDuration()
         {
-            if (RepetitionEntries == null && PlanEntries == null)
-                return 0;
-            else
-                return (from planEntry in GetAllPlanEntriesList() select planEntry.Duration).Sum();
+            return (from planEntry in GetAllPlanEntriesList() select planEntry.Duration).Sum();
         }
 
         public double GetRemainingDuration()
         {
-            if (RepetitionEntries == null && PlanEntries == null)
+            var tomorrow = DateTime.Today.AddDays(1);
+            double sum = 0;
+            foreach (var entry in GetAllPlanEntriesList())
             {
-                return 0;
+                if (entry.StartDate < tomorrow && entry.EndDate < tomorrow)
+                    continue;
+
+                else if (entry.StartDate < tomorrow && entry.EndDate >= tomorrow)
+                    sum += entry.Duration * ((entry.EndDate - tomorrow).TotalDays + 1) / ((entry.EndDate - entry.StartDate).TotalDays + 1);
+
+                else
+                    sum += entry.Duration;
             }
-            else
-            {
-                var tomorrow = DateTime.Today.AddDays(1);
-                double sum = 0;
-                foreach (var entry in GetAllPlanEntriesList())
-                {
-                    if (entry.StartDate < tomorrow && entry.EndDate < tomorrow)
-                    {
-                        continue;
-                    }
-                    else if (entry.StartDate < tomorrow && entry.EndDate >= tomorrow)
-                    {
-                        sum += entry.Duration * (entry.EndDate - tomorrow).TotalDays / (entry.EndDate - entry.StartDate).TotalDays;
-                    }
-                    else
-                    {
-                        sum += entry.Duration;
-                    }
-                }
-                return sum;
-            }
+            return sum;
         }
 
         public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
