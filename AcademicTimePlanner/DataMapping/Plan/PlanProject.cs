@@ -92,8 +92,10 @@
                 return 0;
 
             List<PlanEntry> entries = new List<PlanEntry>();
+
             if (PlanEntries != null)
                 entries.AddRange(PlanEntries);
+
             if (RepetitionEntries != null)
             {
                 foreach (PlanEntryRepetition repetitionEntry in RepetitionEntries)
@@ -103,23 +105,37 @@
             }
             
             double sum = 0;
-
+            Console.WriteLine("project: " + Name);
             foreach (PlanEntry planEntry in entries)
             {
+                Console.WriteLine("entry name: " + planEntry.Name);
                 //This is how it was until now. only take entries that start after our set start date and end before our set end date.
                 if (planEntry.StartDate >= startDate && planEntry.EndDate <= endDate)
                 {
+                    Console.WriteLine("duration: " + planEntry.Duration);
                     sum += planEntry.Duration;
                 }
                 //Not sure if this works. all entries that start after set startdate but end after set end date.
                 else if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
                 {
-                    sum += planEntry.Duration * (((DateTime.Today - planEntry.StartDate).TotalDays) + 1) / (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
+                    double relevantTime = (((endDate - planEntry.StartDate).TotalDays) + 1);
+                    double totalTime = (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
+                    double preSum = planEntry.Duration * relevantTime / totalTime;
+                    Console.WriteLine("relevant: " + relevantTime);
+                    Console.WriteLine("total: " + totalTime);
+                    Console.WriteLine("preSum: " + preSum);
+                    sum += planEntry.Duration * relevantTime / totalTime;
                 }
                  //This does not work. all entries that start before set start date and end before or at set end date.
                 else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
                 {
-                    sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
+                    double relevantTime = ((planEntry.EndDate - startDate).TotalDays);
+                    double totalTime = (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
+                    double preSum = planEntry.Duration * relevantTime / totalTime;
+                    Console.WriteLine("relevant: " + relevantTime);
+                    Console.WriteLine("total: " + totalTime);
+                    Console.WriteLine("preSum: " + preSum);
+                    sum += planEntry.Duration *  relevantTime / totalTime;
                 }
             }
             return sum;
