@@ -85,100 +85,6 @@
             RepetitionEntries.Remove(planEntryRepetition);
         }
 
-        //TODO new version
-       private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-       {
-            if (PlanEntries == null && RepetitionEntries == null)
-                return 0;
-
-            List<PlanEntry> entries = new List<PlanEntry>();
-
-            if (PlanEntries != null)
-                entries.AddRange(PlanEntries);
-
-            if (RepetitionEntries != null)
-            {
-                foreach (PlanEntryRepetition repetitionEntry in RepetitionEntries)
-                {
-                    entries.AddRange(repetitionEntry.Entries);
-                }
-            }
-            
-            double sum = 0;
-            Console.WriteLine("project: " + Name);
-            foreach (PlanEntry planEntry in entries)
-            {
-                Console.WriteLine("entry name: " + planEntry.Name);
-                //This is how it was until now. only take entries that start after our set start date and end before our set end date.
-                if (planEntry.StartDate >= startDate && planEntry.EndDate <= endDate)
-                {
-                    Console.WriteLine("duration: " + planEntry.Duration);
-                    sum += planEntry.Duration;
-                }
-                //Not sure if this works. all entries that start after set startdate but end after set end date.
-                else if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
-                {
-                    double relevantTime = (((endDate - planEntry.StartDate).TotalDays) + 1);
-                    double totalTime = (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
-                    double preSum = planEntry.Duration * relevantTime / totalTime;
-                    Console.WriteLine("relevant: " + relevantTime);
-                    Console.WriteLine("total: " + totalTime);
-                    Console.WriteLine("preSum: " + preSum);
-                    sum += planEntry.Duration * relevantTime / totalTime;
-                }
-                 //This does not work. all entries that start before set start date and end before or at set end date.
-                else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
-                {
-                    double relevantTime = ((planEntry.EndDate - startDate).TotalDays);
-                    double totalTime = (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
-                    double preSum = planEntry.Duration * relevantTime / totalTime;
-                    Console.WriteLine("relevant: " + relevantTime);
-                    Console.WriteLine("total: " + totalTime);
-                    Console.WriteLine("preSum: " + preSum);
-                    sum += planEntry.Duration *  relevantTime / totalTime;
-                }
-            }
-            return sum;
-        }
-       
-       //Old working version.
-       /*
-        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-        {
-            if (PlanEntries == null && RepetitionEntries == null)
-                return 0;
-
-            double sum = 0;
-
-            //TODO has to be changed to if (RepetitionEntries != null) and the return has to be reworked to sum += ...
-            if (RepetitionEntries != null && PlanEntries == null)
-                return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
-            
-            if (PlanEntries != null && RepetitionEntries == null) 
-            {
-            foreach (PlanEntry planEntry in PlanEntries)
-            {
-                if (planEntry.StartDate >= startDate && planEntry.EndDate <= endDate)
-                {
-                    sum += planEntry.Duration;
-                }
-                else if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
-                {
-                    sum += planEntry.Duration * ((DateTime.Today - planEntry.StartDate).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
-                }
-                else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
-                {
-                    sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
-                }
-            }
-            return sum;
-            //return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
-             }
-            //TODO will be deleted after rework as it is redundant.
-            return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
-             (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
-        } */
-
         private List<PlanEntry> GetAllPlanEntriesList()
         {
             var planEntries = new List<PlanEntry>();
@@ -205,12 +111,39 @@
 
         public double GetTotalDuration()
         {
-            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
+            if (RepetitionEntries == null && PlanEntries == null)
+                return 0;
+            else
+                return (from planEntry in GetAllPlanEntriesList() select planEntry.Duration).Sum();
         }
 
         public double GetRemainingDuration()
         {
-            return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
+            if (RepetitionEntries == null && PlanEntries == null)
+            {
+                return 0;
+            }
+            else
+            {
+                var tomorrow = DateTime.Today.AddDays(1);
+                double sum = 0;
+                foreach (var entry in GetAllPlanEntriesList())
+                {
+                    if (entry.StartDate < tomorrow && entry.EndDate < tomorrow)
+                    {
+                        continue;
+                    }
+                    else if (entry.StartDate < tomorrow && entry.EndDate >= tomorrow)
+                    {
+                        sum += entry.Duration * (entry.EndDate - tomorrow).TotalDays / (entry.EndDate - entry.StartDate).TotalDays;
+                    }
+                    else
+                    {
+                        sum += entry.Duration;
+                    }
+                }
+                return sum;
+            }
         }
 
         public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
