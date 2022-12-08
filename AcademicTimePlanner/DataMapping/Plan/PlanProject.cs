@@ -86,8 +86,8 @@
         }
 
         //TODO new version
-       /* private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-        {
+       private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
+       {
             if (PlanEntries == null && RepetitionEntries == null)
                 return 0;
 
@@ -106,14 +106,17 @@
 
             foreach (PlanEntry planEntry in entries)
             {
+                //This is how it was until now. only take entries that start after our set start date and end before our set end date.
                 if (planEntry.StartDate >= startDate && planEntry.EndDate <= endDate)
                 {
                     sum += planEntry.Duration;
                 }
+                //Not sure if this works. all entries that start after set startdate but end after set end date.
                 else if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
                 {
                     sum += planEntry.Duration * ((DateTime.Today - planEntry.StartDate).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
                 }
+                 //This does not work. all entries that start before set start date and end before or at set end date.
                 else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
                 {
                     sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
@@ -121,8 +124,9 @@
             }
             return sum;
         }
-       */
+       
        //Old working version.
+       /*
         private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
         {
             if (PlanEntries == null && RepetitionEntries == null)
@@ -157,7 +161,7 @@
             //TODO will be deleted after rework as it is redundant.
             return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
              (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
-        }
+        } */
 
         private List<PlanEntry> GetAllPlanEntriesList()
         {
