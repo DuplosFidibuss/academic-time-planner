@@ -114,12 +114,12 @@
                 //Not sure if this works. all entries that start after set startdate but end after set end date.
                 else if (planEntry.StartDate >= startDate && planEntry.EndDate > endDate)
                 {
-                    sum += planEntry.Duration * ((DateTime.Today - planEntry.StartDate).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
+                    sum += planEntry.Duration * (((DateTime.Today - planEntry.StartDate).TotalDays) + 1) / (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
                 }
                  //This does not work. all entries that start before set start date and end before or at set end date.
                 else if (planEntry.StartDate < startDate && planEntry.EndDate <= endDate)
                 {
-                    sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / ((planEntry.EndDate - planEntry.StartDate).TotalDays);
+                    sum += planEntry.Duration * ((planEntry.EndDate - DateTime.Today).TotalDays) / (((planEntry.EndDate - planEntry.StartDate).TotalDays) + 1);
                 }
             }
             return sum;
