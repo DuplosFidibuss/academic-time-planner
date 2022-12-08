@@ -5,6 +5,8 @@
 
 @if (ChartsState.Value.Loaded)
 {
+    <p>Unlinked Toggl projects (@ChartData!.UnlinkedTogglProjects.Count): @ChartData!.GetUnlinkedTogglProjectsAsString()</p>
+
     <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
     <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
 

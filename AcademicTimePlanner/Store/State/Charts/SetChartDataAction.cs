@@ -4,9 +4,9 @@ namespace AcademicTimePlanner.Store.State.Charts
 {
     public class SetChartDataAction
     {
-        public ChartData ChartData { get; set; }
+        public Data.DisplayData ChartData { get; set; }
 
-        public SetChartDataAction(ChartData chartData)
+        public SetChartDataAction(Data.DisplayData chartData)
         {
             ChartData = chartData;
         }
