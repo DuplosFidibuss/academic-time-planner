@@ -1,5 +1,4 @@
-﻿using AcademicTimePlanner.DataMapping.Budget;
-using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
 
 namespace AcademicTimePlanner.Data
