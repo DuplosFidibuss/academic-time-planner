@@ -121,4 +121,9 @@ public partial class PlanProjects
         using var streamRef = new DotNetStreamReference(stream: fileStream);
         await JSRuntime.InvokeVoidAsync("downloadFileFromStream", planProject!.Name + ".json", streamRef);
     }
+
+    private void DeletePlanProject(EventArgs e, string planProjectName)
+    {
+        Dispatcher.Dispatch(new DeletePlanProjectAction(planProjectName));
+    }
 }

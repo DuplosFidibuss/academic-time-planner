@@ -68,8 +68,13 @@ namespace AcademicTimePlanner.Data
 
         public void UpdatePlanningData(List<PlanProject> planProjects)
         {
-            PlanProjects.Clear();
-            PlanProjects.AddRange(planProjects);
+            foreach (var planProject in planProjects)
+            {
+                var existingProject = PlanProjects.Find(project => project.Id.Equals(planProject.Id));
+                if (existingProject != null)
+                    PlanProjects.Remove(existingProject);
+                PlanProjects.Add(planProject);
+            }
         }
 
         public void UpdateTogglDictionaryInPlanProjects()
@@ -123,6 +128,12 @@ namespace AcademicTimePlanner.Data
                     }
                 }
             }
+        }
+
+        public void DeletePlanProject(string planProjectName)
+        {
+            var planProject = PlanProjects.Find(project => project.Name == planProjectName);
+            PlanProjects.Remove(planProject!);
         }
     }
 }

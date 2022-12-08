@@ -86,5 +86,16 @@ namespace AcademicTimePlanner.Services.DataManagerService
             }
             return dataManager.PlanProjects.Find(planProject => planProject.Name == name)!;
         }
+
+        public async Task DeletePlanProject(string planProjectName)
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            if (dataManager == null)
+            {
+                dataManager = new DataManager();
+            }
+            dataManager.DeletePlanProject(planProjectName);
+            await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
+        }
     }
 }

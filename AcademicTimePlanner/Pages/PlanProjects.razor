@@ -18,7 +18,7 @@
         <ul>
             @foreach (var name in PlanProjectsNames)
             {
-                <li>@name</li>
+                <li>@name <button type="button" @onclick="(e => DeletePlanProject(e, name))">Delete</button></li>
             }
         </ul>
     }

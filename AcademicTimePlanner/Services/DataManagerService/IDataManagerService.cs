@@ -55,5 +55,12 @@ namespace AcademicTimePlanner.Services.DataManagerService
         /// <param name="name"></param>
         /// <returns></returns>
         public Task<PlanProject> GetPlanProjectByName(string name);
+
+        /// <summary>
+        /// Deletes the plan project with the given name from the <see cref="DataManager"/>
+        /// </summary>
+        /// <param name="planProjectName"></param>
+        /// <returns></returns>
+        public Task DeletePlanProject(string planProjectName);
     }
 }
