@@ -44,10 +44,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public Task<DisplayData> GetDisplayData();
 
         /// <summary>
-        /// Gets the names of all plan projects loaded in the <see cref="DataManager"/>
+        /// Gets all plan projects loaded in the <see cref="DataManager"/>
         /// </summary>
         /// <returns></returns>
-        public Task<List<string>> GetPlanProjectNames();
+        public Task<List<PlanProject>> GetPlanProjects();
 
         /// <summary>
         /// Gets the plan project with the given name from the <see cref="DataManager"/>
@@ -57,10 +57,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public Task<PlanProject> GetPlanProjectByName(string name);
 
         /// <summary>
-        /// Deletes the plan project with the given name from the <see cref="DataManager"/>
+        /// Deletes the plan project with the given Id from the <see cref="DataManager"/>
         /// </summary>
-        /// <param name="planProjectName"></param>
+        /// <param name="planProjectId"></param>
         /// <returns></returns>
-        public Task DeletePlanProject(string planProjectName);
+        public Task DeletePlanProject(Guid planProjectId);
     }
 }

@@ -130,9 +130,9 @@ namespace AcademicTimePlanner.Data
             }
         }
 
-        public void DeletePlanProject(string planProjectName)
+        public void DeletePlanProject(Guid planProjectId)
         {
-            var planProject = PlanProjects.Find(project => project.Name == planProjectName);
+            var planProject = PlanProjects.Find(project => project.Id == planProjectId);
             PlanProjects.Remove(planProject!);
         }
     }

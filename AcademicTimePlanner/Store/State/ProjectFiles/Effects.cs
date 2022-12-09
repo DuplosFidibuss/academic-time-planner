@@ -26,16 +26,16 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
                 })!);
             }
             await _dataManagerService.UpdatePlanProjects(planProjects);
-            var projectNamesList = await _dataManagerService.GetPlanProjectNames();
-            dispatcher.Dispatch(new SetPlanProjectsAction(projectNamesList));
+            var updatedPlanProjects = await _dataManagerService.GetPlanProjects();
+            dispatcher.Dispatch(new SetPlanProjectsAction(updatedPlanProjects));
         }
 
         [EffectMethod]
         public async Task HandleAsync(FinishPlanProjectCreationAction action, IDispatcher dispatcher)
         {
             await _dataManagerService.AddPlanProject(action.PlanProject);
-            var projectNamesList = await _dataManagerService.GetPlanProjectNames();
-            dispatcher.Dispatch(new SetPlanProjectsAction(projectNamesList));
+            var planProjects = await _dataManagerService.GetPlanProjects();
+            dispatcher.Dispatch(new SetPlanProjectsAction(planProjects));
         }
 
         [EffectMethod]
@@ -48,9 +48,9 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         [EffectMethod]
         public async Task HandleAsync(DeletePlanProjectAction action, IDispatcher dispatcher)
         {
-            await _dataManagerService.DeletePlanProject(action.ProjectName);
-            var projectNamesList = await _dataManagerService.GetPlanProjectNames();
-            dispatcher.Dispatch(new SetPlanProjectsAction(projectNamesList));
+            await _dataManagerService.DeletePlanProject(action.ProjectId);
+            var planProjects = await _dataManagerService.GetPlanProjects();
+            dispatcher.Dispatch(new SetPlanProjectsAction(planProjects));
         }
     }
 }

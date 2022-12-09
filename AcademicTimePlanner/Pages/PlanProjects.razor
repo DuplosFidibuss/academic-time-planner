@@ -8,7 +8,7 @@
 {
     @if (ProjectState.Value.Loaded)
     {
-        <p>@PlanProjectsNames.Count Plan projects loaded</p>
+        <p>@Projects.Count Plan projects loaded</p>
     }
 
     <InputFile OnChange="@LoadPlanProjects" multiple />
@@ -16,9 +16,9 @@
     @if (ProjectState.Value.Loaded)
     {
         <ul>
-            @foreach (var name in PlanProjectsNames)
+            @foreach (var planProject in Projects)
             {
-                <li>@name <button type="button" @onclick="(e => DeletePlanProject(e, name))">Delete</button></li>
+                <li>@planProject.Name <button type="button" @onclick="(e => DeletePlanProject(e, planProject.Id))">Delete</button></li>
             }
         </ul>
     }
@@ -32,7 +32,7 @@
         <label>Plan project to download: </label>
         <InputSelect @bind-Value="downloader.ProjectName">
             <option value="">Select project ...</option>
-            @foreach (var name in PlanProjectsNames)
+            @foreach (var name in Projects)
             {
                 <option value=@name>@name</option>
             }

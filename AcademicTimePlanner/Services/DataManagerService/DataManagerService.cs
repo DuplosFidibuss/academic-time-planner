@@ -65,7 +65,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             return dataManager.GetTogglLoadOverview();
         }
 
-        public async Task<List<string>> GetPlanProjectNames()
+        public async Task<List<PlanProject>> GetPlanProjects()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -73,7 +73,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return (from planProject in dataManager.PlanProjects select planProject.Name).ToList();
+            return new List<PlanProject>(dataManager.PlanProjects);
         }
 
         public async Task<PlanProject> GetPlanProjectByName(string name)
@@ -87,14 +87,14 @@ namespace AcademicTimePlanner.Services.DataManagerService
             return dataManager.PlanProjects.Find(planProject => planProject.Name == name)!;
         }
 
-        public async Task DeletePlanProject(string planProjectName)
+        public async Task DeletePlanProject(Guid planProjectId)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
             {
                 dataManager = new DataManager();
             }
-            dataManager.DeletePlanProject(planProjectName);
+            dataManager.DeletePlanProject(planProjectId);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
     }

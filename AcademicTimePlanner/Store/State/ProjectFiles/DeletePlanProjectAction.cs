@@ -2,11 +2,11 @@
 {
     public class DeletePlanProjectAction
     {
-        public string ProjectName { get; set; }
+        public Guid ProjectId { get; set; }
 
-        public DeletePlanProjectAction(string projectName)
+        public DeletePlanProjectAction(Guid projectId)
         {
-            ProjectName = projectName;
+            ProjectId = projectId;
         }
     }
 }

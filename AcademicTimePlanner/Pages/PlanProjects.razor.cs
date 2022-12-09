@@ -20,7 +20,7 @@ public partial class PlanProjects
     [Inject]
     public IJSRuntime JSRuntime { get; set; }
 
-    private List<string> PlanProjectsNames => ProjectState.Value.PlanProjectsNames;
+    private List<PlanProject> Projects => ProjectState.Value.PlanProjects;
 
     private const string Title = "Plan projects";
 
@@ -122,8 +122,8 @@ public partial class PlanProjects
         await JSRuntime.InvokeVoidAsync("downloadFileFromStream", planProject!.Name + ".json", streamRef);
     }
 
-    private void DeletePlanProject(EventArgs e, string planProjectName)
+    private void DeletePlanProject(EventArgs e, Guid planProjectId)
     {
-        Dispatcher.Dispatch(new DeletePlanProjectAction(planProjectName));
+        Dispatcher.Dispatch(new DeletePlanProjectAction(planProjectId));
     }
 }
