@@ -2,6 +2,6 @@
 {
     public class PlanProjectDownloader
     {
-        public string ProjectName { get; set; }
+        public Guid ProjectId { get; set; }
     }
 }

@@ -20,7 +20,7 @@ public partial class PlanProjects
     [Inject]
     public IJSRuntime JSRuntime { get; set; }
 
-    private List<string> PlanProjectsNames => ProjectState.Value.PlanProjectsNames;
+    private List<PlanProject> Projects => ProjectState.Value.PlanProjects;
 
     private const string Title = "Plan projects";
 
@@ -32,12 +32,13 @@ public partial class PlanProjects
 
     private PlanEntryRepetition? planEntryRepetition => ProjectState.Value.PlanEntryRepetition;
 
-    private PlanProjectDownloader downloader => ProjectState.Value.PlanProjectDownloader;
+    private PlanProjectDownloader Downloader { get; } = new();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Dispatcher.Dispatch(new SetTitleAction(Title));
+        Dispatcher.Dispatch(new FetchPlanProjectsAction());
     }
 
     private async Task LoadPlanProjects(InputFileChangeEventArgs e)
@@ -108,7 +109,7 @@ public partial class PlanProjects
 
     private void InitializePlanProjectDownload()
     {
-        Dispatcher.Dispatch(new GetPlanProjectForDownloadAction(downloader.ProjectName));
+        Dispatcher.Dispatch(new GetPlanProjectForDownloadAction(Downloader.ProjectId));
     }
 
     private async Task DownloadPlanProject()
@@ -120,5 +121,10 @@ public partial class PlanProjects
         fileStream.Position = 0;
         using var streamRef = new DotNetStreamReference(stream: fileStream);
         await JSRuntime.InvokeVoidAsync("downloadFileFromStream", planProject!.Name + ".json", streamRef);
+    }
+
+    private void DeletePlanProject(EventArgs e, Guid planProjectId)
+    {
+        Dispatcher.Dispatch(new DeletePlanProjectAction(planProjectId));
     }
 }
