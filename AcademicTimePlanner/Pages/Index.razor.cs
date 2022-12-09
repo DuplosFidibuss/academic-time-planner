@@ -149,21 +149,21 @@ public partial class Index
             {
                 X = titles,
                 Y = totalDurations,
-                Name = "Predicted",
+                Name = "Total Planned",
                 Marker = TotalDurationMarker,
             },
             new Bar
             {
                 X = titles,
                 Y = predictedDurations,
-                Name = "Predicted",
+                Name = "Prediction of Final Time spent",
                 Marker = PredictedDurationMarker,
             },
             new Bar
             {
                 X = titles,
                 Y = plannedDurations,
-                Name = "Planned",
+                Name = "Planned Until Today",
                 XAxis = "x2",
                 Marker = PlannedDurationMarker,
             },

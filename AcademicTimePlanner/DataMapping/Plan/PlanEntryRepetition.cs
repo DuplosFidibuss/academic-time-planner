@@ -16,6 +16,8 @@
 
         public double Duration { get; set; }
 
+        public int TimeSpan { get; set; }
+
         public Guid TaskId { get; set; }
 
         public List<PlanEntry> Entries { get; set; }
@@ -80,13 +82,12 @@
             {
                 string entryName = Name + i;
                 i += 1;
-                DateTime oldStart = start;
-                start = start.AddDays(Interval - 1);
-                if (start > RepetitionEndDate)
-                    start = RepetitionEndDate;
-                PlanEntry planEntry = new PlanEntry(entryName, TaskId, oldStart, start, Duration);
+                DateTime timeSpanEnd = start.AddDays(TimeSpan-1);
+                if (end > RepetitionEndDate)
+                    end = RepetitionEndDate;
+                PlanEntry planEntry = new PlanEntry(entryName, TaskId, start, timeSpanEnd, Duration);
                 Entries.Add(planEntry);
-                start = start.AddDays(1);
+                start = start.AddDays(Interval);
             }
         }
 
@@ -97,10 +98,14 @@
 
         public bool IsValidPlanEntryRepetition()
         {
+            if (TimeSpan == 0)
+                TimeSpan = Interval;
             return RepetitionStartDate < RepetitionEndDate
                 && !string.IsNullOrWhiteSpace(Name)
                 && Interval > 0
                 && Interval <= (RepetitionEndDate - RepetitionStartDate).TotalDays
+                && TimeSpan > 0
+                && TimeSpan <= Interval
                 && Duration > 0
                 && Duration <= Interval * 24;
         }
