@@ -4,8 +4,6 @@
     {
         private static readonly Guid NoTaskId = Guid.Empty;
 
-        public static readonly int Zero = 0;
-
         public Guid Id { get; set; }
 
         public string Name { get; set; }
