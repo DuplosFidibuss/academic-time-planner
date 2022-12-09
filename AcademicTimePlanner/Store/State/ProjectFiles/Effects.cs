@@ -15,6 +15,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         }
 
         [EffectMethod]
+        public async Task HandleAsync(FetchPlanProjectsAction action, IDispatcher dispatcher)
+        {
+            var planProjects = await _dataManagerService.GetPlanProjects();
+            dispatcher.Dispatch(new SetPlanProjectsAction(planProjects));
+        }
+
+        [EffectMethod]
         public async Task HandleAsync(LoadPlanProjectsAction action, IDispatcher dispatcher)
         {
             var planProjects = new List<PlanProject>();

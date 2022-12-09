@@ -38,6 +38,7 @@ public partial class PlanProjects
     {
         base.OnInitialized();
         Dispatcher.Dispatch(new SetTitleAction(Title));
+        Dispatcher.Dispatch(new FetchPlanProjectsAction());
     }
 
     private async Task LoadPlanProjects(InputFileChangeEventArgs e)
