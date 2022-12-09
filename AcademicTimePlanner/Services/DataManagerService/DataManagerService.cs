@@ -76,7 +76,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             return new List<PlanProject>(dataManager.PlanProjects);
         }
 
-        public async Task<PlanProject> GetPlanProjectByName(string name)
+        public async Task<PlanProject> GetPlanProjectById(Guid id)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -84,7 +84,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return dataManager.PlanProjects.Find(planProject => planProject.Name == name)!;
+            return dataManager.PlanProjects.Find(planProject => planProject.Id == id)!;
         }
 
         public async Task DeletePlanProject(Guid planProjectId)

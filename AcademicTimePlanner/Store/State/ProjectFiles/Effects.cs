@@ -48,7 +48,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         [EffectMethod]
         public async Task HandleAsync(GetPlanProjectForDownloadAction action, IDispatcher dispatcher)
         {
-            var planProject = await _dataManagerService.GetPlanProjectByName(action.ProjectName);
+            var planProject = await _dataManagerService.GetPlanProjectById(action.ProjectId);
             dispatcher.Dispatch(new DownloadPlanProjectAction(planProject));
         }
 

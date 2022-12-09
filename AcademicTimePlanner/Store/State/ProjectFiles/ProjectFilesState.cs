@@ -33,8 +33,6 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public PlanEntryRepetition? PlanEntryRepetition { get; }
 
-        public PlanProjectDownloader PlanProjectDownloader { get; } = new PlanProjectDownloader();
-
         private ProjectFilesState() { }
 
         public ProjectFilesState(CreationStep step, bool loaded, List<PlanProject> planProjects)

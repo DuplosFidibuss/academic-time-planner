@@ -32,7 +32,7 @@ public partial class PlanProjects
 
     private PlanEntryRepetition? planEntryRepetition => ProjectState.Value.PlanEntryRepetition;
 
-    private PlanProjectDownloader downloader => ProjectState.Value.PlanProjectDownloader;
+    private PlanProjectDownloader Downloader { get; } = new();
 
     protected override void OnInitialized()
     {
@@ -109,7 +109,7 @@ public partial class PlanProjects
 
     private void InitializePlanProjectDownload()
     {
-        Dispatcher.Dispatch(new GetPlanProjectForDownloadAction(downloader.ProjectName));
+        Dispatcher.Dispatch(new GetPlanProjectForDownloadAction(Downloader.ProjectId));
     }
 
     private async Task DownloadPlanProject()

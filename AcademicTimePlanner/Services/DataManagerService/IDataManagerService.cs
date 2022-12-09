@@ -50,11 +50,11 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public Task<List<PlanProject>> GetPlanProjects();
 
         /// <summary>
-        /// Gets the plan project with the given name from the <see cref="DataManager"/>
+        /// Gets the plan project with the given id from the <see cref="DataManager"/>
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public Task<PlanProject> GetPlanProjectByName(string name);
+        public Task<PlanProject> GetPlanProjectById(Guid id);
 
         /// <summary>
         /// Deletes the plan project with the given Id from the <see cref="DataManager"/>

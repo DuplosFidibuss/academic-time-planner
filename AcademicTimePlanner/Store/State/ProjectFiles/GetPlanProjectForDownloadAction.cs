@@ -2,11 +2,11 @@
 {
     public class GetPlanProjectForDownloadAction
     {
-        public string ProjectName { get; set; }
+        public Guid ProjectId { get; set; }
 
-        public GetPlanProjectForDownloadAction(string projectName)
+        public GetPlanProjectForDownloadAction(Guid projectId)
         {
-            ProjectName = projectName;
+            ProjectId = projectId;
         }
     }
 }

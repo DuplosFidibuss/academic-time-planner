@@ -25,16 +25,16 @@
     <p></p>
     <button type="button" class="btn btn-primary" @onclick="CreatePlanProject">Create plan project</button>
     <p></p>
-    <EditForm Model="@downloader" OnValidSubmit="@InitializePlanProjectDownload">
+    <EditForm Model="Downloader" OnValidSubmit="@InitializePlanProjectDownload">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <label>Plan project to download: </label>
-        <InputSelect @bind-Value="downloader.ProjectName">
-            <option value="">Select project ...</option>
+        <InputSelect @bind-Value="Downloader.ProjectId">
+            <option value="@Guid.Empty">Select project ...</option>
             @foreach (var project in Projects)
             {
-                <option value=@project>@project.Name</option>
+                <option value=@project.Id>@project.Name</option>
             }
         </InputSelect>
         <button type="submit">Download</button>
