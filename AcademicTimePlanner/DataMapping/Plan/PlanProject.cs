@@ -85,21 +85,6 @@
             RepetitionEntries.Remove(planEntryRepetition);
         }
 
-        private double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-        {
-            if (PlanEntries == null && RepetitionEntries == null)
-                return 0;
-
-            if (PlanEntries == null)
-                return (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
-
-            if (RepetitionEntries == null)
-                return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum();
-
-            return (from planEntry in PlanEntries.FindAll(planEntry => planEntry.StartDate >= startDate && planEntry.EndDate <= endDate) select planEntry.Duration).Sum() +
-                    (from repetitionEntry in RepetitionEntries select repetitionEntry.GetDurationInTimeRange(startDate, endDate)).Sum();
-        }
-
         private List<PlanEntry> GetAllPlanEntriesList()
         {
             var planEntries = new List<PlanEntry>();
@@ -126,12 +111,25 @@
 
         public double GetTotalDuration()
         {
-            return GetDurationInTimeRange(DateTime.MinValue, DateTime.MaxValue);
+            return (from planEntry in GetAllPlanEntriesList() select planEntry.Duration).Sum();
         }
 
         public double GetRemainingDuration()
         {
-            return GetDurationInTimeRange(DateTime.Today.AddDays(1), DateTime.MaxValue);
+            var tomorrow = DateTime.Today.AddDays(1);
+            double sum = 0;
+            foreach (var entry in GetAllPlanEntriesList())
+            {
+                if (entry.StartDate < tomorrow && entry.EndDate < tomorrow)
+                    continue;
+
+                else if (entry.StartDate < tomorrow && entry.EndDate >= tomorrow)
+                    sum += entry.Duration * ((entry.EndDate - tomorrow).TotalDays + 1) / ((entry.EndDate - entry.StartDate).TotalDays + 1);
+
+                else
+                    sum += entry.Duration;
+            }
+            return sum;
         }
 
         public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate)
@@ -162,7 +160,7 @@
                     }
                     else
                     {
-                        if (durationsPerDate.Count == 0)
+                        if (durationsPerDate.Count == 0 || !durationsPerDate.ContainsKey(entry.StartDate))
                             durationsPerDate.Add(entry.StartDate, 0);
                         durationsPerDate.Add(entry.StartDate.AddDays(i), dailyDuration);
                     }

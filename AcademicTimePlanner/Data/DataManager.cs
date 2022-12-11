@@ -1,5 +1,4 @@
-﻿using AcademicTimePlanner.DataMapping.Budget;
-using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
 
 namespace AcademicTimePlanner.Data
@@ -7,8 +6,6 @@ namespace AcademicTimePlanner.Data
     public class DataManager
     {
         public const string NoAssociatedPlanProjectName = "No plan project associated";
-
-        public List<Budget> Budgets { get; set; }
 
         public List<PlanProject> PlanProjects { get; set; }
 
@@ -21,7 +18,6 @@ namespace AcademicTimePlanner.Data
         /// </summary>
         public DataManager()
         {
-            Budgets = new List<Budget>();
             PlanProjects = new List<PlanProject>();
             TogglProjects = new List<TogglProject>();
             DeletedTogglProjectIds = new List<long>();
@@ -48,13 +44,13 @@ namespace AcademicTimePlanner.Data
             Console.WriteLine(DeletedTogglProjectIds.Count);
         }
 
-        public ChartData GetChartData()
+        public DisplayData GetDisplayData()
         {
             // This is for chart display test purposes.
             //TogglProjects.Clear();
             //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             UpdateTogglDictionaryInPlanProjects();
-            return new ChartData(TogglProjects, PlanProjects);
+            return new DisplayData(TogglProjects, PlanProjects);
         }
 
         public List<TogglLoadOverviewData> GetTogglLoadOverview()
@@ -72,8 +68,13 @@ namespace AcademicTimePlanner.Data
 
         public void UpdatePlanningData(List<PlanProject> planProjects)
         {
-            PlanProjects.Clear();
-            PlanProjects.AddRange(planProjects);
+            foreach (var planProject in planProjects)
+            {
+                var existingProject = PlanProjects.Find(project => project.Id.Equals(planProject.Id));
+                if (existingProject != null)
+                    PlanProjects.Remove(existingProject);
+                PlanProjects.Add(planProject);
+            }
         }
 
         public void UpdateTogglDictionaryInPlanProjects()
@@ -127,6 +128,12 @@ namespace AcademicTimePlanner.Data
                     }
                 }
             }
+        }
+
+        public void DeletePlanProject(Guid planProjectId)
+        {
+            var planProject = PlanProjects.Find(project => project.Id == planProjectId);
+            PlanProjects.Remove(planProject!);
         }
     }
 }

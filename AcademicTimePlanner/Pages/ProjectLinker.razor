@@ -1,0 +1,104 @@
+﻿@page "/linker"
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+@using AcademicTimePlanner.DataMapping.Plan;
+@using AcademicTimePlanner.Store.State.ProjectLinker
+
+@if (LinkerState.Value.Loaded)
+{
+    @switch (LinkerState.Value.Step)
+    {
+        case ProjectLinkerState.LinkingStep.ProjectLinking :
+            <h3>Link projects</h3>
+            <EditForm Model="@ProjectSelector">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <h4>Select plan project</h4>
+                <InputRadioGroup @bind-Value="ProjectSelector.PlanProjectId">
+                    @foreach (var planProject in ProjectsData!.PlanProjects)
+                    {
+                        <InputRadio Value="@planProject.Id"/> @planProject.Name<br />   
+                    }
+                </InputRadioGroup>
+
+                <p></p>
+                <h4>Select Toggl project</h4>
+                <InputRadioGroup @bind-Value="ProjectSelector.TogglProjectTogglId">
+                    @foreach (var togglProject in ProjectsData!.GetAllTogglProjects())
+                    {
+                        <InputRadio Value=@togglProject.TogglId />@togglProject.Name<br />
+                    }
+                </InputRadioGroup>
+
+                <p></p>
+                <button type="button" class="btn btn-primary" @onclick="((e) => LinkProjectsClick(e, true))">Link projects</button>
+                <button type="button" class="btn btn-primary" @onclick="((e) => LinkProjectsClick(e, false))">Unlink projects</button>
+                <p></p>
+                <button type="button" class="btn btn-secondary" @onclick="@(e => SwitchLinkingStep(ProjectLinkerState.LinkingStep.TaskLinking))">Link/Unlink tasks</button>
+            </EditForm>
+
+            <p></p>
+            <h4>Unlinked Toggl projects</h4>
+            <label>@ProjectsData!.GetUnlinkedTogglProjectsAsString()</label>
+            <p></p>
+
+            <h4>Linked projects</h4>
+            <p>Plan project -> Linked Toggl projects</p>
+            <ul>
+                @foreach (var planProject in ProjectsData!.PlanProjects)
+                {
+                    <li>@planProject.Name -> @ProjectsData.GetLinkedTogglProjectsAsString(planProject)</li>
+                }
+            </ul>
+            break;
+        case ProjectLinkerState.LinkingStep.TaskLinking :
+            <h3>Link tasks</h3>
+            <EditForm Model="@TaskSelector">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <h4>Select plan task</h4>
+                <InputRadioGroup @bind-Value="TaskSelector.PlanTaskId">
+                    @foreach (var planTask in PlanProject.PlanTasks)
+                    {
+                        <InputRadio Value="@planTask.Id"/> @planTask.Name<br />   
+                    }
+                </InputRadioGroup>
+
+                <p></p>
+                <h4>Select Toggl task</h4>
+                <InputRadioGroup @bind-Value="TaskSelector.TogglTaskTogglId">
+                    @foreach (var togglProject in ProjectsData!.LinkedTogglProjects.FindAll(project => PlanProject.TogglProjectIds.ContainsKey(project.TogglId)))
+                    {
+                        <p><b>@togglProject.Name</b></p>
+                        @foreach (var togglTask in togglProject.Tasks)
+                        {
+                            <InputRadio Value=@togglTask.Key />@togglTask.Value<br />
+                        }
+                        <p></p>
+                    }
+                </InputRadioGroup>
+
+                <p></p>
+                <button type="button" class="btn btn-primary" @onclick="((e) => LinkTasksClick(e, true))">Link tasks</button>
+                <button type="button" class="btn btn-primary" @onclick="((e) => LinkTasksClick(e, false))">Unlink tasks</button>
+                <p></p>
+                <button type="button" class="btn btn-secondary" @onclick="@(e => SwitchLinkingStep(ProjectLinkerState.LinkingStep.ProjectLinking))">Link/Unlink projects</button>
+            </EditForm>
+
+            <h4>Linked tasks</h4>
+            <p>Plan task -> Linked Toggl task</p>
+            <ul>
+                @foreach (var planTask in PlanProject.PlanTasks)
+                {
+                    <li>@planTask.Name -> @ProjectsData!.GetLinkedTogglTasksAsString(PlanProject, planTask)</li>
+                }
+            </ul>
+            break;
+        default: break;
+    }
+}
+else
+{
+    <p>No data loaded.</p>
+}

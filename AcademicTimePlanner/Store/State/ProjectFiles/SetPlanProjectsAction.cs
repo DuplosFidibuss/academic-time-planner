@@ -1,13 +1,13 @@
-﻿using System.Collections.Immutable;
+﻿using AcademicTimePlanner.DataMapping.Plan;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
     public class SetPlanProjectsAction
     {
-        public List<string> PlanProjectsNames { get; }
-        public SetPlanProjectsAction(List<string> planProjectsNames)
+        public List<PlanProject> PlanProjects { get; }
+        public SetPlanProjectsAction(List<PlanProject> planProjects)
         {
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
         }
     }
 }

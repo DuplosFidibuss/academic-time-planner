@@ -32,7 +32,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
-        public async Task<ChartData> GetChartData()
+        public async Task<DisplayData> GetDisplayData()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -40,7 +40,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return dataManager.GetChartData();
+            return dataManager.GetDisplayData();
         }
 
         public async Task AddPlanProject(PlanProject planProject)
@@ -65,7 +65,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             return dataManager.GetTogglLoadOverview();
         }
 
-        public async Task<List<string>> GetPlanProjectNames()
+        public async Task<List<PlanProject>> GetPlanProjects()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -73,10 +73,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return (from planProject in dataManager.PlanProjects select planProject.Name).ToList();
+            return new List<PlanProject>(dataManager.PlanProjects);
         }
 
-        public async Task<PlanProject> GetPlanProjectByName(string name)
+        public async Task<PlanProject> GetPlanProjectById(Guid id)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -84,7 +84,18 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return dataManager.PlanProjects.Find(planProject => planProject.Name == name)!;
+            return dataManager.PlanProjects.Find(planProject => planProject.Id == id)!;
+        }
+
+        public async Task DeletePlanProject(Guid planProjectId)
+        {
+            var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+            if (dataManager == null)
+            {
+                dataManager = new DataManager();
+            }
+            dataManager.DeletePlanProject(planProjectId);
+            await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
     }
 }

@@ -18,7 +18,6 @@ namespace AcademicTimePlanner.Tests
         [TestMethod]
         public void DataCollectionsAreInitializedCorrectlyOnCreation()
         {
-            Assert.AreEqual(0, _dataManager.Budgets.Count);
             Assert.AreEqual(0, _dataManager.PlanProjects.Count);
             Assert.AreEqual(0, _dataManager.TogglProjects.Count);
         }
@@ -69,13 +68,44 @@ namespace AcademicTimePlanner.Tests
         }
 
         [TestMethod]
+        public void UpdateTogglProjectsDoesNotDuplicateShiftedEntries()
+        {
+            var shiftedTestEntry = new TogglEntrySum(DateTime.Today, 3, 1, -1);
+            var remainingTestEntry = new TogglEntrySum(DateTime.Today.AddDays(-3), 2, 2, -1);
+
+            var testTogglProject1 = new TogglProject(3, "Test project 1");
+            var testTogglProject2 = new TogglProject(4, "Test project 2");
+
+            testTogglProject1.TogglEntrySums.Add(shiftedTestEntry);
+            testTogglProject1.TogglEntrySums.Add(remainingTestEntry);
+
+            _dataManager.UpdateTogglData(new List<TogglProject> { testTogglProject1, testTogglProject2 });
+
+            Assert.AreEqual(2, _dataManager.TogglProjects.Count);
+            Assert.AreEqual(2, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
+            Assert.AreEqual(0, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
+
+            var updatedTestTogglProject1 = new TogglProject(3, "Test project 1");
+            var updatedTestTogglProject2 = new TogglProject(4, "Test project 2");
+
+            updatedTestTogglProject1.TogglEntrySums.Add(remainingTestEntry);
+            updatedTestTogglProject2.TogglEntrySums.Add(shiftedTestEntry);
+
+            _dataManager.UpdateTogglData(new List<TogglProject> { updatedTestTogglProject1, updatedTestTogglProject2 });
+
+            Assert.AreEqual(2, _dataManager.TogglProjects.Count);
+            Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
+            Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
+        }
+
+        [TestMethod]
         public void GetChartDataReturnsCorrectChartDataWithEmptyDataCollections()
         {
-            var chartData = _dataManager.GetChartData();
+            var chartData = _dataManager.GetDisplayData();
 
             Assert.IsNotNull(chartData);
             Assert.AreEqual(0, chartData.PlanProjects.Count);
-            Assert.AreEqual(0, chartData.TogglProjects.Count);
+            Assert.AreEqual(0, chartData.LinkedTogglProjects.Count);
         }
 
         [TestMethod]
@@ -86,11 +116,11 @@ namespace AcademicTimePlanner.Tests
             _dataManager.PlanProjects.Add(testPlanProject);
             _dataManager.TogglProjects.Add(testTogglProject);
 
-            var chartData = _dataManager.GetChartData();
+            var chartData = _dataManager.GetDisplayData();
 
             Assert.IsNotNull(chartData);
             Assert.IsTrue(chartData.PlanProjects.Contains(testPlanProject));
-            Assert.IsTrue(chartData.TogglProjects.Contains(testTogglProject));
+            Assert.IsTrue(chartData.LinkedTogglProjects.Contains(testTogglProject));
         }
 
         [TestMethod]
@@ -149,38 +179,7 @@ namespace AcademicTimePlanner.Tests
         }
 
         [TestMethod]
-        public void UpdateTogglProjectsDoesNotDuplicateShiftedEntries()
-        {
-            var shiftedTestEntry = new TogglEntrySum(DateTime.Today, 3, 1, -1);
-            var remainingTestEntry = new TogglEntrySum(DateTime.Today.AddDays(-3), 2, 2, -1);
-
-            var testTogglProject1 = new TogglProject(3, "Test project 1");
-            var testTogglProject2 = new TogglProject(4, "Test project 2");
-
-            testTogglProject1.TogglEntrySums.Add(shiftedTestEntry);
-            testTogglProject1.TogglEntrySums.Add(remainingTestEntry);
-
-            _dataManager.UpdateTogglData(new List<TogglProject> { testTogglProject1, testTogglProject2 });
-
-            Assert.AreEqual(2, _dataManager.TogglProjects.Count);
-            Assert.AreEqual(2, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
-            Assert.AreEqual(0, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
-
-            var updatedTestTogglProject1 = new TogglProject(3, "Test project 1");
-            var updatedTestTogglProject2 = new TogglProject(4, "Test project 2");
-
-            updatedTestTogglProject1.TogglEntrySums.Add(remainingTestEntry);
-            updatedTestTogglProject2.TogglEntrySums.Add(shiftedTestEntry);
-
-            _dataManager.UpdateTogglData(new List<TogglProject> { updatedTestTogglProject1, updatedTestTogglProject2 });
-
-            Assert.AreEqual(2, _dataManager.TogglProjects.Count);
-            Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject1.TogglId)!.TogglEntrySums.Count);
-            Assert.AreEqual(1, _dataManager.TogglProjects.Find(togglProject => togglProject.TogglId == testTogglProject2.TogglId)!.TogglEntrySums.Count);
-        }
-
-        [TestMethod]
-        public void TestUpdateTogglDictionaryInPlanProjects()
+        public void UpdateTogglDictionaryInPlanProjectsUpdatesThePercentagesInPlanProjectsCorrect()
         {
             var testTogglProject_1 = TestTogglProject.GetTestTogglProject()[0];
             var testTogglProject_2 = TestTogglProject.GetTestTogglProject()[1];

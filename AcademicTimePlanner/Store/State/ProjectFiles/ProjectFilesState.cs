@@ -23,7 +23,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public CreationStep Step { get; }
 
-        public List<string> PlanProjectsNames { get; } = new List<string>();
+        public List<PlanProject> PlanProjects { get; } = new List<PlanProject>();
 
         public PlanProject? PlanProject { get; }
 
@@ -33,55 +33,54 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public PlanEntryRepetition? PlanEntryRepetition { get; }
 
-        public PlanProjectDownloader PlanProjectDownloader { get; } = new PlanProjectDownloader();
-
         private ProjectFilesState() { }
 
-        public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames)
+        public ProjectFilesState(CreationStep step, bool loaded, List<PlanProject> planProjects)
         {
             Step = step;
             Loaded = loaded;
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
         }
-        public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames, PlanProject planProject)
+
+        public ProjectFilesState(CreationStep step, bool loaded, List<PlanProject> planProjects, PlanProject planProject)
         {
             Step = step;
             Loaded = loaded;
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
             PlanProject = planProject;
         }
 
-        public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames, PlanProject planProject, PlanTask planTask)
+        public ProjectFilesState(CreationStep step, bool loaded, List<PlanProject> planProjects, PlanProject planProject, PlanTask planTask)
         {
             Step = step;
             Loaded = loaded;
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
             PlanProject = planProject;
             PlanTask = planTask;
         }
 
-        public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames, PlanProject planProject, PlanEntry planEntry)
+        public ProjectFilesState(CreationStep step, bool loaded, List<PlanProject> planProjects, PlanProject planProject, PlanEntry planEntry)
         {
             Step = step;
             Loaded = loaded;
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
             PlanProject = planProject;
             PlanEntry = planEntry;
         }
-        public ProjectFilesState(CreationStep step, bool loaded, List<string> planProjectsNames, PlanProject planProject, PlanEntryRepetition planEntryRepetition)
+        public ProjectFilesState(CreationStep step, bool loaded, List<PlanProject> planProjects, PlanProject planProject, PlanEntryRepetition planEntryRepetition)
         {
             Step = step;
             Loaded = loaded;
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
             PlanProject = planProject;
             PlanEntryRepetition = planEntryRepetition;
         }
 
-        public ProjectFilesState(bool loaded, bool isDownloading, List<string> planProjectsNames, PlanProject planProject)
+        public ProjectFilesState(bool loaded, bool isDownloading, List<PlanProject> planProjects, PlanProject planProject)
         {
             Loaded = loaded;
             IsDownloading = isDownloading;
-            PlanProjectsNames = planProjectsNames;
+            PlanProjects = planProjects;
             PlanProject = planProject;
         }
     }

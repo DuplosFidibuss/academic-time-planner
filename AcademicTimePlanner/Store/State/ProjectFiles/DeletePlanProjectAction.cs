@@ -1,10 +1,10 @@
 ﻿namespace AcademicTimePlanner.Store.State.ProjectFiles
 {
-    public class GetPlanProjectForDownloadAction
+    public class DeletePlanProjectAction
     {
         public Guid ProjectId { get; set; }
 
-        public GetPlanProjectForDownloadAction(Guid projectId)
+        public DeletePlanProjectAction(Guid projectId)
         {
             ProjectId = projectId;
         }

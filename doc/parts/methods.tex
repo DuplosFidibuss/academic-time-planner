@@ -72,3 +72,49 @@ Four milestones were proposed at the beginning of the project. They were taken f
 \section{Pair programming}
 Pair programming \cite{pairprogramming-url} is a form of programming in which one person is writing code while the other person can focus on keeping an overview. The second person is also in charge of helping finding solutions or researching something needed for the next step while the first types the agreed upon solution. The pair should regularly alternate with who is typing and who is not, to keep it balanced. This programming approach is preferable with new and/or unknown technology as well as with complex code as the problems and challenges can be discussed together. Moreover, the likelihood of making mistakes together is smaller, since both programmers are looking at the code. For this reasons pair programming was heavily used in the second sprint, as unknown technology was used, and the implementation of loading and displaying data was fairly complex at first. 
 
+\section{Unit tests}
+To ensure that the methods function as intended, unit tests are necessary. They are also needed to check if everything still works after refactoring. To this end, unit tests were written for every backend class where it was deemed necessary. This includes the mapping classes described in the chapter \ref{Mapping concept} as well as the classes DataManager and JSONHandler. These classes are essential for the whole application to work correctly, as a mistake in them would affect all the other classes. Most of these tests check if the handling of JSON files and the projects that are generated with them work as intended. The test cases are listed in the following table.
+\\ \\
+\begin{tabular}{||c|c|p{8cm}||}
+	\cline{1-3}
+	Class & Method & Case \\
+	\hline \hline
+	JSONHandler & saveJson & Are a plan project and all its components written correctly in the JSON file. \\
+	\hline
+	 & loadJson & Is the JSON file correctly parsed to a functioning plan project. \\
+	\hline
+	DataManager & Constructor & Are the lists for plan projects and Toggl projects empty as expected. \\ 
+	\hline
+	& UpdateTogglData & Is an empty Toggl project list correctly updated. \\
+	\hline
+	&  & Is a non empty Toggl project list correctly updated. \\
+	\hline
+	&  & Is a Toggl project that is deleted on TogglTrack, but still exists in the application, moved to the correct list.\\
+	\hline
+	& & Is a Toggl entry that got reassigned to a different Toggl project not duplicated.\\
+	\hline
+	& GetChartData & Are empty plan project and Toggl project lists returned empty as expected.\\
+	\hline
+	& & Are non empty plan project and Toggl project lists returned correctly.\\
+	\hline
+	& GetTogglLoadOverview & Is an empty list returned correctly.\\
+	\hline
+	& & Is the overview correctly returned when the Toggl project has an associated plan project.\\
+	\hline
+	& & Is the overview correctly returned when the Toggl project has no associated plan project. \\
+	\hline
+	& & Is a Toggl project that is deleted on TogglTrack, but still exists in the application, displayed correctly. \\
+	\hline
+	& \scriptsize{UpdateTogglDictionaryInPlanProjects} & Are the percentages in the plan project updated correctly.\\
+	\hline
+	TogglService & GetTogglProjects & Are the Toggl projects returned as expected.\\
+	\hline
+	& & Can a Toggl project be handled if there is no task.\\
+	\hline
+	& & Is a Toggl project with a Toggl task handled correctly.\\
+	\hline
+	& & Is the sum of durations of a Toggl project without any entries returned as 0 as expected.\\
+	\hline
+	& & Is the sum of the duration of entries without a project returned the correctly. \\
+	\cline{1-3}
+\end{tabular}

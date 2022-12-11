@@ -1,4 +1,3 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Store.State.Wrapper;
@@ -23,7 +22,7 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private ChartData? ChartData => ChartsState.Value.ChartData;
+    private Data.DisplayData? ChartData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
 
     private const string Title = "Charts";
@@ -150,21 +149,21 @@ public partial class Index
             {
                 X = titles,
                 Y = totalDurations,
-                Name = "Predicted",
+                Name = "Total Planned",
                 Marker = TotalDurationMarker,
             },
             new Bar
             {
                 X = titles,
                 Y = predictedDurations,
-                Name = "Predicted",
+                Name = "Prediction of Final Time spent",
                 Marker = PredictedDurationMarker,
             },
             new Bar
             {
                 X = titles,
                 Y = plannedDurations,
-                Name = "Planned",
+                Name = "Planned Until Today",
                 XAxis = "x2",
                 Marker = PlannedDurationMarker,
             },

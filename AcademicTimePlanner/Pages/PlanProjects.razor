@@ -8,7 +8,7 @@
 {
     @if (ProjectState.Value.Loaded)
     {
-        <p>@PlanProjectsNames.Count Plan projects loaded</p>
+        <p>@Projects.Count Plan projects loaded</p>
     }
 
     <InputFile OnChange="@LoadPlanProjects" multiple />
@@ -16,25 +16,25 @@
     @if (ProjectState.Value.Loaded)
     {
         <ul>
-            @foreach (var name in PlanProjectsNames)
+            @foreach (var planProject in Projects)
             {
-                <li>@name</li>
+                <li>@planProject.Name <button type="button" @onclick="(e => DeletePlanProject(e, planProject.Id))">Delete</button></li>
             }
         </ul>
     }
     <p></p>
     <button type="button" class="btn btn-primary" @onclick="CreatePlanProject">Create plan project</button>
     <p></p>
-    <EditForm Model="@downloader" OnValidSubmit="@InitializePlanProjectDownload">
+    <EditForm Model="Downloader" OnValidSubmit="@InitializePlanProjectDownload">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <label>Plan project to download: </label>
-        <InputSelect @bind-Value="downloader.ProjectName">
-            <option value="">Select project ...</option>
-            @foreach (var name in PlanProjectsNames)
+        <InputSelect @bind-Value="Downloader.ProjectId">
+            <option value="@Guid.Empty">Select project ...</option>
+            @foreach (var project in Projects)
             {
-                <option value=@name>@name</option>
+                <option value=@project.Id>@project.Name</option>
             }
         </InputSelect>
         <button type="submit">Download</button>
@@ -112,7 +112,15 @@
             <p>Start date: <InputDate id="StartDate" @bind-Value="planEntry!.StartDate" /></p>
             <p>End date: <InputDate id="EndDate" @bind-Value="planEntry!.EndDate" /></p>
             <p>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="planEntry!.Duration" /></p>
-
+            <label>Link plan task (optional): </label>
+            <InputSelect @bind-Value="planEntry.TaskId">
+                <option value="@Guid.Empty"></option>
+                @foreach (var task in planProject.PlanTasks)
+                {
+                    <option value=@task.Id>@task.Name</option>
+                }
+            </InputSelect>
+            <p></p>
             <button type="submit">Create entry</button>
         </EditForm>
 
@@ -137,7 +145,11 @@
            <li>Start date cannot be after end date.</li>
            <li>Interval cannot be longer than timespan between start and end date.</li>
            <li>Interval must be greater than 0.</li>
-           <li>Time investment cannot be longer than timespan defined by interval.</li>
+           <li>Default Timespan is equal to Interval.</li>
+           <li>Timespan starts at the same day as Interval.</li>
+           <li>Timespan cannot be longer than Interval.</li>
+           <li>Timespan must be greater than 0.</li>
+           <li>Time investment cannot be longer than Timespan.</li>
            <li>Time investment must be greater than 0.</li>
        </ul>
 
@@ -146,7 +158,18 @@
             <p>Start date: <InputDate id="RepetitionStartDate" @bind-Value="planEntryRepetition!.RepetitionStartDate" /></p>
             <p>End date: <InputDate id="RepetitionEndDate" @bind-Value="planEntryRepetition!.RepetitionEndDate" /></p>
             <p>Interval [in days] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Interval" /></p>
-            <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration" /></p>
+            <p>Timespan [in days] : <InputNumber id="RepetitionTimespan" @bind-Value="planEntryRepetition!.TimeSpan" /></p>
+            <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="planEntryRepetition!.Duration">
+                <option value="planEntryRepetition.Zero"></option> </InputNumber></p>
+            <label>Link plan task (optional): </label>
+            <InputSelect @bind-Value="planEntryRepetition.TaskId">
+                <option value="@Guid.Empty"></option>
+                @foreach (var task in planProject.PlanTasks)
+                {
+                    <option value=@task.Id>@task.Name</option>
+                }
+            </InputSelect>
+            <p></p>
             <button type="submit">Create repetition entry</button>
         </EditForm>
 
