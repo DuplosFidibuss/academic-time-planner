@@ -6,13 +6,13 @@
 
         public bool IsDeleted { get; }
 
-        public string PlanProjectName { get; }
+        public string PlanProjectNames { get; }
 
-        public TogglLoadOverviewData(string togglProjectName, bool isDeleted, string planProjectName)
+        public TogglLoadOverviewData(string togglProjectName, bool isDeleted, string planProjectNames)
         {
             TogglProjectName = togglProjectName;
             IsDeleted = isDeleted;
-            PlanProjectName = planProjectName;
+            PlanProjectNames = planProjectNames;
         }
     }
 }
