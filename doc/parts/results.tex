@@ -66,7 +66,7 @@ To display the chart, the user first has to choose the applicable time range. On
 The following subsections describe the front-end for import, export and creation of a plan project.
 
 \subsection{Import front-end}
- To import a project the user has to click on the browse button (see \ref{importButton}). Doing so opens a window where the user can select the projects to be loaded (see \ref{importWindow}). If a project already exists it will be overwritten with the new data, otherwise a new plan project is created. All loaded plan projects are displayed in a list (see \ref{loadedPlanProjects}).
+ To import a project the user has to click on the "Browse..." button (see \ref{importButton}). Doing so opens a window where the user can select the projects to be loaded (see \ref{importWindow}). If a project already exists in the ATP it will be overwritten with the new data, otherwise the plan project is added to the ATP. All loaded plan projects are displayed in a list (see \ref{loadedPlanProjects}).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{ImportButton}
@@ -87,7 +87,7 @@ The following subsections describe the front-end for import, export and creation
 \end{figure}
 
 \subsection{Export front-end}
-To export a plan project the user has to select a project with the drop-down menu and then click on the download button next to it (\ref{downloadSelectFile}). This will open the browsers download options like save as or open with.
+To export a plan project the user has to select a project with the drop-down menu and then click on the "Download" button next to it (\ref{downloadSelectFile}). This will open the browsers download options like "Save as..." or "Open with...".
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\columnwidth]{DownloadSelectFile}
@@ -96,7 +96,7 @@ To export a plan project the user has to select a project with the drop-down men
 \end{figure}
 
 \subsection{Create plan project front-end}
-To create a plan project the user has to click on the create plan project button (see \ref{createPlanProjectButton}). 
+To create a plan project the user has to click on the "Create plan project" button (see \ref{createPlanProjectButton}). 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{CreatePlanProjectButton}
@@ -105,7 +105,7 @@ To create a plan project the user has to click on the create plan project button
 \end{figure}
 
 \subsubsection{Create plan project and plan task}
-In the following page the user has to enter the name of the plan project (see \ref{createPlanProject}) not doing so will result in an error on the final overview page before finalizing the project(see \ref{createFinalOverviewError}). The next page allows the user to create plan tasks by entering a name and clicking on the create task button (see \ref{createPlanTask}). A user can create multiple tasks if desired. This step is optional and the tasks are not needed for the project to function.
+In the following page the user has to enter the name of the plan project (see \ref{createPlanProject}). Not doing so will result in an error on the final overview page before finalizing the project(see \ref{createFinalOverviewError}). The next page allows the user to create plan tasks by entering a name and clicking on the create task button (see \ref{createPlanTask}). A user can create multiple tasks if desired. This step is optional and the tasks are not needed for the project to function.
 
 \begin{figure}[H]
 	\centering
@@ -128,14 +128,14 @@ On this page the user can choose to create a single plan entry or a plan entry r
 	\caption{Choosing if a single plan entry or a repetition entry should be created}
 	\label{createRepetitionOrEntry}
 \end{figure}
-To create a plan entry all the listed criteria (see \ref{createPlanEntry}) have to be met, otherwise the create plan entry button will not create a plan entry. If plan tasks were created earlier, a task can be linked to the entry. This step is again optional. After creating a plan entry the user can either create another one or click next to go back to the previous page.
+To create a plan entry all the listed criteria (see \ref{createPlanEntry}) have to be met, otherwise the create plan entry button will not create a plan entry. If plan tasks were created earlier, a task can be linked to the entry. This step is optional as well. After creating a plan entry the user can either create another one or click "Next" to save them and go to the previous page to either create repetition entries, go to finalize or to go back and create tasks.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{CreatePlanEntry}
 	\caption{Creating a plan entry}
 	\label{createPlanEntry}
 \end{figure}
-The creation of a plan entry repetition works similar to the creation of a plan entry. It creates multiple plan entries that repeat after a given interval. By default the time investment will be distributed evenly over the whole interval. If this is not desired, a time span can be entered which starts at the start of an interval. All criteria are listed for the user to check (see \ref{createRepetitionEntry}).
+The creation of a plan entry repetition works similar to the creation of a plan entry. It creates multiple plan entries that repeat after a given interval. By default, the time investment will be distributed evenly over the whole interval. If this is not desired, a time span can be entered which starts at the start of an interval. All criteria are listed for the user to check (see \ref{createRepetitionEntry}).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{CreateRepetitionEntry}
@@ -144,7 +144,7 @@ The creation of a plan entry repetition works similar to the creation of a plan 
 \end{figure}
 
 \subsubsection{final overview}
-In this last page the user can check if all the tasks, plan entries and repetition entries were created (see \ref{createFinalOverview}). If not the user can go back and create them and in the case of the previous mentioned missing plan project name, the aforementioned error will show (see \ref{createFinalOverviewError}). If everything is in order, the user can click on finish to create the plan project and will be brought back to the initial overview of the projects where the newly created project will be added to the list (see \ref{loadedPlanProjects}).
+In this last page the user can check if all the tasks, plan entries and repetition entries were created (see \ref{createFinalOverview}). If not, the user can go back and create them and in the case of the previous mentioned missing plan project name, the aforementioned error will show (see \ref{createFinalOverviewError}). If everything is in order, the user can click on finish to create the plan project and will be brought back to the initial overview of the projects where the newly created project will be added to the list (see \ref{loadedPlanProjects}).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{CreateFinalOverview}
