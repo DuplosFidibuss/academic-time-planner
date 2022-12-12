@@ -1,9 +1,12 @@
 name: GitHub Release
 
 on:
+  pull_request:
+    branches: 
+      - main
   push:
-    tags:
-      - v*
+    paths-ignore:
+      - 'doc/**'
 
 env:
   REGISTRY: ghcr.io
@@ -32,10 +35,9 @@ jobs:
           cd $BLAZOR_PROJECT_FOLDER/$DOTNET_PUBLISH_FOLDER
           zip -r ${{ github.event.repository.name }}.zip .
       - name: Create github release from zip
-        uses: ncipollo/release-action@v1
+        uses: rymndhng/release-on-push-action@master
         with:
-          artifacts: ${{env.BLAZOR_PROJECT_FOLDER}}/${{env.DOTNET_PUBLISH_FOLDER}}/${{ github.event.repository.name }}.zip
-          token: ${{ secrets.GITHUB_TOKEN }}
+          bump_version_scheme: minor
   build-and-push-image:
     needs: publish_and_create_release
     runs-on: ubuntu-latest
