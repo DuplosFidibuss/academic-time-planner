@@ -12,9 +12,11 @@
     }
 
     <InputFile OnChange="@LoadPlanProjects" multiple />
+    <p></p>
 
     @if (ProjectState.Value.Loaded)
     {
+        <h6>Loaded plan projects:</h6>
         <ul>
             @foreach (var planProject in Projects)
             {
@@ -81,6 +83,7 @@
                 }
             </ul>
         }
+        <p></p>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.NamingProject))">Back</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
