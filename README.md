@@ -18,7 +18,7 @@ The ATP runs on .NET, which can be installed following the instructions provided
 
 ## Download and install
 
-The software can be downloaded directly from the [ATP GitHub repository](https://github.com/DuplosFidibuss/academic-time-planner). In the dropdown menu in the upper left, select the version you want to install. Then click on the green button named "Code" and select "Download ZIP". Save the zip file to a location of your choice and extract it.
+The software can be downloaded directly from the [ATP GitHub repository](https://github.com/DuplosFidibuss/academic-time-planner). If you want to install the main branch, just go to Code -> Download ZIP. If you want to install an official release version, go to tags, choose the tag you want to install from and click on "zip". Save the zip file to a location of your choice and extract it.
 
 ## Run the ATP
 
