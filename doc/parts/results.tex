@@ -63,7 +63,7 @@ To display the chart, the user first has to choose the applicable time range. On
 \end{figure}
 
 \section{Application status display and synchronization} \label{Status display}
-In the original prototype, a Blazor page for synchronization with Toggl had already been added. As described in chapter \ref{JS replacement}, the modal entry mask was replaced by blazor input components (picture \ref{Toggl page initial}). When the "Save Toggl settings" button is clicked, the credentials entered in the text fields are saved using Local Storage (see chapter \ref{Local Storage}), and a first synchronization request is sent to Toggl. If one or both fields are left empty, appropriate error messages are displayed (picture \ref{Toggl page validation}). After successful synchronization, the entry fields and the save button are replacaed by a "Synchronize" button in order to allow users to re-synchronize the ATP with Toggl at any time and not just on entering the Toggl credentials. A label next to the button indicates the time of the last synchronization. Below the button, an overview of the loaded data and their associations with the ATP planning data is displayed, see picture \ref{Toggl associated}. If a Toggl project has no associations yet, this is indicated in the load overview (see picture \ref{Toggl loaded}). Entries which do not belong to a Toggl project are displayed as belonging to "Entries without project" (picture \ref{Toggl no project}). Internally, these entries are saved in a project having this name. Toggl projects which have been deleted in Toggl, but are still present in the ATP, are marked as deleted (picture \ref{Toggl deleted}). They will be present in the ATP until Local Storage is cleared (e. g., when the browser cache is cleared).
+In the original prototype, a Blazor page for synchronization with Toggl had already been added. As described in chapter \ref{JS replacement}, the modal entry mask was replaced by blazor input components (see picture \ref{Toggl page initial}). When the "Save Toggl settings" button is clicked, the credentials entered in the text fields are saved using Local Storage (see chapter \ref{Local Storage}), and a first synchronization request is sent to Toggl. If one or both fields are left empty, appropriate error messages are displayed (see picture \ref{Toggl page validation}). After successful synchronization, the entry fields and the save button are replacaed by a "Synchronize" button in order to allow users to re-synchronize the ATP with Toggl at any time and not just on entering the Toggl credentials. A label next to the button indicates the time of the last synchronization. Below the button, an overview of the loaded data and their associations with the ATP planning data is displayed, see picture \ref{Toggl associated}. If a Toggl project has no associations yet, this is indicated in the load overview (see picture \ref{Toggl loaded}). Entries which do not belong to a Toggl project are displayed as belonging to "Entries without project" (see picture \ref{Toggl no project}). Internally, these entries are saved in a project having this name. Toggl projects which have been deleted in Toggl, but are still present in the ATP, are marked as deleted (see picture \ref{Toggl deleted}). They will be present in the ATP until Local Storage is cleared (e. g., when the browser cache is cleared).
 
 \begin{figure}[H]
 	\centering
@@ -103,8 +103,37 @@ begin{figure}[H]
 begin{figure}[H]
 \centering
 \includegraphics[width=1.0\columnwidth]{Toggl_deleted}
-\caption{Toggl page after loading of a Toggl project and }
+\caption{Toggl page after loading of one Toggl project with one deleted project}
 \label{Toggl deleted}
 \end{figure}
 
 \section{Linking of plan projects and Toggl projects} \label{Linking}
+The linking page lists the plan projects and the Toggl projects that are present in the ATP as radio buttons. In order to link a Toggl project to a plan projects, users select the two and click on "Link projects". Below the buttons, an overview of the project that have already been linked is displayed (see picture \ref{Linking init}). It is possible to link the same Toggl project to different plan projects. It is also possible to link multiple Toggl projects to one single plan project. To do this, users just have to select the same plan project once again and link it to the Toggl project of their choice (see picture \ref{Linking multiple}). In order to link plan tasks of a plan project to Toggl tasks of the associated Toggl project(s), users may click on "Link tasks", which opens up the according submenu, which looks similar to the project linking menu and works just the same way (see picture \ref{Linking tasks init}). In the overview of the linked tasks, the Toggl project to which a Toggl task belongs is indicated in brackets. Again it is possible to link multiple Toggl tasks to one single plan task (see picture \ref{Linking tasks multiple}), and also to link one Toggl tasks to different plan tasks. By clicking on "Link projects", users may switch back to the project linking menu.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{Linking_1}
+	\caption{Linking page}
+	\label{Linking init}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{Linking_2}
+	\caption{Linking page with multiple Toggl projects linked to one plan project}
+	\label{Linking multiple}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{Linking_tasks1}
+	\caption{Task linking}
+	\label{Linking tasks init}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{Linking_tasks2}
+	\caption{Task linking with multiple Toggl tasks linked to one plan tasks}
+	\label{Linking tasks multiple}
+\end{figure}
