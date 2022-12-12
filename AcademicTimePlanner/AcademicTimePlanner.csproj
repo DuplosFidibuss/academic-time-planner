@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataMapping\Budget\**" />
+    <Content Remove="DataMapping\Budget\**" />
+    <EmbeddedResource Remove="DataMapping\Budget\**" />
+    <None Remove="DataMapping\Budget\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Fluxor.Blazor.Web" Version="5.4.0" />
     <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.4.0" />
@@ -28,9 +35,5 @@
     <Compile Remove="Services\TogglAPIServices\ITogglService.cs" />
     <Compile Remove="Services\TogglAPIServices\TogglService.cs" />
     <Compile Remove="Services\TogglAPIServices\TogglDetailResponseData.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataMapping\Budget\" />
   </ItemGroup>
 </Project>
