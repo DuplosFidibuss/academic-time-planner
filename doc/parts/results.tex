@@ -62,4 +62,49 @@ To display the chart, the user first has to choose the applicable time range. On
 	\label{figure13}
 \end{figure}
 
-\section{Application status display} \label{Status display}
+\section{Application status display and synchronization} \label{Status display}
+In the original prototype, a Blazor page for synchronization with Toggl had already been added. As described in chapter \ref{JS replacement}, the modal entry mask was replaced by blazor input components (picture \ref{Toggl page initial}). When the "Save Toggl settings" button is clicked, the credentials entered in the text fields are saved using Local Storage (see chapter \ref{Local Storage}), and a first synchronization request is sent to Toggl. If one or both fields are left empty, appropriate error messages are displayed (picture \ref{Toggl page validation}). After successful synchronization, the entry fields and the save button are replacaed by a "Synchronize" button in order to allow users to re-synchronize the ATP with Toggl at any time and not just on entering the Toggl credentials. A label next to the button indicates the time of the last synchronization. Below the button, an overview of the loaded data and their associations with the ATP planning data is displayed, see picture \ref{Toggl associated}. If a Toggl project has no associations yet, this is indicated in the load overview (see picture \ref{Toggl loaded}). Entries which do not belong to a Toggl project are displayed as belonging to "Entries without project" (picture \ref{Toggl no project}). Internally, these entries are saved in a project having this name. Toggl projects which have been deleted in Toggl, but are still present in the ATP, are marked as deleted (picture \ref{Toggl deleted}). They will be present in the ATP until Local Storage is cleared (e. g., when the browser cache is cleared).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{Toggl_init}
+	\caption{Toggl page with no Toggl projects loaded and no synchronization done yet}
+	\label{Toggl page initial}
+\end{figure}
+
+begin{figure}[H]
+\centering
+\includegraphics[width=1.0\columnwidth]{Toggl_validation}
+\caption{Toggl page after hitting "Save Toggl settings" without having entered any credentials}
+\label{Toggl page validation}
+\end{figure}
+
+begin{figure}[H]
+\centering
+\includegraphics[width=1.0\columnwidth]{Toggl_associated}
+\caption{Toggl page after loading of one Toggl project which is associated to a plan project}
+\label{Toggl associated}
+\end{figure}
+
+begin{figure}[H]
+\centering
+\includegraphics[width=1.0\columnwidth]{Toggl_loaded}
+\caption{Toggl page after loading of one Toggl project which is not associated to any plan project}
+\label{Toggl loaded}
+\end{figure}
+
+begin{figure}[H]
+\centering
+\includegraphics[width=1.0\columnwidth]{Toggl_noProject}
+\caption{Toggl page after loading of a Toggl project and some entries which do not belong to a Toggl project}
+\label{Toggl no project}
+\end{figure}
+
+begin{figure}[H]
+\centering
+\includegraphics[width=1.0\columnwidth]{Toggl_deleted}
+\caption{Toggl page after loading of a Toggl project and }
+\label{Toggl deleted}
+\end{figure}
+
+\section{Linking of plan projects and Toggl projects} \label{Linking}
