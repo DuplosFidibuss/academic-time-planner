@@ -144,7 +144,7 @@ namespace AcademicTimePlanner.Tests
             Assert.AreEqual(1, loadOverview.Count);
             Assert.AreEqual(testTogglProject.Name, loadOverview[0].TogglProjectName);
             Assert.IsFalse(loadOverview[0].IsDeleted);
-            Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectName);
+            Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectNames);
         }
 
         [TestMethod]
@@ -158,7 +158,7 @@ namespace AcademicTimePlanner.Tests
             Assert.AreEqual(1, loadOverview.Count);
             Assert.AreEqual(testTogglProject.Name, loadOverview[0].TogglProjectName);
             Assert.IsFalse(loadOverview[0].IsDeleted);
-            Assert.AreEqual(DataManager.NoAssociatedPlanProjectName, loadOverview[0].PlanProjectName);
+            Assert.AreEqual(DataManager.NoAssociatedPlanProjectName, loadOverview[0].PlanProjectNames);
         }
 
         [TestMethod]
@@ -175,7 +175,7 @@ namespace AcademicTimePlanner.Tests
             Assert.AreEqual(1, loadOverview.Count);
             Assert.AreEqual(testTogglProject.Name, loadOverview[0].TogglProjectName);
             Assert.IsTrue(loadOverview[0].IsDeleted);
-            Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectName);
+            Assert.AreEqual(testPlanProject.Name, loadOverview[0].PlanProjectNames);
         }
 
         [TestMethod]
