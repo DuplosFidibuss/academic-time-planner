@@ -39,7 +39,7 @@ info: Microsoft.Hosting.Lifetime[0]
 
 Now, open a browser window and go to [https://localhost:7034]. The application will be loaded.
 
-You can terminate the application at any time by typing Ctrl-C in the command prompt.
+You can terminate the application at any time by pressing Ctrl+C in the command prompt.
 
 ## For developers
 
@@ -49,11 +49,11 @@ The ATP has been developed using Visual Studio. If you want to contribute to the
 
 ### Open the ATP in Visual Studio
 
-To open the ATP source code in Visual Studio, open Visual Studio and select "Open a project or solution". In the dialog which shows up, navigate to the ATP project directory where the .sln file is located. Select the .sln file and proceed. The ATP solution, consisting of AcademicTimePlanner and AcademicTimePlanner.Tests will then load so that you can edit the source code in Visual Studio.
+To open the ATP source code in Visual Studio, open Visual Studio and select "Open a project or solution". In the dialog which shows up, navigate to the ATP project directory where the .sln file is located. Select the .sln file and proceed. The ATP solution consisting of AcademicTimePlanner and AcademicTimePlanner.Tests will be loaded into Visual Studio.
 
 ### Run the ATP from Visual Studio
 
-To run the ATP from Visual Studio, either click on the button "AcademicTimePlanner" with the start symbol. The application will build and run, and the browser window should open on its own. Alternatively, you can right click on the AcademicTimePlanner project in the solution explorer and select Debug -> Start new instance.
+To run the ATP from Visual Studio, click on the button "AcademicTimePlanner" with the start symbol. The application will build and run, and the browser window should open on its own. Alternatively, you can right click on the AcademicTimePlanner project in the solution explorer and select Debug -> Start new instance.
 
 ### Run the ATP unit tests in Visual Studio
 
