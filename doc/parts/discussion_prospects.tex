@@ -28,3 +28,15 @@ Generally, the planned schedule (see chapter \ref{Time management}) could be kep
 Compared to the definition of project (see chapter \ref{Definition}), all project goals defined at the beginning have been fulfilled. The Blazor application runs locally in the browser. Planning data is managed by means of ATP plan projects, which can be imported, exported and newly created using the user interface of the application. It is also possible to synchronize the Toggl data by fetching the tracked time data from Toggl Track. The last time of synchronization as well as the status of the loaded data are displayed on the user interface. The difference between planned and tracked time data can be read from the charts.
 
 \section{Prospects}
+This section describes possible additions and enhancements for the ATP application, which might be realized in the future.
+
+\subsection{User experience}
+With the standard Blazor input components used so far, some parts of the application are awkward to use. For instance, the linking of plan and Toggl projects uses radio buttons instead of checkboxes for the selection of Toggl projects. Therefore, all Toggl projects to be linked to one plan project have to be linked one after another. Moreover, the application looks rather old-fashioned, as no CSS rules or other styling improvements have been applied in this prototype. Apart from this, the usability of the application could be enhanced by adding confirmation requests on deletion of plan projects as well as the possibility to remove entries and tasks during creation of a new plan project. Since Blazor input components provide very limited functionality for application handling, an additional package providing more user controls (e.g., Blazorise or Radzen, see chapter \ref{Charts}) might be helpful.
+
+\subsection{Charts}
+Currently, the charts only display data on project level. While this is sufficient for small projects, larger ones might not be displayed with adequate accuracy, because the different tasks cannot be viewed individually. This could be solved by adding an additional view allowing the separate display of the tasks of a previously selected project.
+
+\subsection{Cross-platform functionality}
+In the original prototype, cross-platform functionality was enabled by releasing the software on a docker image which could be run on any platform. However, the GitHub Action that had been implemented did not work anymore for the current prototype. Since this feature was not included into the scope of this project, it was not given any further consideration. The software currently only runs on Windows and can be downloaded directly from the GitHub project repository. For future versions of the application, 
+
+\subsection{Integration of other time tracking platforms}
