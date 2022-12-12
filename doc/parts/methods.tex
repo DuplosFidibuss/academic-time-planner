@@ -16,7 +16,7 @@ The following subsections describe the realization of the project in detail.
 The first step as to realisation of this project was to prove whether the approach given by the bachelor thesis on which the project is founded is applicable. Since neither one of us has ever worked with Blazor or the related technologies used in the bachelor thesis, the consideration of the software prototype was of particular importance. Both the prototype (see chapter tbd) and the concept of mapping Toggl Track data to ATP data (see chapter tbd) have been investigated in detail. This was done using the documentation of the bachelor thesis, the software code of the prototype and the Blazor online documentation. Thus a fundamental understanding of the approach has been gained. Moreover, our .NET teacher, Mr. Rege, has agreed to provide technological support for Blazor and related technologies. In the light of all this, the approach has been considered applicable and therefore served as basis for the realisation of this project.
 
 \subsection{Implementation of mapping concept}
-To be able to actually handle data in the application, the mapping concept designed in the bachelor thesis (see chapter \ref{Mapping concept}) had to be implemented. The implementation generally follows the mapping concept apart from a few class attributes which were deleted since they were not considered to be needed.
+To be able to actually handle data in the application, the mapping concept designed in the bachelor thesis (see chapter \ref{Mapping concept}) had to be implemented. The implementation generally follows the mapping concept, although some classes and class attributes were deleted since they were not considered to be needed and a few had to be added.
 
 \subsection{Graphical overview of difference between planning and tracking}
 Since the comparison between planned and tracked time should be displayed graphically, there had to be a possibility to display data using charts. The approach suggested in the bachelor thesis was to use the JavaScript library Charts.js and call it directly out of the application. However, this was not considered to be the best way to display charts since JavaScript code had to be added manually and called using code injection. Therefore, we decided to dedicate some time to investigate more elegant alternatives. The following packages offer functionality to create charts in Blazor without having to write JavaScript code:
@@ -112,3 +112,15 @@ To ensure that the methods function as intended, unit tests are necessary. They 
 	& & Is the sum of the duration of entries without a project returned the correctly. \\
 	\cline{1-3}
 \end{tabular}
+
+\section{Import, export and creation of plan projects}
+The following subsections describe the realization of import, export as well as creation of a plan project.
+
+\subsection{Import}
+This feature was already implemented in sprint 2 as it was a convenient way of testing the behavior of the graph front-end and an important feature overall. The import can read multiple JSON files, parse them into plan projects and link them to the DataManager class.
+
+\subsection{Export}
+The export was implemented by using a drop down to allow the user to decide which project should be downloaded. This feature was implemented together with the following feature \ref{realizationCreatePlanProject}. This was done as the export can be used to test, if the creation has worked and visa-versa. 
+
+\subsection{Creation of plan project}\label{realizationCreatePlanProject}
+The realization of this feature included creating multiple steps/pages for the user to navigate. In each of this steps consist of edit forms with linked input fields in them. These include simple text input, date input, number input and drop down.
