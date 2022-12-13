@@ -69,7 +69,7 @@ namespace AcademicTimePlanner.Data
                 if (togglProject != null)
                     sb.Append(togglProject.Name);
                 else
-                    sb.Append("Toggl project with Toggl ID " + togglProjectId + " not found");
+                    sb.Append("[Toggl project with Toggl ID " + togglProjectId + " not found]");
                 sb.Append(", ");
             }
 
@@ -83,15 +83,22 @@ namespace AcademicTimePlanner.Data
             var sb = new StringBuilder();
             foreach (var togglProjectId in planProject.TogglProjectIds.Keys)
             {
-                var togglProject = LinkedTogglProjects.Find(project => project.TogglId == togglProjectId)!;
-                foreach (var togglTask in togglProject.Tasks)
+                var togglProject = LinkedTogglProjects.Find(project => project.TogglId == togglProjectId);
+                if (togglProject != null)
                 {
-                    if (planTask.TogglIds.ContainsKey(togglTask.Key))
+                    foreach (var togglTask in togglProject.Tasks)
                     {
-                        sb.Append(togglTask.Value);
-                        sb.Append("(" + togglProject.Name + ")");
-                        sb.Append(", ");
+                        if (planTask.TogglIds.ContainsKey(togglTask.Key))
+                        {
+                            sb.Append(togglTask.Value);
+                            sb.Append("(" + togglProject.Name + ")");
+                            sb.Append(", ");
+                        }
                     }
+                }
+                else
+                {
+                    sb.Append("[Toggl project with Toggl ID " + togglProjectId + " not found], ");
                 }
             }
 
