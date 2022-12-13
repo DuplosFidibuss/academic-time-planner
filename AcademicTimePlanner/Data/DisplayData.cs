@@ -65,7 +65,11 @@ namespace AcademicTimePlanner.Data
             var sb = new StringBuilder();
             foreach (var togglProjectId in planProject.TogglProjectIds.Keys)
             {
-                sb.Append(LinkedTogglProjects.Find(project => project.TogglId == togglProjectId)!.Name);
+                var togglProject = LinkedTogglProjects.Find(project => project.TogglId == togglProjectId);
+                if (togglProject != null)
+                    sb.Append(togglProject.Name);
+                else
+                    sb.Append("Toggl project with Toggl ID " + togglProjectId + " not found");
                 sb.Append(", ");
             }
 
