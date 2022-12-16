@@ -105,10 +105,21 @@ namespace AcademicTimePlanner.Data
                 sortedPlanProjects.Add(i, PlanProjects[i]);
             }
 
-            double[,] mapping = new double[sortedPlanProjects.Count, sortedTogglProjects.Count];
-
             //fill the 2D array with the total duration of planprojects.
             //for every togglProject the total duration of the linked planProject is entered.
+            double[,] mapping = fillMapping(sortedPlanProjects, sortedTogglProjects);
+
+            //sum up all the durations per togglProject.
+            double[] totalDurationSums = sumUpDurations(mapping, sortedPlanProjects, sortedTogglProjects);
+
+            //Divide the value in the map with the summed up duration.
+            divideMapEntriesBySum(mapping, totalDurationSums, sortedPlanProjects, sortedTogglProjects);
+        }
+
+        private double[,] fillMapping(SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
+        {
+            double[,] mapping = new double[sortedPlanProjects.Count, sortedTogglProjects.Count];
+
             foreach (int p in sortedPlanProjects.Keys)
             {
                 double duration = sortedPlanProjects[p].GetTotalDuration();
@@ -118,10 +129,13 @@ namespace AcademicTimePlanner.Data
                         mapping[p, t] = duration;
                 }
             }
+            return mapping;
+        }
 
+        private double[] sumUpDurations(double[,] mapping, SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
+        {
             double[] totalDurationSums = new double[sortedTogglProjects.Count];
 
-            //sum up all the durations per togglProject.
             foreach (int t in sortedTogglProjects.Keys)
             {
                 foreach (int p in sortedPlanProjects.Keys)
@@ -129,8 +143,11 @@ namespace AcademicTimePlanner.Data
                     totalDurationSums[t] += mapping[p, t];
                 }
             }
+            return totalDurationSums;
+        }
 
-            //Divide the value in the map with the summed up duration.
+        private void divideMapEntriesBySum(double[,] mapping, double[] totalDurationSums, SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
+        {
             foreach (int p in sortedPlanProjects.Keys)
             {
                 for (int s = 0; s < totalDurationSums.Length; s++)
