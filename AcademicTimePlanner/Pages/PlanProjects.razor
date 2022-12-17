@@ -63,7 +63,7 @@
             <ul>
                 @foreach (var task in PlanProject.PlanTasks)
                 {
-                    <li>@task.Name</li>
+                    <li>@task.Name <button type="button" @onclick="(e => DeletePlanTask(e, task))">Delete</button></li>
                 }
             </ul>
         }
@@ -117,7 +117,7 @@
             <ul>
                 @foreach (var entry in PlanProject.PlanEntries)
                 {
-                    <li>@entry.Name</li>
+                    <li>@entry.Name <button type="button" @onclick="(e => DeletePlanEntry(e, entry))">Delete</button></li>
                 }
             </ul>
         }
@@ -166,7 +166,7 @@
             <ul>
                 @foreach (var entry in PlanProject.RepetitionEntries)
                 {
-                    <li>@entry.Name</li>
+                    <li>@entry.Name <button type="button" @onclick="(e => DeletePlanEntryRepetition(e, entry))">Delete</button></li>
                 }
             </ul>
         }

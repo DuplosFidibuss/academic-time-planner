@@ -125,4 +125,19 @@ public partial class PlanProjects
     {
         Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, planProject));
     }
+
+    private void DeletePlanTask(EventArgs e, PlanTask planTask)
+    {
+        PlanProject!.RemovePlanTask(planTask);
+    }
+
+    private void DeletePlanEntry(EventArgs e, PlanEntry planEntry)
+    {
+        PlanProject!.RemovePlanEntry(planEntry);
+    }
+
+    private void DeletePlanEntryRepetition(EventArgs e, PlanEntryRepetition entryRepetition)
+    {
+        PlanProject!.RemoveRepetitionEntry(entryRepetition);
+    }
 }
