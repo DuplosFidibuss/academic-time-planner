@@ -36,7 +36,7 @@
 @switch (ProjectState.Value.Step) 
 {
     case ProjectFilesState.CreationStep.NamingProject :
-        <h3>Create plan project</h3>
+        <h3>Name plan project</h3>
 
         <EditForm Model="@PlanProject">
             <p>Plan project name : <InputText id="projectName" @bind-Value="PlanProject!.Name" /></p>
@@ -73,7 +73,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
     case ProjectFilesState.CreationStep.EnterEntries :
-        <h3>Create plan entries or plan entry repertitions</h3>
+        <h3>Edit plan entries and plan entry repertitions</h3>
         <button type="button" class="btn btn-secondary" @onclick="AddSingleEntry">Add plan entry</button>
         <button type="button" class="btn btn-secondary" @onclick="AddRepetitionEntry">Add repetition entry</button>
         <p></p>
@@ -82,7 +82,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.FinalOverview))">Next</button>
         break;
     case ProjectFilesState.CreationStep.AddSingleEntry :
-        <h3>Create plan entries</h3>
+        <h3>Edit plan entries</h3>
 
         <ul>
            <li>Name cannot be empty.</li>
@@ -125,7 +125,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
     case ProjectFilesState.CreationStep.AddRepetitionEntry :
-        <h3>Create plan entry repetitions</h3>
+        <h3>Edit plan entry repetitions</h3>
 
        <ul>
            <li>Name cannot be empty.</li>
