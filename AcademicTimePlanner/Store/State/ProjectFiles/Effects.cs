@@ -46,13 +46,6 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         }
 
         [EffectMethod]
-        public async Task HandleAsync(GetPlanProjectForDownloadAction action, IDispatcher dispatcher)
-        {
-            var planProject = await _dataManagerService.GetPlanProjectById(action.ProjectId);
-            dispatcher.Dispatch(new DownloadPlanProjectAction(planProject));
-        }
-
-        [EffectMethod]
         public async Task HandleAsync(DeletePlanProjectAction action, IDispatcher dispatcher)
         {
             await _dataManagerService.DeletePlanProject(action.ProjectId);

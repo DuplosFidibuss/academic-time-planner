@@ -24,15 +24,13 @@ public partial class PlanProjects
 
     private const string Title = "Plan projects";
 
-    private PlanProject? planProject => ProjectState.Value.PlanProject;
+    private PlanProject? PlanProject => ProjectState.Value.PlanProject;
 
-    private PlanTask? planTask => ProjectState.Value.PlanTask;
+    private PlanTask? PlanTask => ProjectState.Value.PlanTask;
 
-    private PlanEntry? planEntry => ProjectState.Value.PlanEntry;
+    private PlanEntry? PlanEntry => ProjectState.Value.PlanEntry;
 
-    private PlanEntryRepetition? planEntryRepetition => ProjectState.Value.PlanEntryRepetition;
-
-    private PlanProjectDownloader Downloader { get; } = new();
+    private PlanEntryRepetition? PlanEntryRepetition => ProjectState.Value.PlanEntryRepetition;
 
     protected override void OnInitialized()
     {
@@ -58,25 +56,25 @@ public partial class PlanProjects
 
     private void CreatePlanTask()
     {
-        if (planTask.IsValidPlanTask())
-            Dispatcher.Dispatch(new CreatePlanTaskAction(planTask));
+        if (PlanTask.IsValidPlanTask())
+            Dispatcher.Dispatch(new CreatePlanTaskAction(PlanTask));
     }
 
     private void CreatePlanEntry()
     {
-        if (planEntry.IsValidPlanEntry())
+        if (PlanEntry.IsValidPlanEntry())
         {
-            planProject.AddPlanEntry(planEntry);
+            PlanProject.AddPlanEntry(PlanEntry);
             Dispatcher.Dispatch(new AddSingleEntryAction());
         }
     }
 
     private void CreateRepetitionEntry()
     {
-        if (planEntryRepetition.IsValidPlanEntryRepetition())
+        if (PlanEntryRepetition.IsValidPlanEntryRepetition())
         {
-            planEntryRepetition.Modify();
-            planProject.AddRepetitionEntry(planEntryRepetition);
+            PlanEntryRepetition.Modify();
+            PlanProject.AddRepetitionEntry(PlanEntryRepetition);
             Dispatcher.Dispatch(new AddRepetitionEntryAction());
         }
     }
@@ -98,21 +96,16 @@ public partial class PlanProjects
 
     private void NextOrBack(ProjectFilesState.CreationStep step)
     {
-        Dispatcher.Dispatch(new SwitchCreationStepAction(step, planProject!));
+        Dispatcher.Dispatch(new SwitchCreationStepAction(step, PlanProject!));
     }
 
     private void Finish()
     {
-        if (!string.IsNullOrWhiteSpace(planProject!.Name))
-            Dispatcher.Dispatch(new FinishPlanProjectCreationAction(planProject!));
+        if (!string.IsNullOrWhiteSpace(PlanProject!.Name))
+            Dispatcher.Dispatch(new FinishPlanProjectCreationAction(PlanProject!));
     }
 
-    private void InitializePlanProjectDownload()
-    {
-        Dispatcher.Dispatch(new GetPlanProjectForDownloadAction(Downloader.ProjectId));
-    }
-
-    private async Task DownloadPlanProject()
+    private async Task DownloadPlanProject(PlanProject planProject)
     {
         var fileStream = new MemoryStream();
         var writer = new StreamWriter(fileStream);
@@ -126,5 +119,10 @@ public partial class PlanProjects
     private void DeletePlanProject(EventArgs e, Guid planProjectId)
     {
         Dispatcher.Dispatch(new DeletePlanProjectAction(planProjectId));
+    }
+
+    private void EditPlanProject(EventArgs e, PlanProject planProject)
+    {
+        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, planProject));
     }
 }
