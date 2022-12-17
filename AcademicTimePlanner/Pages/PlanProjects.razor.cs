@@ -32,6 +32,10 @@ public partial class PlanProjects
 
     private PlanEntryRepetition? PlanEntryRepetition => ProjectState.Value.PlanEntryRepetition;
 
+    private List<PlanTask> DeletedPlanTaks = new List<PlanTask>();
+    private List<PlanEntry> DeletedPlanEntries = new List<PlanEntry>();
+    private List<PlanEntryRepetition> DeletedPlanEntryRepetitions = new List<PlanEntryRepetition>();
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -91,6 +95,9 @@ public partial class PlanProjects
 
     private void Cancel()
     {
+        DeletedPlanTaks.ForEach(task => PlanProject!.AddPlanTask(task));
+        DeletedPlanEntries.ForEach(entry => PlanProject!.AddPlanEntry(entry));
+        DeletedPlanEntryRepetitions.ForEach(entry => PlanProject!.AddRepetitionEntry(entry));
         Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
     }
 
@@ -129,15 +136,18 @@ public partial class PlanProjects
     private void DeletePlanTask(EventArgs e, PlanTask planTask)
     {
         PlanProject!.RemovePlanTask(planTask);
+        DeletedPlanTaks.Add(planTask);
     }
 
     private void DeletePlanEntry(EventArgs e, PlanEntry planEntry)
     {
         PlanProject!.RemovePlanEntry(planEntry);
+        DeletedPlanEntries.Add(planEntry);
     }
 
     private void DeletePlanEntryRepetition(EventArgs e, PlanEntryRepetition entryRepetition)
     {
         PlanProject!.RemoveRepetitionEntry(entryRepetition);
+        DeletedPlanEntryRepetitions.Add(entryRepetition);
     }
 }
