@@ -160,6 +160,14 @@ namespace AcademicTimePlanner.Data
             }
         }
 
+        public void UpdatePlanProject(PlanProject planProject)
+        {
+            var existingProject = PlanProjects.Find(project => project.Id == planProject.Id);
+            if (existingProject != null)
+                PlanProjects.Remove(existingProject);
+            PlanProjects.Add(planProject);
+        }
+
         public void DeletePlanProject(Guid planProjectId)
         {
             var planProject = PlanProjects.Find(project => project.Id == planProjectId);

@@ -40,7 +40,7 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         [EffectMethod]
         public async Task HandleAsync(FinishPlanProjectCreationAction action, IDispatcher dispatcher)
         {
-            await _dataManagerService.AddPlanProject(action.PlanProject);
+            await _dataManagerService.UpdatePlanProject(action.PlanProject);
             var planProjects = await _dataManagerService.GetPlanProjects();
             dispatcher.Dispatch(new SetPlanProjectsAction(planProjects));
         }

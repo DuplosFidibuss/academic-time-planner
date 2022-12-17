@@ -21,9 +21,9 @@
             @foreach (var planProject in Projects)
             {
                 <li>
-                    @planProject.Name 
-                    <button type="button" @onclick="(e => DeletePlanProject(e, planProject.Id))">Delete</button>
+                    @planProject.Name
                     <button type="button" @onclick="(e => EditPlanProject(e, planProject))">Edit</button>
+                    <button type="button" @onclick="(e => DeletePlanProject(e, planProject.Id))">Delete</button>
                     <button type="button" @onclick="(e => DownloadPlanProject(planProject))">Download</button>
                 </li>
             }

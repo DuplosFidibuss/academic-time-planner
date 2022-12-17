@@ -43,14 +43,14 @@ namespace AcademicTimePlanner.Services.DataManagerService
             return dataManager.GetDisplayData();
         }
 
-        public async Task AddPlanProject(PlanProject planProject)
+        public async Task UpdatePlanProject(PlanProject planProject)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
             {
                 dataManager = new DataManager();
             }
-            dataManager.PlanProjects.Add(planProject);
+            dataManager.UpdatePlanProject(planProject);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
