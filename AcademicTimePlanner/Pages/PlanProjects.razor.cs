@@ -32,9 +32,13 @@ public partial class PlanProjects
 
     private PlanEntryRepetition? PlanEntryRepetition => ProjectState.Value.PlanEntryRepetition;
 
+    private string OldPlanProjectName;
     private List<PlanTask> DeletedPlanTaks = new List<PlanTask>();
     private List<PlanEntry> DeletedPlanEntries = new List<PlanEntry>();
     private List<PlanEntryRepetition> DeletedPlanEntryRepetitions = new List<PlanEntryRepetition>();
+    private List<PlanTask> AddedPlanTasks = new List<PlanTask>();
+    private List<PlanEntry> AddedPlanEntries = new List<PlanEntry>();
+    private List<PlanEntryRepetition> AddedPlanEntryRepetitions = new List<PlanEntryRepetition>();
 
     protected override void OnInitialized()
     {
@@ -61,13 +65,17 @@ public partial class PlanProjects
     private void CreatePlanTask()
     {
         if (PlanTask.IsValidPlanTask())
+        {
+            AddedPlanTasks.Add(PlanTask);
             Dispatcher.Dispatch(new CreatePlanTaskAction(PlanTask));
+        }
     }
 
     private void CreatePlanEntry()
     {
         if (PlanEntry.IsValidPlanEntry())
         {
+            AddedPlanEntries.Add(PlanEntry);
             PlanProject.AddPlanEntry(PlanEntry);
             Dispatcher.Dispatch(new AddSingleEntryAction());
         }
@@ -77,6 +85,7 @@ public partial class PlanProjects
     {
         if (PlanEntryRepetition.IsValidPlanEntryRepetition())
         {
+            AddedPlanEntryRepetitions.Add(PlanEntryRepetition);
             PlanEntryRepetition.Modify();
             PlanProject.AddRepetitionEntry(PlanEntryRepetition);
             Dispatcher.Dispatch(new AddRepetitionEntryAction());
@@ -95,10 +104,19 @@ public partial class PlanProjects
 
     private void Cancel()
     {
+        RevertChangesOnProject();
+        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
+    }
+
+    private void RevertChangesOnProject()
+    {
+        PlanProject!.Name = OldPlanProjectName;
         DeletedPlanTaks.ForEach(task => PlanProject!.AddPlanTask(task));
         DeletedPlanEntries.ForEach(entry => PlanProject!.AddPlanEntry(entry));
         DeletedPlanEntryRepetitions.ForEach(entry => PlanProject!.AddRepetitionEntry(entry));
-        Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
+        AddedPlanTasks.ForEach(task => PlanProject!.RemovePlanTask(task));
+        AddedPlanEntries.ForEach(entry => PlanProject!.RemovePlanEntry(entry));
+        AddedPlanEntryRepetitions.ForEach(entry => PlanProject!.RemoveRepetitionEntry(entry));
     }
 
     private void NextOrBack(ProjectFilesState.CreationStep step)
@@ -130,6 +148,7 @@ public partial class PlanProjects
 
     private void EditPlanProject(EventArgs e, PlanProject planProject)
     {
+        OldPlanProjectName = planProject.Name;
         Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, planProject));
     }
 
