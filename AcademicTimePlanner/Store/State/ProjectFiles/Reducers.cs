@@ -39,11 +39,5 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
         {
             return new ProjectFilesState(ProjectFilesState.CreationStep.AddRepetitionEntry, state.Loaded, state.PlanProjects, state.PlanProject, new PlanEntryRepetition(Guid.NewGuid()));
         }
-
-        [ReducerMethod]
-        public static ProjectFilesState Reduce(ProjectFilesState state, DownloadPlanProjectAction action)
-        {
-            return new ProjectFilesState(state.Loaded, true, state.PlanProjects, action.PlanProject);
-        }
     }
 }

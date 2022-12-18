@@ -19,8 +19,6 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
 
         public bool Loaded { get; }
 
-        public bool IsDownloading { get; set; }
-
         public CreationStep Step { get; }
 
         public List<PlanProject> PlanProjects { get; } = new List<PlanProject>();
@@ -74,14 +72,6 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             PlanProjects = planProjects;
             PlanProject = planProject;
             PlanEntryRepetition = planEntryRepetition;
-        }
-
-        public ProjectFilesState(bool loaded, bool isDownloading, List<PlanProject> planProjects, PlanProject planProject)
-        {
-            Loaded = loaded;
-            IsDownloading = isDownloading;
-            PlanProjects = planProjects;
-            PlanProject = planProject;
         }
     }
 }

@@ -25,11 +25,13 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public Task UpdatePlanProjects(List<PlanProject> planProjects);
 
         /// <summary>
-        /// Adds a <see cref="PlanProject"/> to the <see cref="DataManager"/>
+        /// Updates a <see cref="PlanProject"/> in the <see cref="DataManager"/>
+        /// If the project does already exist, it will be overwritten by the new project.
+        /// Otherwise, the new project will be added.
         /// </summary>
         /// <param name="planProject"></param>
         /// <returns></returns>
-        public Task AddPlanProject(PlanProject planProject);
+        public Task UpdatePlanProject(PlanProject planProject);
 
         /// <summary>
         /// Gets the Toggl load overview from the <see cref="DataManager"/>.
