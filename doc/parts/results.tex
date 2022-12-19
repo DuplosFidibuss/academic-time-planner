@@ -9,6 +9,20 @@
 
 This section shows the results achieved during realization of the project.
 
+\section{Architectural overview} \label{Architecture}
+The following packages form the architecture of the ATP:
+\begin{itemize}
+	\item Data: classes involved in holding ATP data and providing it to the UI
+	\item DataMapping: classes modelling the project data (plan and Toggl projects, tasks etc.)
+	\item JSONHandling: helper classes for JSON data handling
+	\item Pages: pages of the UI and their controller code
+	\item Services: classes providing functionality to communicate with the Toggl API and with Local Storage, being provided to other classes via dependency injection
+	\item Shared: common parts of the pages and their controller code
+	\item Store: classes needed by Fluxor to handle user inputs from and provide outputs to the pages
+	\item UIModels: helper classes needed by the pages to map entry form elements to
+\end{itemize}
+The Program.cs file is the entry point of the system where the application is set up and run. _Imports.razor, App.razor and wwwroot contain global application settings.
+
 \section{Application data persistence with LocalStorage}
 To store application data (plan project data, data fetched from Toggl etc.), the approach described in chapter \ref{Local Storage} was applied. The data is hold by a data manager object which is stored in Local Storage and can be loaded from there using the interface provided by the LocalStorage library.
 
