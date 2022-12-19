@@ -27,7 +27,13 @@ The following packages form the architecture of the ATP:
 The Program.cs file is the entry point of the system where the application is set up and run. _Imports.razor, App.razor and wwwroot contain global application settings.
 
 \subsection{Mapping concept}
-
+Upon closer inspection it became apparent that only 4 of the plan classes and 2 of the Toggl classes were needed. The Toggl tasks are currently only a dictionary inside the TogglProject class and not a class in their own right. The Budget classes were implemented differently as a feature of the plan projects. With all these modifications the class diagram of the mapping concept was slimmed down as seen in figure \ref{classdiagram_prototype_current}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{classdiagram_prototype_current}
+	\caption{Class diagram of the new mapping concept}
+	\label{classdiagram_prototype_current}
+\end{figure}
 
 \section{Application data persistence with LocalStorage}
 To store application data (plan project data, data fetched from Toggl etc.), the approach described in chapter \ref{Local Storage} was applied. The data is hold by a data manager object which is stored in Local Storage and can be loaded from there using the interface provided by the LocalStorage library.
