@@ -107,7 +107,7 @@ In the original prototype, a Blazor page for synchronization with Toggl had alre
 	\label{Toggl deleted}
 \end{figure}
 
-\section{Front-end of Import, export and creation of plan projects}
+\section{Front-end of Import, export, creation and editing of plan projects}
 The following subsections describe the front-end for import, export and creation of a plan project.
 
 \subsection{Import front-end}
@@ -132,12 +132,12 @@ The following subsections describe the front-end for import, export and creation
 \end{figure}
 
 \subsection{Export front-end}
-To export a plan project the user has to select a project with the drop-down menu and then click on the "Download" button next to it (\ref{downloadSelectFile}). This will open the browsers download options like "Save as..." or "Open with...".
+To export a plan project the user has to click on the "Download" button next to it (\ref{downloadButton}). This will open the browsers download options like "Save as..." or "Open with...".
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\columnwidth]{DownloadSelectFile}
-	\caption{Drop-down to select file and download button}
-	\label{downloadSelectFile}
+	\includegraphics[scale=0.5]{DownloadButton}
+	\caption{Download button}
+	\label{downloadButton}
 \end{figure}
 
 \subsection{Create plan project front-end}
@@ -173,12 +173,18 @@ On this page the user can choose to create a single plan entry or a plan entry r
 	\caption{Choosing if a single plan entry or a repetition entry should be created}
 	\label{createRepetitionOrEntry}
 \end{figure}
-To create a plan entry all the listed criteria (see \ref{createPlanEntry}) have to be met, otherwise the create plan entry button will not create a plan entry. If plan tasks were created earlier, a task can be linked to the entry. This step is optional as well. After creating a plan entry the user can either create another one or click "Next" to save them and go to the previous page to either create repetition entries, go to finalize or to go back and create tasks.
+To create a plan entry all the listed criteria (see \ref{createPlanEntry}) have to be met, otherwise the create plan entry button will not create a plan entry. If plan tasks were created earlier, a task can be linked to the entry. This step is optional as well. All created plan entries are listed in a list and can be deleted if needed (see \ref{createPlanEntry_List}). After creating a plan entry the user can either create another one or click "Next" to save them and go to the previous page to either create repetition entries, go to finalize or to go back and create tasks.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{CreatePlanEntry}
 	\caption{Creating a plan entry}
 	\label{createPlanEntry}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{CreatePlanEntry_List}
+	\caption{List of created plan entries}
+	\label{createPlanEntry_List}
 \end{figure}
 The creation of a plan entry repetition works similar to the creation of a plan entry. It creates multiple plan entries that repeat after a given interval. By default, the time investment will be distributed evenly over the whole interval. If this is not desired, a time span can be entered which starts at the start of an interval. All criteria are listed for the user to check (see \ref{createRepetitionEntry}).
 \begin{figure}[H]
@@ -201,6 +207,15 @@ In this last page the user can check if all the tasks, plan entries and repetiti
 	\includegraphics[scale=0.5]{CreateFinalOverviewError}
 	\caption{Error message if the plan project was not named}
 	\label{createFinalOverviewError}
+\end{figure}
+
+\subsection{Edit plan project front-end}
+To edit a plan project the user can click on the "Edit" button next to a project in the list. This will open a similar view as the "Create plan project" button. The only difference being, that all the data of the plan project are already entered.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{EditButton}
+	\caption{Button to start editing process of a plan project}
+	\label{editButton}
 \end{figure}
 
 \section{Linking of plan projects and Toggl projects} \label{Linking}
