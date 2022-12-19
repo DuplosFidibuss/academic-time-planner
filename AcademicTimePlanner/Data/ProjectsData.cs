@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AcademicTimePlanner.Data
 {
-    public class DisplayData
+    public class ProjectsData
     {
         public List<TogglProject> LinkedTogglProjects { get; }
 
@@ -23,7 +23,7 @@ namespace AcademicTimePlanner.Data
         /// </summary>
         /// <param name="allTogglProjects"></param>
         /// <param name="planProjects"></param>
-        public DisplayData(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
+        public ProjectsData(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
         {
             LinkedTogglProjects = new List<TogglProject>();
             UnlinkedTogglProjects = new List<TogglProject>();

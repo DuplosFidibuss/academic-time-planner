@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.Store.State.ProjectLinker
+﻿namespace AcademicTimePlanner.UIModels
 {
     public class TaskSelector
     {

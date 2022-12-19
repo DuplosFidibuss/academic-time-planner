@@ -1,5 +1,5 @@
 using AcademicTimePlanner;
-using AcademicTimePlanner.Data;
+using AcademicTimePlanner.JSONHandling;
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglApiService;
 using AcademicTimePlanner.Services.TogglService;

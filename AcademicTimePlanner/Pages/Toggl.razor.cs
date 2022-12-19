@@ -1,6 +1,7 @@
 using AcademicTimePlanner.Data;
 using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Immutable;

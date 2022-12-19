@@ -5,7 +5,7 @@
 
 @if (ChartsState.Value.Loaded)
 {
-    <p>Unlinked Toggl projects (@ChartData!.UnlinkedTogglProjects.Count): @ChartData!.GetUnlinkedTogglProjectsAsString()</p>
+    <p>Unlinked Toggl projects (@ProjectsData!.UnlinkedTogglProjects.Count): @ProjectsData!.GetUnlinkedTogglProjectsAsString()</p>
 
     <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
     <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
@@ -25,7 +25,7 @@
     }
     else
     {
-        @foreach(var project in ChartData.PlanProjects)
+        @foreach(var project in ProjectsData.PlanProjects)
         {
             <PlotlyChart Id="@project.Name" Config="config" Layout="GetLayout(project.Name)" Data="GetDataOfSingleProjectsFiltered(project)" />
         }        

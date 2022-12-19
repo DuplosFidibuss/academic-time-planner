@@ -15,7 +15,7 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
         [EffectMethod]
         public async Task HandleAsync(FetchProjectsDataAction action, IDispatcher dispatcher)
         {
-            var projectsData = await _dataManagerService.GetDisplayData();
+            var projectsData = await _dataManagerService.GetProjectsData();
             dispatcher.Dispatch(new SetProjectsDataAction(projectsData));
         }
 
@@ -23,7 +23,7 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
         public async Task HandleAsync(SaveProjectsDataAction action, IDispatcher dispatcher)
         {
             await _dataManagerService.UpdatePlanProjects(action.ProjectsData.PlanProjects);
-            var projectsData = await _dataManagerService.GetDisplayData();
+            var projectsData = await _dataManagerService.GetProjectsData();
             dispatcher.Dispatch(new SetProjectsDataAction(projectsData));
         }
     }

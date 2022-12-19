@@ -1,5 +1,6 @@
 ﻿using AcademicTimePlanner.Data;
 using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.ProjectLinker
@@ -17,7 +18,7 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
 
         public LinkingStep Step { get; }
 
-        public DisplayData? ProjectsData { get; }
+        public ProjectsData? ProjectsData { get; }
 
         public ProjectSelector ProjectSelector { get; } = new();
 
@@ -27,7 +28,7 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
 
         private ProjectLinkerState() { }
 
-        public ProjectLinkerState(bool loaded, LinkingStep step, DisplayData projectsData, PlanProject planProject)
+        public ProjectLinkerState(bool loaded, LinkingStep step, ProjectsData projectsData, PlanProject planProject)
         {
             Loaded = loaded;
             Step = step;

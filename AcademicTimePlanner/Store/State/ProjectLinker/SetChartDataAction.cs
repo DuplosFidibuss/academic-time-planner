@@ -4,9 +4,9 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
 {
     public class SetProjectsDataAction
     {
-        public DisplayData ProjectsData { get; set; }
+        public ProjectsData ProjectsData { get; set; }
 
-        public SetProjectsDataAction(DisplayData projectsData)
+        public SetProjectsDataAction(ProjectsData projectsData)
         {
             ProjectsData = projectsData;
         }

@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.Store.State.Charts
+﻿namespace AcademicTimePlanner.UIModels
 {
     public class DateFilter
     {
