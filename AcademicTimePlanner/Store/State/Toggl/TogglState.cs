@@ -1,4 +1,4 @@
-using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DisplayData;
 using Fluxor;
 using System.Collections.Immutable;
 

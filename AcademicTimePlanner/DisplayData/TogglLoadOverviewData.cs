@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.Data
+﻿namespace AcademicTimePlanner.DisplayData
 {
     public class TogglLoadOverviewData
     {

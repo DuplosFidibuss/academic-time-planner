@@ -1,6 +1,5 @@
-﻿using AcademicTimePlanner.Data;
-using AcademicTimePlanner.DataMapping.Plan;
-using AcademicTimePlanner.UIModels;
+﻿using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.DisplayData;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.ProjectLinker

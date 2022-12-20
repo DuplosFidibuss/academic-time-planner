@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.Data;
+﻿using AcademicTimePlanner.DisplayData;
 
 namespace AcademicTimePlanner.Store.State.ProjectLinker
 {

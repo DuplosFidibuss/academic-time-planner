@@ -2,7 +2,7 @@
 using AcademicTimePlanner.DataMapping.Toggl;
 using System.Text;
 
-namespace AcademicTimePlanner.Data
+namespace AcademicTimePlanner.DisplayData
 {
     public class ProjectsData
     {

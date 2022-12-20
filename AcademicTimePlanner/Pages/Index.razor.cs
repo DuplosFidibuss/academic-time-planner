@@ -1,7 +1,7 @@
 using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.DisplayData;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Store.State.Wrapper;
-using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Plotly.Blazor;
@@ -23,7 +23,7 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private Data.ProjectsData? ProjectsData => ChartsState.Value.ChartData;
+    private ProjectsData? ProjectsData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
 
     private const string Title = "Charts";

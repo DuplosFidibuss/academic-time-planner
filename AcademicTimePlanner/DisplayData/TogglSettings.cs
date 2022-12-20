@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AcademicTimePlanner.UIModels
+namespace AcademicTimePlanner.DisplayData
 {
     public class TogglSettings
     {

@@ -1,8 +1,7 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.Store.State.ProjectLinker;
 using AcademicTimePlanner.Store.State.Wrapper;
-using AcademicTimePlanner.UIModels;
+using AcademicTimePlanner.DisplayData;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 

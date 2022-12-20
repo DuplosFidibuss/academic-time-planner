@@ -1,8 +1,9 @@
 ﻿using AcademicTimePlanner.DataMapping.Plan;
 using AcademicTimePlanner.DataMapping.Toggl;
+using AcademicTimePlanner.DisplayData;
 using System.Text;
 
-namespace AcademicTimePlanner.Data
+namespace AcademicTimePlanner.DataManagement
 {
     public class DataManager
     {

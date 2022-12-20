@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.UIModels
+﻿namespace AcademicTimePlanner.DisplayData
 {
     public class TaskSelector
     {

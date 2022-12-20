@@ -1,5 +1,4 @@
-﻿using AcademicTimePlanner.Data;
-using AcademicTimePlanner.UIModels;
+﻿using AcademicTimePlanner.DisplayData;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.Charts
@@ -11,13 +10,13 @@ namespace AcademicTimePlanner.Store.State.Charts
 
         public bool LoadedFiltered { get; }
 
-        public Data.ProjectsData? ChartData { get; }
+        public ProjectsData? ChartData { get; }
 
         public DateFilter? DateFilter { get; }
 
         private ChartsState() { }
 
-        public ChartsState(bool loaded, bool loadedFiltered, Data.ProjectsData chartData, DateFilter dateFilter)
+        public ChartsState(bool loaded, bool loadedFiltered, ProjectsData chartData, DateFilter dateFilter)
         {
             Loaded = loaded;
             LoadedFiltered = loadedFiltered;
