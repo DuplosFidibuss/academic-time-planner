@@ -1,9 +1,12 @@
 ﻿namespace AcademicTimePlanner.ApplicationData.Plan
 {
+    /// <summary>
+    /// This class implements the plan project.
+    /// The project can be linked to multiple <see cref="Toggl.TogglProject">Toggl projects</see> but it does not have to.
+    /// A project has a name and can have multiple <see cref="PlanTask">plan tasks</see>.
+    /// </summary>
     public class PlanProject
     {
-        private const long NoTogglId = -1;
-
         public Guid Id { get; set; }
 
         public Dictionary<long, double> TogglProjectIds { get; set; }
@@ -16,6 +19,7 @@
 
         public List<PlanEntryRepetition> RepetitionEntries { get; set; }
 
+        // Private parameterless constructor used by Newtonsoft.Json for conversion.
         private PlanProject() { }
 
         public PlanProject(Guid id)
@@ -27,14 +31,6 @@
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
-        /// <summary>
-        /// This class implements the plan project.
-        /// The project can be linked to a <see cref="TogglProject"> Toggl project</see> but it does not have to.
-        /// If no Toggle project is linked, the toggleProjectId will be -1.
-        /// A project has a name and can have multiple plan tasks </see>.
-        /// </summary>
-        /// <param name="togglProjectId"></param>
-        /// <param name="name"></param>
         public PlanProject(Dictionary<long, double> togglProjectIds, string name)
         {
             Id = Guid.NewGuid();

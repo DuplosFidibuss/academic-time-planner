@@ -210,7 +210,7 @@ public partial class Index
                     }
                     else
                     {
-                        trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, togglProject.Sumup(durationsPerDate));
+                        trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, togglProject.SumUpDurationsPerDate(durationsPerDate));
                     }
                 }
             }
