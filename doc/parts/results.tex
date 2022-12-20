@@ -24,7 +24,7 @@ The following packages form the architecture of the ATP:
 	\item Store: classes needed by Fluxor to handle user inputs from and provide outputs to the pages
 	\item UIModels: helper classes needed by the pages to map entry form elements to
 \end{itemize}
-The Program.cs file is the entry point of the system where the application is set up and run. _Imports.razor, App.razor and wwwroot contain global application settings.
+The Program.cs file is the entry point of the system where the application is set up and run. \_Imports.razor, App.razor and wwwroot contain global application settings.
 
 \subsection{Mapping concept}
 Upon closer inspection it became apparent that only 4 of the plan classes and 2 of the Toggl classes were needed. The Toggl tasks are currently only a dictionary inside the TogglProject class and not a class in their own right. The Budget classes were implemented differently as a feature of the plan projects. With all these modifications the class diagram of the mapping concept was slimmed down as seen in figure \ref{classdiagram_prototype_current}.
