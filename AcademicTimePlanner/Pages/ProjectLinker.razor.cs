@@ -1,9 +1,10 @@
-using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.ApplicationData.Plan;
 using AcademicTimePlanner.Store.State.ProjectLinker;
 using AcademicTimePlanner.Store.State.Wrapper;
 using AcademicTimePlanner.DisplayData;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Pages
 {

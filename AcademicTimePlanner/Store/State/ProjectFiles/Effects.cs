@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.ApplicationData.Plan;
 using AcademicTimePlanner.Services.DataManagerService;
 using Fluxor;
 using Newtonsoft.Json;

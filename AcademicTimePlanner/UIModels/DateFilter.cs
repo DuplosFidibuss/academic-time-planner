@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.DisplayData
+﻿namespace AcademicTimePlanner.UIModels
 {
     public class DateFilter
     {

@@ -1,6 +1,6 @@
-﻿using AcademicTimePlanner.DataManagement;
-using AcademicTimePlanner.DataMapping.Plan;
-using AcademicTimePlanner.DataMapping.Toggl;
+﻿using AcademicTimePlanner.ApplicationData.Plan;
+using AcademicTimePlanner.ApplicationData.Toggl;
+using AcademicTimePlanner.DataManagement;
 
 namespace AcademicTimePlanner.Tests
 {

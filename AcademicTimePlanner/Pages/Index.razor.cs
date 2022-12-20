@@ -1,7 +1,8 @@
-using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.ApplicationData.Plan;
 using AcademicTimePlanner.DisplayData;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Store.State.Wrapper;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Plotly.Blazor;

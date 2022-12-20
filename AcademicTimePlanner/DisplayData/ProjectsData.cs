@@ -1,5 +1,5 @@
-﻿using AcademicTimePlanner.DataMapping.Plan;
-using AcademicTimePlanner.DataMapping.Toggl;
+﻿using AcademicTimePlanner.ApplicationData.Plan;
+using AcademicTimePlanner.ApplicationData.Toggl;
 using System.Text;
 
 namespace AcademicTimePlanner.DisplayData

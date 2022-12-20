@@ -1,8 +1,8 @@
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
-using AcademicTimePlanner.DisplayData;
 using Blazored.LocalStorage;
 using Fluxor;
+using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Store.State.Toggl;
 

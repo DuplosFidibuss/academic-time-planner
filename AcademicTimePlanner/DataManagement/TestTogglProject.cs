@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.DataMapping.Toggl;
+﻿using AcademicTimePlanner.ApplicationData.Toggl;
 
 namespace AcademicTimePlanner.DataManagement
 {

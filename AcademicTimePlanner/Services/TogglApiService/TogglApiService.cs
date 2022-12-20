@@ -1,4 +1,4 @@
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.UIModels;
 using Blazored.LocalStorage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

@@ -1,4 +1,5 @@
 ﻿using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.Charts

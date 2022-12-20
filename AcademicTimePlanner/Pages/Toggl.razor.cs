@@ -4,6 +4,7 @@ using AcademicTimePlanner.DisplayData;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Immutable;
+using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Pages;
 

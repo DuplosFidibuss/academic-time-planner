@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.DisplayData;
+﻿using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Store.State.Toggl
 {
