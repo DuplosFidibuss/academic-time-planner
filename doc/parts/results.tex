@@ -7,7 +7,40 @@
 % !TEX encoding = UTF-8 Unicode
 % !TEX root = ../doc.tex
 
-This section shows the results achieved during realization of the project.
+This chapter shows the results achieved during realization of the project.
+
+\section{Architectural overview} \label{Architecture}
+In this section the software architecture of the ATP is shown as realized.
+
+\subsection{Packages}
+The following packages form the architecture of the ATP:
+\begin{itemize}
+	\item Pages: pages of the UI and their controller code
+	\item Shared: common parts of the pages and their controller code
+	\item UIModels: helper classes needed by the pages to map entry form elements to
+	\item Services: classes providing functionality to fetch data from Toggl or Local Storage, being provided to other classes via dependency injection
+	\item Store: classes managed by Fluxor to handle user inputs from and provide outputs to the pages, using services for data fetching
+	\item DataManagement: business logic managing application data, made persistent by being saved in Local Storage
+	\item ApplicationData: classes modelling project data (plan and Toggl projects, tasks etc.)
+	\item DisplayData: application data provided to the UI in appropriate formats
+	\item JSONHandling: helper classes for JSON data handling (used in tests and by Local Storage)
+\end{itemize}
+The Program.cs file is the entry point of the system where the application is set up and run. \_Imports.razor, App.razor and wwwroot contain global application settings. The packages and their relations are shown in picture \ref{architecture_overview}. Packages containing UI functionality are marked blue, packages managed by external frameworks are marked violet, services are marked orange, business logic is marked green, and data packages are marked red.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Architecture_overview}
+	\caption{Architectural overview}
+	\label{architecture_overview}
+\end{figure}
+
+\subsection{Mapping concept}
+Upon closer inspection it became apparent that only 4 of the plan classes and 2 of the Toggl classes were needed. The Toggl tasks are currently only a dictionary inside the TogglProject class and not a class in their own right. The Budget classes were implemented differently as a feature of the plan projects. With all these modifications the class diagram of the mapping concept was slimmed down as seen in figure \ref{classdiagram_prototype_current}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\columnwidth]{classdiagram_prototype_current}
+	\caption{Class diagram of the new mapping concept}
+	\label{classdiagram_prototype_current}
+\end{figure}
 
 \section{Application data persistence with LocalStorage}
 To store application data (plan project data, data fetched from Toggl etc.), the approach described in chapter \ref{Local Storage} was applied. The data is hold by a data manager object which is stored in Local Storage and can be loaded from there using the interface provided by the LocalStorage library.

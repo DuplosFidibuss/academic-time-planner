@@ -1,6 +1,6 @@
-﻿using AcademicTimePlanner.DataMapping.Toggl;
+﻿using AcademicTimePlanner.ApplicationData.Toggl;
 
-namespace AcademicTimePlanner.Data
+namespace AcademicTimePlanner.DataManagement
 {
     public static class TestTogglProject
     {

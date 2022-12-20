@@ -1,12 +1,12 @@
-﻿using AcademicTimePlanner.Data;
+﻿using AcademicTimePlanner.DisplayData;
 
 namespace AcademicTimePlanner.Store.State.Charts
 {
     public class SetChartDataAction
     {
-        public Data.DisplayData ChartData { get; set; }
+        public ProjectsData ChartData { get; set; }
 
-        public SetChartDataAction(Data.DisplayData chartData)
+        public SetChartDataAction(ProjectsData chartData)
         {
             ChartData = chartData;
         }

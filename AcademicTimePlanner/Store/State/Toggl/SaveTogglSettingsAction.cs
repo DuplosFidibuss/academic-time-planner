@@ -1,4 +1,6 @@
-﻿namespace AcademicTimePlanner.Store.State.Toggl
+﻿using AcademicTimePlanner.UIModels;
+
+namespace AcademicTimePlanner.Store.State.Toggl
 {
     public class SaveTogglSettingsAction
     {

@@ -1,9 +1,10 @@
-using AcademicTimePlanner.Data;
-using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.ApplicationData.Plan;
 using AcademicTimePlanner.Store.State.ProjectLinker;
 using AcademicTimePlanner.Store.State.Wrapper;
+using AcademicTimePlanner.DisplayData;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Pages
 {
@@ -15,7 +16,7 @@ namespace AcademicTimePlanner.Pages
         [Inject]
         private IDispatcher Dispatcher { get; set; }
 
-        private DisplayData? ProjectsData => LinkerState.Value.ProjectsData;
+        private ProjectsData? ProjectsData => LinkerState.Value.ProjectsData;
 
         private ProjectSelector ProjectSelector => LinkerState.Value.ProjectSelector;
 

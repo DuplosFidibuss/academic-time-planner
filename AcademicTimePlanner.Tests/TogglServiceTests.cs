@@ -1,6 +1,6 @@
 using AcademicTimePlanner.Services.TogglApiService;
 using AcademicTimePlanner.Services.TogglService;
-using AcademicTimePlanner.DataMapping.Toggl;
+using AcademicTimePlanner.ApplicationData.Toggl;
 using Moq;
 
 namespace AcademicTimePlanner.Tests;

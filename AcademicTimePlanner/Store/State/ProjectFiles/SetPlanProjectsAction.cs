@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.DataMapping.Plan;
+﻿using AcademicTimePlanner.ApplicationData.Plan;
 
 namespace AcademicTimePlanner.Store.State.ProjectFiles
 {

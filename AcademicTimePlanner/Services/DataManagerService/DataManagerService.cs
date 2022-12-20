@@ -1,6 +1,7 @@
-﻿using AcademicTimePlanner.Data;
-using AcademicTimePlanner.DataMapping.Plan;
-using AcademicTimePlanner.DataMapping.Toggl;
+﻿using AcademicTimePlanner.DataManagement;
+using AcademicTimePlanner.ApplicationData.Plan;
+using AcademicTimePlanner.ApplicationData.Toggl;
+using AcademicTimePlanner.DisplayData;
 using Blazored.LocalStorage;
 
 namespace AcademicTimePlanner.Services.DataManagerService
@@ -32,7 +33,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
-        public async Task<DisplayData> GetDisplayData()
+        public async Task<ProjectsData> GetProjectsData()
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
             if (dataManager == null)
@@ -40,7 +41,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
                 await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
             }
-            return dataManager.GetDisplayData();
+            return dataManager.GetProjectsData();
         }
 
         public async Task UpdatePlanProject(PlanProject planProject)

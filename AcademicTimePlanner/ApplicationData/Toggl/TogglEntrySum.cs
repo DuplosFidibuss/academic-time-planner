@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.DataMapping.Toggl
+﻿namespace AcademicTimePlanner.ApplicationData.Toggl
 {
     public class TogglEntrySum
     {

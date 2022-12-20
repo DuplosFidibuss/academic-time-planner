@@ -1,7 +1,7 @@
 ﻿using Blazored.LocalStorage.Serialization;
 using Newtonsoft.Json;
 
-namespace AcademicTimePlanner.Data
+namespace AcademicTimePlanner.JSONHandling
 {
     public class NewtonsoftJsonSerializer : IJsonSerializer
     {

@@ -1,9 +1,10 @@
-using AcademicTimePlanner.Data;
 using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
+using AcademicTimePlanner.DisplayData;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Immutable;
+using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Pages;
 

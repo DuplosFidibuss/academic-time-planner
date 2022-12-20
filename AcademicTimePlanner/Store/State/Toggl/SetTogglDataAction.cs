@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using AcademicTimePlanner.Data;
+using AcademicTimePlanner.DisplayData;
 
 namespace AcademicTimePlanner.Store.State.Toggl;
 

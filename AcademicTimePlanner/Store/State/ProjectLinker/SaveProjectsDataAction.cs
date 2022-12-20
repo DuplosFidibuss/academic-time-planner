@@ -1,12 +1,12 @@
-﻿using AcademicTimePlanner.Data;
+﻿using AcademicTimePlanner.DisplayData;
 
 namespace AcademicTimePlanner.Store.State.ProjectLinker
 {
     public class SaveProjectsDataAction
     {
-        public DisplayData ProjectsData { get; }
+        public ProjectsData ProjectsData { get; }
 
-        public SaveProjectsDataAction(DisplayData projectsData)
+        public SaveProjectsDataAction(ProjectsData projectsData)
         {
             ProjectsData = projectsData;
         }

@@ -1,12 +1,12 @@
-﻿using Fluxor;
-using AcademicTimePlanner.Data;
+﻿using AcademicTimePlanner.UIModels;
+using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.Charts
 {
     public class Reducers
     {
         [ReducerMethod]
-        public static ChartsState Reduce(ChartsState state , SetChartDataAction action)
+        public static ChartsState Reduce(ChartsState state, SetChartDataAction action)
         {
             return new ChartsState(true, false, action.ChartData, new DateFilter());
         }

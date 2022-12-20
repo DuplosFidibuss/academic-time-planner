@@ -1,8 +1,9 @@
-﻿using AcademicTimePlanner.DataMapping.Plan;
-using AcademicTimePlanner.DataMapping.Toggl;
+﻿using AcademicTimePlanner.ApplicationData.Plan;
+using AcademicTimePlanner.ApplicationData.Toggl;
+using AcademicTimePlanner.DisplayData;
 using System.Text;
 
-namespace AcademicTimePlanner.Data
+namespace AcademicTimePlanner.DataManagement
 {
     public class DataManager
     {
@@ -45,13 +46,13 @@ namespace AcademicTimePlanner.Data
             Console.WriteLine(DeletedTogglProjectIds.Count);
         }
 
-        public DisplayData GetDisplayData()
+        public ProjectsData GetProjectsData()
         {
             // This is for chart display test purposes.
             //TogglProjects.Clear();
             //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
             UpdateTogglDictionaryInPlanProjects();
-            return new DisplayData(TogglProjects, PlanProjects);
+            return new ProjectsData(TogglProjects, PlanProjects);
         }
 
         public List<TogglLoadOverviewData> GetTogglLoadOverview()

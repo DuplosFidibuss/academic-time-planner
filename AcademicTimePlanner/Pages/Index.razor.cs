@@ -1,6 +1,8 @@
-using AcademicTimePlanner.DataMapping.Plan;
+using AcademicTimePlanner.ApplicationData.Plan;
+using AcademicTimePlanner.DisplayData;
 using AcademicTimePlanner.Store.State.Charts;
 using AcademicTimePlanner.Store.State.Wrapper;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Plotly.Blazor;
@@ -22,7 +24,7 @@ public partial class Index
     [Inject]
     private IDispatcher Dispatcher { get; set; }
 
-    private Data.DisplayData? ChartData => ChartsState.Value.ChartData;
+    private ProjectsData? ProjectsData => ChartsState.Value.ChartData;
     private DateFilter? DateFilter => ChartsState.Value.DateFilter;
 
     private const string Title = "Charts";
@@ -89,14 +91,14 @@ public partial class Index
             new Bar
             {
                 X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ChartData!.TotalTrackedTime + ChartData!.RemainingDuration},
+                Y = new List<object> {ProjectsData!.TotalTrackedTime + ProjectsData!.RemainingDuration},
                 Name = "Total predicted",
                 Marker = PredictedDurationMarker,
             },
             new Bar
             {
                 X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ChartData!.TotalPlannedTime},
+                Y = new List<object> {ProjectsData!.TotalPlannedTime},
                 Name = "Total planned",
                 XAxis = "x2",
                 Marker = PlannedDurationMarker,
@@ -105,7 +107,7 @@ public partial class Index
             new Bar
             {
                 X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ChartData!.TotalTrackedTime},
+                Y = new List<object> {ProjectsData!.TotalTrackedTime},
                 Name = "Total tracked",
                 XAxis = "x2",
                 Marker = TrackedDurationMarker,
@@ -121,13 +123,13 @@ public partial class Index
         var plannedDurations = new List<object>();
         var trackedDurations = new List<object>();
 
-        foreach (var planProject in ChartData!.PlanProjects)
+        foreach (var planProject in ProjectsData!.PlanProjects)
         {
             double predictedDurationsSum = 0;
             double trackedDurationsSum = 0;
             foreach (long togglProjectId in planProject.TogglProjectIds.Keys)
             {
-                var togglProject = ChartData!.GetTogglProjectWithTogglId(togglProjectId);
+                var togglProject = ProjectsData!.GetTogglProjectWithTogglId(togglProjectId);
                 if (togglProject != null)
                 {
                     predictedDurationsSum += togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglProjectId];
@@ -198,7 +200,7 @@ public partial class Index
 
             for (int i = 0; i < togglProjects.Count; i++)
             {
-                var togglProject = ChartData!.GetTogglProjectWithTogglId(togglProjects[i]);
+                var togglProject = ProjectsData!.GetTogglProjectWithTogglId(togglProjects[i]);
                 if (togglProject != null)
                 {
                     var durationsPerDate = togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglProjects[i]]);
