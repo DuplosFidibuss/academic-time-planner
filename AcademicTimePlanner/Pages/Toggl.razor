@@ -3,15 +3,15 @@
 
 <h3>Number of Toggl projects</h3>
 
-@if (TogglState.Value.Loaded)
+@if (_togglState.Value.Loaded)
 {
-    <p>@LoadOverview.Count Toggl projects loaded</p>
+    <p>@_loadOverview.Count Toggl projects loaded</p>
     <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronize</button>
-    <p>Last synchronized: @LastSynchronized.ToString()</p>
+    <p>Last synchronized: @_lastSynchronized.ToString()</p>
     <p>Following Toggl projects have been loaded. Display format: Toggl project -> associated plan project</p>
 
     <ul>
-    @foreach (var overviewData in LoadOverview)
+    @foreach (var overviewData in _loadOverview)
     {
         @if (!overviewData.IsDeleted)
         {
@@ -28,12 +28,12 @@ else
 {
     <p>No data loaded - Missing Toggl settings</p>
     
-    <EditForm Model="@TogglSettings" OnValidSubmit="@SaveTogglSettings">
+    <EditForm Model="@_togglSettings" OnValidSubmit="@SaveTogglSettings">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="TogglSettings.TogglApiKey" /></p>
-        <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="TogglSettings.TogglWorkspaceId" /></p>
+        <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="_togglSettings.TogglApiKey" /></p>
+        <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="_togglSettings.TogglWorkspaceId" /></p>
         <button type="submit">Save Toggl settings</button>
     </EditForm>
 }

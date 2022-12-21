@@ -11,40 +11,40 @@ namespace AcademicTimePlanner.Pages
 {
     public partial class PlanProjects
     {
-        [Inject]
-        private IState<ProjectFilesState> ProjectState { get; set; }
-
-        [Inject]
-        private IDispatcher Dispatcher { get; set; }
-
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; }
-
         private const string Title = "Plan projects";
 
-        private List<PlanProject> Projects => ProjectState.Value.PlanProjects;
+        [Inject]
+        private IState<ProjectFilesState> _projectState { get; set; }
 
-        private PlanProject? PlanProject => ProjectState.Value.PlanProject;
+        [Inject]
+        private IDispatcher _dispatcher { get; set; }
 
-        private PlanTask? PlanTask => ProjectState.Value.PlanTask;
+        [Inject]
+        public IJSRuntime _jsRuntime { get; set; }
 
-        private PlanEntry? PlanEntry => ProjectState.Value.PlanEntry;
+        private List<PlanProject> _projects => _projectState.Value.PlanProjects;
 
-        private PlanEntryRepetition? PlanEntryRepetition => ProjectState.Value.PlanEntryRepetition;
+        private PlanProject? _planProject => _projectState.Value.PlanProject;
 
-        private string OldPlanProjectName;
-        private List<PlanTask> DeletedPlanTaks = new List<PlanTask>();
-        private List<PlanEntry> DeletedPlanEntries = new List<PlanEntry>();
-        private List<PlanEntryRepetition> DeletedPlanEntryRepetitions = new List<PlanEntryRepetition>();
-        private List<PlanTask> AddedPlanTasks = new List<PlanTask>();
-        private List<PlanEntry> AddedPlanEntries = new List<PlanEntry>();
-        private List<PlanEntryRepetition> AddedPlanEntryRepetitions = new List<PlanEntryRepetition>();
+        private PlanTask? _planTask => _projectState.Value.PlanTask;
+
+        private PlanEntry? _planEntry => _projectState.Value.PlanEntry;
+
+        private PlanEntryRepetition? _planEntryRepetition => _projectState.Value.PlanEntryRepetition;
+
+        private string _oldPlanProjectName;
+        private List<PlanTask> _deletedPlanTaks = new List<PlanTask>();
+        private List<PlanEntry> _deletedPlanEntries = new List<PlanEntry>();
+        private List<PlanEntryRepetition> _deletedPlanEntryRepetitions = new List<PlanEntryRepetition>();
+        private List<PlanTask> _addedPlanTasks = new List<PlanTask>();
+        private List<PlanEntry> _addedPlanEntries = new List<PlanEntry>();
+        private List<PlanEntryRepetition> _addedPlanEntryRepetitions = new List<PlanEntryRepetition>();
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            Dispatcher.Dispatch(new SetTitleAction(Title));
-            Dispatcher.Dispatch(new FetchPlanProjectsAction());
+            _dispatcher.Dispatch(new SetTitleAction(Title));
+            _dispatcher.Dispatch(new FetchPlanProjectsAction());
         }
 
         private async Task LoadPlanProjects(InputFileChangeEventArgs e)
@@ -54,41 +54,41 @@ namespace AcademicTimePlanner.Pages
             {
                 json.Add(await new StreamReader(file.OpenReadStream()).ReadToEndAsync());
             }
-            Dispatcher.Dispatch(new LoadPlanProjectsAction(json));
+            _dispatcher.Dispatch(new LoadPlanProjectsAction(json));
         }
 
         private void CreatePlanProject()
         {
-            Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, new PlanProject(Guid.NewGuid())));
+            _dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, new PlanProject(Guid.NewGuid())));
         }
 
         private void CreatePlanTask()
         {
-            if (PlanTask!.IsValidPlanTask())
+            if (_planTask!.IsValidPlanTask())
             {
-                AddedPlanTasks.Add(PlanTask);
-                Dispatcher.Dispatch(new CreatePlanTaskAction(PlanTask));
+                _addedPlanTasks.Add(_planTask);
+                _dispatcher.Dispatch(new CreatePlanTaskAction(_planTask));
             }
         }
 
         private void CreatePlanEntry()
         {
-            if (PlanEntry!.IsValidPlanEntry())
+            if (_planEntry!.IsValidPlanEntry())
             {
-                AddedPlanEntries.Add(PlanEntry);
-                PlanProject!.AddPlanEntry(PlanEntry);
-                Dispatcher.Dispatch(new AddSingleEntryAction());
+                _addedPlanEntries.Add(_planEntry);
+                _planProject!.AddPlanEntry(_planEntry);
+                _dispatcher.Dispatch(new AddSingleEntryAction());
             }
         }
 
         private void CreatePlanEntryRepetition()
         {
-            if (PlanEntryRepetition!.IsValidPlanEntryRepetition())
+            if (_planEntryRepetition!.IsValidPlanEntryRepetition())
             {
-                AddedPlanEntryRepetitions.Add(PlanEntryRepetition);
-                PlanEntryRepetition.Modify();
-                PlanProject!.AddPlanEntryRepetition(PlanEntryRepetition);
-                Dispatcher.Dispatch(new AddRepetitionEntryAction());
+                _addedPlanEntryRepetitions.Add(_planEntryRepetition);
+                _planEntryRepetition.Modify();
+                _planProject!.AddPlanEntryRepetition(_planEntryRepetition);
+                _dispatcher.Dispatch(new AddRepetitionEntryAction());
             }
         }
 
@@ -100,74 +100,74 @@ namespace AcademicTimePlanner.Pages
             writer.Flush();
             fileStream.Position = 0;
             using var streamRef = new DotNetStreamReference(stream: fileStream);
-            await JSRuntime.InvokeVoidAsync("downloadFileFromStream", planProject!.Name + ".json", streamRef);
+            await _jsRuntime.InvokeVoidAsync("downloadFileFromStream", planProject!.Name + ".json", streamRef);
         }
 
         private void EditPlanProject(EventArgs e, PlanProject planProject)
         {
-            OldPlanProjectName = planProject.Name;
-            Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, planProject));
+            _oldPlanProjectName = planProject.Name;
+            _dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NamingProject, planProject));
         }
 
         private void AddSingleEntry()
         {
-            Dispatcher.Dispatch(new AddSingleEntryAction());
+            _dispatcher.Dispatch(new AddSingleEntryAction());
         }
 
         private void AddRepetitionEntry()
         {
-            Dispatcher.Dispatch(new AddRepetitionEntryAction());
+            _dispatcher.Dispatch(new AddRepetitionEntryAction());
         }
 
         private void DeletePlanProject(EventArgs e, Guid planProjectId)
         {
-            Dispatcher.Dispatch(new DeletePlanProjectAction(planProjectId));
+            _dispatcher.Dispatch(new DeletePlanProjectAction(planProjectId));
         }
 
         private void DeletePlanTask(EventArgs e, PlanTask planTask)
         {
-            PlanProject!.RemovePlanTask(planTask);
-            DeletedPlanTaks.Add(planTask);
+            _planProject!.RemovePlanTask(planTask);
+            _deletedPlanTaks.Add(planTask);
         }
 
         private void DeletePlanEntry(EventArgs e, PlanEntry planEntry)
         {
-            PlanProject!.RemovePlanEntry(planEntry);
-            DeletedPlanEntries.Add(planEntry);
+            _planProject!.RemovePlanEntry(planEntry);
+            _deletedPlanEntries.Add(planEntry);
         }
 
         private void DeletePlanEntryRepetition(EventArgs e, PlanEntryRepetition entryRepetition)
         {
-            PlanProject!.RemovePlanEntryRepetition(entryRepetition);
-            DeletedPlanEntryRepetitions.Add(entryRepetition);
+            _planProject!.RemovePlanEntryRepetition(entryRepetition);
+            _deletedPlanEntryRepetitions.Add(entryRepetition);
         }
 
         private void NextOrBack(ProjectFilesState.CreationStep step)
         {
-            Dispatcher.Dispatch(new SwitchCreationStepAction(step, PlanProject!));
+            _dispatcher.Dispatch(new SwitchCreationStepAction(step, _planProject!));
         }
 
         private void Finish()
         {
-            if (!string.IsNullOrWhiteSpace(PlanProject!.Name))
-                Dispatcher.Dispatch(new FinishPlanProjectCreationAction(PlanProject!));
+            if (!string.IsNullOrWhiteSpace(_planProject!.Name))
+                _dispatcher.Dispatch(new FinishPlanProjectCreationAction(_planProject!));
         }
 
         private void Cancel()
         {
             RevertChangesOnProject();
-            Dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
+            _dispatcher.Dispatch(new SwitchCreationStepAction(ProjectFilesState.CreationStep.NotCreating, null));
         }
 
         private void RevertChangesOnProject()
         {
-            PlanProject!.Name = OldPlanProjectName;
-            DeletedPlanTaks.ForEach(task => PlanProject!.AddPlanTask(task));
-            DeletedPlanEntries.ForEach(entry => PlanProject!.AddPlanEntry(entry));
-            DeletedPlanEntryRepetitions.ForEach(entry => PlanProject!.AddPlanEntryRepetition(entry));
-            AddedPlanTasks.ForEach(task => PlanProject!.RemovePlanTask(task));
-            AddedPlanEntries.ForEach(entry => PlanProject!.RemovePlanEntry(entry));
-            AddedPlanEntryRepetitions.ForEach(entry => PlanProject!.RemovePlanEntryRepetition(entry));
+            _planProject!.Name = _oldPlanProjectName;
+            _deletedPlanTaks.ForEach(task => _planProject!.AddPlanTask(task));
+            _deletedPlanEntries.ForEach(entry => _planProject!.AddPlanEntry(entry));
+            _deletedPlanEntryRepetitions.ForEach(entry => _planProject!.AddPlanEntryRepetition(entry));
+            _addedPlanTasks.ForEach(task => _planProject!.RemovePlanTask(task));
+            _addedPlanEntries.ForEach(entry => _planProject!.RemovePlanEntry(entry));
+            _addedPlanEntryRepetitions.ForEach(entry => _planProject!.RemovePlanEntryRepetition(entry));
         }
     }
 }

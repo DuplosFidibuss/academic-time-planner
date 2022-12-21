@@ -18,33 +18,23 @@ namespace AcademicTimePlanner.Pages
 {
     public partial class Index
     {
-        [Inject]
-        private IState<ChartsState> ChartsState { get; set; }
-
-        [Inject]
-        private IDispatcher Dispatcher { get; set; }
-
         private const string Title = "Charts";
         private const string TotalChartTitle = "Total";
 
-        private ProjectsData? ProjectsData => ChartsState.Value.ChartData;
+        private static readonly BarMarker s_trackedDurationMarker = new BarMarker { Color = "rgb(20, 150, 70)" };
+        private static readonly BarMarker s_plannedDurationMarker = new BarMarker { Color = "rgb(20, 70, 150)" };
+        private static readonly BarMarker s_predictedDurationMarker = new BarMarker { Color = "rgb(34, 220, 93)" };
+        private static readonly BarMarker s_totalDurationMarker = new BarMarker { Color = "rgb(34, 120, 250)" };
 
-        private DateFilter? DateFilter => ChartsState.Value.DateFilter;
+        private static readonly LineMarker s_trackedDurationLine = new LineMarker { Color = "rgb(20, 150, 70)" };
+        private static readonly LineMarker s_plannedDurationLine = new LineMarker { Color = "rgb(20, 70, 150)" };
 
-        private static readonly BarMarker TrackedDurationMarker = new BarMarker { Color = "rgb(20, 150, 70)" };
-        private static readonly BarMarker PlannedDurationMarker = new BarMarker { Color = "rgb(20, 70, 150)" };
-        private static readonly BarMarker PredictedDurationMarker = new BarMarker { Color = "rgb(34, 220, 93)" };
-        private static readonly BarMarker TotalDurationMarker = new BarMarker { Color = "rgb(34, 120, 250)" };
-
-        private static readonly LineMarker TrackedDurationLine = new LineMarker { Color = "rgb(20, 150, 70)" };
-        private static readonly LineMarker PlannedDurationLine = new LineMarker { Color = "rgb(20, 70, 150)" };
-
-        Config config = new Config
+        private static readonly Config s_config = new Config
         {
             Responsive = true
         };
 
-        Layout layoutTotal = new Layout
+        private static readonly Layout s_layoutTotal = new Layout
         {
             Title = new Title
             {
@@ -57,7 +47,7 @@ namespace AcademicTimePlanner.Pages
             Width = 700,
         };
 
-        Layout layoutProjects = new Layout
+        private static readonly Layout s_layoutProjects = new Layout
         {
             Title = new Title
             {
@@ -71,12 +61,22 @@ namespace AcademicTimePlanner.Pages
             BarGroupGap = 0
         };
 
+        [Inject]
+        private IState<ChartsState> _chartsState { get; set; }
+
+        [Inject]
+        private IDispatcher _dispatcher { get; set; }
+
+        private ProjectsData? _projectsData => _chartsState.Value.ChartData;
+
+        private DateFilter? _dateFilter => _chartsState.Value.DateFilter;
+
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            ChartsState.Value.Loaded = false;
-            Dispatcher.Dispatch(new SetTitleAction(Title));
-            Dispatcher.Dispatch(new FetchChartDataAction());
+            _chartsState.Value.Loaded = false;
+            _dispatcher.Dispatch(new SetTitleAction(Title));
+            _dispatcher.Dispatch(new FetchChartDataAction());
         }
 
         private Layout GetLayout(string projectName)
@@ -85,7 +85,7 @@ namespace AcademicTimePlanner.Pages
             {
                 Title = new Title
                 {
-                    Text = projectName + " overview in time range (" + DateFilter!.StartDate.Date + " - " + DateFilter.EndDate.Date + ")"
+                    Text = projectName + " overview in time range (" + _dateFilter!.StartDate.Date + " - " + _dateFilter.EndDate.Date + ")"
                 },
                 YAxis = new List<YAxis> { new YAxis { Title = new YAxisTitle { Text = "hours" } } },
                 Height = 500,
@@ -100,26 +100,26 @@ namespace AcademicTimePlanner.Pages
             new Bar
             {
                 X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ProjectsData!.TotalTrackedTime + ProjectsData!.RemainingDuration},
+                Y = new List<object> {_projectsData!.TotalTrackedTime + _projectsData!.RemainingDuration},
                 Name = "Total predicted",
-                Marker = PredictedDurationMarker,
+                Marker = s_predictedDurationMarker,
             },
             new Bar
             {
                 X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ProjectsData!.TotalPlannedTime},
+                Y = new List<object> {_projectsData!.TotalPlannedTime},
                 Name = "Total planned",
                 XAxis = "x2",
-                Marker = PlannedDurationMarker,
+                Marker = s_plannedDurationMarker,
 
             },
             new Bar
             {
                 X = new List<object> {TotalChartTitle},
-                Y = new List<object> {ProjectsData!.TotalTrackedTime},
+                Y = new List<object> {_projectsData!.TotalTrackedTime},
                 Name = "Total tracked",
                 XAxis = "x2",
-                Marker = TrackedDurationMarker,
+                Marker = s_trackedDurationMarker,
             },
         };
         }
@@ -132,13 +132,13 @@ namespace AcademicTimePlanner.Pages
             var plannedDurations = new List<object>();
             var trackedDurations = new List<object>();
 
-            foreach (var planProject in ProjectsData!.PlanProjects)
+            foreach (var planProject in _projectsData!.PlanProjects)
             {
                 double predictedDurationsSum = 0;
                 double trackedDurationsSum = 0;
                 foreach (long togglProjectId in planProject.TogglProjectIds.Keys)
                 {
-                    var togglProject = ProjectsData!.GetTogglProjectWithTogglId(togglProjectId);
+                    var togglProject = _projectsData!.GetTogglProjectWithTogglId(togglProjectId);
                     if (togglProject != null)
                     {
                         predictedDurationsSum += togglProject.GetTotalDuration() * planProject.TogglProjectIds[togglProjectId];
@@ -161,14 +161,14 @@ namespace AcademicTimePlanner.Pages
                 X = titles,
                 Y = totalDurations,
                 Name = "Total Planned",
-                Marker = TotalDurationMarker,
+                Marker = s_totalDurationMarker,
             },
             new Bar
             {
                 X = titles,
                 Y = predictedDurations,
                 Name = "Prediction of Final Time spent",
-                Marker = PredictedDurationMarker,
+                Marker = s_predictedDurationMarker,
             },
             new Bar
             {
@@ -176,7 +176,7 @@ namespace AcademicTimePlanner.Pages
                 Y = plannedDurations,
                 Name = "Planned Until Today",
                 XAxis = "x2",
-                Marker = PlannedDurationMarker,
+                Marker = s_plannedDurationMarker,
             },
             new Bar
             {
@@ -184,14 +184,14 @@ namespace AcademicTimePlanner.Pages
                 Y = trackedDurations,
                 Name = "Tracked",
                 XAxis = "x2",
-                Marker = TrackedDurationMarker,
+                Marker = s_trackedDurationMarker,
             },
         };
         }
 
         private List<ITrace> GetDataOfSingleProjectFiltered(PlanProject planProject)
         {
-            var plannedDurations = planProject.GetDurationsPerDateInTimeRange(DateFilter!.StartDate, DateFilter.EndDate);
+            var plannedDurations = planProject.GetDurationsPerDateInTimeRange(_dateFilter!.StartDate, _dateFilter.EndDate);
 
             var plannedDurationsDates = new List<object>();
             var plannedDurationsTimes = new List<object>();
@@ -209,14 +209,14 @@ namespace AcademicTimePlanner.Pages
 
                 for (int i = 0; i < togglProjects.Count; i++)
                 {
-                    var togglProject = ProjectsData!.GetTogglProjectWithTogglId(togglProjects[i]);
+                    var togglProject = _projectsData!.GetTogglProjectWithTogglId(togglProjects[i]);
                     if (togglProject != null)
                     {
                         var durationsPerDate = togglProject.GetDurationsPerDate(trackedDurations, planProject.TogglProjectIds[togglProjects[i]]);
                         if (i != planProject.TogglProjectIds.Count - 1)
                             trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateTime.MinValue, DateTime.MaxValue, durationsPerDate);
                         else
-                            trackedDurations = togglProject.GetDurationsPerDateInTimeRange(DateFilter.StartDate, DateFilter.EndDate, togglProject.SumUpDurationsPerDate(durationsPerDate));
+                            trackedDurations = togglProject.GetDurationsPerDateInTimeRange(_dateFilter.StartDate, _dateFilter.EndDate, togglProject.SumUpDurationsPerDate(durationsPerDate));
                     }
                 }
 
@@ -232,7 +232,7 @@ namespace AcademicTimePlanner.Pages
                 Y = plannedDurationsTimes,
                 Name = "Planned",
                 Mode = ModeFlag.Lines| ModeFlag.Markers,
-                Marker = PlannedDurationLine,
+                Marker = s_plannedDurationLine,
             },
             new Scatter
             {
@@ -240,20 +240,20 @@ namespace AcademicTimePlanner.Pages
                 Y = trackedDurationsTimes,
                 Name = "Tracked",
                 Mode = ModeFlag.Lines| ModeFlag.Markers,
-                Marker = TrackedDurationLine,
+                Marker = s_trackedDurationLine,
             },
         };
         }
 
         private void SetDateFilter()
         {
-            if (DateFilter!.IsValidTimeRange())
-                Dispatcher.Dispatch(new FilterChartDataAction());
+            if (_dateFilter!.IsValidTimeRange())
+                _dispatcher.Dispatch(new FilterChartDataAction());
         }
 
         private void ChangeFilter()
         {
-            Dispatcher.Dispatch(new ChangeFilterAction());
+            _dispatcher.Dispatch(new ChangeFilterAction());
         }
     }
 }

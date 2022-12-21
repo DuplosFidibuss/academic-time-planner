@@ -7,7 +7,7 @@
     /// </summary>
     public class PlanEntry
     {
-        private static readonly Guid NoTaskId = Guid.Empty;
+        private static readonly Guid s_NoTaskId = Guid.Empty;
 
         public Guid Id { get; set; }
 
@@ -45,7 +45,7 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            TaskId = NoTaskId;
+            TaskId = s_NoTaskId;
             StartDate = startDate;
             EndDate = endDate;
             Duration = duration;

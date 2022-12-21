@@ -3,21 +3,21 @@
 
 @using Plotly.Blazor.LayoutLib
 
-@if (ChartsState.Value.Loaded)
+@if (_chartsState.Value.Loaded)
 {
-    <p>Unlinked Toggl projects (@ProjectsData!.UnlinkedTogglProjects.Count): @ProjectsData!.GetUnlinkedTogglProjectsAsString()</p>
+    <p>Unlinked Toggl projects (@_projectsData!.UnlinkedTogglProjects.Count): @_projectsData!.GetUnlinkedTogglProjectsAsString()</p>
 
-    <PlotlyChart Id="Total" Config="config" Layout="layoutTotal" Data=GetDataTotal()/>
-    <PlotlyChart Id="Projects" Config="config" Layout="layoutProjects" Data=GetDataOfSingleProjectsToday()/>
+    <PlotlyChart Id="Total" Config="s_config" Layout="s_layoutTotal" Data=GetDataTotal()/>
+    <PlotlyChart Id="Projects" Config="s_config" Layout="s_layoutProjects" Data=GetDataOfSingleProjectsToday()/>
 
-    @if (!ChartsState.Value.LoadedFiltered)
+    @if (!_chartsState.Value.LoadedFiltered)
     {
-        <EditForm Model="@DateFilter" OnSubmit="@SetDateFilter">
+        <EditForm Model="@_dateFilter" OnSubmit="@SetDateFilter">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <label>Start date: <InputDate id="StartDate" @bind-Value="DateFilter!.StartDate" /></label>
-            <label>End date: <InputDate id="EndDate" @bind-Value="DateFilter.EndDate" /></label>
+            <label>Start date: <InputDate id="StartDate" @bind-Value="_dateFilter!.StartDate" /></label>
+            <label>End date: <InputDate id="EndDate" @bind-Value="_dateFilter.EndDate" /></label>
             <button type="submit">Set filter</button>
         </EditForm>
 
@@ -25,9 +25,9 @@
     }
     else
     {
-        @foreach(var project in ProjectsData.PlanProjects)
+        @foreach(var project in _projectsData.PlanProjects)
         {
-            <PlotlyChart Id="@project.Name" Config="config" Layout="GetLayout(project.Name)" Data="GetDataOfSingleProjectFiltered(project)" />
+            <PlotlyChart Id="@project.Name" Config="s_config" Layout="GetLayout(project.Name)" Data="GetDataOfSingleProjectFiltered(project)" />
         }        
         <button type="button" class="btn btn-secondary" @onclick="ChangeFilter">Reset filter</button>
     }

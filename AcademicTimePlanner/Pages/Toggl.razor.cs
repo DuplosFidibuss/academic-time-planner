@@ -9,34 +9,34 @@ namespace AcademicTimePlanner.Pages
 {
     public partial class Toggl
     {
-        [Inject]
-        private IState<TogglState> TogglState { get; set; }
-
-        [Inject]
-        private IDispatcher Dispatcher { get; set; }
-
         private const string Title = "Toggl";
 
-        private TogglSettings TogglSettings { get; set; } = new();
+        [Inject]
+        private IState<TogglState> _togglState { get; set; }
 
-        private List<TogglLoadOverviewData> LoadOverview => TogglState.Value.LoadOverview;
+        [Inject]
+        private IDispatcher _dispatcher { get; set; }
 
-        private DateTime LastSynchronized => TogglState.Value.LastSynchronized;
+        private TogglSettings _togglSettings { get; set; } = new();
+
+        private List<TogglLoadOverviewData> _loadOverview => _togglState.Value.LoadOverview;
+
+        private DateTime _lastSynchronized => _togglState.Value.LastSynchronized;
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            Dispatcher.Dispatch(new SetTitleAction(Title));
+            _dispatcher.Dispatch(new SetTitleAction(Title));
         }
 
         private void SaveTogglSettings()
         {
-            Dispatcher.Dispatch(new SaveTogglSettingsAction(TogglSettings));
+            _dispatcher.Dispatch(new SaveTogglSettingsAction(_togglSettings));
         }
 
         private void Synchronize()
         {
-            Dispatcher.Dispatch(new FetchTogglDataAction());
+            _dispatcher.Dispatch(new FetchTogglDataAction());
         }
     }
 }
