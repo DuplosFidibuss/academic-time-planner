@@ -29,11 +29,11 @@ namespace AcademicTimePlanner.Tests
 
             testPlanProject_1 = new PlanProject(new Dictionary<long, double> { { (long)1, 1.0 }, { (long)2, 0.5 } }, "testProject_1");
             testPlanProject_1.AddPlanEntry(testPlanEntry_1);
-            testPlanProject_1.AddRepetitionEntry(testPlanEntryRepetition_1);
+            testPlanProject_1.AddPlanEntryRepetition(testPlanEntryRepetition_1);
 
             testPlanProject_2 = new PlanProject(new Dictionary<long, double> { { (long)2, 0.5 } }, "testProject_2");
             testPlanProject_2.AddPlanEntry(testPlanEntry_2);
-            testPlanProject_2.AddRepetitionEntry(testPlanEntryRepetition_2);
+            testPlanProject_2.AddPlanEntryRepetition(testPlanEntryRepetition_2);
         }
 
         [TestMethod]

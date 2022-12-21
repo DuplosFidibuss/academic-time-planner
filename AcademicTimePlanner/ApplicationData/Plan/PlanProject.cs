@@ -71,12 +71,12 @@
             PlanEntries.Remove(planEntry);
         }
 
-        public void AddRepetitionEntry(PlanEntryRepetition planEntryRepetition)
+        public void AddPlanEntryRepetition(PlanEntryRepetition planEntryRepetition)
         {
             RepetitionEntries.Add(planEntryRepetition);
         }
 
-        public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)
+        public void RemovePlanEntryRepetition(PlanEntryRepetition planEntryRepetition)
         {
             RepetitionEntries.Remove(planEntryRepetition);
         }
@@ -107,7 +107,11 @@
 
         public double GetTotalDuration()
         {
-            return (from planEntry in GetAllPlanEntriesList() select planEntry.Duration).Sum();
+            return
+            (from planEntry
+             in GetAllPlanEntriesList()
+             select planEntry.Duration)
+             .Sum();
         }
 
         public double GetRemainingDuration()
@@ -134,7 +138,8 @@
 
             foreach (var entry in GetDurationsPerDate())
             {
-                if (entry.Key >= startDate && entry.Key <= endDate) durationsPerDateInTimeRange.Add(entry.Key, entry.Value);
+                if (entry.Key >= startDate && entry.Key <= endDate)
+                    durationsPerDateInTimeRange.Add(entry.Key, entry.Value);
             }
 
             return durationsPerDateInTimeRange;

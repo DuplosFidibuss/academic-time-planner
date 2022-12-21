@@ -4,6 +4,10 @@ using System.Text;
 
 namespace AcademicTimePlanner.DisplayData
 {
+    /// <summary>
+    /// This class holds application data (Toggl/plan projects) and provides functionality
+    /// to display that data on the UI.
+    /// </summary>
     public class ProjectsData
     {
         public List<TogglProject> LinkedTogglProjects { get; }
@@ -18,11 +22,6 @@ namespace AcademicTimePlanner.DisplayData
 
         public double RemainingDuration { get; }
 
-        /// <summary>
-        /// This class holds all data needed for the graphical overview of planning and tracked time data.
-        /// </summary>
-        /// <param name="allTogglProjects"></param>
-        /// <param name="planProjects"></param>
         public ProjectsData(List<TogglProject> allTogglProjects, List<PlanProject> planProjects)
         {
             LinkedTogglProjects = new List<TogglProject>();

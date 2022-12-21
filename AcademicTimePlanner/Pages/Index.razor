@@ -16,7 +16,7 @@
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <label>Start date: <InputDate id="StartDate" @bind-Value="DateFilter.StartDate" /></label>
+            <label>Start date: <InputDate id="StartDate" @bind-Value="DateFilter!.StartDate" /></label>
             <label>End date: <InputDate id="EndDate" @bind-Value="DateFilter.EndDate" /></label>
             <button type="submit">Set filter</button>
         </EditForm>
@@ -27,7 +27,7 @@
     {
         @foreach(var project in ProjectsData.PlanProjects)
         {
-            <PlotlyChart Id="@project.Name" Config="config" Layout="GetLayout(project.Name)" Data="GetDataOfSingleProjectsFiltered(project)" />
+            <PlotlyChart Id="@project.Name" Config="config" Layout="GetLayout(project.Name)" Data="GetDataOfSingleProjectFiltered(project)" />
         }        
         <button type="button" class="btn btn-secondary" @onclick="ChangeFilter">Reset filter</button>
     }

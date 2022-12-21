@@ -1,39 +1,40 @@
 using AcademicTimePlanner.ApplicationData.Toggl;
 using AcademicTimePlanner.Services.TogglApiService;
 
-namespace AcademicTimePlanner.Services.TogglService;
-
-public class TogglService : ITogglService
+namespace AcademicTimePlanner.Services.TogglService
 {
-    private ITogglApiService _togglApiService;
-
-    public TogglService(ITogglApiService togglApiService)
+    public class TogglService : ITogglService
     {
-        _togglApiService = togglApiService;
-    }
+        private ITogglApiService _togglApiService;
 
-    public async Task<List<TogglProject>> GetTogglProjects(DateOnly since)
-    {
-        TogglDetailResponse togglDetailResponseWithSinceDate = await _togglApiService.GetDetailsSinceAsync(since);
-        var togglProjects = new List<TogglProject>();
-
-        togglDetailResponseWithSinceDate.Data.ForEach(response =>
+        public TogglService(ITogglApiService togglApiService)
         {
+            _togglApiService = togglApiService;
+        }
 
-            var togglProjectId = response.Pid.GetValueOrDefault(TogglProject.NoTogglProjectId);
-            var togglTaskId = response.Tid.GetValueOrDefault(TogglProject.NoTogglProjectId);
+        public async Task<List<TogglProject>> GetTogglProjects(DateOnly since)
+        {
+            TogglDetailResponse togglDetailResponseWithSinceDate = await _togglApiService.GetDetailsSinceAsync(since);
+            var togglProjects = new List<TogglProject>();
 
-            var togglProject = togglProjects.FindLast(togglProject => togglProject.TogglId == togglProjectId);
-            if (togglProject == null)
+            togglDetailResponseWithSinceDate.Data.ForEach(response =>
             {
-                togglProject = new TogglProject(togglProjectId, response.Project != null ? response.Project : "Entries without project");
-                togglProjects.Add(togglProject);
-            }
 
-            togglProject.AddTogglTask(togglTaskId, response.Task);
-            togglProject.AddEntry(new TogglEntrySum(response.Start, response.Dur / (double) 3600000, response.Id, togglTaskId));
-        });
+                var togglProjectId = response.Pid.GetValueOrDefault(TogglProject.NoTogglProjectId);
+                var togglTaskId = response.Tid.GetValueOrDefault(TogglProject.NoTogglProjectId);
 
-        return togglProjects;
+                var togglProject = togglProjects.FindLast(togglProject => togglProject.TogglId == togglProjectId);
+                if (togglProject == null)
+                {
+                    togglProject = new TogglProject(togglProjectId, response.Project != null ? response.Project : "Entries without project");
+                    togglProjects.Add(togglProject);
+                }
+
+                togglProject.AddTogglTask(togglTaskId, response.Task);
+                togglProject.AddEntry(new TogglEntrySum(response.Start, response.Dur / (double) 3600000, response.Id, togglTaskId));
+            });
+
+            return togglProjects;
+        }
     }
 }

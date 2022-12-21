@@ -44,8 +44,11 @@
 
         public double GetTotalDuration()
         {
-            return (from entrySum in TogglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue) select entrySum.Duration).Sum();
-
+            return
+            (from entrySum
+             in TogglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue)
+             select entrySum.Duration)
+             .Sum();
         }
 
         public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate, SortedDictionary<DateTime, double> durationsPerDate)

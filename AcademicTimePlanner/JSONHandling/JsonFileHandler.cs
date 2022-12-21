@@ -4,12 +4,14 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace AcademicTimePlanner.JSONHandling
-{   /// <summary>
-    /// This class implements the saving and loading of JSON files. 
+{
+    /// <summary>
+    /// This class implements the saving and loading of JSON files.
+    /// It is used for development only.
     /// </summary>
     public class JsonFileHandler
     {
-        private string getDataPath(String filename)
+        private string getDataPath(string filename)
         {
             string directory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName; ;
             string dataPath = directory + @"\AcademicTimePlanner\JSON_Files\" + filename + ".json";

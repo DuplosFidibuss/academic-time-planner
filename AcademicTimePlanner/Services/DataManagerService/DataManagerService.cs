@@ -1,6 +1,6 @@
-﻿using AcademicTimePlanner.DataManagement;
-using AcademicTimePlanner.ApplicationData.Plan;
+﻿using AcademicTimePlanner.ApplicationData.Plan;
 using AcademicTimePlanner.ApplicationData.Toggl;
+using AcademicTimePlanner.DataManagement;
 using AcademicTimePlanner.DisplayData;
 using Blazored.LocalStorage;
 
@@ -18,8 +18,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public async Task UpdateTogglProjects(List<TogglProject> togglProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+
             if (dataManager == null)
                 dataManager = new DataManager();
+
             dataManager.UpdateTogglData(togglProjects);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
@@ -27,8 +29,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public async Task UpdatePlanProjects(List<PlanProject> planProjects)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+
             if (dataManager == null)
                 dataManager = new DataManager();
+
             dataManager.UpdatePlanningData(planProjects);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
@@ -47,10 +51,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public async Task UpdatePlanProject(PlanProject planProject)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+
             if (dataManager == null)
-            {
                 dataManager = new DataManager();
-            }
+
             dataManager.UpdatePlanProject(planProject);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
@@ -91,10 +95,10 @@ namespace AcademicTimePlanner.Services.DataManagerService
         public async Task DeletePlanProject(Guid planProjectId)
         {
             var dataManager = await _localStorage.GetItemAsync<DataManager>(nameof(DataManager));
+
             if (dataManager == null)
-            {
                 dataManager = new DataManager();
-            }
+
             dataManager.DeletePlanProject(planProjectId);
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }

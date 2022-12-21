@@ -45,6 +45,7 @@
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.EnableTasks :
         <h3>Create plan tasks (Optional)</h3>
 
@@ -72,6 +73,7 @@
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.EnterEntries :
         <h3>Edit plan entries and plan entry repertitions</h3>
         <button type="button" class="btn btn-secondary" @onclick="AddSingleEntry">Add plan entry</button>
@@ -81,6 +83,7 @@
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.FinalOverview))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.AddSingleEntry :
         <h3>Edit plan entries</h3>
 
@@ -124,6 +127,7 @@
         <p></p>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.AddRepetitionEntry :
         <h3>Edit plan entry repetitions</h3>
 
@@ -140,7 +144,7 @@
            <li>Time investment must be greater than 0.</li>
        </ul>
 
-        <EditForm Model="@PlanEntryRepetition" OnSubmit="@CreateRepetitionEntry">
+        <EditForm Model="@PlanEntryRepetition" OnSubmit="@CreatePlanEntryRepetition">
             <p>Plan entry repetition name : <InputText id="repetitionEntryName" @bind-Value="PlanEntryRepetition!.Name" /></p>
             <p>Start date: <InputDate id="RepetitionStartDate" @bind-Value="PlanEntryRepetition!.RepetitionStartDate" /></p>
             <p>End date: <InputDate id="RepetitionEndDate" @bind-Value="PlanEntryRepetition!.RepetitionEndDate" /></p>
@@ -148,6 +152,7 @@
             <p>Timespan [in days] : <InputNumber id="RepetitionTimespan" @bind-Value="PlanEntryRepetition!.TimeSpan" /></p>
             <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="PlanEntryRepetition!.Duration">
                 <option value="planEntryRepetition.Zero"></option> </InputNumber></p>
+
             <label>Link plan task (optional): </label>
             <InputSelect @bind-Value="PlanEntryRepetition.TaskId">
                 <option value="@Guid.Empty"></option>
@@ -156,6 +161,7 @@
                     <option value=@task.Id>@task.Name</option>
                 }
             </InputSelect>
+
             <p></p>
             <button type="submit">Create repetition entry</button>
         </EditForm>
@@ -173,6 +179,7 @@
         <p></p>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.FinalOverview :
         <h3>Final overview</h3>
         @if (PlanProject.Name != null) 
@@ -183,6 +190,7 @@
         {
             <p style="color: red">No plan project name chosen</p>
         }
+
         @if (PlanProject!.PlanTasks.Count != 0)
         {
             <label>Plan tasks created</label>
@@ -197,6 +205,7 @@
         {
             <p>No plan tasks created</p>
         }
+
         @if (PlanProject!.PlanEntries.Count != 0)
         {
             <label>Plan entries created</label>
@@ -211,6 +220,7 @@
         {
             <p>No plan entry created</p>
         }
+
         @if (PlanProject!.RepetitionEntries.Count != 0)
         {
             <label>Plan entry repetitions created</label>
@@ -225,9 +235,11 @@
         {
             <p>No plan repetition entry created</p>
         }
+
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Back</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="Finish">Finish</button>
         break;
+
     default : break;
 }

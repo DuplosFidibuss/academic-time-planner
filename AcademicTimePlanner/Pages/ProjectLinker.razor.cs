@@ -1,10 +1,10 @@
 using AcademicTimePlanner.ApplicationData.Plan;
+using AcademicTimePlanner.DisplayData;
 using AcademicTimePlanner.Store.State.ProjectLinker;
 using AcademicTimePlanner.Store.State.Wrapper;
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using AcademicTimePlanner.UIModels;
 
 namespace AcademicTimePlanner.Pages
 {
@@ -16,6 +16,8 @@ namespace AcademicTimePlanner.Pages
         [Inject]
         private IDispatcher Dispatcher { get; set; }
 
+        private const string Title = "Link projects and tasks";
+
         private ProjectsData? ProjectsData => LinkerState.Value.ProjectsData;
 
         private ProjectSelector ProjectSelector => LinkerState.Value.ProjectSelector;
@@ -23,8 +25,6 @@ namespace AcademicTimePlanner.Pages
         private TaskSelector TaskSelector => LinkerState.Value.TaskSelector;
 
         private PlanProject? PlanProject => LinkerState.Value.PlanProject;
-
-        private const string Title = "Link projects and tasks";
 
         protected override void OnInitialized()
         {
@@ -78,7 +78,7 @@ namespace AcademicTimePlanner.Pages
 
         private void LinkTasks()
         {
-            var planTask = PlanProject.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
+            var planTask = PlanProject!.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
 
             if (!planTask.TogglIds.ContainsKey(TaskSelector.TogglTaskTogglId))
                 planTask.TogglIds.Add(TaskSelector.TogglTaskTogglId, 1);
@@ -86,7 +86,7 @@ namespace AcademicTimePlanner.Pages
 
         private void UnlinkTasks()
         {
-            var planTask = PlanProject.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
+            var planTask = PlanProject!.PlanTasks.Find(task => task.Id.Equals(TaskSelector.PlanTaskId))!;
 
             if (planTask.TogglIds.ContainsKey(TaskSelector.TogglTaskTogglId))
                 planTask.TogglIds.Remove(TaskSelector.TogglTaskTogglId);

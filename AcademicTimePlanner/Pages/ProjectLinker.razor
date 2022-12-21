@@ -51,6 +51,7 @@
                 }
             </ul>
             break;
+
         case ProjectLinkerState.LinkingStep.TaskLinking :
             <h3>Link tasks</h3>
             <EditForm Model="@TaskSelector">
@@ -59,7 +60,7 @@
 
                 <h4>Select plan task</h4>
                 <InputRadioGroup @bind-Value="TaskSelector.PlanTaskId">
-                    @foreach (var planTask in PlanProject.PlanTasks)
+                    @foreach (var planTask in PlanProject!.PlanTasks)
                     {
                         <InputRadio Value="@planTask.Id"/> @planTask.Name<br />   
                     }
@@ -68,7 +69,7 @@
                 <p></p>
                 <h4>Select Toggl task</h4>
                 <InputRadioGroup @bind-Value="TaskSelector.TogglTaskTogglId">
-                    @foreach (var togglProject in ProjectsData!.LinkedTogglProjects.FindAll(project => PlanProject.TogglProjectIds.ContainsKey(project.TogglId)))
+                    @foreach (var togglProject in ProjectsData!.LinkedTogglProjects.FindAll(project => PlanProject!.TogglProjectIds.ContainsKey(project.TogglId)))
                     {
                         <p><b>@togglProject.Name</b></p>
                         @foreach (var togglTask in togglProject.Tasks)
@@ -89,12 +90,13 @@
             <h4>Linked tasks</h4>
             <p>Plan task -> Linked Toggl task</p>
             <ul>
-                @foreach (var planTask in PlanProject.PlanTasks)
+                @foreach (var planTask in PlanProject!.PlanTasks)
                 {
                     <li>@planTask.Name -> @ProjectsData!.GetLinkedTogglTasksAsString(PlanProject, planTask)</li>
                 }
             </ul>
             break;
+
         default: break;
     }
 }

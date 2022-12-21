@@ -7,8 +7,9 @@
 {
     <p>@LoadOverview.Count Toggl projects loaded</p>
     <button type="button" class="btn btn-primary" @onclick="Synchronize">Synchronize</button>
-    <p>Last synchronized: @TogglState.Value.LastSynchronized.ToString()</p>
+    <p>Last synchronized: @LastSynchronized.ToString()</p>
     <p>Following Toggl projects have been loaded. Display format: Toggl project -> associated plan project</p>
+
     <ul>
     @foreach (var overviewData in LoadOverview)
     {
