@@ -93,7 +93,7 @@
 
             if (RepetitionEntries != null)
             {
-                foreach (PlanEntryRepetition planEntryRepetition in RepetitionEntries)
+                foreach (var planEntryRepetition in RepetitionEntries)
                 {
                     planEntries.AddRange(planEntryRepetition.Entries);
                 }
@@ -150,7 +150,7 @@
             var durationsPerDate = new SortedDictionary<DateTime, double>();
             double sum = 0;
 
-            foreach (PlanEntry entry in GetAllPlanEntriesList())
+            foreach (var entry in GetAllPlanEntriesList())
             {
                 double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays + 1);
                 for (int i = 1; entry.StartDate.AddDays(i) <= entry.EndDate.AddDays(1); i++)
@@ -168,7 +168,7 @@
                 }
             }
 
-            foreach (DateTime entry in durationsPerDate.Keys.ToList())
+            foreach (var entry in durationsPerDate.Keys.ToList())
             {
                 sum += durationsPerDate[entry];
                 durationsPerDate[entry] = sum;

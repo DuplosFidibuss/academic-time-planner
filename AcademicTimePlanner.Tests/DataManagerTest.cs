@@ -179,6 +179,59 @@ namespace AcademicTimePlanner.Tests
         }
 
         [TestMethod]
+        public void UpdatePlanProjectAddsNonExistingPlanProject()
+        {
+            var testTogglProject_1 = TestTogglProject.GetTestTogglProject()[0];
+            var testTogglProject_2 = TestTogglProject.GetTestTogglProject()[1];
+
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject_1.TogglId, 1.0 }, { testTogglProject_2.TogglId, 1.0 } }, "Test_1");
+
+            _dataManager.UpdatePlanProject(testPlanProject);
+
+            Assert.AreEqual(1, _dataManager.PlanProjects.Count);
+            Assert.AreEqual(testPlanProject, _dataManager.PlanProjects[0]);
+        }
+
+        [TestMethod]
+        public void UpdatePlanProjectOverwritesExistingPlanProject()
+        {
+            var testTogglProject_1 = TestTogglProject.GetTestTogglProject()[0];
+            var testTogglProject_2 = TestTogglProject.GetTestTogglProject()[1];
+
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject_1.TogglId, 1.0 }, { testTogglProject_2.TogglId, 1.0 } }, "Test_1");
+
+            _dataManager.UpdatePlanProject(testPlanProject);
+
+            Assert.AreEqual(1, _dataManager.PlanProjects.Count);
+            Assert.AreEqual(testPlanProject, _dataManager.PlanProjects[0]);
+
+            var newTestPlanProject = new PlanProject(testPlanProject.Id);
+
+            _dataManager.UpdatePlanProject(newTestPlanProject);
+
+            Assert.AreEqual(1, _dataManager.PlanProjects.Count);
+            Assert.AreEqual(newTestPlanProject, _dataManager.PlanProjects[0]);
+        }
+
+        [TestMethod]
+        public void DeletePlanProjectDeletesExistingPlanProject()
+        {
+            var testTogglProject_1 = TestTogglProject.GetTestTogglProject()[0];
+            var testTogglProject_2 = TestTogglProject.GetTestTogglProject()[1];
+
+            var testPlanProject = new PlanProject(new Dictionary<long, double> { { testTogglProject_1.TogglId, 1.0 }, { testTogglProject_2.TogglId, 1.0 } }, "Test_1");
+
+            _dataManager.UpdatePlanProject(testPlanProject);
+
+            Assert.AreEqual(1, _dataManager.PlanProjects.Count);
+            Assert.AreEqual(testPlanProject, _dataManager.PlanProjects[0]);
+
+            _dataManager.DeletePlanProject(testPlanProject.Id);
+
+            Assert.AreEqual(0, _dataManager.PlanProjects.Count);
+        }
+
+        [TestMethod]
         public void UpdateTogglDictionaryInPlanProjectsUpdatesThePercentagesInPlanProjectsCorrect()
         {
             var testTogglProject_1 = TestTogglProject.GetTestTogglProject()[0];
@@ -189,7 +242,7 @@ namespace AcademicTimePlanner.Tests
             var testPlanProject_2 = new PlanProject(new Dictionary<long, double> { { testTogglProject_2.TogglId, 1.0 } }, "Test_2");
             var expectedPlanProject_2 = new PlanProject(new Dictionary<long, double> { { testTogglProject_2.TogglId, 0.5 } }, "Test_2");
 
-            PlanEntry planEntry = new PlanEntry("test", DateTime.Today, DateTime.Today.AddDays(1), 1);
+            var planEntry = new PlanEntry("test", DateTime.Today, DateTime.Today.AddDays(1), 1);
 
             testPlanProject_1.AddPlanEntry(planEntry);
             testPlanProject_2.AddPlanEntry(planEntry);

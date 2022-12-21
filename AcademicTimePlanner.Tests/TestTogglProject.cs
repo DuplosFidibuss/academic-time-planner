@@ -4,14 +4,9 @@ namespace AcademicTimePlanner.Tests
 {
     public static class TestTogglProject
     {
-        private static readonly DateTime date_1 = new DateTime(2022, 10, 16);
-        private static readonly DateTime date_2 = new DateTime(2022, 10, 23);
-        private static readonly DateTime date_3 = new DateTime(2022, 10, 31);
-        private static readonly DateTime date_4 = new DateTime(2022, 11, 7);
-
         public static List<TogglProject> GetTestTogglProject()
         {
-            List<TogglProject> togglProjects = new List<TogglProject>();
+            var togglProjects = new List<TogglProject>();
 
             var togglProject_1 = new TogglProject(1, "TestTogglProject_1");
             var togglProject_2 = new TogglProject(2, "TestTogglProject_2");
@@ -33,6 +28,7 @@ namespace AcademicTimePlanner.Tests
 
             togglProjects.Add(togglProject_1);
             togglProjects.Add(togglProject_2);
+
             return togglProjects;
         }
     }

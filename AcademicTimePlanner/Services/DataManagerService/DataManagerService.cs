@@ -33,7 +33,11 @@ namespace AcademicTimePlanner.Services.DataManagerService
             if (dataManager == null)
                 dataManager = new DataManager();
 
-            dataManager.UpdatePlanningData(planProjects);
+            foreach (var planProject in planProjects)
+            {
+                dataManager.UpdatePlanProject(planProject);
+            }
+            dataManager.UpdateTogglDictionaryInPlanProjects();
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 
@@ -56,6 +60,7 @@ namespace AcademicTimePlanner.Services.DataManagerService
                 dataManager = new DataManager();
 
             dataManager.UpdatePlanProject(planProject);
+            dataManager.UpdateTogglDictionaryInPlanProjects();
             await _localStorage.SetItemAsync(nameof(DataManager), dataManager);
         }
 

@@ -58,13 +58,11 @@ namespace AcademicTimePlanner.DataManagement
 
         public void UpdatePlanProject(PlanProject planProject)
         {
-            var existingProject = PlanProjects.Find(project => project.Id == planProject.Id);
+            var existingProject = PlanProjects.Find(project => project.Id.Equals(planProject.Id));
 
             if (existingProject != null)
                 PlanProjects.Remove(existingProject);
             PlanProjects.Add(planProject);
-
-            UpdateTogglDictionaryInPlanProjects();
         }
 
         public void DeletePlanProject(Guid planProjectId)
@@ -92,19 +90,6 @@ namespace AcademicTimePlanner.DataManagement
                     TogglProjects.Add(currentProject);
                     DeletedTogglProjectIds.Add(currentProject.TogglId);
                 }
-            }
-
-            UpdateTogglDictionaryInPlanProjects();
-        }
-
-        public void UpdatePlanningData(List<PlanProject> planProjects)
-        {
-            foreach (var planProject in planProjects)
-            {
-                var existingProject = PlanProjects.Find(project => project.Id.Equals(planProject.Id));
-                if (existingProject != null)
-                    PlanProjects.Remove(existingProject);
-                PlanProjects.Add(planProject);
             }
 
             UpdateTogglDictionaryInPlanProjects();

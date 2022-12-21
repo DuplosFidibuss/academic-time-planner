@@ -28,7 +28,7 @@ namespace AcademicTimePlanner.DisplayData
             UnlinkedTogglProjects = new List<TogglProject>();
             PlanProjects = new List<PlanProject>(planProjects);
 
-            foreach (TogglProject togglProject in allTogglProjects)
+            foreach (var togglProject in allTogglProjects)
             {
                 if (planProjects.Exists(planProject => planProject.TogglProjectIds.ContainsKey(togglProject.TogglId)))
                 {
