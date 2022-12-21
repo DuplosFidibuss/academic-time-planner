@@ -35,11 +35,14 @@ namespace AcademicTimePlanner.Pages
 
         protected void LinkProjectsClick(EventArgs e, bool link)
         {
-            if (link)
-                LinkProjects();
-            else
-                UnlinkProjects();
-            _dispatcher.Dispatch(new SaveProjectsDataAction(_projectsData!));
+            if (_projectSelector.HasValidSelection())
+            {
+                if (link)
+                    LinkProjects();
+                else
+                    UnlinkProjects();
+                _dispatcher.Dispatch(new SaveProjectsDataAction(_projectsData!));
+            }
         }
 
         private void LinkProjects()
@@ -69,11 +72,14 @@ namespace AcademicTimePlanner.Pages
 
         protected void LinkTasksClick(EventArgs e, bool link)
         {
-            if (link)
-                LinkTasks();
-            else
-                UnlinkTasks();
-            _dispatcher.Dispatch(new SaveProjectsDataAction(_projectsData!));
+            if (_taskSelector.HasValidSelection())
+            {
+                if (link)
+                    LinkTasks();
+                else
+                    UnlinkTasks();
+                _dispatcher.Dispatch(new SaveProjectsDataAction(_projectsData!));
+            }
         }
 
         private void LinkTasks()
