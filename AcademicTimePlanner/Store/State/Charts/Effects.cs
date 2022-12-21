@@ -12,6 +12,12 @@ namespace AcademicTimePlanner.Store.State.Charts
             _dataManagerService = dataManagerService;
         }
 
+        /// <summary>
+        /// Fetches projects data stored in the <see cref="DataManagement.DataManager"/>.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(FetchChartDataAction action, IDispatcher dispatcher)
         {

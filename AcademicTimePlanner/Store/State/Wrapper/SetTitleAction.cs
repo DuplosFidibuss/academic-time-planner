@@ -1,11 +1,12 @@
-namespace AcademicTimePlanner.Store.State.Wrapper;
-
-public class SetTitleAction
+namespace AcademicTimePlanner.Store.State.Wrapper
 {
-    public string Title { get; }
-
-    public SetTitleAction(string title)
+    public class SetTitleAction
     {
-        Title = title;
+        public string Title { get; }
+
+        public SetTitleAction(string title)
+        {
+            Title = title;
+        }
     }
 }

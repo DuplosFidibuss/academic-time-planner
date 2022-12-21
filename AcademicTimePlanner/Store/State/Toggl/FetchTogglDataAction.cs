@@ -1,6 +1,6 @@
-namespace AcademicTimePlanner.Store.State.Toggl;
-
-public class FetchTogglDataAction
+namespace AcademicTimePlanner.Store.State.Toggl
 {
-    
+    public class FetchTogglDataAction
+    {
+    }
 }

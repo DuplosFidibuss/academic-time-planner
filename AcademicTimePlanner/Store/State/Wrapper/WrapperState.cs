@@ -1,18 +1,17 @@
 using Fluxor;
 
-namespace AcademicTimePlanner.Store.State.Wrapper;
-
-[FeatureState]
-public class WrapperState
+namespace AcademicTimePlanner.Store.State.Wrapper
 {
-    public string Title { get; }
-
-    private WrapperState()
+    [FeatureState]
+    public class WrapperState
     {
-    }
+        public string Title { get; }
 
-    public WrapperState(string title)
-    {
-        Title = title;
+        private WrapperState() { }
+
+        public WrapperState(string title)
+        {
+            Title = title;
+        }
     }
 }

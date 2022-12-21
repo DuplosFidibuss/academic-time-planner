@@ -12,6 +12,12 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
             _dataManagerService = dataManagerService;
         }
 
+        /// <summary>
+        /// Fetches the project data stored in the <see cref="DataManagement.DataManager"/>.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(FetchProjectsDataAction action, IDispatcher dispatcher)
         {
@@ -19,6 +25,13 @@ namespace AcademicTimePlanner.Store.State.ProjectLinker
             dispatcher.Dispatch(new SetProjectsDataAction(projectsData));
         }
 
+        /// <summary>
+        /// Updates the project data stored in the <see cref="DataManagement.DataManager"/>
+        /// with the project data provided by the action.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(SaveProjectsDataAction action, IDispatcher dispatcher)
         {
