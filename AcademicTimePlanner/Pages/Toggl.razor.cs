@@ -1,41 +1,43 @@
+using AcademicTimePlanner.DisplayData;
 using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Immutable;
-using AcademicTimePlanner.UIModels;
 
-namespace AcademicTimePlanner.Pages;
-
-public partial class Toggl
+namespace AcademicTimePlanner.Pages
 {
-    [Inject]
-    private IState<TogglState> TogglState { get; set; }
-    
-    [Inject]
-    private IDispatcher Dispatcher { get; set; }
-
-	private TogglSettings TogglSettings { get; set; } = new();
-    
-    private List<TogglLoadOverviewData> LoadOverview => TogglState.Value.LoadOverview;
-	private DateTime LastSynchronized => TogglState.Value.LastSynchronized;
-    
-    private const string Title = "Toggl";
-    
-    protected override void OnInitialized()
+    public partial class Toggl
     {
-        base.OnInitialized();
-        Dispatcher.Dispatch(new SetTitleAction(Title));
-    }
-    
-    private void SaveTogglSettings()
-    {
-        Dispatcher.Dispatch(new SaveTogglSettingsAction(TogglSettings));
-    }
+        private const string Title = "Toggl";
 
-	private void Synchronize()
-	{
-		Dispatcher.Dispatch(new FetchTogglDataAction());
-	}
+        [Inject]
+        private IState<TogglState> _togglState { get; set; }
+
+        [Inject]
+        private IDispatcher _dispatcher { get; set; }
+
+        private TogglSettings _togglSettings { get; set; } = new();
+
+        private List<TogglLoadOverviewData> _loadOverview => _togglState.Value.LoadOverview;
+
+        private DateTime _lastSynchronized => _togglState.Value.LastSynchronized;
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            _dispatcher.Dispatch(new SetTitleAction(Title));
+            Synchronize();
+        }
+
+        private void SaveTogglSettings()
+        {
+            _dispatcher.Dispatch(new SaveTogglSettingsAction(_togglSettings));
+        }
+
+        private void Synchronize()
+        {
+            _dispatcher.Dispatch(new FetchTogglDataAction());
+        }
+    }
 }

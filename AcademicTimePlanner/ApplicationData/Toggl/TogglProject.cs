@@ -1,5 +1,9 @@
 ﻿namespace AcademicTimePlanner.ApplicationData.Toggl
 {
+    /// <summary>
+    /// This class implements the conection between the application and TogglTrack projects.
+    /// A project can have multiple Toggl tasks.
+    /// </summary>
     public class TogglProject
     {
         public const long NoTogglProjectId = -1;
@@ -14,12 +18,6 @@
 
         public string Name { get; set; }
 
-        /// <summary>
-        /// This class implements the conection between the application and TogglTrack projects.
-        /// A project can have multiple Toggl tasks</see>.
-        /// </summary>
-        /// <param name="togglId"></param>
-        /// <param name="name"></param>
         public TogglProject(long togglId, string name)
         {
             Id = Guid.NewGuid();
@@ -32,14 +30,8 @@
         public void AddTogglTask(long togglTaskId, string name)
         {
             if (!Tasks.ContainsKey(togglTaskId))
-             Tasks.Add(togglTaskId, name);
+                Tasks.Add(togglTaskId, name);
         }
-
-        public void RemoveTogglTask(long togglTaskId)
-        {
-            Tasks.Remove(togglTaskId);
-        }
-
 
         public void AddEntry(TogglEntrySum entry)
         {
@@ -52,8 +44,11 @@
 
         public double GetTotalDuration()
         {
-            return (from entrySum in TogglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue) select entrySum.Duration).Sum();
-
+            return
+            (from entrySum
+             in TogglEntrySums.FindAll(entrySum => entrySum.Date >= DateTime.MinValue && entrySum.Date <= DateTime.MaxValue)
+             select entrySum.Duration)
+             .Sum();
         }
 
         public SortedDictionary<DateTime, double> GetDurationsPerDateInTimeRange(DateTime startDate, DateTime endDate, SortedDictionary<DateTime, double> durationsPerDate)
@@ -70,7 +65,7 @@
                 {
                     if (i > 0)
                         startDateEntry = dates[i - 1];
-                    else 
+                    else
                         startDateEntry = dates[i];
                 }
 
@@ -84,12 +79,12 @@
                 if (date >= startDate && date <= endDate)
                 {
                     if (durationsPerDateInTimeRange.Count == 0 && i > 0)
-                    {
                         durationsPerDateInTimeRange.Add(startDate.AddMilliseconds(-1), durationsPerDate[dates[i - 1]]);
-                    }
+
                     durationsPerDateInTimeRange.Add(date, durationsPerDate[date]);
                 }
             }
+
             if (!durationsPerDateInTimeRange.ContainsKey(startDateEntry) && startDateEntry != DateTime.MinValue)
                 durationsPerDateInTimeRange.Add(startDate, durationsPerDate[startDateEntry]);
 
@@ -101,20 +96,20 @@
 
         public SortedDictionary<DateTime, double> GetDurationsPerDate(SortedDictionary<DateTime, double> durationsPerDate, double percentage)
         {
-	        foreach (var entry in TogglEntrySums)
-		    {
-			    if (!durationsPerDate.ContainsKey(entry.Date))
-                    durationsPerDate.Add(entry.Date, 0);                            //Start of the Day
+            foreach (var entry in TogglEntrySums)
+            {
+                if (!durationsPerDate.ContainsKey(entry.Date))
+                    durationsPerDate.Add(entry.Date, 0);                                            //Start of the Day
 
                 if (!durationsPerDate.ContainsKey(entry.Date.AddDays(1)))
-			        durationsPerDate.Add(entry.Date.AddDays(1), entry.Duration * percentage);    //End of the Day
+                    durationsPerDate.Add(entry.Date.AddDays(1), entry.Duration * percentage);       //End of the Day
                 else
                     durationsPerDate[entry.Date.AddDays(1)] += entry.Duration * percentage;
             }
-	        return durationsPerDate;
+            return durationsPerDate;
         }
 
-        public SortedDictionary<DateTime, double> Sumup(SortedDictionary<DateTime, double> durationsPerDate)
+        public SortedDictionary<DateTime, double> SumUpDurationsPerDate(SortedDictionary<DateTime, double> durationsPerDate)
         {
             double sum = 0;
             foreach (var entry in durationsPerDate.Keys.ToList())
@@ -124,5 +119,5 @@
             }
             return durationsPerDate;
         }
-	}
+    }
 }

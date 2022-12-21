@@ -5,6 +5,9 @@ using System.Text;
 
 namespace AcademicTimePlanner.DataManagement
 {
+    /// <summary>
+    /// This class holds all data used and created by the application.
+    /// </summary>
     public class DataManager
     {
         public const string NoAssociatedPlanProjectName = "No plan project associated";
@@ -15,9 +18,6 @@ namespace AcademicTimePlanner.DataManagement
 
         public List<long> DeletedTogglProjectIds { get; set; }
 
-        /// <summary>
-        /// This class holds all data used and created by the application.
-        /// </summary>
         public DataManager()
         {
             PlanProjects = new List<PlanProject>();
@@ -25,33 +25,8 @@ namespace AcademicTimePlanner.DataManagement
             DeletedTogglProjectIds = new List<long>();
         }
 
-        public void UpdateTogglData(List<TogglProject> togglProjects)
-        {
-            var currentTogglProjects = new List<TogglProject>(TogglProjects);
-            TogglProjects.Clear();
-            DeletedTogglProjectIds.Clear();
-            foreach (var project in togglProjects)
-            {
-                TogglProjects.Add(project);
-            }
-
-            foreach (var currentProject in currentTogglProjects)
-            {
-                if (!togglProjects.Any(project => project.TogglId == currentProject.TogglId))
-                {
-                    TogglProjects.Add(currentProject);
-                    DeletedTogglProjectIds.Add(currentProject.TogglId);
-                }
-            }
-            Console.WriteLine(DeletedTogglProjectIds.Count);
-        }
-
         public ProjectsData GetProjectsData()
         {
-            // This is for chart display test purposes.
-            //TogglProjects.Clear();
-            //TestTogglProject.GetTestTogglProject().ForEach(project => TogglProjects.Add(project));
-            UpdateTogglDictionaryInPlanProjects();
             return new ProjectsData(TogglProjects, PlanProjects);
         }
 
@@ -67,6 +42,7 @@ namespace AcademicTimePlanner.DataManagement
                     builder.Append(project.Name);
                     builder.Append(',');
                 }
+
                 if (builder.Length > 0)
                 {
                     builder.Remove(builder.Length - 1, 1);
@@ -80,23 +56,51 @@ namespace AcademicTimePlanner.DataManagement
             return loadOverview;
         }
 
-        public void UpdatePlanningData(List<PlanProject> planProjects)
+        public void UpdatePlanProject(PlanProject planProject)
         {
-            foreach (var planProject in planProjects)
+            var existingProject = PlanProjects.Find(project => project.Id.Equals(planProject.Id));
+
+            if (existingProject != null)
+                PlanProjects.Remove(existingProject);
+            PlanProjects.Add(planProject);
+        }
+
+        public void DeletePlanProject(Guid planProjectId)
+        {
+            var planProject = PlanProjects.Find(project => project.Id == planProjectId);
+            PlanProjects.Remove(planProject!);
+            UpdateTogglDictionaryInPlanProjects();
+        }
+
+        public void UpdateTogglData(List<TogglProject> togglProjects)
+        {
+            var currentTogglProjects = new List<TogglProject>(TogglProjects);
+            TogglProjects.Clear();
+            DeletedTogglProjectIds.Clear();
+
+            foreach (var project in togglProjects)
             {
-                var existingProject = PlanProjects.Find(project => project.Id.Equals(planProject.Id));
-                if (existingProject != null)
-                    PlanProjects.Remove(existingProject);
-                PlanProjects.Add(planProject);
+                TogglProjects.Add(project);
             }
+
+            foreach (var currentProject in currentTogglProjects)
+            {
+                if (!togglProjects.Any(project => project.TogglId == currentProject.TogglId))
+                {
+                    TogglProjects.Add(currentProject);
+                    DeletedTogglProjectIds.Add(currentProject.TogglId);
+                }
+            }
+
+            UpdateTogglDictionaryInPlanProjects();
         }
 
         public void UpdateTogglDictionaryInPlanProjects()
         {
-            SortedList<int, PlanProject> sortedPlanProjects = new SortedList<int, PlanProject>();
-            SortedList<int, TogglProject> sortedTogglProjects = new SortedList<int, TogglProject>();
+            var sortedPlanProjects = new SortedList<int, PlanProject>();
+            var sortedTogglProjects = new SortedList<int, TogglProject>();
 
-            //fill both lists with the applicable data and give them an index to find them later.
+            // Fill both lists with the applicable data and give them an index to find them later.
             for (int i = 0; i < TogglProjects.Count; i++)
             {
                 sortedTogglProjects.Add(i, TogglProjects[i]);
@@ -106,18 +110,18 @@ namespace AcademicTimePlanner.DataManagement
                 sortedPlanProjects.Add(i, PlanProjects[i]);
             }
 
-            //fill the 2D array with the total duration of planprojects.
-            //for every togglProject the total duration of the linked planProject is entered.
-            double[,] mapping = fillMapping(sortedPlanProjects, sortedTogglProjects);
+            // Fill the 2D array with the total duration of PlanProjects.
+            // For every TogglProject the total duration of the linked PlanProject is entered.
+            var mapping = FillMapping(sortedPlanProjects, sortedTogglProjects);
 
-            //sum up all the durations per togglProject.
-            double[] totalDurationSums = sumUpDurations(mapping, sortedPlanProjects, sortedTogglProjects);
+            // Sum up all the durations per TogglProject.
+            var totalDurationSums = SumUpDurations(mapping, sortedPlanProjects, sortedTogglProjects);
 
-            //Divide the value in the map with the summed up duration.
-            divideMapEntriesBySum(mapping, totalDurationSums, sortedPlanProjects, sortedTogglProjects);
+            // Divide the value in the map with the summed up duration.
+            DivideMapEntriesBySum(mapping, totalDurationSums, sortedPlanProjects, sortedTogglProjects);
         }
 
-        private double[,] fillMapping(SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
+        private double[,] FillMapping(SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
         {
             double[,] mapping = new double[sortedPlanProjects.Count, sortedTogglProjects.Count];
 
@@ -133,7 +137,7 @@ namespace AcademicTimePlanner.DataManagement
             return mapping;
         }
 
-        private double[] sumUpDurations(double[,] mapping, SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
+        private double[] SumUpDurations(double[,] mapping, SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
         {
             double[] totalDurationSums = new double[sortedTogglProjects.Count];
 
@@ -147,32 +151,16 @@ namespace AcademicTimePlanner.DataManagement
             return totalDurationSums;
         }
 
-        private void divideMapEntriesBySum(double[,] mapping, double[] totalDurationSums, SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
+        private void DivideMapEntriesBySum(double[,] mapping, double[] totalDurationSums, SortedList<int, PlanProject> sortedPlanProjects, SortedList<int, TogglProject> sortedTogglProjects)
         {
             foreach (int p in sortedPlanProjects.Keys)
             {
                 for (int s = 0; s < totalDurationSums.Length; s++)
                 {
                     if (mapping[p, s] != 0)
-                    {
                         sortedPlanProjects[p].TogglProjectIds[sortedTogglProjects[s].TogglId] = mapping[p, s] / totalDurationSums[s];
-                    }
                 }
             }
-        }
-
-        public void UpdatePlanProject(PlanProject planProject)
-        {
-            var existingProject = PlanProjects.Find(project => project.Id == planProject.Id);
-            if (existingProject != null)
-                PlanProjects.Remove(existingProject);
-            PlanProjects.Add(planProject);
-        }
-
-        public void DeletePlanProject(Guid planProjectId)
-        {
-            var planProject = PlanProjects.Find(project => project.Id == planProjectId);
-            PlanProjects.Remove(planProject!);
         }
     }
 }

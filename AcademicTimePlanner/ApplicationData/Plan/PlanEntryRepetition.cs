@@ -1,8 +1,16 @@
 ﻿namespace AcademicTimePlanner.ApplicationData.Plan
 {
+    /// <summary>
+    /// This class implements the plan entry repetition. 
+    /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.
+    /// The repetition has a start date which corresponds with the first date of the plan entries and an end date.
+    /// Such a repetition could be a semester where an entry is repeated every week. 
+    /// In this case the startDate would be the first day of the semeseter and the end date would be the last one.
+    /// Interval 1 week and the duration could be 2h.
+    /// </summary>
     public class PlanEntryRepetition
     {
-        private static readonly Guid NoTaskId = Guid.Empty;
+        private static readonly Guid s_NoTaskId = Guid.Empty;
 
         public Guid Id { get; set; }
 
@@ -22,6 +30,7 @@
 
         public List<PlanEntry> Entries { get; set; }
 
+        // Private parameterless constructor used by Newtonsoft.Json for conversion.
         private PlanEntryRepetition() { }
 
         public PlanEntryRepetition(Guid id)
@@ -32,19 +41,6 @@
             Entries = new List<PlanEntry>();
         }
 
-        /// <summary>
-        /// This class implements the plan entry repetition. 
-        /// This is a list of <see cref="PlanEntry">plan entries</see> that repeat every interval.
-        /// The repetition has a start date which corresponds with the first date of the plan entries and an end date.
-        /// Such a repetition could be a semester where an entrie is repeated every week. 
-        /// In this case the startDate would be the first day of the semeseter and the end date would be the last one.
-        /// Interval 1 week and the duration could be 2h.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="repetitionStartDate"></param>
-        /// <param name="repetitionEndDate"></param>
-        /// <param name="interval"></param>
-        /// <param name="duration"></param>
         public PlanEntryRepetition(string name, Guid taskId, DateTime repetitionStartDate, DateTime repetitionEndDate, int interval, double duration)
         {
             Id = Guid.NewGuid();
@@ -62,7 +58,7 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            TaskId = NoTaskId;
+            TaskId = s_NoTaskId;
             RepetitionStartDate = repetitionStartDate;
             RepetitionEndDate = repetitionEndDate;
             Interval = interval;
@@ -82,18 +78,13 @@
             {
                 string entryName = Name + i;
                 i += 1;
-                DateTime timeSpanEnd = start.AddDays(TimeSpan-1);
+                DateTime timeSpanEnd = start.AddDays(TimeSpan - 1);
                 if (end > RepetitionEndDate)
                     end = RepetitionEndDate;
                 PlanEntry planEntry = new PlanEntry(entryName, TaskId, start, timeSpanEnd, Duration);
                 Entries.Add(planEntry);
                 start = start.AddDays(Interval);
             }
-        }
-
-        public double GetDurationInTimeRange(DateTime startDate, DateTime endDate)
-        {
-            return (from entry in Entries.FindAll(entry => entry.StartDate >= startDate && entry.EndDate <= endDate) select entry.Duration).Sum();
         }
 
         public bool IsValidPlanEntryRepetition()

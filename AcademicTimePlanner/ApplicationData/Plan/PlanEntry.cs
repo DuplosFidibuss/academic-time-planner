@@ -1,8 +1,13 @@
 ﻿namespace AcademicTimePlanner.ApplicationData.Plan
 {
+    /// <summary>
+    /// This class implements a single plan entry. It has a start and an end date as well as a duration and a name.
+    /// It can have a taskId to denote if it is assigned to as planTask, if not this id is <see cref="Guid.Empty"/>.
+    /// An example would be name = ADS Homework, startDate = [Date of first day], endDate = [a week later], duration = 1.5 h.
+    /// </summary>
     public class PlanEntry
     {
-        private static readonly Guid NoTaskId = Guid.Empty;
+        private static readonly Guid s_NoTaskId = Guid.Empty;
 
         public Guid Id { get; set; }
 
@@ -16,6 +21,7 @@
 
         public Guid TaskId { get; set; }
 
+        // Private parameterless constructor used by Newtonsoft.Json for conversion.
         private PlanEntry() { }
 
         public PlanEntry(Guid id)
@@ -25,15 +31,6 @@
             EndDate = DateTime.Today;
         }
 
-        /// <summary>
-        /// This class implements a single plan entry. It has a start and an end date as well as a duration and a name.
-        /// It can have a taskId to denote if it is assigned to as planTask, if not this id is -1.
-        /// An example would be name = ADS Homework, startDate = [Date of first day], endDate = [a week later], duration = 1.5 h.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="startDate"></param>
-        /// <param name="endDate"></param>
-        /// <param name="duration"></param>
         public PlanEntry(string name, Guid taskId, DateTime startDate, DateTime endDate, double duration)
         {
             Id = Guid.NewGuid();
@@ -48,7 +45,7 @@
         {
             Id = Guid.NewGuid();
             Name = name;
-            TaskId = NoTaskId;
+            TaskId = s_NoTaskId;
             StartDate = startDate;
             EndDate = endDate;
             Duration = duration;

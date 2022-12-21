@@ -3,19 +3,19 @@
 @using AcademicTimePlanner.ApplicationData.Plan;
 @using AcademicTimePlanner.Store.State.ProjectLinker
 
-@if (LinkerState.Value.Loaded)
+@if (_linkerState.Value.Loaded)
 {
-    @switch (LinkerState.Value.Step)
+    @switch (_linkerState.Value.Step)
     {
         case ProjectLinkerState.LinkingStep.ProjectLinking :
             <h3>Link projects</h3>
-            <EditForm Model="@ProjectSelector">
+            <EditForm Model="@_projectSelector">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
                 <h4>Select plan project</h4>
-                <InputRadioGroup @bind-Value="ProjectSelector.PlanProjectId">
-                    @foreach (var planProject in ProjectsData!.PlanProjects)
+                <InputRadioGroup @bind-Value="_projectSelector.PlanProjectId">
+                    @foreach (var planProject in _projectsData!.PlanProjects)
                     {
                         <InputRadio Value="@planProject.Id"/> @planProject.Name<br />   
                     }
@@ -23,8 +23,8 @@
 
                 <p></p>
                 <h4>Select Toggl project</h4>
-                <InputRadioGroup @bind-Value="ProjectSelector.TogglProjectTogglId">
-                    @foreach (var togglProject in ProjectsData!.GetAllTogglProjects())
+                <InputRadioGroup @bind-Value="_projectSelector.TogglProjectTogglId">
+                    @foreach (var togglProject in _projectsData!.GetAllTogglProjects())
                     {
                         <InputRadio Value=@togglProject.TogglId />@togglProject.Name<br />
                     }
@@ -39,27 +39,28 @@
 
             <p></p>
             <h4>Unlinked Toggl projects</h4>
-            <label>@ProjectsData!.GetUnlinkedTogglProjectsAsString()</label>
+            <label>@_projectsData!.GetUnlinkedTogglProjectsAsString()</label>
             <p></p>
 
             <h4>Linked projects</h4>
             <p>Plan project -> Linked Toggl projects</p>
             <ul>
-                @foreach (var planProject in ProjectsData!.PlanProjects)
+                @foreach (var planProject in _projectsData!.PlanProjects)
                 {
-                    <li>@planProject.Name -> @ProjectsData.GetLinkedTogglProjectsAsString(planProject)</li>
+                    <li>@planProject.Name -> @_projectsData.GetLinkedTogglProjectsAsString(planProject)</li>
                 }
             </ul>
             break;
+
         case ProjectLinkerState.LinkingStep.TaskLinking :
             <h3>Link tasks</h3>
-            <EditForm Model="@TaskSelector">
+            <EditForm Model="@_taskSelector">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
                 <h4>Select plan task</h4>
-                <InputRadioGroup @bind-Value="TaskSelector.PlanTaskId">
-                    @foreach (var planTask in PlanProject.PlanTasks)
+                <InputRadioGroup @bind-Value="_taskSelector.PlanTaskId">
+                    @foreach (var planTask in _planProject!.PlanTasks)
                     {
                         <InputRadio Value="@planTask.Id"/> @planTask.Name<br />   
                     }
@@ -67,8 +68,8 @@
 
                 <p></p>
                 <h4>Select Toggl task</h4>
-                <InputRadioGroup @bind-Value="TaskSelector.TogglTaskTogglId">
-                    @foreach (var togglProject in ProjectsData!.LinkedTogglProjects.FindAll(project => PlanProject.TogglProjectIds.ContainsKey(project.TogglId)))
+                <InputRadioGroup @bind-Value="_taskSelector.TogglTaskTogglId">
+                    @foreach (var togglProject in _projectsData!.LinkedTogglProjects.FindAll(project => _planProject!.TogglProjectIds.ContainsKey(project.TogglId)))
                     {
                         <p><b>@togglProject.Name</b></p>
                         @foreach (var togglTask in togglProject.Tasks)
@@ -89,12 +90,13 @@
             <h4>Linked tasks</h4>
             <p>Plan task -> Linked Toggl task</p>
             <ul>
-                @foreach (var planTask in PlanProject.PlanTasks)
+                @foreach (var planTask in _planProject!.PlanTasks)
                 {
-                    <li>@planTask.Name -> @ProjectsData!.GetLinkedTogglTasksAsString(PlanProject, planTask)</li>
+                    <li>@planTask.Name -> @_projectsData!.GetLinkedTogglTasksAsString(_planProject, planTask)</li>
                 }
             </ul>
             break;
+
         default: break;
     }
 }

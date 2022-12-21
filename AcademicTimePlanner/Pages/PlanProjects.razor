@@ -4,21 +4,21 @@
 
 <PageTitle>AcademicTimePlanner</PageTitle>
 
-@if (ProjectState.Value.Step == ProjectFilesState.CreationStep.NotCreating)
+@if (_projectState.Value.Step == ProjectFilesState.CreationStep.NotCreating)
 {
-    @if (ProjectState.Value.Loaded)
+    @if (_projectState.Value.Loaded)
     {
-        <p>@Projects.Count Plan projects loaded</p>
+        <p>@_projects.Count Plan projects loaded</p>
     }
 
     <InputFile OnChange="@LoadPlanProjects" multiple />
     <p></p>
 
-    @if (ProjectState.Value.Loaded)
+    @if (_projectState.Value.Loaded)
     {
         <h6>Loaded plan projects:</h6>
         <ul>
-            @foreach (var planProject in Projects)
+            @foreach (var planProject in _projects)
             {
                 <li>
                     @planProject.Name
@@ -33,35 +33,36 @@
     <button type="button" class="btn btn-primary" @onclick="CreatePlanProject">Create plan project</button>
 }
 
-@switch (ProjectState.Value.Step) 
+@switch (_projectState.Value.Step) 
 {
     case ProjectFilesState.CreationStep.NamingProject :
         <h3>Name plan project</h3>
 
-        <EditForm Model="@PlanProject">
-            <p>Plan project name : <InputText id="projectName" @bind-Value="PlanProject!.Name" /></p>
+        <EditForm Model="@_planProject">
+            <p>Plan project name : <InputText id="projectName" @bind-Value="_planProject!.Name" /></p>
         </EditForm>
 
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnableTasks))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.EnableTasks :
         <h3>Create plan tasks (Optional)</h3>
 
         <p>Name cannot be empty.</p>
-        <EditForm Model="@PlanTask" OnSubmit="@CreatePlanTask">
+        <EditForm Model="@_planTask" OnSubmit="@CreatePlanTask">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <label>Plan task name : <InputText id="taskName" @bind-Value="PlanTask!.Name" /></label>
+            <label>Plan task name : <InputText id="taskName" @bind-Value="_planTask!.Name" /></label>
             <button type="submit">Create task</button>
         </EditForm>
 
-        @if (PlanProject!.PlanTasks.Count != 0) 
+        @if (_planProject!.PlanTasks.Count != 0) 
         {
             <label>Plan tasks created</label>
             <ul>
-                @foreach (var task in PlanProject.PlanTasks)
+                @foreach (var task in _planProject.PlanTasks)
                 {
                     <li>@task.Name <button type="button" @onclick="(e => DeletePlanTask(e, task))">Delete</button></li>
                 }
@@ -72,6 +73,7 @@
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.EnterEntries :
         <h3>Edit plan entries and plan entry repertitions</h3>
         <button type="button" class="btn btn-secondary" @onclick="AddSingleEntry">Add plan entry</button>
@@ -81,6 +83,7 @@
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.FinalOverview))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.AddSingleEntry :
         <h3>Edit plan entries</h3>
 
@@ -91,18 +94,18 @@
            <li>Time investment must be greater than 0.</li>
        </ul>
 
-        <EditForm Model="@PlanEntry" OnSubmit="@CreatePlanEntry">
+        <EditForm Model="@_planEntry" OnSubmit="@CreatePlanEntry">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
-            <p>Plan entry name : <InputText id="entryName" @bind-Value="PlanEntry!.Name" /></p>
-            <p>Start date: <InputDate id="StartDate" @bind-Value="PlanEntry!.StartDate" /></p>
-            <p>End date: <InputDate id="EndDate" @bind-Value="PlanEntry!.EndDate" /></p>
-            <p>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="PlanEntry!.Duration" /></p>
+            <p>Plan entry name : <InputText id="entryName" @bind-Value="_planEntry!.Name" /></p>
+            <p>Start date: <InputDate id="StartDate" @bind-Value="_planEntry!.StartDate" /></p>
+            <p>End date: <InputDate id="EndDate" @bind-Value="_planEntry!.EndDate" /></p>
+            <p>Time investment [in hours] : <InputNumber id="Duration" @bind-Value="_planEntry!.Duration" /></p>
             <label>Link plan task (optional): </label>
-            <InputSelect @bind-Value="PlanEntry.TaskId">
+            <InputSelect @bind-Value="_planEntry.TaskId">
                 <option value="@Guid.Empty"></option>
-                @foreach (var task in PlanProject.PlanTasks)
+                @foreach (var task in _planProject.PlanTasks)
                 {
                     <option value=@task.Id>@task.Name</option>
                 }
@@ -111,11 +114,11 @@
             <button type="submit">Create entry</button>
         </EditForm>
 
-        @if (PlanProject!.PlanEntries.Count != 0)
+        @if (_planProject!.PlanEntries.Count != 0)
         {
             <label>Plan entries created</label>
             <ul>
-                @foreach (var entry in PlanProject.PlanEntries)
+                @foreach (var entry in _planProject.PlanEntries)
                 {
                     <li>@entry.Name <button type="button" @onclick="(e => DeletePlanEntry(e, entry))">Delete</button></li>
                 }
@@ -124,6 +127,7 @@
         <p></p>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.AddRepetitionEntry :
         <h3>Edit plan entry repetitions</h3>
 
@@ -140,31 +144,33 @@
            <li>Time investment must be greater than 0.</li>
        </ul>
 
-        <EditForm Model="@PlanEntryRepetition" OnSubmit="@CreateRepetitionEntry">
-            <p>Plan entry repetition name : <InputText id="repetitionEntryName" @bind-Value="PlanEntryRepetition!.Name" /></p>
-            <p>Start date: <InputDate id="RepetitionStartDate" @bind-Value="PlanEntryRepetition!.RepetitionStartDate" /></p>
-            <p>End date: <InputDate id="RepetitionEndDate" @bind-Value="PlanEntryRepetition!.RepetitionEndDate" /></p>
-            <p>Interval [in days] : <InputNumber id="RepetitionDuration" @bind-Value="PlanEntryRepetition!.Interval" /></p>
-            <p>Timespan [in days] : <InputNumber id="RepetitionTimespan" @bind-Value="PlanEntryRepetition!.TimeSpan" /></p>
-            <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="PlanEntryRepetition!.Duration">
+        <EditForm Model="@_planEntryRepetition" OnSubmit="@CreatePlanEntryRepetition">
+            <p>Plan entry repetition name : <InputText id="repetitionEntryName" @bind-Value="_planEntryRepetition!.Name" /></p>
+            <p>Start date: <InputDate id="RepetitionStartDate" @bind-Value="_planEntryRepetition!.RepetitionStartDate" /></p>
+            <p>End date: <InputDate id="RepetitionEndDate" @bind-Value="_planEntryRepetition!.RepetitionEndDate" /></p>
+            <p>Interval [in days] : <InputNumber id="RepetitionDuration" @bind-Value="_planEntryRepetition!.Interval" /></p>
+            <p>Timespan [in days] : <InputNumber id="RepetitionTimespan" @bind-Value="_planEntryRepetition!.TimeSpan" /></p>
+            <p>Time investment [in hours] : <InputNumber id="RepetitionDuration" @bind-Value="_planEntryRepetition!.Duration">
                 <option value="planEntryRepetition.Zero"></option> </InputNumber></p>
+
             <label>Link plan task (optional): </label>
-            <InputSelect @bind-Value="PlanEntryRepetition.TaskId">
+            <InputSelect @bind-Value="_planEntryRepetition.TaskId">
                 <option value="@Guid.Empty"></option>
-                @foreach (var task in PlanProject.PlanTasks)
+                @foreach (var task in _planProject.PlanTasks)
                 {
                     <option value=@task.Id>@task.Name</option>
                 }
             </InputSelect>
+
             <p></p>
             <button type="submit">Create repetition entry</button>
         </EditForm>
 
-        @if (PlanProject!.RepetitionEntries.Count != 0)
+        @if (_planProject!.RepetitionEntries.Count != 0)
         {
             <label>Plan entry repetitions created</label>
             <ul>
-                @foreach (var entry in PlanProject.RepetitionEntries)
+                @foreach (var entry in _planProject.RepetitionEntries)
                 {
                     <li>@entry.Name <button type="button" @onclick="(e => DeletePlanEntryRepetition(e, entry))">Delete</button></li>
                 }
@@ -173,21 +179,23 @@
         <p></p>
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Next</button>
         break;
+
     case ProjectFilesState.CreationStep.FinalOverview :
         <h3>Final overview</h3>
-        @if (PlanProject.Name != null) 
+        @if (_planProject.Name != null) 
         {
-            <p>@PlanProject.Name</p>
+            <p>@_planProject.Name</p>
         }
         else 
         {
             <p style="color: red">No plan project name chosen</p>
         }
-        @if (PlanProject!.PlanTasks.Count != 0)
+
+        @if (_planProject!.PlanTasks.Count != 0)
         {
             <label>Plan tasks created</label>
             <ul>
-                @foreach (var task in PlanProject.PlanTasks)
+                @foreach (var task in _planProject.PlanTasks)
                 {
                     <li>@task.Name</li>
                 }
@@ -197,11 +205,12 @@
         {
             <p>No plan tasks created</p>
         }
-        @if (PlanProject!.PlanEntries.Count != 0)
+
+        @if (_planProject!.PlanEntries.Count != 0)
         {
             <label>Plan entries created</label>
             <ul>
-                @foreach (var entry in PlanProject.PlanEntries)
+                @foreach (var entry in _planProject.PlanEntries)
                 {
                     <li>@entry.Name</li>
                 }
@@ -211,11 +220,12 @@
         {
             <p>No plan entry created</p>
         }
-        @if (PlanProject!.RepetitionEntries.Count != 0)
+
+        @if (_planProject!.RepetitionEntries.Count != 0)
         {
             <label>Plan entry repetitions created</label>
             <ul>
-                @foreach (var entry in PlanProject.RepetitionEntries)
+                @foreach (var entry in _planProject.RepetitionEntries)
                 {
                     <li>@entry.Name</li>
                 }
@@ -225,9 +235,11 @@
         {
             <p>No plan repetition entry created</p>
         }
+
         <button type="button" class="btn btn-primary" @onclick="@(e => NextOrBack(ProjectFilesState.CreationStep.EnterEntries))">Back</button>
         <button type="button" class="btn btn-primary" @onclick="Cancel">Cancel</button>
         <button type="button" class="btn btn-primary" @onclick="Finish">Finish</button>
         break;
+
     default : break;
 }

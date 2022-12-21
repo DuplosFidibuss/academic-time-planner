@@ -1,9 +1,12 @@
 ﻿namespace AcademicTimePlanner.ApplicationData.Plan
 {
+    /// <summary>
+    /// This class implements the plan project.
+    /// The project can be linked to multiple <see cref="Toggl.TogglProject">Toggl projects</see> but it does not have to.
+    /// A project has a name and can have multiple <see cref="PlanTask">plan tasks</see>.
+    /// </summary>
     public class PlanProject
     {
-        private const long NoTogglId = -1;
-
         public Guid Id { get; set; }
 
         public Dictionary<long, double> TogglProjectIds { get; set; }
@@ -16,6 +19,7 @@
 
         public List<PlanEntryRepetition> RepetitionEntries { get; set; }
 
+        // Private parameterless constructor used by Newtonsoft.Json for conversion.
         private PlanProject() { }
 
         public PlanProject(Guid id)
@@ -27,14 +31,6 @@
             RepetitionEntries = new List<PlanEntryRepetition>();
         }
 
-        /// <summary>
-        /// This class implements the plan project.
-        /// The project can be linked to a <see cref="TogglProject"> Toggl project</see> but it does not have to.
-        /// If no Toggle project is linked, the toggleProjectId will be -1.
-        /// A project has a name and can have multiple plan tasks </see>.
-        /// </summary>
-        /// <param name="togglProjectId"></param>
-        /// <param name="name"></param>
         public PlanProject(Dictionary<long, double> togglProjectIds, string name)
         {
             Id = Guid.NewGuid();
@@ -75,12 +71,12 @@
             PlanEntries.Remove(planEntry);
         }
 
-        public void AddRepetitionEntry(PlanEntryRepetition planEntryRepetition)
+        public void AddPlanEntryRepetition(PlanEntryRepetition planEntryRepetition)
         {
             RepetitionEntries.Add(planEntryRepetition);
         }
 
-        public void RemoveRepetitionEntry(PlanEntryRepetition planEntryRepetition)
+        public void RemovePlanEntryRepetition(PlanEntryRepetition planEntryRepetition)
         {
             RepetitionEntries.Remove(planEntryRepetition);
         }
@@ -97,7 +93,7 @@
 
             if (RepetitionEntries != null)
             {
-                foreach (PlanEntryRepetition planEntryRepetition in RepetitionEntries)
+                foreach (var planEntryRepetition in RepetitionEntries)
                 {
                     planEntries.AddRange(planEntryRepetition.Entries);
                 }
@@ -111,7 +107,11 @@
 
         public double GetTotalDuration()
         {
-            return (from planEntry in GetAllPlanEntriesList() select planEntry.Duration).Sum();
+            return
+            (from planEntry
+             in GetAllPlanEntriesList()
+             select planEntry.Duration)
+             .Sum();
         }
 
         public double GetRemainingDuration()
@@ -138,7 +138,8 @@
 
             foreach (var entry in GetDurationsPerDate())
             {
-                if (entry.Key >= startDate && entry.Key <= endDate) durationsPerDateInTimeRange.Add(entry.Key, entry.Value);
+                if (entry.Key >= startDate && entry.Key <= endDate)
+                    durationsPerDateInTimeRange.Add(entry.Key, entry.Value);
             }
 
             return durationsPerDateInTimeRange;
@@ -149,7 +150,7 @@
             var durationsPerDate = new SortedDictionary<DateTime, double>();
             double sum = 0;
 
-            foreach (PlanEntry entry in GetAllPlanEntriesList())
+            foreach (var entry in GetAllPlanEntriesList())
             {
                 double dailyDuration = entry.Duration / ((entry.EndDate - entry.StartDate).TotalDays + 1);
                 for (int i = 1; entry.StartDate.AddDays(i) <= entry.EndDate.AddDays(1); i++)
@@ -167,7 +168,7 @@
                 }
             }
 
-            foreach (DateTime entry in durationsPerDate.Keys.ToList())
+            foreach (var entry in durationsPerDate.Keys.ToList())
             {
                 sum += durationsPerDate[entry];
                 durationsPerDate[entry] = sum;

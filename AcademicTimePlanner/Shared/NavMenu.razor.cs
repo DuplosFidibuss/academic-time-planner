@@ -1,13 +1,14 @@
-namespace AcademicTimePlanner.Shared;
-
-public partial class NavMenu
+namespace AcademicTimePlanner.Shared
 {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    public partial class NavMenu
     {
-        collapseNavMenu = !collapseNavMenu;
+        private bool _collapseNavMenu = true;
+
+        private string? _navMenuCssClass => _collapseNavMenu ? "collapse" : null;
+
+        private void ToggleNavMenu()
+        {
+            _collapseNavMenu = !_collapseNavMenu;
+        }
     }
 }

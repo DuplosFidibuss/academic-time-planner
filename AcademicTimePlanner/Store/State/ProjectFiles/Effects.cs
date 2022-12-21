@@ -14,6 +14,12 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             _dataManagerService = dataManagerService;
         }
 
+        /// <summary>
+        /// Fetches plan projects stored in the <see cref="DataManagement.DataManager"/>.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(FetchPlanProjectsAction action, IDispatcher dispatcher)
         {
@@ -21,6 +27,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             dispatcher.Dispatch(new SetPlanProjectsAction(planProjects));
         }
 
+        /// <summary>
+        /// Loads plan projects from the JSON strings provided by the action and stores
+        /// them in the <see cref="DataManagement.DataManager"/>.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(LoadPlanProjectsAction action, IDispatcher dispatcher)
         {
@@ -37,6 +50,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             dispatcher.Dispatch(new SetPlanProjectsAction(updatedPlanProjects));
         }
 
+        /// <summary>
+        /// Updates the <see cref="DataManagement.DataManager"/> with the <see cref="PlanProject"/>
+        /// provided by the action.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(FinishPlanProjectCreationAction action, IDispatcher dispatcher)
         {
@@ -45,6 +65,13 @@ namespace AcademicTimePlanner.Store.State.ProjectFiles
             dispatcher.Dispatch(new SetPlanProjectsAction(planProjects));
         }
 
+        /// <summary>
+        /// Deletes the <see cref="PlanProject"/> provided by the action from the PlanProjects
+        /// stored in the <see cref="DataManagement.DataManager"/>.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="dispatcher"></param>
+        /// <returns></returns>
         [EffectMethod]
         public async Task HandleAsync(DeletePlanProjectAction action, IDispatcher dispatcher)
         {
