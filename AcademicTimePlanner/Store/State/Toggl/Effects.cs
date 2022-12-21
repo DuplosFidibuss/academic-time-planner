@@ -28,10 +28,15 @@ namespace AcademicTimePlanner.Store.State.Toggl
         [EffectMethod]
         public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
         {
-            var togglProjects = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
-            await _dataManagerService.UpdateTogglProjects(togglProjects);
-            var togglLoadOverview = await _dataManagerService.GetTogglLoadOverview();
-            dispatcher.Dispatch(new SetTogglDataAction(togglLoadOverview));
+            var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+
+            if (togglSettings != null)
+            {
+                var togglProjects = await _togglService.GetTogglProjects(DateOnly.FromDateTime(DateTime.Now).AddYears(-1));
+                await _dataManagerService.UpdateTogglProjects(togglProjects);
+                var togglLoadOverview = await _dataManagerService.GetTogglLoadOverview();
+                dispatcher.Dispatch(new SetTogglDataAction(togglLoadOverview));
+            }
         }
 
         /// <summary>

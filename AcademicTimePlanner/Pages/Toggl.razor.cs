@@ -27,6 +27,7 @@ namespace AcademicTimePlanner.Pages
         {
             base.OnInitialized();
             _dispatcher.Dispatch(new SetTitleAction(Title));
+            Synchronize();
         }
 
         private void SaveTogglSettings()
