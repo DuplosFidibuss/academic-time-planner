@@ -1,7 +1,7 @@
 using AcademicTimePlanner.Data.DisplayData;
+using AcademicTimePlanner.Data.MetaData;
 using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
-using AcademicTimePlanner.UIModels;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 

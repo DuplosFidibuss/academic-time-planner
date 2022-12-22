@@ -1,6 +1,6 @@
+using AcademicTimePlanner.Data.MetaData;
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
-using AcademicTimePlanner.UIModels;
 using Blazored.LocalStorage;
 using Fluxor;
 
