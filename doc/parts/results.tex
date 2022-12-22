@@ -55,14 +55,14 @@ Three different charts are displayed in the charts tab to display the difference
 The different charts are explained in more detail in the following subsections.
 
 \subsection{Total Overview}
-This bar chart shows the overall sum of the time planned for all plan projects compared to the total tracked time of their associated Toggl projects. Additionally, a prediction of how much time will be needed according to the future plan entries is displayed. An example for two projects is shown in \ref{totalOverview}.
+This bar chart shows the overall sum of the time planned for all plan projects compared to the total tracked time of their associated Toggl projects. Additionally, a prediction of how much time will be needed according to the future plan entries is displayed. An example for two projects is shown in figure \ref{totalOverview}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TotalOverview}
 	\caption{Total overview for two projects}
 	\label{totalOverview}
 \end{figure}
-If all projects have been completed already meaning there are no future plan entries for any project then no prediction will be displayed. An example for one project is shown in \ref{totalOverviewFinished}.
+If all projects have been completed already meaning there are no future plan entries for any project then no prediction will be displayed. An example for one project is shown in figure \ref{totalOverviewFinished}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TotalOverview_FinishedProject}
@@ -71,14 +71,14 @@ If all projects have been completed already meaning there are no future plan ent
 \end{figure}
 
 \subsection{Projects Overview}
-This bar chart is similar to the total overview but the single projects are displayed separately. Another minor difference is that the prognosis is added to both the tracked time and the planned time creating a prediction for both. An example for two projects is shown in \ref{projectOverview}.
+This bar chart is similar to the total overview but the single projects are displayed separately. Another minor difference is that the prognosis is added to both the tracked time and the planned time creating a prediction for both. The prediction is calculated by subtracting the time planned until today from the total planned time. Time planned until today is calculated by summing up all entries with start dates in the past. Currently running entries are added by percentage (e.g. in a week long entry beginning at Monday, Friday would be approximately 71.43\%). An example for two projects is shown in figure \ref{projectOverview}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{ProjectOverview}
 	\caption{Project overview for two projects}
 	\label{projectOverview}
 \end{figure}
-If a project has been completed already meaning there are no future plan entries for it then no prediction will be displayed for that project. An example for one project is shown in \ref{projectOverviewFinished}.
+If a project has been completed already meaning there are no future plan entries for it then no prediction will be displayed for that project. An example for one project is shown in figure \ref{projectOverviewFinished}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{ProjectOverview_FinishedProject}
@@ -87,7 +87,7 @@ If a project has been completed already meaning there are no future plan entries
 \end{figure}
 
 \subsection{Project time range overview}
-An applicable time range has to be chosen to display the chart. On hitting the "Set filter" button the time range is set and a line chart is drawn for every project, showing the development of planned time and tracked time during the selected time range. The "Reset filter" button deletes the charts and reopens the filter options. This chart allows to see how the time amounts displayed in the other charts have been achieved and thus enables a user to estimate the quality of their planning. An example for one project is shown in \ref{timeOverview}.
+An applicable time range has to be chosen to display the chart. On hitting the "Set filter" button the time range is set and a line chart is drawn for every project, showing the development of planned time and tracked time during the selected time range. The "Reset filter" button deletes the charts and reopens the filter options. This chart allows to see how the time amounts displayed in the other charts have been achieved and thus enables a user to estimate the quality of their planning. An example for one project is shown in figure \ref{timeOverview}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{TimeOverview}
