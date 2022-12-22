@@ -33,7 +33,11 @@ The Program.cs file is the entry point of the system where the application is se
 \end{figure}
 
 \subsection{Mapping concept} \label{Mapping_result}
-Upon closer inspection it became apparent that only four of the plan classes and two of the Toggl classes were needed. The Toggl tasks are currently only a dictionary inside the TogglProject class and not a class in their own right. The Budget classes were implemented differently as a feature of the plan projects. With all these modifications the class diagram of the mapping concept was slimmed down as seen in figure \ref{classdiagram_prototype_current}.
+Upon closer inspection it became apparent that only four of the plan classes and two of the Toggl classes were needed. The Toggl tasks are currently only a dictionary inside the TogglProject class and not a class in their own right. The Budget classes were implemented differently as a feature of the plan projects. Each plan project keeps the Toggl projects linked to it with their share of time. The share of time for a Toggl project is calculated as follows:
+\begin{equation}
+	Share \, of \, time = \frac{Total \, time \, of \, plan \, project}{Sum \, of \, total \, times \, of \, all \, plan \, projects \, linked \, to \, Toggl \, project}
+\end{equation}
+With all these modifications the class diagram of the mapping concept was slimmed down as seen in figure \ref{classdiagram_prototype_current}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{classdiagram_prototype_current}
@@ -282,3 +286,6 @@ In order to link plan tasks of a plan project to Toggl tasks of the associated T
 	\caption{Task linking with multiple Toggl tasks linked to one plan task}
 	\label{Linking tasks multiple}
 \end{figure}
+
+\section{Concurrent behavior}
+In case multiple tabs are opened the application behavior is conservative. This means that if two tabs are opened and a plan project is deleted in one of them while being edited in the other one, finishing the edit after deletion saves the edited project. Therefore, it will be present again in the first tab after reload.
