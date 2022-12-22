@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.ApplicationData.Toggl
+﻿namespace AcademicTimePlanner.Data.ApplicationData.Toggl
 {
     /// <summary>
     /// This class implements the conection between the application and TogglTrack projects.

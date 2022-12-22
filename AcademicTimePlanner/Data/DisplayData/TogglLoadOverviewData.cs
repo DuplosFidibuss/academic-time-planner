@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.DisplayData
+﻿namespace AcademicTimePlanner.Data.DisplayData
 {
     /// <summary>
     /// Holds state information about a TogglProject.

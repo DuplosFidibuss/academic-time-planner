@@ -1,8 +1,8 @@
-﻿using AcademicTimePlanner.ApplicationData.Plan;
-using AcademicTimePlanner.ApplicationData.Toggl;
+﻿using AcademicTimePlanner.Data.ApplicationData.Plan;
+using AcademicTimePlanner.Data.ApplicationData.Toggl;
 using System.Text;
 
-namespace AcademicTimePlanner.DisplayData
+namespace AcademicTimePlanner.Data.DisplayData
 {
     /// <summary>
     /// This class holds application data (Toggl/plan projects) and provides functionality

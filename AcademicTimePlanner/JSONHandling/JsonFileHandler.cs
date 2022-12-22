@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.ApplicationData.Plan;
+﻿using AcademicTimePlanner.Data.ApplicationData.Plan;
 using AcademicTimePlanner.Services.TogglApiService;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

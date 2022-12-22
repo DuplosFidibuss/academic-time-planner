@@ -1,4 +1,4 @@
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.Data.DisplayData;
 using Fluxor;
 
 namespace AcademicTimePlanner.Store.State.Toggl

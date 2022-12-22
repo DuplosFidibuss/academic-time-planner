@@ -1,4 +1,4 @@
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.Data.DisplayData;
 using AcademicTimePlanner.Store.State.Toggl;
 using AcademicTimePlanner.Store.State.Wrapper;
 using AcademicTimePlanner.UIModels;

@@ -1,5 +1,5 @@
-﻿using AcademicTimePlanner.ApplicationData.Plan;
-using AcademicTimePlanner.DisplayData;
+﻿using AcademicTimePlanner.Data.ApplicationData.Plan;
+using AcademicTimePlanner.Data.DisplayData;
 using AcademicTimePlanner.UIModels;
 using Fluxor;
 
