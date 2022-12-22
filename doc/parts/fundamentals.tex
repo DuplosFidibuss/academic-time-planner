@@ -12,13 +12,13 @@ This chapter explains the fundamental technologies and achievements from previou
 \section{Technological prototype} \label{Prototype}
 As mentioned in chapter \ref{Initial position}, a technological prototype for the ATP has already been developed in a bachelor thesis during the previous semester. The prototype has been realized as a locally running application using the ASP.NET Core Blazor framework and Fluxor for frontend behaviour control \cite{bachelorarbeit_Egger_Verstappen_page4-7}. The application fetches time data from Toggl Track via the Toggl Track API and relies on Local Storage for storing the application state. The graphical user interface has been designed with elements from the Bootstrap toolkit. Charts.js is used to display graphs and charts. The application is made available as a Docker image which can be downloaded from the GitHub Container Registry. As to software testing, unit tests for the part managing the communication between the application and Toggl have been implemented and can be run automatically via GitHub Actions. \cite{bachelorarbeit_Egger_Verstappen_page23-25}.
 
-The different features, however, have not been fully implemented yet. The charts display dummy data instead of real time data as shown in figure \ref{figure1}. The tracked time data can be retrieved from Toggl but no further action is applied to it. Local Storage is not considered to be suitable for application data storage on the long term. Further possible enhancements include localization, accessing other APIs and not just Toggl, different installation and update strategies as well as additional automated tests like UI tests and integration tests. \cite{bachelorarbeit_Egger_Verstappen_page26-27}
+The different features, however, have not been fully implemented yet. The charts display dummy data instead of real time data as shown in figure \ref{prototypeCharts}. The tracked time data can be retrieved from Toggl but no further action is applied to it. Local Storage is not considered to be suitable for application data storage on the long term. Further possible enhancements include localization, accessing other APIs and not just Toggl, different installation and update strategies as well as additional automated tests like UI tests and integration tests. \cite{bachelorarbeit_Egger_Verstappen_page26-27}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\columnwidth]{figure1_prototype_charts}
 \caption{ATP prototype displaying dummy charts}
-\label{figure1}
+\label{prototypeCharts}
 \end{figure}
 
 \section{Toggl Track}
@@ -29,9 +29,9 @@ The mapping concept developed in the aforementioned bachelor thesis \cite{bachel
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\columnwidth]{entitydiagram_prototype}
+	\includegraphics[width=0.8\columnwidth]{entitydiagram_prototype}
 	\caption{Entity Relationship Diagram of the bachelor thesis prototype}
-	\label{figure2}
+	\label{entitydiagramPrototype}
 \end{figure}
 
 \subsection{Plan}
@@ -41,9 +41,9 @@ Three entities are proposed in the bachelor thesis to save the data provided by 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\columnwidth]{classdiagram_prototype}
+	\includegraphics[width=0.75\columnwidth]{classdiagram_prototype}
 	\caption{Class Diagram of the bachelor thesis prototype}
-	\label{figure3}
+	\label{classdiagramPrototype}
 \end{figure}
 
 \subsection{Budget and Group}
@@ -65,13 +65,13 @@ JSON consists of two structures:
 	\item A collection of unordered name/value pairs. They are enclosed in curly brackets. A pair is separated by a colon and after each name/value pair a comma follows to separate them from the next pair.
 	\item An ordered list of variables. Such a list starts with a left and ends with a right square bracket.
 \end{itemize}
-These two structures can be combined in a JSON file to get something akin to the JSON file shown in figure \ref{figure4}.
+These two structures can be combined in a JSON file to get something akin to the JSON file shown in figure \ref{json}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\columnwidth]{JSONExample}
+	\includegraphics[width=0.6\columnwidth]{JSONExample}
 	\caption{Example of a JSON file}
-	\label{figure4}
+	\label{json}
 \end{figure}
 
 \section{Local Storage} \label{Local Storage}
