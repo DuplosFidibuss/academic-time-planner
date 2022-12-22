@@ -17,7 +17,7 @@ namespace AcademicTimePlanner.Pages
         [Inject]
         private IDispatcher _dispatcher { get; set; }
 
-        private TogglSettings _togglSettings { get; set; } = new();
+        private TogglCredentials _togglCredentials { get; set; } = new();
 
         private List<TogglLoadOverviewData> _loadOverview => _togglState.Value.LoadOverview;
 
@@ -30,9 +30,9 @@ namespace AcademicTimePlanner.Pages
             Synchronize();
         }
 
-        private void SaveTogglSettings()
+        private void SaveTogglCredentials()
         {
-            _dispatcher.Dispatch(new SaveTogglSettingsAction(_togglSettings));
+            _dispatcher.Dispatch(new SaveTogglCredentialsAction(_togglCredentials));
         }
 
         private void Synchronize()
