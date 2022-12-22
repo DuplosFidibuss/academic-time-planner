@@ -34,9 +34,9 @@ The Program.cs file is the entry point of the system where the application is se
 
 \subsection{Mapping concept} \label{Mapping_result}
 Upon closer inspection it became apparent that only four of the plan classes and two of the Toggl classes were needed. The Toggl tasks are currently only a dictionary inside the TogglProject class and not a class in their own right. The Budget classes were implemented differently as a feature of the plan projects. Each plan project keeps the Toggl projects linked to it with their share of time. The share of time for a Toggl project is calculated as follows:
-\begin{equation}
+\begin{equation*}
 	Share \, of \, time = \frac{Total \, time \, of \, plan \, project}{Sum \, of \, total \, times \, of \, all \, plan \, projects \, linked \, to \, Toggl \, project}
-\end{equation}
+\end{equation*}
 With all these modifications the class diagram of the mapping concept was slimmed down as seen in figure \ref{classdiagram_prototype_current}.
 \begin{figure}[H]
 	\centering
