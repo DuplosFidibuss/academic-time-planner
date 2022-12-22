@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.DisplayData;
+﻿using AcademicTimePlanner.Data.DisplayData;
 using AcademicTimePlanner.UIModels;
 using Fluxor;
 

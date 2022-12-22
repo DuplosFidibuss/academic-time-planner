@@ -1,5 +1,5 @@
-using AcademicTimePlanner.ApplicationData.Plan;
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.Data.ApplicationData.Plan;
+using AcademicTimePlanner.Data.DisplayData;
 using AcademicTimePlanner.Store.State.ProjectLinker;
 using AcademicTimePlanner.Store.State.Wrapper;
 using AcademicTimePlanner.UIModels;

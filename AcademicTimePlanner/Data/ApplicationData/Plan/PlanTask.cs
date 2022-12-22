@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.ApplicationData.Plan
+﻿namespace AcademicTimePlanner.Data.ApplicationData.Plan
 {
     /// <summary>
     /// This class implements the optional plan task.

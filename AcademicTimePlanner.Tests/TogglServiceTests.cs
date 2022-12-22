@@ -1,4 +1,4 @@
-using AcademicTimePlanner.ApplicationData.Toggl;
+using AcademicTimePlanner.Data.ApplicationData.Toggl;
 using AcademicTimePlanner.Services.TogglApiService;
 using AcademicTimePlanner.Services.TogglService;
 using Moq;

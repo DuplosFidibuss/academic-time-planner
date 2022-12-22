@@ -1,5 +1,5 @@
-﻿using AcademicTimePlanner.ApplicationData.Plan;
-using AcademicTimePlanner.ApplicationData.Toggl;
+﻿using AcademicTimePlanner.Data.ApplicationData.Plan;
+using AcademicTimePlanner.Data.ApplicationData.Toggl;
 using AcademicTimePlanner.DataManagement;
 
 namespace AcademicTimePlanner.Tests

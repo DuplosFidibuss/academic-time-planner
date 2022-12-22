@@ -1,7 +1,7 @@
 ﻿using AcademicTimePlanner.DataManagement;
-using AcademicTimePlanner.ApplicationData.Plan;
-using AcademicTimePlanner.ApplicationData.Toggl;
-using AcademicTimePlanner.DisplayData;
+using AcademicTimePlanner.Data.ApplicationData.Plan;
+using AcademicTimePlanner.Data.ApplicationData.Toggl;
+using AcademicTimePlanner.Data.DisplayData;
 
 namespace AcademicTimePlanner.Services.DataManagerService
 {

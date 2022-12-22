@@ -1,4 +1,4 @@
-﻿using AcademicTimePlanner.ApplicationData.Plan;
+﻿using AcademicTimePlanner.Data.ApplicationData.Plan;
 using AcademicTimePlanner.JSONHandling;
 
 namespace AcademicTimePlanner.Tests

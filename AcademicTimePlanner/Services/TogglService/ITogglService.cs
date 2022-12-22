@@ -1,4 +1,4 @@
-using AcademicTimePlanner.ApplicationData.Toggl;
+using AcademicTimePlanner.Data.ApplicationData.Toggl;
 
 namespace AcademicTimePlanner.Services.TogglService
 {

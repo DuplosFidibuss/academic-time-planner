@@ -1,6 +1,6 @@
+using AcademicTimePlanner.Data.MetaData;
 using AcademicTimePlanner.Services.DataManagerService;
 using AcademicTimePlanner.Services.TogglService;
-using AcademicTimePlanner.UIModels;
 using Blazored.LocalStorage;
 using Fluxor;
 
@@ -28,7 +28,7 @@ namespace AcademicTimePlanner.Store.State.Toggl
         [EffectMethod]
         public async Task HandleAsync(FetchTogglDataAction action, IDispatcher dispatcher)
         {
-            var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+            var togglSettings = await _localStorageService.GetItemAsync<TogglCredentials>(nameof(TogglCredentials));
 
             if (togglSettings != null)
             {
@@ -40,15 +40,15 @@ namespace AcademicTimePlanner.Store.State.Toggl
         }
 
         /// <summary>
-        /// Saves the <see cref="TogglSettings"/> provided by the action.
+        /// Saves the <see cref="TogglCredentials"/> provided by the action.
         /// </summary>
         /// <param name="action"></param>
         /// <param name="dispatcher"></param>
         /// <returns></returns>
         [EffectMethod]
-        public async Task HandleAsync(SaveTogglSettingsAction action, IDispatcher dispatcher)
+        public async Task HandleAsync(SaveTogglCredentialsAction action, IDispatcher dispatcher)
         {
-            await _localStorageService.SetItemAsync(nameof(TogglSettings), action.TogglSettings);
+            await _localStorageService.SetItemAsync(nameof(TogglCredentials), action.TogglSettings);
             dispatcher.Dispatch(new FetchTogglDataAction());
         }
     }

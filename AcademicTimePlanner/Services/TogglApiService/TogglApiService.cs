@@ -1,4 +1,4 @@
-using AcademicTimePlanner.UIModels;
+using AcademicTimePlanner.Data.MetaData;
 using Blazored.LocalStorage;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -29,7 +29,7 @@ namespace AcademicTimePlanner.Services.TogglApiService
 
         private async void SetDefaultRequestHeaders()
         {
-            var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+            var togglSettings = await _localStorageService.GetItemAsync<TogglCredentials>(nameof(TogglCredentials));
             var byteArray = Encoding.ASCII.GetBytes($"{togglSettings.TogglApiKey}:api_token");
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
         }
@@ -37,7 +37,7 @@ namespace AcademicTimePlanner.Services.TogglApiService
         public async Task<TogglDetailResponse> GetDetailsAsync()
         {
             SetDefaultRequestHeaders();
-            var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+            var togglSettings = await _localStorageService.GetItemAsync<TogglCredentials>(nameof(TogglCredentials));
             string json = await _httpClient.GetStringAsync($"https://api.track.toggl.com/reports/api/v2/details?user_agent={UserAgent}&workspace_id={togglSettings.TogglWorkspaceId}");
 
             TogglDetailResponse togglDetailResponse = JsonConvert.DeserializeObject<TogglDetailResponse>(json, _serializerSettings);
@@ -47,7 +47,7 @@ namespace AcademicTimePlanner.Services.TogglApiService
         public async Task<TogglDetailResponse> GetDetailsSinceAsync(DateOnly since)
         {
             SetDefaultRequestHeaders();
-            var togglSettings = await _localStorageService.GetItemAsync<TogglSettings>(nameof(TogglSettings));
+            var togglSettings = await _localStorageService.GetItemAsync<TogglCredentials>(nameof(TogglCredentials));
 
             var sinceAsString = since.ToString("yyyy-MM-dd");
             var baseUri = new Uri("https://api.track.toggl.com/reports/api/v2/details");

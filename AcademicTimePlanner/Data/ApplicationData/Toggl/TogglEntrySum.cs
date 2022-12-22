@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.ApplicationData.Toggl
+﻿namespace AcademicTimePlanner.Data.ApplicationData.Toggl
 {
     /// <summary>
     /// This class implements the Toggl entry sum.

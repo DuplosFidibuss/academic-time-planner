@@ -26,14 +26,14 @@
 }
 else
 {
-    <p>No data loaded - Missing Toggl settings</p>
+    <p>No data loaded - Missing Toggl credentials</p>
     
-    <EditForm Model="@_togglSettings" OnValidSubmit="@SaveTogglSettings">
+    <EditForm Model="@_togglCredentials" OnValidSubmit="@SaveTogglCredentials">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
-        <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="_togglSettings.TogglApiKey" /></p>
-        <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="_togglSettings.TogglWorkspaceId" /></p>
-        <button type="submit">Save Toggl settings</button>
+        <p>Toggl API key: <InputText id="toggl-api-key" @bind-Value="_togglCredentials.TogglApiKey" /></p>
+        <p>Toggl workspace ID: <InputText id="toggl-workspace-id" @bind-Value="_togglCredentials.TogglWorkspaceId" /></p>
+        <button type="submit">Save Toggl credentials</button>
     </EditForm>
 }

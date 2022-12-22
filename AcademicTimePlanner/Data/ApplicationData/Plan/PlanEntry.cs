@@ -1,4 +1,4 @@
-﻿namespace AcademicTimePlanner.ApplicationData.Plan
+﻿namespace AcademicTimePlanner.Data.ApplicationData.Plan
 {
     /// <summary>
     /// This class implements a single plan entry. It has a start and an end date as well as a duration and a name.

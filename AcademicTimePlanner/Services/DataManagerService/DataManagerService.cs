@@ -1,7 +1,7 @@
-﻿using AcademicTimePlanner.ApplicationData.Plan;
-using AcademicTimePlanner.ApplicationData.Toggl;
+﻿using AcademicTimePlanner.Data.ApplicationData.Plan;
+using AcademicTimePlanner.Data.ApplicationData.Toggl;
+using AcademicTimePlanner.Data.DisplayData;
 using AcademicTimePlanner.DataManagement;
-using AcademicTimePlanner.DisplayData;
 using Blazored.LocalStorage;
 
 namespace AcademicTimePlanner.Services.DataManagerService
