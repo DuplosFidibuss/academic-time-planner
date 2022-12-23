@@ -22,9 +22,14 @@ The software can be downloaded directly from the [ATP GitHub repository](https:/
 
 ## Run the ATP
 
-Open a command prompt (cmd) and navigate to the directory into which you extracted the zip file in the previous step. Navigate into the directory and further into "AcademicTimePlanner". There, execute `dotnet run`. If you execute it for the first time, the project will build first before executing. If you are prompted with an error message indicating that some packages are missing, run `dotnet workload restore` and restart your computer after the command has been executed. Restart this step and run the program again. It will now build normally, and after a few seconds you should see an output like this:
+1. Open a command prompt (cmd).
+2. Navigate to the directory into which you extracted the zip file in the previous step. Navigate into the directory and further into "AcademicTimePlanner".
+3. Execute `dotnet run`. If you execute it for the first time, the project will build first before executing.
+4. If you are prompted with an error message indicating that workloads must be installed, run `dotnet workload restore`.
+5. If you see an output like `Workload installation failed: One or more errors occurred. (No NuGet sources are defined or enabled)` during step 4, run `dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org`, then repeat step 4.
+6. Close the command prompt and repeat steps 1 to 3. The project will now build normally, and after a few seconds you should see an output like this:
 
-```
+```batch
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: https://localhost:7034
 info: Microsoft.Hosting.Lifetime[14]
@@ -37,9 +42,8 @@ info: Microsoft.Hosting.Lifetime[0]
       Content root path: C:\path\to\ATP\AcademicTimePlanner
 ```
 
-Now, open a browser window and go to [https://localhost:7034]. The application will be loaded.
-
-You can terminate the application at any time by pressing Ctrl+C in the command prompt.
+7. Now, open a browser window and go to [https://localhost:7034]. The application will be loaded.
+8. You can terminate the application at any time by pressing Ctrl+C in the command prompt.
 
 ## For developers
 
@@ -57,4 +61,4 @@ To run the ATP from Visual Studio click on the button "AcademicTimePlanner" with
 
 ### Run the ATP unit tests in Visual Studio
 
-To run the ATP unit tests right click on the AcademicTimePlanner.Tests project in the solution explorer and select "Run Tests" or "Debug Tests". The test explorer will open and after a few moments you will see the results of the tests there.
+To run the ATP unit tests right click on the AcademicTimePlanner.Tests project in the solution explorer and select "Run Tests" or "Debug Tests". The test project will build and run. You should see the short result of the test execution in the bottom left corner of the Visual Studio window. To see more details, go to Test -> Test Explorer. The test explorer will open, and you will be able to inspect the results of the individual tests there.
