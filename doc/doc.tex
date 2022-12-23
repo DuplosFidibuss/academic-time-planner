@@ -18,6 +18,9 @@
 \usepackage{pdfpages}
 \usepackage{lipsum}
 \usepackage{ragged2e}
+\usepackage{mathtools}
+
+\mathtoolsset{showonlyrefs}
 
 \addbibresource{doc.bib}
 \bibliography{doc}
@@ -36,7 +39,6 @@
 
 % Titelseite nicht als erste Seite zählen
 \clearpage
-\setcounter{page}{1}
 
 \includepdf{ressources/Erklaerung_PA}
 
@@ -49,11 +51,12 @@
 \input{parts/vorwort}
 \thispagestyle{empty}
 
+\pagenumbering{gobble}
 \tableofcontents
 \thispagestyle{empty}
 
-
 \chapter{Introduction}
+\pagenumbering{arabic}
 \setcounter{page}{1}
 \input{parts/introduction}
 
@@ -80,5 +83,5 @@
 \appendix
 \chapter{Appendix}
 \section{Installation instructions}
-\includepdf[pages=-]{ressources/appendix}
+\includepdf[pages=-]{ressources/README}
 \end{document}

@@ -14,15 +14,15 @@ The only time tracking API which is currently supported is [Toggl Track](https:/
 
 ### Install .NET
 
-The ATP runs on .NET, which can be installed following the instructions provided [here](https://learn.microsoft.com/en-us/dotnet/core/install/windows?tabs=net70).
+The ATP runs on .NET 6.0 which can be installed from [here](https://dotnet.microsoft.com/en-us/download/dotnet/6.0). Under SDK 6.x.x in the upper left, in the "Windows" row of the table, select the x64 or the x86 installer, depending on your system architecture. Execute the installer on your machine.
 
 ## Download and install
 
-The software can be downloaded directly from the [ATP GitHub repository](https://github.com/DuplosFidibuss/academic-time-planner). If you want to install the main branch just go to Code -> Download ZIP. If you want to install an official release version go to tags, choose the tag you want to install from and click on "zip". Save the zip file to a location of your choice and extract it.
+The software can be downloaded directly from the [ATP GitHub repository](https://github.com/DuplosFidibuss/academic-time-planner). If you want to install the main branch just go to Code -> Download ZIP. If you want to install an official release version go to tags, choose the tag you want to install from and click on "zip". The recommended version to use at the moment is release 0.1.0. Save the zip file to a location of your choice and extract it.
 
 ## Run the ATP
 
-Open a command prompt (cmd) and navigate to the directory into which you extracted the zip file in the previous step. Navigate into the directory and further into "AcademicTimePlanner". There, execute `dotnet run`. If you execute it for the first time, the project will build first before executing. However, after a few seconds you should see an output like this:
+Open a command prompt (cmd) and navigate to the directory into which you extracted the zip file in the previous step. Navigate into the directory and further into "AcademicTimePlanner". There, execute `dotnet run`. If you execute it for the first time, the project will build first before executing. If you are prompted with an error message indicating that some packages are missing, run `dotnet workload restore` and restart your computer after the command has been executed. Restart this step and run the program again. It will now build normally, and after a few seconds you should see an output like this:
 
 ```
 info: Microsoft.Hosting.Lifetime[14]
@@ -45,7 +45,7 @@ You can terminate the application at any time by pressing Ctrl+C in the command 
 
 ### Install Visual Studio
 
-The ATP has been developed using Visual Studio. If you want to contribute to the project we recommend you use Visual Studio as well. To install it click on the link provided [here](https://visualstudio.microsoft.com/) and follow the instructions. In the installer make sure you select the category "ASP.NET and web development" before installing Visual Studio.
+The ATP has been developed using Visual Studio. If you want to contribute to the project we recommend you use Visual Studio as well. To install it click on the link provided [here](https://visualstudio.microsoft.com/) and follow the instructions. In the installer make sure you select the category "ASP.NET and web development" before installing Visual Studio. If you have already installed Visual Studio, open the Visual Studio Installer, click on "Modify" and make sure the catergory "ASP.NET and web development" is selected in the window that shows up. If it is not, select it, click on "Modify" in the bottom right and wait for the installation to complete before continuing.
 
 ### Open the ATP in Visual Studio
 
